@@ -5,6 +5,6 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class ReportesGobierno {
+public class ConsultarHistoricoOperadoresUsuarioBean {
 
 }
