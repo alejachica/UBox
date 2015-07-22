@@ -1,7 +1,9 @@
 package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,10 +18,15 @@ import java.util.Date;
 public class HistoricoOperadoresUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private BigDecimal idHistoricoOperadorUsuario;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
 	private Date fecha;
-
+	
 	@Column(name="id_historico", nullable=false, precision=10, scale=2)
 	private BigDecimal idHistorico;
 
@@ -95,6 +102,14 @@ public class HistoricoOperadoresUsuario implements Serializable {
 
 	public void setNumFormulario(String numFormulario) {
 		this.numFormulario = numFormulario;
+	}
+
+	public BigDecimal getIdHistoricoOperadorUsuario() {
+		return idHistoricoOperadorUsuario;
+	}
+
+	public void setIdHistoricoOperadorUsuario(BigDecimal idHistoricoOperadorUsuario) {
+		this.idHistoricoOperadorUsuario = idHistoricoOperadorUsuario;
 	}
 
 }
