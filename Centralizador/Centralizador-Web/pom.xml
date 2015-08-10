@@ -36,9 +36,8 @@
 			</plugin>
 		</plugins>
 	</build>
-	
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>Centralizador-EJB</groupId>
 			<artifactId>Centralizador-EJB</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
