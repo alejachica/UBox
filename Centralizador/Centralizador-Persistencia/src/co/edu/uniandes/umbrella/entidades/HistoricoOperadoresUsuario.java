@@ -18,15 +18,16 @@ import java.util.Date;
 public class HistoricoOperadoresUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private BigDecimal idHistoricoOperadorUsuario;
+	
+//	@Column
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+//	private BigDecimal idHistoricoOperadorUsuario;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
 	private Date fecha;
 	
+	@Id
 	@Column(name="id_historico", nullable=false, precision=10, scale=2)
 	private BigDecimal idHistorico;
 
@@ -104,12 +105,12 @@ public class HistoricoOperadoresUsuario implements Serializable {
 		this.numFormulario = numFormulario;
 	}
 
-	public BigDecimal getIdHistoricoOperadorUsuario() {
-		return idHistoricoOperadorUsuario;
-	}
-
-	public void setIdHistoricoOperadorUsuario(BigDecimal idHistoricoOperadorUsuario) {
-		this.idHistoricoOperadorUsuario = idHistoricoOperadorUsuario;
-	}
+//	public BigDecimal getIdHistoricoOperadorUsuario() {
+//		return idHistoricoOperadorUsuario;
+//	}
+//
+//	public void setIdHistoricoOperadorUsuario(BigDecimal idHistoricoOperadorUsuario) {
+//		this.idHistoricoOperadorUsuario = idHistoricoOperadorUsuario;
+//	}
 
 }

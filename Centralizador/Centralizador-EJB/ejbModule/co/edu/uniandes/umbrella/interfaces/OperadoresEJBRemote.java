@@ -4,5 +4,7 @@ import javax.ejb.Remote;
 
 @Remote
 public interface OperadoresEJBRemote {
+	
+	void consultarOperador();
 
 }
