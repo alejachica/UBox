@@ -6,6 +6,9 @@
         <dependent-module archiveName="UBox-EJB-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/UBox-EJB/UBox-EJB">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="UBox-Persistencia-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/UBox-Persistencia/UBox-Persistencia">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="UBox-Web"/>
         <property name="java-output-path" value="/UBox-Web/build/classes"/>
     </wb-module>
