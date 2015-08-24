@@ -2,31 +2,29 @@ package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
- * The persistent class for the servicios_operador database table.
+ * The persistent class for the SERVICIOS_OPERADOR database table.
  * 
  */
 @Entity
-@Table(name="servicios_operador")
+@Table(name="SERVICIOS_OPERADOR")
 @NamedQuery(name="ServiciosOperador.findAll", query="SELECT s FROM ServiciosOperador s")
 public class ServiciosOperador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_servicio_operador", unique=true, nullable=false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_servicio_operador")
 	private int idServicioOperador;
 
-	@Column(name="id_operador", nullable=false, precision=10, scale=2)
-	private BigDecimal idOperador;
+	@Column(name="id_operador")
+	private int idOperador;
 
-	@Column(name="id_tipo_servicio", precision=10, scale=2)
-	private BigDecimal idTipoServicio;
+	@Column(name="id_tipo_servicio")
+	private int idTipoServicio;
 
-	@Column(nullable=false, length=50)
 	private String url;
 
 	public ServiciosOperador() {
@@ -40,19 +38,19 @@ public class ServiciosOperador implements Serializable {
 		this.idServicioOperador = idServicioOperador;
 	}
 
-	public BigDecimal getIdOperador() {
+	public int getIdOperador() {
 		return this.idOperador;
 	}
 
-	public void setIdOperador(BigDecimal idOperador) {
+	public void setIdOperador(int idOperador) {
 		this.idOperador = idOperador;
 	}
 
-	public BigDecimal getIdTipoServicio() {
+	public int getIdTipoServicio() {
 		return this.idTipoServicio;
 	}
 
-	public void setIdTipoServicio(BigDecimal idTipoServicio) {
+	public void setIdTipoServicio(int idTipoServicio) {
 		this.idTipoServicio = idTipoServicio;
 	}
 

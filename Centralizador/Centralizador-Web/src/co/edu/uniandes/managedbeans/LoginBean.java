@@ -5,6 +5,7 @@ package co.edu.uniandes.managedbeans;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import co.edu.uniandes.umbrella.interfaces.OperadoresEJBRemote;
@@ -14,7 +15,7 @@ import co.edu.uniandes.umbrella.interfaces.OperadoresEJBRemote;
  *
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class LoginBean {
 
 	@EJB

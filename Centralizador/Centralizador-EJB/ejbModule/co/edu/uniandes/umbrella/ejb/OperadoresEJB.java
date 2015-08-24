@@ -1,7 +1,5 @@
 package co.edu.uniandes.umbrella.ejb;
 
-import java.math.BigDecimal;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,12 +27,12 @@ public class OperadoresEJB implements OperadoresEJBRemote, OperadoresEJBLocal {
     public void consultarOperador(){
     	
     	Operador operador = new Operador();
-		operador.setIdOperador(3L);
+//		operador.setIdOperador(4);
 		operador.setDireccion("Dir op 2");
 		operador.setEmail("operador2@uniandes.edu.co");
 		operador.setNit("nit 2");
 		operador.setRazonSocial("Operador 2");
-		operador.setTelefono(BigDecimal.valueOf(3333333));
+		operador.setTelefono("3333333");
 		
 		entityManager.persist(operador);
     }
