@@ -15,6 +15,10 @@
 <h:body>
 <f:view>
 		<h:form>
+		<h:inputText value="#{consultarInformacionUsuarioBean.tipoDoc}" required="true"></h:inputText>
+		<h:inputText value="#{consultarInformacionUsuarioBean.nroDoc}" required="true"></h:inputText>
+		<h:commandButton   value="boton" 
+					action="#{consultarInformacionUsuarioBean.consultarUsuario}" />
 		</h:form>
 	</f:view>
 </h:body>

@@ -9,4 +9,5 @@ public interface UsuariosEJBLocal {
 	
 	void crearUsuario(DatosBasicosUsuarioDTO usuarioDto);
 
+	DatosBasicosUsuarioDTO consultarUsuario(String tipoDoc, String nroDoc);
 }

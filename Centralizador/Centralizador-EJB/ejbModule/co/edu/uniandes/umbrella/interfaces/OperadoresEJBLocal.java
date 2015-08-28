@@ -2,8 +2,12 @@ package co.edu.uniandes.umbrella.interfaces;
 
 import javax.ejb.Local;
 
+import co.edu.uniandes.umbrella.entidades.Operador;
+
 @Local
 public interface OperadoresEJBLocal {
 
-	void consultarOperador();
+	Operador consultarOperador(String nit);
+	
+	void crearOperador();
 }

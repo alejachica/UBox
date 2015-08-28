@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class DatosBasicosUsuarioDTO {
 	
+	private int idUsuario;
+	
 	private String direccionNotificacion;
 
 	private String emailPersonal;
@@ -225,6 +227,14 @@ public class DatosBasicosUsuarioDTO {
 
 	public void setIdMunicipioLaboral(int idMunicipioLaboral) {
 		this.idMunicipioLaboral = idMunicipioLaboral;
+	}
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 	
