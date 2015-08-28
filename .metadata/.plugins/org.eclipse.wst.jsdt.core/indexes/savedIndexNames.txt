@@ -1,0 +1,9 @@
+INDEX VERSION 1.3+C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+486344707.index
+1785173002.index
+3604824958.index
+211876351.index
+2164590140.index
+1721346435.index
+514778775.index
+717869468.index
