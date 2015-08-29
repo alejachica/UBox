@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="UBox-Persistencia">
-		<mapping-file>co/edu/uniandes/umbrella/entidades/Mapping.xml</mapping-file>
+	<persistence-unit name="Operador-Persistencia">
+		<jta-data-source>jdbc/OperadorDS</jta-data-source>
+		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+		<class>co.edu.uniandes.umbrella.entidades.Carpeta</class>
+		<class>co.edu.uniandes.umbrella.entidades.Contrato</class>
+		<class>co.edu.uniandes.umbrella.entidades.Documento</class>
+		<class>co.edu.uniandes.umbrella.entidades.Factura</class>
+		<class>co.edu.uniandes.umbrella.entidades.FacturaDetalle</class>
+		<class>co.edu.uniandes.umbrella.entidades.HistorialDocumento</class>
+		<class>co.edu.uniandes.umbrella.entidades.Institucion</class>
+		<class>co.edu.uniandes.umbrella.entidades.Lista</class>
+		<class>co.edu.uniandes.umbrella.entidades.ListaValor</class>
+		<class>co.edu.uniandes.umbrella.entidades.Notificacion</class>
+		<class>co.edu.uniandes.umbrella.entidades.Pago</class>
+		<class>co.edu.uniandes.umbrella.entidades.Permiso</class>
+		<class>co.edu.uniandes.umbrella.entidades.Plan</class>
+		<class>co.edu.uniandes.umbrella.entidades.Pqr</class>
+		<class>co.edu.uniandes.umbrella.entidades.TipocarpetaXPermiso</class>
+		<class>co.edu.uniandes.umbrella.entidades.TipodocXPermiso</class>
+		<class>co.edu.uniandes.umbrella.entidades.Tramite</class>
+		<class>co.edu.uniandes.umbrella.entidades.TramiteUsuario</class>
+		<class>co.edu.uniandes.umbrella.entidades.Usuario</class>
+		<properties>
+			<property name="User" value="umbrella" />
+			<property name="Password" value="umbrella123" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://50.62.209.73:3306/ubox"/>
+			<property name="javax.persistence.jdbc.user" value="ubox"/>
+			<property name="javax.persistence.jdbc.password" value="ubox123"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
 	</persistence-unit>
 </persistence>
