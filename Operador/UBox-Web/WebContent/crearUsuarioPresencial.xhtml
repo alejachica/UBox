@@ -328,7 +328,13 @@
 						</td>	
 					</tr>	
 					<tr>
-						<td colspan="6"><br/><button type="submit" class="btn btn-success pull-right">Registrar Usuario</button></td>
+						<td colspan="6"><br/>
+						
+						<h:form>
+							<h:commandButton   value="boton" 
+								action="#{RegistrarUsuarioBean.registrarUsuario}" />
+							</h:form>						
+						</td>
 					</tr>
 										
 				</table>
