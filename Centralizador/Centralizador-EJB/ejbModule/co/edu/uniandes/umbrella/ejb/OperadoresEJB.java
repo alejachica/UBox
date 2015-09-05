@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import co.edu.uniandes.umbrella.dto.DatosOperadorDTO;
 import co.edu.uniandes.umbrella.entidades.Operador;
 import co.edu.uniandes.umbrella.interfaces.OperadoresEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.OperadoresEJBRemote;
@@ -18,12 +19,6 @@ public class OperadoresEJB implements OperadoresEJBRemote, OperadoresEJBLocal {
 	@PersistenceContext(unitName = "Centralizador-Persistencia")
 	private EntityManager entityManager;
 
-	/**
-	 * Default constructor.
-	 */
-	public OperadoresEJB() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public Operador consultarOperador(String nit) {
 
@@ -37,14 +32,14 @@ public class OperadoresEJB implements OperadoresEJBRemote, OperadoresEJBLocal {
 		return operador;
 	}
 
-	public void crearOperador() {
+	public void crearOperador(DatosOperadorDTO datosOperador) {
 
 		Operador operador = new Operador();
-		operador.setDireccion("Dir op 2");
-		operador.setEmail("operador2@uniandes.edu.co");
-		operador.setNit("nit 2");
-		operador.setRazonSocial("Operador 2");
-		operador.setTelefono("3333333");
+		operador.setDireccion(datosOperador.getDireccion());
+		operador.setEmail(datosOperador.getEmail());
+		operador.setNit(datosOperador.getNit());
+		operador.setRazonSocial(datosOperador.getRazonSocial());
+		operador.setTelefono(datosOperador.getTelefono());
 
 		entityManager.persist(operador);
 	}
