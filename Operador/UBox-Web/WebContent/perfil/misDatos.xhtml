@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="../templates/page-template.xhtml">
+
+<ui:define name="title">Entrar a Ubox</ui:define>
+<ui:define name="bodyContent">
+<h:form>
+			El usuario autenticado es:
+			<h:outputText id="usuario" maxlength="50" value="#{MisDatosBean.usuarioAutenticado.usuario}"></h:outputText>
+		</h:form>
+
+
+</ui:define>
+</ui:composition>

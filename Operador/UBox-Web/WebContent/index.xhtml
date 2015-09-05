@@ -1,21 +1,309 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" >
-<h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-</h:head>
-<f:loadBundle basename="main.resources.application" var="msg"/>
-<!--  
-<title><h:outputText value="#{msg.welcomeTitle}" /></title>
--->
-<h:body>
-<f:view>
-		<h:form>
-		</h:form>
-	</f:view>
-</h:body>
-</html>
+	template="/templates/page-template.xhtml">
+
+<ui:define name="title">Página principal</ui:define>
+
+<ui:define name="bodyContent">
+ <div class="row" div="divInformacionPrincial">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-info-sign"></i> InformaciÃ³n</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content row">
+                <div >
+                    
+					<table width="95%" align="center">
+					<tr>
+					<td colspan="2">
+					<h1>Carpeta Ciudadana <br />
+                        <small>Almacenamiento y organizaciÃ³n de documentos para trÃ¡mites pÃºblicos y privados</small>
+                    </h1>
+					
+					</td>
+					</tr>
+					<tr>
+					<td width="70%">
+					<p>El Ministerio de TecnologÃ­as de la InformaciÃ³n y las Comunicaciones pone al servicio de los ciudadanos un entorno 
+					para que cada colombiano pueda consultar de forma privada y segura todos los datos relacionados en el Estado.
+					El registro civil, la tarjeta de identidad, la cÃ©dula de ciudadanÃ­a, el pasaporte, la licencia de conducir, el RUT, 
+					entre otros documentos. Pero el interÃ©s va mÃ¡s allÃ¡. La historia clÃ­nica de cada ciudadano, los trÃ¡mites y procedimientos 
+					irÃ¡n a engrosar ese espacio en la nube de cada persona.</p>
+
+                    <p>Ubox como operador de Carpeta Ciudadana esta autorizado por ley para registrar y operar la soluciÃ³n tecnolÃ³gica.
+					Brindamos a nuestros usuarios el mejor medio para acceder a los servicios de gestiÃ³n de sus documentos a travÃ©s de la
+					web y de manera asistida.</p>
+
+                   
+
+					</td>
+					<td width="30%" valign="top">
+					<img alt="Ubox" src="./resources/img/logoCC.png" class="hidden-xs"/>
+					</td>
+					</tr>
+					</table>                   					
+                </div>
+				            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="box col-md-4">
+        <div class="box-inner homepage-box">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-th"></i> Vive Digital</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a href="#info">Video</a></li>
+                    <li><a href="#custom">Galeria</a></li>
+                    <li><a href="#messages">Noticias</a></li>
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active" id="info">
+						<table width="100%" align="center">
+							<tr>
+								<td style="padding-top:15px">
+									<img alt="Ubox" src="./resources/img/publicidad/video.png" class="hidden-xs"/>
+								</td>
+							</tr>
+						</table>                       
+                    </div>
+                    <div class="tab-pane" id="custom">
+                        <h3>Galeria                  
+                        </h3>                        
+                    </div>
+                    <div class="tab-pane" id="messages">
+                        <h3>Noticias                           
+                        </h3>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-user"></i> Nuevos Aliados</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="box-content">
+                    <ul class="dashboard-list">
+                        <li>                            
+                                <img class="dashboard-avatar" alt="Codensa"
+                                     src="./resources/img/publicidad/bombillo.png" />
+                            <strong>Nombre:</strong> <a href="#">Codensa
+                            </a><br />
+                            <strong>Desde:</strong> 17/05/2014 />
+                            <strong>Estado:</strong> Aprobado
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img class="dashboard-avatar" alt="Min. de EducaciÃ³n"
+                                     src="./resources/img/publicidad/educacion.png" /></a>
+                            <strong>Nombre:</strong> <a href="#">Min. de EducaciÃ³n
+                            </a><br />
+                            <strong>Desde:</strong> 17/05/2014<br />
+                            <strong>Estado:</strong> En proceso
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img class="dashboard-avatar" alt="Ecopetrol"
+                                     src="./resources/img/publicidad/iguana.png" /></a>
+                            <strong>Nombre:</strong> <a href="#">Ecopetrol
+                            </a><br />
+                            <strong>Desde:</strong> 25/05/2014<br />
+                            <strong>Estado:</strong> Aprobado
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img class="dashboard-avatar" alt="ICFES"
+                                     src="http://www.gravatar.com/avatar/hash" /></a>
+                            <strong>Nombre:</strong> <a href="#">ICFES</a><br />
+                            <strong>Desde:</strong> 17/05/2014<br />
+                            <strong>Estado:</strong> Aprobado
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner homepage-box">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list-alt"></i> Mes del Emprendimiento</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                
+
+                <div class="clearfix"></div>
+                <br />
+				<div align="center">
+               	<img alt="Ubox" src="./resources/img/publicidad/imagen1.png" class="hidden-xs" align="middle"/>
+				</div>
+                <div class="clearfix"></div>
+
+            
+                <br />
+
+                <p>Ingresa a: <a href="http://www.mintic.gov.co" target="_blank">Convocatorias</a>.</p>
+
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div><!--/row-->
+
+<div class="row">
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list"></i> FreeDoc AutenticaciÃ³n</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                
+
+                <div class="clearfix"></div>
+                <br />
+				<div align="center">
+               	<img alt="Ubox" src="./resources/img/publicidad/imagen2.png" class="hidden-xs" align="middle"/>
+				</div>
+                <div class="clearfix"></div>
+
+            
+                <br/>
+
+                <p>Para conocer mÃ¡s haga clic <a href="#" target="_blank">aquÃ­</a>.</p>
+
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list"></i> Telecomunicaciones</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            
+			<div class="box-content">
+                
+
+                <div class="clearfix"></div>
+                <br />
+				<div align="center">
+               	<img alt="Ubox" src="./resources/img/publicidad/imagen3.png" class="hidden-xs" align="middle"/>
+				</div>
+                <div class="clearfix"></div>
+
+            
+                <br/>
+				<small>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estÃ¡ndar de las industrias desde el aÃ±o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usÃ³ una galerÃ­a de textos y los mezclÃ³ de tal manera que logrÃ³ hacer un libro de textos especimen. </small> <br/><br/>
+
+                <p>Para incripciones ingrese a: <a href="#" target="_blank">Inscripciones</a>.</p>
+
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list"></i> TelefonÃ­a Celular</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+			
+			 <div class="box-content">
+                
+
+                <div class="clearfix"></div>
+                <br />
+				<div align="center">
+               	<img alt="Ubox" src="./resources/img/publicidad/imagen4.png" class="hidden-xs" align="middle"/>
+				</div>
+                <div class="clearfix"></div>
+
+            
+                <br/>
+
+                <p>Para conocer mÃ¡s haga clic <a href="#" target="_blank">aquÃ­</a>.</p>
+
+            </div>
+            
+        </div>
+    </div>
+    <!--/span-->
+</div><!--/row-->
+    <!-- content ends -->
+    
+ </ui:define>
+</ui:composition>
+
