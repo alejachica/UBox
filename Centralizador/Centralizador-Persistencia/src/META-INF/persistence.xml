@@ -4,20 +4,19 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="Centralizador-Persistencia">
 		<jta-data-source>jdbc/CentralizadorDS</jta-data-source>
-		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 		<class>co.edu.uniandes.umbrella.entidades.ContratoOperador</class>
 		<class>co.edu.uniandes.umbrella.entidades.HistoricoOperadoresUsuario</class>
 		<class>co.edu.uniandes.umbrella.entidades.Operador</class>
-		<class>co.edu.uniandes.umbrella.entidades.OperadorUsuario</class>
-		<class>co.edu.uniandes.umbrella.entidades.OperadorUsuarioPK</class>
 		<class>co.edu.uniandes.umbrella.entidades.ServiciosOperador</class>
+		<class>co.edu.uniandes.umbrella.entidades.Usuario</class>
+		<class>co.edu.uniandes.umbrella.entidades.ZonaGeografica</class>
 
 		<properties>
 			<property name="User" value="umbrella" />
 			<property name="Password" value="umbrella123" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://50.62.209.73:3306/centralizador"/>
-			<property name="javax.persistence.jdbc.user" value="centralizador"/>
-			<property name="javax.persistence.jdbc.password" value="centralizador123"/>
+			<property name="javax.persistence.jdbc.user" value="umbrella"/>
+			<property name="javax.persistence.jdbc.password" value="umbrella123"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>

@@ -1,0 +1,107 @@
+2015-08-28 18:09:56,669 [Worker-7] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.EjbLifecycleMapping lifecycle mapping for MavenProject: Centralizador-EJB:Centralizador-EJB:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-EJB\pom.xml.
+2015-08-28 18:09:56,683 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for Centralizador-Persistencia:Centralizador-Persistencia:jar:0.0.1-SNAPSHOT is missing, no dependency information available
+2015-08-28 18:09:59,953 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:00,006 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:10:00,019 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:00,023 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-EJB\src\test\resources
+2015-08-28 18:10:01,801 [Worker-7] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: Centralizador-Persistencia:Centralizador-Persistencia:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Persistencia\pom.xml.
+2015-08-28 18:10:03,683 [Worker-7] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.pom
+2015-08-28 18:10:03,963 [Worker-7] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.pom
+2015-08-28 18:10:04,190 [Worker-7] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.jar
+2015-08-28 18:10:09,262 [Worker-7] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.jar
+2015-08-28 18:10:09,717 [Worker-7] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.EjbLifecycleMapping lifecycle mapping for MavenProject: Centralizador-EJB:Centralizador-EJB:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-EJB\pom.xml.
+2015-08-28 18:10:15,296 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:15,301 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:10:15,304 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:15,307 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Persistencia\src\test\resources
+2015-08-28 18:10:26,995 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:27,010 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:10:27,017 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:27,023 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Persistencia\src\test\resources
+2015-08-28 18:10:27,444 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:27,453 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:10:27,466 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:27,480 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-EJB\src\test\resources
+2015-08-28 18:10:28,011 [Worker-14] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: Centralizador-Web:Centralizador-Web:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Web\pom.xml.
+2015-08-28 18:10:35,069 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:35,076 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:10:35,080 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:35,087 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Web\src\test\resources
+2015-08-28 18:10:43,039 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:43,048 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:10:43,059 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:43,072 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Web\src\test\resources
+2015-08-28 18:10:43,489 [Worker-6] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.EjbLifecycleMapping lifecycle mapping for MavenProject: UBox-EJB:UBox-EJB:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-EJB\pom.xml.
+2015-08-28 18:10:43,502 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for UBox-Persistencia:UBox-Persistencia:jar:0.0.1-SNAPSHOT is missing, no dependency information available
+2015-08-28 18:10:44,216 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:44,226 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:10:44,232 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:44,237 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-EJB\src\test\resources
+2015-08-28 18:10:44,400 [Worker-6] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: UBox-Persistencia:UBox-Persistencia:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Persistencia\pom.xml.
+2015-08-28 18:10:44,672 [Worker-6] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.EjbLifecycleMapping lifecycle mapping for MavenProject: UBox-EJB:UBox-EJB:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-EJB\pom.xml.
+2015-08-28 18:10:45,281 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:45,286 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:10:45,298 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:45,305 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Persistencia\src\test\resources
+2015-08-28 18:10:45,541 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:45,550 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:10:45,558 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:45,570 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Persistencia\src\test\resources
+2015-08-28 18:10:45,732 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:45,740 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:10:45,747 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:45,756 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-EJB\src\test\resources
+2015-08-28 18:10:46,476 [Worker-15] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: UBox-Web:UBox-Web:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Web\pom.xml.
+2015-08-28 18:10:47,518 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:47,522 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:10:47,530 [Worker-15] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:47,539 [Worker-15] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Web\src\test\resources
+2015-08-28 18:10:48,971 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:48,977 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:10:48,985 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:48,992 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Persistencia\src\test\resources
+2015-08-28 18:10:49,486 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:49,494 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:10:49,501 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:49,504 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Web\src\test\resources
+2015-08-28 18:10:49,719 [Worker-20] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: UBox-WebServices:UBox-WebServices:0.0.1-SNAPSHOT @ C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-WebServices\pom.xml.
+2015-08-28 18:10:54,083 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:54,095 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-WebServices\src\main\resources
+2015-08-28 18:10:54,096 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:54,102 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-WebServices\src\test\resources
+2015-08-28 18:10:55,549 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:55,553 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-WebServices\src\main\resources
+2015-08-28 18:10:55,559 [Worker-20] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:10:55,565 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-WebServices\src\test\resources
+2015-08-28 18:14:31,862 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:31,872 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:14:31,879 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:31,891 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Persistencia\src\test\resources
+2015-08-28 18:14:32,615 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:32,620 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:14:32,623 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:32,627 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-EJB\src\test\resources
+2015-08-28 18:14:33,647 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:33,654 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:14:33,655 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:33,660 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Centralizador\Centralizador-Web\src\test\resources
+2015-08-28 18:14:34,616 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:34,622 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:14:34,624 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:34,628 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Persistencia\src\test\resources
+2015-08-28 18:14:34,704 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:34,709 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:14:34,711 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:34,716 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-EJB\src\test\resources
+2015-08-28 18:14:34,811 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:34,817 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2015-08-28 18:14:34,819 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:34,823 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Web\src\test\resources
+2015-08-28 18:14:35,030 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:35,035 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-WebServices\src\main\resources
+2015-08-28 18:14:35,037 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:14:35,042 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-WebServices\src\test\resources
+2015-08-28 18:25:49,445 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:25:49,459 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-08-28 18:25:49,470 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2015-08-28 18:25:49,475 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\JAVIER\Dropbox\ANDES\ECOS\TercerSemestre\Proyecto\UBox\Operador\UBox-Persistencia\src\test\resources

@@ -1,48 +1,59 @@
 package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
 
+import javax.persistence.*;
+
+import java.util.List;
 
 /**
- * The persistent class for the operador database table.
+ * The persistent class for the OPERADOR database table.
  * 
  */
 @Entity
-@Table(name="operador")
-@NamedQuery(name="Operador.findAll", query="SELECT o FROM Operador o")
+@NamedQueries({
+		@NamedQuery(name = "Operador.findAll", query = "SELECT o FROM Operador o"),
+		@NamedQuery(name = "Operador.findByNit", query = "SELECT o FROM Operador o where o.nit = :nit") })
 public class Operador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_operador", unique=true, nullable=false, precision=10, scale=2)
-	private long idOperador;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_operador")
+	private int idOperador;
 
-	@Column(length=50)
 	private String direccion;
 
-	@Column(nullable=false, length=50)
 	private String email;
 
-	@Column(nullable=false, length=50)
 	private String nit;
 
-	@Column(name="razon_social", nullable=false, length=50)
+	@Column(name = "razon_social")
 	private String razonSocial;
 
-	@Column(precision=10, scale=2)
-	private BigDecimal telefono;
+	@Column(name = "telefono")
+	private String telefono;
+
+	// bi-directional many-to-one association to HistoricoOperadoresUsuario
+	@OneToMany(mappedBy = "operador1")
+	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios1;
+
+	// bi-directional many-to-one association to HistoricoOperadoresUsuario
+	@OneToMany(mappedBy = "operador2")
+	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios2;
+
+	// bi-directional many-to-one association to Usuario
+	@OneToMany(mappedBy = "idOperadorActual")
+	private List<Usuario> usuarios;
 
 	public Operador() {
 	}
 
-	public long getIdOperador() {
+	public int getIdOperador() {
 		return this.idOperador;
 	}
 
-	public void setIdOperador(long idOperador) {
+	public void setIdOperador(int idOperador) {
 		this.idOperador = idOperador;
 	}
 
@@ -78,12 +89,84 @@ public class Operador implements Serializable {
 		this.razonSocial = razonSocial;
 	}
 
-	public BigDecimal getTelefono() {
+	public String getTelefono() {
 		return this.telefono;
 	}
 
-	public void setTelefono(BigDecimal telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public List<HistoricoOperadoresUsuario> getHistoricoOperadoresUsuarios1() {
+		return this.historicoOperadoresUsuarios1;
+	}
+
+	public void setHistoricoOperadoresUsuarios1(
+			List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios1) {
+		this.historicoOperadoresUsuarios1 = historicoOperadoresUsuarios1;
+	}
+
+	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios1(
+			HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
+		getHistoricoOperadoresUsuarios1().add(historicoOperadoresUsuarios1);
+		historicoOperadoresUsuarios1.setOperador1(this);
+
+		return historicoOperadoresUsuarios1;
+	}
+
+	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios1(
+			HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
+		getHistoricoOperadoresUsuarios1().remove(historicoOperadoresUsuarios1);
+		historicoOperadoresUsuarios1.setOperador1(null);
+
+		return historicoOperadoresUsuarios1;
+	}
+
+	public List<HistoricoOperadoresUsuario> getHistoricoOperadoresUsuarios2() {
+		return this.historicoOperadoresUsuarios2;
+	}
+
+	public void setHistoricoOperadoresUsuarios2(
+			List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios2) {
+		this.historicoOperadoresUsuarios2 = historicoOperadoresUsuarios2;
+	}
+
+	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios2(
+			HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
+		getHistoricoOperadoresUsuarios2().add(historicoOperadoresUsuarios2);
+		historicoOperadoresUsuarios2.setOperador2(this);
+
+		return historicoOperadoresUsuarios2;
+	}
+
+	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios2(
+			HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
+		getHistoricoOperadoresUsuarios2().remove(historicoOperadoresUsuarios2);
+		historicoOperadoresUsuarios2.setOperador2(null);
+
+		return historicoOperadoresUsuarios2;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Usuario addUsuario(Usuario usuario) {
+		getUsuarios().add(usuario);
+		usuario.setIdOperadorActual(this);
+
+		return usuario;
+	}
+
+	public Usuario removeUsuario(Usuario usuario) {
+		getUsuarios().remove(usuario);
+		usuario.setIdOperadorActual(null);
+
+		return usuario;
 	}
 
 }

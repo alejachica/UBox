@@ -15,7 +15,7 @@ public class TipocarpetaXPermiso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_tipo_carpeta_x_permisos")
 	private int idTipoCarpetaXPermisos;
 
