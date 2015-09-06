@@ -30,7 +30,7 @@ public class Factura implements Serializable {
 
 	//bi-directional many-to-one association to Contrato
 	@ManyToOne
-	@JoinColumn(name="id_contrato")
+	@JoinColumn(name="fk_contrato")
 	private Contrato contrato;
 
 	//bi-directional many-to-one association to FacturaDetalle

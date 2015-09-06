@@ -30,7 +30,7 @@ public class HistorialDocumento implements Serializable {
 
 	//bi-directional many-to-one association to Documento
 	@ManyToOne
-	@JoinColumn(name="id_documento")
+	@JoinColumn(name="fk_documento")
 	private Documento documento;
 
 	public HistorialDocumento() {

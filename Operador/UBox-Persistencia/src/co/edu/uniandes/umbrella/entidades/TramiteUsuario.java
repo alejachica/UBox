@@ -21,12 +21,12 @@ public class TramiteUsuario implements Serializable {
 
 	//bi-directional many-to-one association to Tramite
 	@ManyToOne
-	@JoinColumn(name="id_tramite")
+	@JoinColumn(name="fk_tramite")
 	private Tramite tramite;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
 
 	public TramiteUsuario() {

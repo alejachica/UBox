@@ -33,6 +33,11 @@ public class Carpeta implements Serializable {
 	@OneToMany(mappedBy="carpeta")
 	private List<Carpeta> carpetas;
 
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
+
 	//bi-directional many-to-one association to Documento
 	@OneToMany(mappedBy="carpeta")
 	private List<Documento> documentos;
@@ -92,6 +97,14 @@ public class Carpeta implements Serializable {
 		carpeta.setCarpeta(null);
 
 		return carpeta;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<Documento> getDocumentos() {

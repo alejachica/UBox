@@ -32,12 +32,12 @@ public class Notificacion implements Serializable {
 
 	//bi-directional many-to-one association to Documento
 	@ManyToOne
-	@JoinColumn(name="id_documento")
+	@JoinColumn(name="fk_documento")
 	private Documento documento;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
 
 	public Notificacion() {
