@@ -10,7 +10,10 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Carpeta.findAll", query="SELECT c FROM Carpeta c")
+@NamedQueries({ 
+	@NamedQuery(name = "Carpeta.findAll", query = "SELECT c FROM Carpeta c"), 
+	@NamedQuery(name = "Carpeta.findByID", query = "SELECT c FROM Carpeta c where c.idCarpeta = :idCarpeta") 
+})
 public class Carpeta implements Serializable {
 	private static final long serialVersionUID = 1L;
 

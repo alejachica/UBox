@@ -11,7 +11,10 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Documento.findAll", query="SELECT d FROM Documento d")
+@NamedQueries({ 
+	@NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"), 
+	@NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d where d.idDocumento = :id") 
+})
 public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
