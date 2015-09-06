@@ -7,15 +7,16 @@
 		<class>co.edu.uniandes.umbrella.entidades.Carpeta</class>
 		<class>co.edu.uniandes.umbrella.entidades.Contrato</class>
 		<class>co.edu.uniandes.umbrella.entidades.Documento</class>
+		<class>co.edu.uniandes.umbrella.entidades.DocumentoXUsuarioCompartido</class>
 		<class>co.edu.uniandes.umbrella.entidades.Factura</class>
 		<class>co.edu.uniandes.umbrella.entidades.FacturaDetalle</class>
+		<class>co.edu.uniandes.umbrella.entidades.FormaComparticion</class>
 		<class>co.edu.uniandes.umbrella.entidades.HistorialDocumento</class>
 		<class>co.edu.uniandes.umbrella.entidades.Institucion</class>
 		<class>co.edu.uniandes.umbrella.entidades.Lista</class>
 		<class>co.edu.uniandes.umbrella.entidades.ListaValor</class>
 		<class>co.edu.uniandes.umbrella.entidades.Notificacion</class>
 		<class>co.edu.uniandes.umbrella.entidades.Pago</class>
-		<class>co.edu.uniandes.umbrella.entidades.Permiso</class>
 		<class>co.edu.uniandes.umbrella.entidades.Plan</class>
 		<class>co.edu.uniandes.umbrella.entidades.Pqr</class>
 		<class>co.edu.uniandes.umbrella.entidades.TipocarpetaXPermiso</class>
@@ -23,7 +24,6 @@
 		<class>co.edu.uniandes.umbrella.entidades.Tramite</class>
 		<class>co.edu.uniandes.umbrella.entidades.TramiteUsuario</class>
 		<class>co.edu.uniandes.umbrella.entidades.Usuario</class>
-
 		<properties>
 			<property name="User" value="ubox" />
 			<property name="Password" value="ubox123" />
