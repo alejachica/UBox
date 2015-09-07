@@ -10,7 +10,10 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Carpeta.findAll", query="SELECT c FROM Carpeta c")
+@NamedQueries({ 
+	@NamedQuery(name = "Carpeta.findAll", query = "SELECT c FROM Carpeta c"), 
+	@NamedQuery(name = "Carpeta.findByID", query = "SELECT c FROM Carpeta c where c.idCarpeta = :idCarpeta") 
+})
 public class Carpeta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,6 +35,11 @@ public class Carpeta implements Serializable {
 	//bi-directional many-to-one association to Carpeta
 	@OneToMany(mappedBy="carpeta")
 	private List<Carpeta> carpetas;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
 
 	//bi-directional many-to-one association to Documento
 	@OneToMany(mappedBy="carpeta")
@@ -92,6 +100,14 @@ public class Carpeta implements Serializable {
 		carpeta.setCarpeta(null);
 
 		return carpeta;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<Documento> getDocumentos() {

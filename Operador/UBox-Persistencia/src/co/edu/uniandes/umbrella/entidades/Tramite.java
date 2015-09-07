@@ -29,7 +29,7 @@ public class Tramite implements Serializable {
 
 	//bi-directional many-to-one association to Institucion
 	@ManyToOne
-	@JoinColumn(name="id_institucion")
+	@JoinColumn(name="fk_institucion")
 	private Institucion institucion;
 
 	//bi-directional many-to-one association to TramiteUsuario

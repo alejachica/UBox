@@ -35,12 +35,12 @@ public class Contrato implements Serializable {
 
 	//bi-directional many-to-one association to Plan
 	@ManyToOne
-	@JoinColumn(name="id_plan")
+	@JoinColumn(name="fk_plan")
 	private Plan plan;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Factura

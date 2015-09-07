@@ -11,7 +11,10 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Documento.findAll", query="SELECT d FROM Documento d")
+@NamedQueries({ 
+	@NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"), 
+	@NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d where d.idDocumento = :id") 
+})
 public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,6 +22,9 @@ public class Documento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_documento")
 	private int idDocumento;
+
+	@Lob
+	private byte[] documento;
 
 	private String fecha;
 
@@ -37,17 +43,25 @@ public class Documento implements Serializable {
 
 	private byte papelera;
 
-	private String version;
+	private String ruta;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
+	private int size;
+
+	private String version;
 
 	//bi-directional many-to-one association to Carpeta
 	@ManyToOne
-	@JoinColumn(name="id_carpeta")
+	@JoinColumn(name="fk_carpeta")
 	private Carpeta carpeta;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="fk_usuario")
+	private Usuario usuario;
+
+	//bi-directional many-to-one association to DocumentoXUsuarioCompartido
+	@OneToMany(mappedBy="documento")
+	private List<DocumentoXUsuarioCompartido> documentoXUsuarioCompartidos;
 
 	//bi-directional many-to-one association to HistorialDocumento
 	@OneToMany(mappedBy="documento")
@@ -61,10 +75,6 @@ public class Documento implements Serializable {
 	@OneToMany(mappedBy="documento")
 	private List<Pago> pagos;
 
-	//bi-directional many-to-one association to Permiso
-	@OneToMany(mappedBy="documento")
-	private List<Permiso> permisos;
-
 	public Documento() {
 	}
 
@@ -74,6 +84,14 @@ public class Documento implements Serializable {
 
 	public void setIdDocumento(int idDocumento) {
 		this.idDocumento = idDocumento;
+	}
+
+	public byte[] getDocumento() {
+		return this.documento;
+	}
+
+	public void setDocumento(byte[] documento) {
+		this.documento = documento;
 	}
 
 	public String getFecha() {
@@ -132,12 +150,36 @@ public class Documento implements Serializable {
 		this.papelera = papelera;
 	}
 
+	public String getRuta() {
+		return this.ruta;
+	}
+
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
+
+	public int getSize() {
+		return this.size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	public String getVersion() {
 		return this.version;
 	}
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public Carpeta getCarpeta() {
+		return this.carpeta;
+	}
+
+	public void setCarpeta(Carpeta carpeta) {
+		this.carpeta = carpeta;
 	}
 
 	public Usuario getUsuario() {
@@ -148,12 +190,26 @@ public class Documento implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Carpeta getCarpeta() {
-		return this.carpeta;
+	public List<DocumentoXUsuarioCompartido> getDocumentoXUsuarioCompartidos() {
+		return this.documentoXUsuarioCompartidos;
 	}
 
-	public void setCarpeta(Carpeta carpeta) {
-		this.carpeta = carpeta;
+	public void setDocumentoXUsuarioCompartidos(List<DocumentoXUsuarioCompartido> documentoXUsuarioCompartidos) {
+		this.documentoXUsuarioCompartidos = documentoXUsuarioCompartidos;
+	}
+
+	public DocumentoXUsuarioCompartido addDocumentoXUsuarioCompartido(DocumentoXUsuarioCompartido documentoXUsuarioCompartido) {
+		getDocumentoXUsuarioCompartidos().add(documentoXUsuarioCompartido);
+		documentoXUsuarioCompartido.setDocumento(this);
+
+		return documentoXUsuarioCompartido;
+	}
+
+	public DocumentoXUsuarioCompartido removeDocumentoXUsuarioCompartido(DocumentoXUsuarioCompartido documentoXUsuarioCompartido) {
+		getDocumentoXUsuarioCompartidos().remove(documentoXUsuarioCompartido);
+		documentoXUsuarioCompartido.setDocumento(null);
+
+		return documentoXUsuarioCompartido;
 	}
 
 	public List<HistorialDocumento> getHistorialDocumentos() {
@@ -220,28 +276,6 @@ public class Documento implements Serializable {
 		pago.setDocumento(null);
 
 		return pago;
-	}
-
-	public List<Permiso> getPermisos() {
-		return this.permisos;
-	}
-
-	public void setPermisos(List<Permiso> permisos) {
-		this.permisos = permisos;
-	}
-
-	public Permiso addPermiso(Permiso permiso) {
-		getPermisos().add(permiso);
-		permiso.setDocumento(this);
-
-		return permiso;
-	}
-
-	public Permiso removePermiso(Permiso permiso) {
-		getPermisos().remove(permiso);
-		permiso.setDocumento(null);
-
-		return permiso;
 	}
 
 }

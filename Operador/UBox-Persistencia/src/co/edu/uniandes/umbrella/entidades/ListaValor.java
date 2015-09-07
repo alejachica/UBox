@@ -27,7 +27,7 @@ public class ListaValor implements Serializable {
 
 	//bi-directional many-to-one association to Lista
 	@ManyToOne
-	@JoinColumn(name="id_lista")
+	@JoinColumn(name="fk_lista")
 	private Lista lista;
 
 	public ListaValor() {

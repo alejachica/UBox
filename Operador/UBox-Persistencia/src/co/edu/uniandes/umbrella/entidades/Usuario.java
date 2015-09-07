@@ -23,6 +23,9 @@ public class Usuario implements Serializable {
 
 	private String correo;
 
+	@Column(name="id_stormpath")
+	private String idStormpath;
+
 	private String identificacion;
 
 	private String login;
@@ -41,6 +44,10 @@ public class Usuario implements Serializable {
 	@Column(name="segundo_nombre")
 	private String segundoNombre;
 
+	//bi-directional many-to-one association to Carpeta
+	@OneToMany(mappedBy="usuario")
+	private List<Carpeta> carpetas;
+
 	//bi-directional many-to-one association to Contrato
 	@OneToMany(mappedBy="usuario")
 	private List<Contrato> contratos;
@@ -48,6 +55,10 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to Documento
 	@OneToMany(mappedBy="usuario")
 	private List<Documento> documentos;
+
+	//bi-directional many-to-one association to DocumentoXUsuarioCompartido
+	@OneToMany(mappedBy="usuario")
+	private List<DocumentoXUsuarioCompartido> documentoXUsuarioCompartidos;
 
 	//bi-directional many-to-one association to Notificacion
 	@OneToMany(mappedBy="usuario")
@@ -86,6 +97,14 @@ public class Usuario implements Serializable {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+
+	public String getIdStormpath() {
+		return this.idStormpath;
+	}
+
+	public void setIdStormpath(String idStormpath) {
+		this.idStormpath = idStormpath;
 	}
 
 	public String getIdentificacion() {
@@ -144,6 +163,28 @@ public class Usuario implements Serializable {
 		this.segundoNombre = segundoNombre;
 	}
 
+	public List<Carpeta> getCarpetas() {
+		return this.carpetas;
+	}
+
+	public void setCarpetas(List<Carpeta> carpetas) {
+		this.carpetas = carpetas;
+	}
+
+	public Carpeta addCarpeta(Carpeta carpeta) {
+		getCarpetas().add(carpeta);
+		carpeta.setUsuario(this);
+
+		return carpeta;
+	}
+
+	public Carpeta removeCarpeta(Carpeta carpeta) {
+		getCarpetas().remove(carpeta);
+		carpeta.setUsuario(null);
+
+		return carpeta;
+	}
+
 	public List<Contrato> getContratos() {
 		return this.contratos;
 	}
@@ -186,6 +227,28 @@ public class Usuario implements Serializable {
 		documento.setUsuario(null);
 
 		return documento;
+	}
+
+	public List<DocumentoXUsuarioCompartido> getDocumentoXUsuarioCompartidos() {
+		return this.documentoXUsuarioCompartidos;
+	}
+
+	public void setDocumentoXUsuarioCompartidos(List<DocumentoXUsuarioCompartido> documentoXUsuarioCompartidos) {
+		this.documentoXUsuarioCompartidos = documentoXUsuarioCompartidos;
+	}
+
+	public DocumentoXUsuarioCompartido addDocumentoXUsuarioCompartido(DocumentoXUsuarioCompartido documentoXUsuarioCompartido) {
+		getDocumentoXUsuarioCompartidos().add(documentoXUsuarioCompartido);
+		documentoXUsuarioCompartido.setUsuario(this);
+
+		return documentoXUsuarioCompartido;
+	}
+
+	public DocumentoXUsuarioCompartido removeDocumentoXUsuarioCompartido(DocumentoXUsuarioCompartido documentoXUsuarioCompartido) {
+		getDocumentoXUsuarioCompartidos().remove(documentoXUsuarioCompartido);
+		documentoXUsuarioCompartido.setUsuario(null);
+
+		return documentoXUsuarioCompartido;
 	}
 
 	public List<Notificacion> getNotificacions() {

@@ -34,7 +34,7 @@ public class Pqr implements Serializable {
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
 
 	public Pqr() {
