@@ -9,7 +9,11 @@ import co.edu.uniandes.umbrella.entidades.Documento;
 
 @Remote
 public interface DocumentosEJBRemote {
-	void crearDocumento(DocumentoDTO documentoDTO);
+	
+	public void crearDocumento(DocumentoDTO documentoDTO) throws Exception;
+	
 	Documento consultarDocumento(String id);
+	
 	List<Documento> listarDocumentosUsuario(String id);
+	
 }
