@@ -10,7 +10,7 @@ import javax.ws.rs.core.UriInfo;
 
 import co.edu.uniandes.umbrella.interfaces.ITransaccionesWS;
 
-@Path("/ubox")
+@Path("/api/prueba")
 public class TransaccionesWS implements ITransaccionesWS{
     @Context
     private UriInfo context;
