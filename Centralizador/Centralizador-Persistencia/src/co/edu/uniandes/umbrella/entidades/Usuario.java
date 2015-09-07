@@ -6,104 +6,104 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * The persistent class for the USUARIO database table.
  * 
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-		@NamedQuery(name = "Usuario.findByTipoNroDoc", query = "SELECT u FROM Usuario u where u.idTipoIdentificacion = :tipoDoc and u.nroIdentificacion =  :nroDoc") })
+	@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+	@NamedQuery(name = "Usuario.findByTipoNroDoc", query = "SELECT u FROM Usuario u where u.idTipoIdentificacion = :tipoDoc and u.nroIdentificacion =  :nroDoc") })
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_usuario")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_usuario")
 	private int idUsuario;
 
-	@Column(name = "direccion_notificacion")
+	@Column(name="direccion_notificacion")
 	private String direccionNotificacion;
 
-	@Column(name = "email_personal")
+	@Column(name="email_personal")
 	private String emailPersonal;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_expediciion_identificacion")
+	@Column(name="fecha_expediciion_identificacion")
 	private Date fechaExpediciionIdentificacion;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_nacimiento")
+	@Column(name="fecha_nacimiento")
 	private Date fechaNacimiento;
 
 	private String genero;
 
-	@Column(name = "id_direccion_residencia")
+	@Column(name="id_direccion_residencia")
 	private String idDireccionResidencia;
 
-	@Column(name = "id_estado_civil")
+	@Column(name="id_estado_civil")
 	private int idEstadoCivil;
 
-	@Column(name = "id_nacionalidad")
+	@Column(name="id_nacionalidad")
 	private int idNacionalidad;
 
-	@Column(name = "id_operador")
+	@Column(name="id_operador")
 	private int idOperador;
 
-	@Column(name = "id_tipo_identificacion")
+	@Column(name="id_tipo_identificacion")
 	private String idTipoIdentificacion;
 
-	@Column(name = "nro_identificacion")
+	@Column(name="nro_identificacion")
 	private BigDecimal nroIdentificacion;
 
-	@Column(name = "primer_apellido")
+	@Column(name="primer_apellido")
 	private String primerApellido;
 
-	@Column(name = "primer_nombre")
+	@Column(name="primer_nombre")
 	private String primerNombre;
 
-	@Column(name = "segundo_apellido")
+	@Column(name="segundo_apellido")
 	private String segundoApellido;
 
-	@Column(name = "segundo_nombre")
+	@Column(name="segundo_nombre")
 	private String segundoNombre;
 
-	@Column(name = "telefono")
 	private int telefono;
 
-	// bi-directional many-to-one association to HistoricoOperadoresUsuario
-	@OneToMany(mappedBy = "usuario")
+	//bi-directional many-to-one association to HistoricoOperadoresUsuario
+	@OneToMany(mappedBy="usuario")
 	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios;
 
-	// bi-directional many-to-one association to Operador
+	//bi-directional many-to-one association to Operador
 	@ManyToOne
-	@JoinColumn(name = "id_operador_actual")
-	private Operador idOperadorActual;
+	@JoinColumn(name="id_operador_actual")
+	private Operador operador;
 
-	// bi-directional many-to-one association to ZonaGeografica
+	//bi-directional many-to-one association to ZonaGeografica
 	@ManyToOne
-	@JoinColumn(name = "id_municipio_nacimiento")
-	private ZonaGeografica idMunicipioNacimiento;
-
-	// bi-directional many-to-one association to ZonaGeografica
-	@ManyToOne
-	@JoinColumn(name = "id_municipio_expedicion_identificacion")
+	@JoinColumn(name="id_municipio_expedicion_identificacion")
 	private ZonaGeografica idMunicipioExpedicionIdentificacion;
 
-	// bi-directional many-to-one association to ZonaGeografica
+	//bi-directional many-to-one association to ZonaGeografica
 	@ManyToOne
-	@JoinColumn(name = "id_municipio_residencia")
-	private ZonaGeografica idMunicipioResidencia;
+	@JoinColumn(name="id_municipio_laboral")
+	private ZonaGeografica idMunicipioLaboral;
 
-	// bi-directional many-to-one association to ZonaGeografica
+	//bi-directional many-to-one association to ZonaGeografica
 	@ManyToOne
-	@JoinColumn(name = "id_municipio_notificacion")
+	@JoinColumn(name="id_municipio_nacimiento")
+	private ZonaGeografica idMunicipioNacimiento;
+
+	//bi-directional many-to-one association to ZonaGeografica
+	@ManyToOne
+	@JoinColumn(name="id_municipio_notificacion")
 	private ZonaGeografica idMunicipioNotificacion;
 
-	// bi-directional many-to-one association to ZonaGeografica
+	//bi-directional many-to-one association to ZonaGeografica
 	@ManyToOne
-	@JoinColumn(name = "id_municipio_laboral")
-	private ZonaGeografica idMunicipioLaboral;
+	@JoinColumn(name="id_municipio_residencia")
+	private ZonaGeografica idMunicipioResidencia;
 
 	public Usuario() {
 	}
@@ -136,8 +136,7 @@ public class Usuario implements Serializable {
 		return this.fechaExpediciionIdentificacion;
 	}
 
-	public void setFechaExpediciionIdentificacion(
-			Date fechaExpediciionIdentificacion) {
+	public void setFechaExpediciionIdentificacion(Date fechaExpediciionIdentificacion) {
 		this.fechaExpediciionIdentificacion = fechaExpediciionIdentificacion;
 	}
 
@@ -249,75 +248,105 @@ public class Usuario implements Serializable {
 		return this.historicoOperadoresUsuarios;
 	}
 
-	public void setHistoricoOperadoresUsuarios(
-			List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios) {
+	public void setHistoricoOperadoresUsuarios(List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios) {
 		this.historicoOperadoresUsuarios = historicoOperadoresUsuarios;
 	}
 
-	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuario(
-			HistoricoOperadoresUsuario historicoOperadoresUsuario) {
+	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuario(HistoricoOperadoresUsuario historicoOperadoresUsuario) {
 		getHistoricoOperadoresUsuarios().add(historicoOperadoresUsuario);
 		historicoOperadoresUsuario.setUsuario(this);
 
 		return historicoOperadoresUsuario;
 	}
 
-	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuario(
-			HistoricoOperadoresUsuario historicoOperadoresUsuario) {
+	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuario(HistoricoOperadoresUsuario historicoOperadoresUsuario) {
 		getHistoricoOperadoresUsuarios().remove(historicoOperadoresUsuario);
 		historicoOperadoresUsuario.setUsuario(null);
 
 		return historicoOperadoresUsuario;
 	}
 
-	public Operador getIdOperadorActual() {
-		return idOperadorActual;
+	public Operador getOperador() {
+		return this.operador;
 	}
 
-	public void setIdOperadorActual(Operador idOperadorActual) {
-		this.idOperadorActual = idOperadorActual;
+	public void setOperador(Operador operador) {
+		this.operador = operador;
 	}
 
+
+
+	/**
+	 * @return the idMunicipioLaboral
+	 */
+	public ZonaGeografica getIdMunicipioLaboral() {
+		return idMunicipioLaboral;
+	}
+
+	/**
+	 * @param idMunicipioLaboral the idMunicipioLaboral to set
+	 */
+	public void setIdMunicipioLaboral(ZonaGeografica idMunicipioLaboral) {
+		this.idMunicipioLaboral = idMunicipioLaboral;
+	}
+
+	/**
+	 * @return the idMunicipioNacimiento
+	 */
 	public ZonaGeografica getIdMunicipioNacimiento() {
 		return idMunicipioNacimiento;
 	}
 
+	/**
+	 * @param idMunicipioNacimiento the idMunicipioNacimiento to set
+	 */
 	public void setIdMunicipioNacimiento(ZonaGeografica idMunicipioNacimiento) {
 		this.idMunicipioNacimiento = idMunicipioNacimiento;
 	}
 
+	/**
+	 * @return the idMunicipioNotificacion
+	 */
+	public ZonaGeografica getIdMunicipioNotificacion() {
+		return idMunicipioNotificacion;
+	}
+
+	/**
+	 * @param idMunicipioNotificacion the idMunicipioNotificacion to set
+	 */
+	public void setIdMunicipioNotificacion(ZonaGeografica idMunicipioNotificacion) {
+		this.idMunicipioNotificacion = idMunicipioNotificacion;
+	}
+
+	/**
+	 * @return the idMunicipioResidencia
+	 */
+	public ZonaGeografica getIdMunicipioResidencia() {
+		return idMunicipioResidencia;
+	}
+
+	/**
+	 * @param idMunicipioResidencia the idMunicipioResidencia to set
+	 */
+	public void setIdMunicipioResidencia(ZonaGeografica idMunicipioResidencia) {
+		this.idMunicipioResidencia = idMunicipioResidencia;
+	}
+
+	/**
+	 * @return the idMunicipioExpedicionIdentificacion
+	 */
 	public ZonaGeografica getIdMunicipioExpedicionIdentificacion() {
 		return idMunicipioExpedicionIdentificacion;
 	}
 
+	/**
+	 * @param idMunicipioExpedicionIdentificacion the idMunicipioExpedicionIdentificacion to set
+	 */
 	public void setIdMunicipioExpedicionIdentificacion(
 			ZonaGeografica idMunicipioExpedicionIdentificacion) {
 		this.idMunicipioExpedicionIdentificacion = idMunicipioExpedicionIdentificacion;
 	}
 
-	public ZonaGeografica getIdMunicipioResidencia() {
-		return idMunicipioResidencia;
-	}
 
-	public void setIdMunicipioResidencia(ZonaGeografica idMunicipioResidencia) {
-		this.idMunicipioResidencia = idMunicipioResidencia;
-	}
-
-	public ZonaGeografica getIdMunicipioNotificacion() {
-		return idMunicipioNotificacion;
-	}
-
-	public void setIdMunicipioNotificacion(
-			ZonaGeografica idMunicipioNotificacion) {
-		this.idMunicipioNotificacion = idMunicipioNotificacion;
-	}
-
-	public ZonaGeografica getIdMunicipioLaboral() {
-		return idMunicipioLaboral;
-	}
-
-	public void setIdMunicipioLaboral(ZonaGeografica idMunicipioLaboral) {
-		this.idMunicipioLaboral = idMunicipioLaboral;
-	}
 
 }

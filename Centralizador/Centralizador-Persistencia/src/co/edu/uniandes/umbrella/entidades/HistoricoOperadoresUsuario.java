@@ -30,12 +30,12 @@ public class HistoricoOperadoresUsuario implements Serializable {
 
 	//bi-directional many-to-one association to Operador
 	@ManyToOne
-	@JoinColumn(name="id_operador_origen")
+	@JoinColumn(name="id_operador_destino")
 	private Operador operador1;
 
 	//bi-directional many-to-one association to Operador
 	@ManyToOne
-	@JoinColumn(name="id_operador_destino")
+	@JoinColumn(name="id_operador_origen")
 	private Operador operador2;
 
 	//bi-directional many-to-one association to Usuario

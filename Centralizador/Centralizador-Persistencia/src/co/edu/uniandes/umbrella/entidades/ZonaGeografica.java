@@ -23,15 +23,15 @@ public class ZonaGeografica implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="idMunicipioNacimiento")
+	@OneToMany(mappedBy="idMunicipioExpedicionIdentificacion")
 	private List<Usuario> usuarios1;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="idMunicipioExpedicionIdentificacion")
+	@OneToMany(mappedBy="idMunicipioLaboral")
 	private List<Usuario> usuarios2;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="idMunicipioResidencia")
+	@OneToMany(mappedBy="idMunicipioNacimiento")
 	private List<Usuario> usuarios3;
 
 	//bi-directional many-to-one association to Usuario
@@ -39,7 +39,7 @@ public class ZonaGeografica implements Serializable {
 	private List<Usuario> usuarios4;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="idMunicipioLaboral")
+	@OneToMany(mappedBy="idMunicipioResidencia")
 	private List<Usuario> usuarios5;
 
 	//bi-directional many-to-one association to ZonaGeografica
@@ -80,14 +80,14 @@ public class ZonaGeografica implements Serializable {
 
 	public Usuario addUsuarios1(Usuario usuarios1) {
 		getUsuarios1().add(usuarios1);
-		usuarios1.setIdMunicipioNacimiento(this);
+		usuarios1.setIdMunicipioExpedicionIdentificacion(this);
 
 		return usuarios1;
 	}
 
 	public Usuario removeUsuarios1(Usuario usuarios1) {
 		getUsuarios1().remove(usuarios1);
-		usuarios1.setIdMunicipioNacimiento(null);
+		usuarios1.setIdMunicipioExpedicionIdentificacion(null);
 
 		return usuarios1;
 	}
@@ -102,14 +102,14 @@ public class ZonaGeografica implements Serializable {
 
 	public Usuario addUsuarios2(Usuario usuarios2) {
 		getUsuarios2().add(usuarios2);
-		usuarios2.setIdMunicipioResidencia(this);
+		usuarios2.setIdMunicipioLaboral(this);
 
 		return usuarios2;
 	}
 
 	public Usuario removeUsuarios2(Usuario usuarios2) {
 		getUsuarios2().remove(usuarios2);
-		usuarios2.setIdMunicipioResidencia(null);
+		usuarios2.setIdMunicipioLaboral(null);
 
 		return usuarios2;
 	}
@@ -124,14 +124,14 @@ public class ZonaGeografica implements Serializable {
 
 	public Usuario addUsuarios3(Usuario usuarios3) {
 		getUsuarios3().add(usuarios3);
-		usuarios3.setIdMunicipioNotificacion(this);
+		usuarios3.setIdMunicipioNacimiento(this);
 
 		return usuarios3;
 	}
 
 	public Usuario removeUsuarios3(Usuario usuarios3) {
 		getUsuarios3().remove(usuarios3);
-		usuarios3.setIdMunicipioNotificacion(null);
+		usuarios3.setIdMunicipioNacimiento(null);
 
 		return usuarios3;
 	}
@@ -146,14 +146,14 @@ public class ZonaGeografica implements Serializable {
 
 	public Usuario addUsuarios4(Usuario usuarios4) {
 		getUsuarios4().add(usuarios4);
-		usuarios4.setIdMunicipioLaboral(this);
+		usuarios4.setIdMunicipioNotificacion(this);
 
 		return usuarios4;
 	}
 
 	public Usuario removeUsuarios4(Usuario usuarios4) {
 		getUsuarios4().remove(usuarios4);
-		usuarios4.setIdMunicipioLaboral(null);
+		usuarios4.setIdMunicipioNotificacion(null);
 
 		return usuarios4;
 	}
@@ -168,14 +168,14 @@ public class ZonaGeografica implements Serializable {
 
 	public Usuario addUsuarios5(Usuario usuarios5) {
 		getUsuarios5().add(usuarios5);
-		usuarios5.setIdMunicipioExpedicionIdentificacion(this);
+		usuarios5.setIdMunicipioResidencia(this);
 
 		return usuarios5;
 	}
 
 	public Usuario removeUsuarios5(Usuario usuarios5) {
 		getUsuarios5().remove(usuarios5);
-		usuarios5.setIdMunicipioExpedicionIdentificacion(null);
+		usuarios5.setIdMunicipioResidencia(null);
 
 		return usuarios5;
 	}

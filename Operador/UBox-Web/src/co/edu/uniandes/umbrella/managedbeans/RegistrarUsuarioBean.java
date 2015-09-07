@@ -31,6 +31,7 @@ private UsuarioDTO usuarioDto;
 		usuarioDto.setSegundoNombre("Nombre1");
 		usuarioDto.setPrimerApellido("Apellido1");
 		usuarioDto.setSegundoApellido("Apellido1");
+		usuarioDto.setIdStormpath("id_stormpath_ale");
 		
 		usuario.crearUsuario(usuarioDto);
 		

@@ -1,10 +1,9 @@
 package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.List;
+
 
 /**
  * The persistent class for the OPERADOR database table.
@@ -12,14 +11,14 @@ import java.util.List;
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Operador.findAll", query = "SELECT o FROM Operador o"),
-		@NamedQuery(name = "Operador.findByNit", query = "SELECT o FROM Operador o where o.nit = :nit") })
+	@NamedQuery(name = "Operador.findAll", query = "SELECT o FROM Operador o"),
+	@NamedQuery(name = "Operador.findByNit", query = "SELECT o FROM Operador o where o.nit = :nit") })
 public class Operador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_operador")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_operador")
 	private int idOperador;
 
 	private String direccion;
@@ -28,22 +27,21 @@ public class Operador implements Serializable {
 
 	private String nit;
 
-	@Column(name = "razon_social")
+	@Column(name="razon_social")
 	private String razonSocial;
 
-	@Column(name = "telefono")
 	private String telefono;
 
-	// bi-directional many-to-one association to HistoricoOperadoresUsuario
-	@OneToMany(mappedBy = "operador1")
+	//bi-directional many-to-one association to HistoricoOperadoresUsuario
+	@OneToMany(mappedBy="operador1")
 	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios1;
 
-	// bi-directional many-to-one association to HistoricoOperadoresUsuario
-	@OneToMany(mappedBy = "operador2")
+	//bi-directional many-to-one association to HistoricoOperadoresUsuario
+	@OneToMany(mappedBy="operador2")
 	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios2;
 
-	// bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy = "idOperadorActual")
+	//bi-directional many-to-one association to Usuario
+	@OneToMany(mappedBy="operador")
 	private List<Usuario> usuarios;
 
 	public Operador() {
@@ -101,21 +99,18 @@ public class Operador implements Serializable {
 		return this.historicoOperadoresUsuarios1;
 	}
 
-	public void setHistoricoOperadoresUsuarios1(
-			List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios1) {
+	public void setHistoricoOperadoresUsuarios1(List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios1) {
 		this.historicoOperadoresUsuarios1 = historicoOperadoresUsuarios1;
 	}
 
-	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios1(
-			HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
+	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios1(HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
 		getHistoricoOperadoresUsuarios1().add(historicoOperadoresUsuarios1);
 		historicoOperadoresUsuarios1.setOperador1(this);
 
 		return historicoOperadoresUsuarios1;
 	}
 
-	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios1(
-			HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
+	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios1(HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
 		getHistoricoOperadoresUsuarios1().remove(historicoOperadoresUsuarios1);
 		historicoOperadoresUsuarios1.setOperador1(null);
 
@@ -126,21 +121,18 @@ public class Operador implements Serializable {
 		return this.historicoOperadoresUsuarios2;
 	}
 
-	public void setHistoricoOperadoresUsuarios2(
-			List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios2) {
+	public void setHistoricoOperadoresUsuarios2(List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios2) {
 		this.historicoOperadoresUsuarios2 = historicoOperadoresUsuarios2;
 	}
 
-	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios2(
-			HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
+	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios2(HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
 		getHistoricoOperadoresUsuarios2().add(historicoOperadoresUsuarios2);
 		historicoOperadoresUsuarios2.setOperador2(this);
 
 		return historicoOperadoresUsuarios2;
 	}
 
-	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios2(
-			HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
+	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios2(HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
 		getHistoricoOperadoresUsuarios2().remove(historicoOperadoresUsuarios2);
 		historicoOperadoresUsuarios2.setOperador2(null);
 
@@ -157,14 +149,14 @@ public class Operador implements Serializable {
 
 	public Usuario addUsuario(Usuario usuario) {
 		getUsuarios().add(usuario);
-		usuario.setIdOperadorActual(this);
+		usuario.setOperador(this);
 
 		return usuario;
 	}
 
 	public Usuario removeUsuario(Usuario usuario) {
 		getUsuarios().remove(usuario);
-		usuario.setIdOperadorActual(null);
+		usuario.setOperador(null);
 
 		return usuario;
 	}
