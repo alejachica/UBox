@@ -11,6 +11,7 @@ import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
+import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 /**
  * Session Bean implementation class UsuarioEJB
@@ -38,6 +39,11 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 
 		entityManager.persist(usuario);
 	}
+	
+	public void actualizarUsuario(UsuarioDTO usuario)
+	{
+		
+	}
 
 	public UsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
 
@@ -61,8 +67,42 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 		
 		return usuario;
 	}
-
 	
+	/****
+	 * Realiza las validaciones para generar el traslado de un usuario de un operador a otro
+	 * @param tipoDocumento
+	 * @param numDocumento
+	 * @return
+	 */
+	public  ResultadoOperacion generarTraslado(String tipoDocumento, String numDocumento)
+	{
+		ResultadoOperacion respuesta = new ResultadoOperacion();
+		
+		if(usuarioEstaAPazYSalvo(tipoDocumento, numDocumento))
+		{
+			UsuarioDTO usuario = this.consultarUsuario(tipoDocumento, numDocumento);
+			this.actualizarUsuario(usuario);
+			respuesta.setOperacionExitosa(true);
+		}
+		else
+		{
+			respuesta.setOperacionExitosa(false);
+			respuesta.setResultadoOperacion("El usuario no se encuentra a paz y salvo");
+		}
+		
+		return respuesta;
+	}
+	
+	/****
+	 * Valida si un usuario está o no al día en pagos
+	 * @param tipoDocument
+	 * @param numeroDocumento
+	 * @return
+	 */
+	public boolean usuarioEstaAPazYSalvo(String tipoDocumento, String numeroDocumento)
+	{
+		return true;
+	}
 
     /**
      * Default constructor. 

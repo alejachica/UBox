@@ -33,7 +33,7 @@ public class TransaccionesWS implements ITransaccionesWS{
     	System.out.println("rest ws get");
 
     	return Response.status(200).header("Access-Control-Allow-Origin", "*")
-				.entity("prueba").build();
+				.entity("prueba2").build();
     }
 
 

@@ -3,6 +3,12 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="UBox-EJB-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/UBox-EJB/UBox-EJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="UBox-Persistencia-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/UBox-Persistencia/UBox-Persistencia">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="UBox-WebServices"/>
         <property name="java-output-path" value="/UBox-WebServices/build/classes"/>
     </wb-module>

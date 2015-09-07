@@ -29,12 +29,11 @@
 		</plugins>
 	</build>
 	<dependencies>
-	<!-- 
 		<dependency>
 			<groupId>UBox-EJB</groupId>
 			<artifactId>UBox-EJB</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>  -->
+		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
