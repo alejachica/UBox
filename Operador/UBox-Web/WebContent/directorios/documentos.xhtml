@@ -13,9 +13,10 @@
 <title><h:outputText value="#{msg.welcomeTitle}" /></title>
 -->
 <h:body>
-<f:view>
-		<h:form>
-		</h:form>
-	</f:view>
+	<h:form enctype="multipart/form-data">
+	    <p:growl id="messages" showDetail="true" />
+	    <p:fileUpload value="#{documentosPersonalesBean.file}" mode="simple" skinSimple="true"/>
+	    <p:commandButton value="Submit" ajax="false" actionListener="#{documentosPersonalesBean.upload}" />
+	</h:form>
 </h:body>
 </html>

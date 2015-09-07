@@ -36,6 +36,7 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 		usuario.setIdentificacion(usuarioDto.getIdentificacion());
 		usuario.setLogin(usuarioDto.getLogin());
 		usuario.setPassword(usuarioDto.getPassword());
+		usuario.setIdStormpath(usuarioDto.getIdStormpath());
 
 		entityManager.persist(usuario);
 	}

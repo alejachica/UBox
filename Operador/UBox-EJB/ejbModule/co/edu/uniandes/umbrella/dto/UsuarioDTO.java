@@ -29,6 +29,8 @@ public class UsuarioDTO {
 	private String segundoApellido;
 
 	private String segundoNombre;
+	
+	private String idStormpath;
 
 
 
@@ -217,6 +219,24 @@ public class UsuarioDTO {
 	 */
 	public UsuarioDTO() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+
+	/**
+	 * @return the idStormpath
+	 */
+	public String getIdStormpath() {
+		return idStormpath;
+	}
+
+
+
+	/**
+	 * @param idStormpath the idStormpath to set
+	 */
+	public void setIdStormpath(String idStormpath) {
+		this.idStormpath = idStormpath;
 	}
 
 }
