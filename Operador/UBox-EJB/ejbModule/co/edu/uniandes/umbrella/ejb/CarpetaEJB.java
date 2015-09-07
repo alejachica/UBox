@@ -1,5 +1,6 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,6 +12,7 @@ import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 
+@Stateless
 public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 	
 	@PersistenceContext(unitName = "UBox-Persistencia")
