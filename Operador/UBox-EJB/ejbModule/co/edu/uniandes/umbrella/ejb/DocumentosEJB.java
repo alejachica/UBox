@@ -1,5 +1,7 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
@@ -48,6 +50,16 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		
 		entityManager.persist(documento);
 		
+	}
+
+
+	@Override
+	public List<Documento> listarDocumentosUsuario(String id) {
+		Query query
+		 = entityManager.createNamedQuery("Documento.findByUsuario ", Documento.class).setParameter("idUsuario", id);
+		List<Documento> documento =  (List<Documento>) query.getSingleResult();
+		//System.out.println(documento.getIdDocumento());
+		return documento;
 	}
 	
     
