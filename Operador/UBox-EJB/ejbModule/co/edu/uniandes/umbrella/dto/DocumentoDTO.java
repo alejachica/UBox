@@ -6,6 +6,11 @@ import java.math.BigDecimal;
 public class DocumentoDTO {
 	
 	private int idDocumento;
+	
+	private int fkCarpeta;
+	
+	private int fkUsuario;
+	
 	private byte[] documento;
 	private String fecha;
 	private byte firmado;
@@ -29,6 +34,22 @@ public class DocumentoDTO {
 
 	public void setIdDocumento(int idDocumento) {
 		this.idDocumento = idDocumento;
+	}
+
+	public int getFkCarpeta() {
+		return fkCarpeta;
+	}
+
+	public void setFkCarpeta(int fkCarpeta) {
+		this.fkCarpeta = fkCarpeta;
+	}
+
+	public int getFkUsuario() {
+		return fkUsuario;
+	}
+
+	public void setFkUsuario(int fkUsuario) {
+		this.fkUsuario = fkUsuario;
 	}
 
 	public byte[] getDocumento() {
