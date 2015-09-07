@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import co.edu.uniandes.umbrella.dto.CarpetaDTO;
 import co.edu.uniandes.umbrella.entidades.Carpeta;
 import co.edu.uniandes.umbrella.entidades.Documento;
+import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 
@@ -25,6 +26,31 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 		
 		entityManager.persist(carpeta);			
 	}
+	
+	/**
+     * Metodo para crear una carpeta y persistirla en BD
+     * @param carpetaDTO
+     * @param idUsuario
+     */
+    public void crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario)throws Exception {
+    	try{
+	        Carpeta carpeta = new Carpeta();
+	        carpeta.setNombreCarpeta(carpetaDTO.getNombreCarpeta());
+	        carpeta.setDescripcion(carpetaDTO.getDescripcion());
+	        if(carpetaDTO.getCarpetaPadre() != -1){
+		        Query query = entityManager.createNamedQuery("Carpeta.findById", Carpeta.class).setParameter("idCarpeta", carpetaDTO.getIdCarpeta());
+		        Carpeta carpetaEncontrada = (Carpeta) query.getSingleResult();
+		        carpeta.addCarpeta(carpetaEncontrada);
+	        }
+	        Query query = entityManager.createNamedQuery("Usuario.findById", Usuario.class).setParameter("idUsuario", idUsuario);
+	        Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
+	        carpeta.setUsuario(usuarioEncontrado);
+	        entityManager.persist(carpeta);
+    	}
+	    catch(Exception e){
+	    	throw new Exception("Fallo persistiendo la carpeta");
+	    }
+    }
 
 	@Override
 	public Carpeta consultarCarpetao(String id) {
@@ -33,6 +59,18 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 		Carpeta carpeta = (Carpeta) query.getSingleResult();
 		System.out.println(carpeta.getIdCarpeta());
 		return carpeta;
+	}
+	
+	@Override
+	public void eliminarCarpeta(int idCarpeta) throws Exception {
+		try{
+			Query query = entityManager.createNamedQuery("Carpeta.findByID", Carpeta.class).setParameter("idCarpeta", idCarpeta);
+	        Carpeta carpetaEliminar = (Carpeta) query.getSingleResult();
+	        entityManager.remove(carpetaEliminar);
+		}
+		catch(Exception e){
+			throw new Exception("Fallo eliminado la carpeta");
+		}
 	}
 	
 
