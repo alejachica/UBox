@@ -11,10 +11,4 @@ import co.edu.uniandes.umbrella.entidades.Documento;
 @Local
 public interface DocumentosEJBLocal {
 	
-	public void crearDocumento(DocumentoDTO documentoDTO) throws Exception;
-	
-	Documento consultarDocumento(String id);
-	
-	List<Documento> listarDocumentosUsuario(String id);
-	
 }
