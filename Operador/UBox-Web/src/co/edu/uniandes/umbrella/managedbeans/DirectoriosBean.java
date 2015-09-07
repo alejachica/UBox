@@ -41,7 +41,7 @@ public class DirectoriosBean {
 		try{
 		CarpetaDTO carpetaDTO = new CarpetaDTO();
 		carpetaDTO.setDescripcion(descripcion);
-		carpetaDTO.setNombre(nombre);
+		carpetaDTO.setNombreCarpeta(nombre);
 		carpeta.crearCarpeta(carpetaDTO, 3);
 		}
 		catch(Exception e){
