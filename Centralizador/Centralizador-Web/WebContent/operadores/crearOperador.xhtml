@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html" 
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" >
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 </h:head>
@@ -15,6 +14,9 @@
 <h:body>
 <f:view>
 		<h:form>
+		<h:outputLabel value="Crear operador" />
+		<h:commandButton   value="boton" 
+					action="#{crearOperadorBean.crearOperador}" />
 		</h:form>
 	</f:view>
 </h:body>

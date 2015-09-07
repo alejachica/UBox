@@ -2,55 +2,53 @@ package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 
 /**
- * The persistent class for the contrato_operador database table.
+ * The persistent class for the CONTRATO_OPERADOR database table.
  * 
  */
 @Entity
-@Table(name="contrato_operador")
+@Table(name="CONTRATO_OPERADOR")
 @NamedQuery(name="ContratoOperador.findAll", query="SELECT c FROM ContratoOperador c")
 public class ContratoOperador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_operador", unique=true, nullable=false, precision=10, scale=2)
-	private long idOperador;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="nro_contrato")
+	private long nroContrato;
 
-	@Column(nullable=false, precision=10, scale=2)
-	private BigDecimal estado;
+	private int estado;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_fin")
 	private Date fechaFin;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_inicio", nullable=false)
+	@Column(name="fecha_inicio")
 	private Date fechaInicio;
 
-	@Column(name="nro_contrato", nullable=false, precision=10, scale=2)
-	private BigDecimal nroContrato;
+	@Column(name="id_operador")
+	private int idOperador;
 
 	public ContratoOperador() {
 	}
 
-	public long getIdOperador() {
-		return this.idOperador;
+	public long getNroContrato() {
+		return this.nroContrato;
 	}
 
-	public void setIdOperador(long idOperador) {
-		this.idOperador = idOperador;
+	public void setNroContrato(long nroContrato) {
+		this.nroContrato = nroContrato;
 	}
 
-	public BigDecimal getEstado() {
+	public int getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(BigDecimal estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 
@@ -70,12 +68,12 @@ public class ContratoOperador implements Serializable {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public BigDecimal getNroContrato() {
-		return this.nroContrato;
+	public int getIdOperador() {
+		return this.idOperador;
 	}
 
-	public void setNroContrato(BigDecimal nroContrato) {
-		this.nroContrato = nroContrato;
+	public void setIdOperador(int idOperador) {
+		this.idOperador = idOperador;
 	}
 
 }

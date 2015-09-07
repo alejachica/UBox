@@ -1,50 +1,47 @@
 package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
-import java.math.BigDecimal;
 import java.util.Date;
 
 
 /**
- * The persistent class for the historico_operadores_usuario database table.
+ * The persistent class for the HISTORICO_OPERADORES_USUARIO database table.
  * 
  */
 @Entity
-@Table(name="historico_operadores_usuario")
+@Table(name="HISTORICO_OPERADORES_USUARIO")
 @NamedQuery(name="HistoricoOperadoresUsuario.findAll", query="SELECT h FROM HistoricoOperadoresUsuario h")
 public class HistoricoOperadoresUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
-//	@Column
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-//	private BigDecimal idHistoricoOperadorUsuario;
-	
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date fecha;
-	
+
 	@Id
-	@Column(name="id_historico", nullable=false, precision=10, scale=2)
-	private BigDecimal idHistorico;
+	@Column(name="id_historico")
+	private int idHistorico;
 
-	@Column(name="id_operador_destino", precision=10, scale=2)
-	private BigDecimal idOperadorDestino;
+	@Column(name="id_tipo_operacion")
+	private int idTipoOperacion;
 
-	@Column(name="id_operador_origen", nullable=false, precision=10, scale=2)
-	private BigDecimal idOperadorOrigen;
-
-	@Column(name="id_tipo_operacion", nullable=false, precision=10, scale=2)
-	private BigDecimal idTipoOperacion;
-
-	@Column(name="id_usuario", nullable=false, precision=10, scale=2)
-	private BigDecimal idUsuario;
-
-	@Column(name="num_formulario", nullable=false, length=50)
+	@Column(name="num_formulario")
 	private String numFormulario;
+
+	//bi-directional many-to-one association to Operador
+	@ManyToOne
+	@JoinColumn(name="id_operador_destino")
+	private Operador operador1;
+
+	//bi-directional many-to-one association to Operador
+	@ManyToOne
+	@JoinColumn(name="id_operador_origen")
+	private Operador operador2;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
 
 	public HistoricoOperadoresUsuario() {
 	}
@@ -57,44 +54,20 @@ public class HistoricoOperadoresUsuario implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public BigDecimal getIdHistorico() {
+	public int getIdHistorico() {
 		return this.idHistorico;
 	}
 
-	public void setIdHistorico(BigDecimal idHistorico) {
+	public void setIdHistorico(int idHistorico) {
 		this.idHistorico = idHistorico;
 	}
 
-	public BigDecimal getIdOperadorDestino() {
-		return this.idOperadorDestino;
-	}
-
-	public void setIdOperadorDestino(BigDecimal idOperadorDestino) {
-		this.idOperadorDestino = idOperadorDestino;
-	}
-
-	public BigDecimal getIdOperadorOrigen() {
-		return this.idOperadorOrigen;
-	}
-
-	public void setIdOperadorOrigen(BigDecimal idOperadorOrigen) {
-		this.idOperadorOrigen = idOperadorOrigen;
-	}
-
-	public BigDecimal getIdTipoOperacion() {
+	public int getIdTipoOperacion() {
 		return this.idTipoOperacion;
 	}
 
-	public void setIdTipoOperacion(BigDecimal idTipoOperacion) {
+	public void setIdTipoOperacion(int idTipoOperacion) {
 		this.idTipoOperacion = idTipoOperacion;
-	}
-
-	public BigDecimal getIdUsuario() {
-		return this.idUsuario;
-	}
-
-	public void setIdUsuario(BigDecimal idUsuario) {
-		this.idUsuario = idUsuario;
 	}
 
 	public String getNumFormulario() {
@@ -105,12 +78,28 @@ public class HistoricoOperadoresUsuario implements Serializable {
 		this.numFormulario = numFormulario;
 	}
 
-//	public BigDecimal getIdHistoricoOperadorUsuario() {
-//		return idHistoricoOperadorUsuario;
-//	}
-//
-//	public void setIdHistoricoOperadorUsuario(BigDecimal idHistoricoOperadorUsuario) {
-//		this.idHistoricoOperadorUsuario = idHistoricoOperadorUsuario;
-//	}
+	public Operador getOperador1() {
+		return this.operador1;
+	}
+
+	public void setOperador1(Operador operador1) {
+		this.operador1 = operador1;
+	}
+
+	public Operador getOperador2() {
+		return this.operador2;
+	}
+
+	public void setOperador2(Operador operador2) {
+		this.operador2 = operador2;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 }

@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" >
-<h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-</h:head>
-<f:loadBundle basename="main.resources.application" var="msg"/>
-<!--  
-<title><h:outputText value="#{msg.welcomeTitle}" /></title>
--->
-<h:body>
-<f:view>
-		<h:form>
+	template="/templates/page-template.xhtml">
+
+<ui:define name="title">Entrar a Ubox</ui:define>
+<ui:define name="bodyContent">
+<h:form>
+			<h:inputText id="usuario" maxlength="50" value="#{LoginBean.usuario}"></h:inputText>
+			<h:inputText id="clave" maxlength="20" value="#{LoginBean.clave}" type="password"></h:inputText>
+			<h:outputLabel id="error" value="#{LoginBean.error}" class="alert alert-danger"></h:outputLabel>
+			<h:commandButton id="btnSend" value="submit" action="#{LoginBean.validarAutenticacion}"></h:commandButton>
 		</h:form>
-	</f:view>
-</h:body>
-</html>
+
+
+</ui:define>
+
+</ui:composition>

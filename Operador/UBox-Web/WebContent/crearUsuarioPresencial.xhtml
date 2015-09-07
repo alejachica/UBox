@@ -1,0 +1,445 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/templateAdmin.xhtml">
+
+<ui:define name="title">Registro de Usuario</ui:define>
+
+<ui:define name="bodyContent">
+  <div class="row">
+    <div class="box col-md-12">
+    <div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-edit"></i> Registro de Datos</h2>
+
+        <div class="box-icon">
+            <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                    class="glyphicon glyphicon-chevron-up"></i></a>
+            <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+    
+    
+    
+    <table width="100%">
+					<tr>
+						<td colspan="4">
+							<div class="pull-right">
+								<h4>Formulario N° 458</h4>
+							</div>
+						</td>
+					</tr>
+					
+					<tr style="border-top:groove">
+						<td width="">Tipo Documento:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Cédula Ciudadanía</option>
+									<option>Cédula Extranjería</option>
+									<option>Tarjeta de Identidad</option>
+									<option>Registro Civil</option>
+									<option>Pasaporte</option>
+									<option>Carné Diplomático</option>
+								</select>
+							</div>
+						</td>
+						<td>Número Documento:</td>
+						<td>
+							 <input type="text" class="form-control" id="inputSuccess1" size="20px"/>
+						</td>
+						
+					</tr>
+					
+					<tr >
+						<td>Departamento de Expedición del Documento:
+						</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Amazonas</option>
+									<option>Bolívar</option>
+									<option>Casanare</option>
+									<option>Cundinamarca</option>
+									<option>Magdalena</option>
+									<option>Putumayo</option>
+								</select>
+							</div>
+						</td>						
+						<td>Municipio de Expedición del Documento:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Abejorral</option>
+									<option>Bello</option>
+									<option>Caceres</option>
+									<option>Envigado</option>
+									<option>La Estrella</option>
+									<option>Sabaneta</option>
+								</select>
+							</div>
+						</td>						
+					</tr>
+					
+					<tr style="border-bottom:groove">
+						<td>Fecha de Expedición del Documento:</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px" placeholder="yyyy/MM/dd"/>
+						</td>	
+						<td></td>
+						<td>			
+						</td>						
+					</tr>
+					
+				</table>
+    
+    			<table>
+					<tr>
+						<td>Primer Nombre:</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>
+						</td>
+						<td>Segundo Nombre:</td>
+						<td>	
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>		
+						</td>			
+					</tr>	
+					<tr>
+						<td>Primer Apellido:</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>
+						</td>
+						<td>Segundo Apellido:</td>
+						<td>	
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>		
+						</td>						
+					</tr>	
+    			</table>
+    			
+    			
+    			<table width="100%">
+					<tr style="border-top:groove">
+						<td>Genero:</td>
+						<td>
+							<div class="radio">
+								<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="checked" />
+									Femenino
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"/>
+									Masculino
+								</label>
+							</div>
+						</td>
+						<td>Fecha de Nacimiento:</td>
+						<td>	
+							<input type="text" class="form-control" id="inputSuccess1" size="20px" placeholder="yyyy/MM/dd"/>		
+						</td>		
+						<td>Departamento de Nacimiento:
+						</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Amazonas</option>
+									<option>Bolívar</option>
+									<option>Casanare</option>
+									<option>Cundinamarca</option>
+									<option>Magdalena</option>
+									<option>Putumayo</option>
+								</select>
+							</div>
+						</td>	
+					</tr>
+					<tr>
+						<td>Municipio de Nacimiento:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Abejorral</option>
+									<option>Bello</option>
+									<option>Caceres</option>
+									<option>Envigado</option>
+									<option>La Estrella</option>
+									<option>Sabaneta</option>
+								</select>
+							</div>
+						</td>		
+						<td>Nacionalidad:</td>
+						<td>	
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Argentino</option>
+									<option>Chileno</option>
+									<option>Colombiano</option>
+									<option>Uruguayo</option>
+									<option>Ecuatoriano</option>
+								</select>
+							</div>
+						</td>						
+					</tr>	
+			</table>
+			
+			
+			<table width="100%">
+					<tr style="border-top:groove">
+						<td>Departamento Residencia:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Amazonas</option>
+									<option>Bolívar</option>
+									<option>Casanare</option>
+									<option>Cundinamarca</option>
+									<option>Magdalena</option>
+									<option>Putumayo</option>
+								</select>
+							</div>
+						</td>
+						<td>Municipio Residencia:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Abejorral</option>
+									<option>Bello</option>
+									<option>Caceres</option>
+									<option>Envigado</option>
+									<option>La Estrella</option>
+									<option>Sabaneta</option>
+								</select>
+							</div>
+						</td>			
+						<td>Dirección Residencia:
+						</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>
+						</td>	
+					</tr>	
+					<tr>
+						<td>Departamento Correspondencia:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Amazonas</option>
+									<option>Bolívar</option>
+									<option>Casanare</option>
+									<option>Cundinamarca</option>
+									<option>Magdalena</option>
+									<option>Putumayo</option>
+								</select>
+							</div>
+						</td>
+						<td>Municipio Correspondencia:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Abejorral</option>
+									<option>Bello</option>
+									<option>Caceres</option>
+									<option>Envigado</option>
+									<option>La Estrella</option>
+									<option>Sabaneta</option>
+								</select>
+							</div>
+						</td>			
+						<td>Dirección Correspondencia:
+						</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>
+						</td>	
+					</tr>						
+				</table>
+				
+				
+				
+				
+				
+				
+				
+				<table width="100%">
+					<tr style="border-top:groove">
+						<td>Teléfono:</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>
+						</td>
+						<td>Correo Electrónico:</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px"/>
+						</td>			
+						<td>Estado Civil:
+						</td>
+						<td>
+							<div class="radio">
+								<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="checked" />
+									Soltero
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
+									Casado
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
+									Viudo
+								</label>
+							</div>
+						</td>	
+					</tr>	
+					<tr style="border-bottom:groove">
+						<td>Departamento Sitio Laboral:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Amazonas</option>
+									<option>Bolívar</option>
+									<option>Casanare</option>
+									<option>Cundinamarca</option>
+									<option>Magdalena</option>
+									<option>Putumayo</option>
+								</select>
+							</div>
+						</td>
+						<td>Municipio Sitio Laboral:</td>
+						<td>
+							<div class="controls">
+								<select id="selectError" data-rel="chosen">
+									<option>Abejorral</option>
+									<option>Bello</option>
+									<option>Caceres</option>
+									<option>Envigado</option>
+									<option>La Estrella</option>
+									<option>Sabaneta</option>
+								</select>
+							</div>
+						</td>			
+						<td>Dirección Sitio Laboral:
+						</td>
+						<td>
+							<input type="text" class="form-control" id="inputSuccess1" size="20px" />
+						</td>	
+					</tr>	
+					<tr>
+						<td colspan="6"><br/>
+						
+						<h:form>
+							<h:commandButton   value="boton" 
+								action="#{registrarUsuarioBean.registrarUsuario}" />
+							</h:form>						
+						</td>
+					</tr>
+										
+				</table>
+			
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    </div>
+    </div>
+    <!--/span-->
+
+    </div><!--/row-->
+</ui:define>
+
+
+    <!-- Ad, you can remove it -->
+    <div class="row">
+        <div class="col-md-9 col-lg-9 col-xs-9  hidden-xs">
+<!--             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<!--             Charisma Demo 2 -->
+<!--             <ins class="adsbygoogle" -->
+<!--                  style="display:inline-block;width:728px;height:90px" -->
+<!--                  data-ad-client="ca-pub-5108790028230107" -->
+<!--                  data-ad-slot="3193373905"></ins> -->
+<!--             <script> -->
+//                 (adsbygoogle = window.adsbygoogle || []).push({});
+<!--             </script> -->
+        </div>
+        <div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 donate">
+            <div>
+                <small>Help development of Charisma</small>
+            </div>
+            <a class="btn btn-default" href="http://flattr.com/thing/1507720/usmanhalalitcharisma-on-GitHub"
+               target="_blank"><i class="glyphicon glyphicon-usd green"></i> Donate</a>
+        </div>
+
+    </div>
+    <!-- Ad ends -->
+
+    <hr />
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>Settings</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Here settings can be configured...</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="modalServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3 id="h3Info"></h3>
+			</div>
+			<div class="modal-body" id="divInfo">
+			</div>
+			<div id="footerfirmar" class="modal-footer">
+				<!--<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>-->
+			</div>
+		</div>
+	</div>
+  </div>
+
+</ui:composition>
