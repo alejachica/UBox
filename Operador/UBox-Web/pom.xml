@@ -42,6 +42,13 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
+		<!-- PRIMEFACES -->
+		<dependency>  
+		    <groupId>org.primefaces</groupId>  
+		    <artifactId>primefaces</artifactId>  
+		    <version>5.2</version>  
+		</dependency>
+		
 		<!-- SHIRO -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
