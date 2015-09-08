@@ -12,8 +12,8 @@ public interface DocumentosEJBRemote {
 	
 	public void crearDocumento(DocumentoDTO documentoDTO) throws Exception;
 	
-	Documento consultarDocumento(String id);
+	DocumentoDTO consultarDocumento(String id);
 	
-	List<Documento> listarDocumentosUsuario(String id);
+	List<DocumentoDTO> listarDocumentosUsuario(String id);
 	
 }

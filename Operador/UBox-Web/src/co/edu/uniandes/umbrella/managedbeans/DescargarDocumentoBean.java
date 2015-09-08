@@ -7,16 +7,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.model.UploadedFile;
+
+import co.edu.uniandes.umbrella.dto.DocumentoDTO;
+import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
+
 @ManagedBean
 @SessionScoped
 public class DescargarDocumentoBean implements Serializable{
 	
-	public void downloadFile() throws FileNotFoundException, IOException {
+	@EJB
+	private DocumentosEJBRemote documentosEJB;
+	
+	
+	public void downloadFile(String id) throws FileNotFoundException, IOException {
+		  
+		  //documentosEJB.consultarDocumento(id);
+		 
 	      File file = new File("C:\\docs\\instructions.txt");
 	      InputStream fis = new FileInputStream(file);
 	      byte[] buf = new byte[fis.available()];
