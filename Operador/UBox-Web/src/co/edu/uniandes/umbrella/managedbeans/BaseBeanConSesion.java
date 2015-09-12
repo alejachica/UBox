@@ -1,7 +1,7 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
-import umbrella.ubox.comun.ManejoSesiones;
-import umbrella.ubox.comun.UsuarioAutenticado;
+import umbrella.ubox.seguridad.ManejoSesiones;
+import umbrella.ubox.seguridad.UsuarioAutenticado;
 
 /***
  * Clase base para ser usada en los ManagedBeans que trabajan con sesion

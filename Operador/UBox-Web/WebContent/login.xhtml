@@ -6,12 +6,67 @@
 
 <ui:define name="title">Entrar a Ubox</ui:define>
 <ui:define name="bodyContent">
-<h:form>
-			<h:inputText id="usuario" maxlength="50" value="#{LoginBean.usuario}"></h:inputText>
-			<h:inputText id="clave" maxlength="20" value="#{LoginBean.clave}" type="password"></h:inputText>
-			<h:outputLabel id="error" value="#{LoginBean.error}" class="alert alert-danger"></h:outputLabel>
-			<h:commandButton id="btnSend" value="submit" action="#{LoginBean.validarAutenticacion}"></h:commandButton>
-		</h:form>
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<div class="row">
+				<div class="well col-md-5 pull-center login-box">
+				<div class="alert alert-info">
+					Si usted es un usuario registrado, ingrese su documento y su clave para ingresar.
+				</div>
+				<h:form>
+					<fieldset>
+			
+			
+			
+			
+			
+			
+					<div class="input-group input-group-lg">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+							<h:inputText id="usuario" maxlength="50" value="#{LoginBean.usuario}" placeholder="Usuario" class="form-control" ></h:inputText>
+						</div>
+						<div class="clearfix"></div><br></br>
+	
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+							<h:inputSecret id="clave" maxlength="20" value="#{LoginBean.clave}" type="password" class="form-control"  placeholder="Clave"></h:inputSecret>
+						</div>
+						<div class="clearfix"></div>
+	
+						<div class="input-prepend">
+							<label class="remember" for="remember"><input type="checkbox" id="remember"> Recordarme</input></label>
+						</div>
+						
+						<div></div>
+						<div class="center">
+						<h:outputLabel id="error" value="#{LoginBean.error}" class="alert alert-danger" rendered="#{LoginBean.error != null}"></h:outputLabel>
+						<a href="#">*Olvidé mi contraseña</a>
+						</div> 
+						
+						<p class="center col-md-5">
+							<h:commandButton id="btnSend" value="Entrar" class="btn btn-primary btn-lg" action="#{LoginBean.validarAutenticacion}"></h:commandButton>
+						</p>
+		
+		</fieldset>
+				</h:form>
+			</div>
+			</div>
+		
+		
+		
 
 
 </ui:define>

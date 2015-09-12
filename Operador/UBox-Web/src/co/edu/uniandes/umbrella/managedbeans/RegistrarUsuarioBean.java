@@ -6,36 +6,68 @@ import javax.faces.bean.ViewScoped;
 
 import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
+import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
+import umbrella.ubox.seguridad.FuncionesStormpath;
 
 @ManagedBean
 @ViewScoped
 public class RegistrarUsuarioBean {
+
+	public RegistrarUsuarioBean() {
+		this.usuario = new UsuarioDTO();
+	}
+
+	@EJB
+	private UsuarioEJBRemote usuarioEJB;
+
+	private UsuarioDTO usuario;
+
+	public UsuarioDTO getUsuario() {
+		return usuario;
+	}
 	
+	public void setUsuario(UsuarioDTO usuario)
+	{
+		this.usuario = usuario;
+	}
 
-@EJB
-private UsuarioEJBRemote usuario;
+	private String error;
 
-private UsuarioDTO usuarioDto;
+	public String getError() {
+		return error;
+	}
 
-	
+	public void setError(String error) {
+		this.error = error;
+	}
 
 	public String registrarUsuario() {
 
-		usuarioDto = new UsuarioDTO();
-		usuarioDto.setActivo((byte)1);
-		usuarioDto.setCorreo("usuario@email.com");
-		usuarioDto.setIdentificacion("1013587449");
-		usuarioDto.setLogin("ee.prado10");
-		usuarioDto.setPassword("123");
-		usuarioDto.setPrimerNombre("Nombre1");
-		usuarioDto.setSegundoNombre("Nombre1");
-		usuarioDto.setPrimerApellido("Apellido1");
-		usuarioDto.setSegundoApellido("Apellido1");
-		usuarioDto.setIdStormpath("id_stormpath_ale");
+		// usuarioDto = new UsuarioDTO();
+		this.usuario.setActivo((byte) 1);
+		this.usuario.setCorreo("usuario@email.com");
+		this.usuario.setIdentificacion("1013587449");
+		this.usuario.setLogin("ee.prado10");
+		this.usuario.setPassword("Temporal1");
+		this.usuario.setPrimerNombre("Erica");
+		this.usuario.setSegundoNombre("Nombre1");
+		this.usuario.setPrimerApellido("Apellido1");
+		this.usuario.setSegundoApellido("Apellido1");
+
+		//Realiza el registro en stormpath 
+		ResultadoOperacion respuesta = new FuncionesStormpath().crearUsuario(this.usuario.getPrimerNombre(),
+				this.usuario.getIdentificacion(), this.usuario.getCorreo(), this.usuario.getPassword());
 		
-		usuario.crearUsuario(usuarioDto);
-		
-		return "";
+
+		//Si quedó registrado, actualiza el id de strmpath y guarda el usuario
+		if (respuesta.isOperacionExitosa()) {
+			this.usuario.setIdStormpath(respuesta.getResultadoOperacion());
+			usuarioEJB.crearUsuario(this.usuario);
+			return "documentosPersonales.xhtml";
+		} else {
+			this.error = respuesta.getResultadoOperacion();
+			return "";
+		}
 	}
 
 }

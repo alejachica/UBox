@@ -1,4 +1,4 @@
-package umbrella.ubox.comun;
+package umbrella.ubox.seguridad;
 
 import java.util.Map;
 

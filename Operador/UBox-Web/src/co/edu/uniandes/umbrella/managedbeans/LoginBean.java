@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 
-import umbrella.ubox.comun.ManejoSesiones;
+import umbrella.ubox.seguridad.ManejoSesiones;
 
 @ManagedBean(name = "LoginBean")
 public class LoginBean implements Serializable {
@@ -43,16 +43,17 @@ public class LoginBean implements Serializable {
 			
 		}
 		
-		public void validarAutenticacion()
+		public String validarAutenticacion()
 		{
 			ManejoSesiones objSesion = new ManejoSesiones();
 			if(objSesion.validarAutenticacion(this.usuario,  this.clave, "127.0.0.1"))
 			{
-				//ES NECESARIO REALIZAR UNA REDIRECCIÓN
+				return "documentosPersonales.xhtml";
 			}
 			else
 			{
 				this.error = "Los datos son incorrectos";
+				return "";
 			}
 		}
 	
