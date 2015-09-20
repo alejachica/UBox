@@ -23,7 +23,7 @@ public class Plan implements Serializable {
 	private byte activo;
 
 	@Lob
-	private String características;
+	private String caracteristicas;
 
 	@Column(name="id_tipo_plan")
 	private BigDecimal idTipoPlan;
@@ -53,12 +53,12 @@ public class Plan implements Serializable {
 		this.activo = activo;
 	}
 
-	public String getCaracterísticas() {
-		return this.características;
+	public String getCaracteristicas() {
+		return this.caracteristicas;
 	}
 
-	public void setCaracterísticas(String características) {
-		this.características = características;
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
 	public BigDecimal getIdTipoPlan() {
