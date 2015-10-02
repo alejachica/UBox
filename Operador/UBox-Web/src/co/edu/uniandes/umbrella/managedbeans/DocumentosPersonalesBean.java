@@ -42,7 +42,7 @@ public class DocumentosPersonalesBean {
 	        	DocumentoDTO documentoDTO = new DocumentoDTO();
 	        	documentoDTO.setDocumento(file.getContents());
 	        	documentoDTO.setFecha("");
-	        	documentoDTO.setFirmado((byte)0);
+	        	documentoDTO.setFirmado(false);
 	        	documentoDTO.setFkCarpeta(1);
 	        	documentoDTO.setFkUsuario(3);
 	        	documentoDTO.setIdTipoDocumento(new BigDecimal(1));
@@ -50,7 +50,7 @@ public class DocumentosPersonalesBean {
 	        	documentoDTO.setNombre(file.getFileName());
 	        	documentoDTO.setPalabrasClave("archivo1");
 	        	documentoDTO.setVersion("version1");
-	        	documentoDTO.setPapelera((byte)0);
+	        	documentoDTO.setPapelera(false);
 	        	documentoDTO.setSize((int)file.getSize());
 	        	documentosEJB.crearDocumento(documentoDTO);
 	            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
