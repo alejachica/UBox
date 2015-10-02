@@ -3,23 +3,49 @@
  */
 package co.edu.uniandes.umbrella.managedbeans;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
+
 import co.edu.uniandes.umbrella.dto.CarpetaDTO;
+import co.edu.uniandes.umbrella.dto.DataTreeTable;
+import co.edu.uniandes.umbrella.dto.DocumentoDTO;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
+import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 
 @ManagedBean(name="directorioBean")
 public class DirectoriosBean {
 	
+	//-------------------ATRIBUTOS-------------------//
+	
 	@EJB
 	private CarpetaEJBRemote carpeta;
+	
+	@EJB
+	private DocumentosEJBRemote documento;
+	
+	private TreeNode root;
 	
 	private String descripcion;
 	
 	private String nombre;
+	
+	//-------------------METODOS GET Y SET-------------------//
+
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -36,7 +62,31 @@ public class DirectoriosBean {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
+	//-------------------OTROS METODOS-------------------//
+	
+	@PostConstruct
+	public void init(){
+		root = crearRoot();
+	}
+	
+	public TreeNode crearRoot(){
+		TreeNode root = new DefaultTreeNode(new DataTreeTable(), null);
+		try {
+			List<CarpetaDTO> carpetas = carpeta.carpetasXUsuario(3); //TODO manejo de usuario, quitar id quemado.
+			for(CarpetaDTO carp: carpetas){
+				TreeNode carpeta = new DefaultTreeNode(new DataTreeTable(carp.getIdCarpeta(), carp.getNombreCarpeta(), carp.getDescripcion(), null, "Folder"), root);
+				List<DocumentoDTO> docsDTO= documento.listarDocumentosCarpeta(carp.getIdCarpeta());
+				for(DocumentoDTO doc: docsDTO){
+					TreeNode docum = new DefaultTreeNode(new DataTreeTable(doc.getIdDocumento(), doc.getNombre(), null, Integer.toString(doc.getSize()), "Archivo"), carpeta);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return root;
+	}
+	
 	public void crearCarpeta(){
 		try{
 		CarpetaDTO carpetaDTO = new CarpetaDTO();
