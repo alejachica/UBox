@@ -1,5 +1,8 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -59,7 +62,6 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 		Query query
 		 = entityManager.createNamedQuery("Carpeta.findById", Documento.class).setParameter("idCarpeta", id);
 		Carpeta carpeta = (Carpeta) query.getSingleResult();
-		System.out.println(carpeta.getIdCarpeta());
 		return carpeta;
 	}
 	
@@ -75,5 +77,19 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 		}
 	}
 	
+	public List<CarpetaDTO> carpetasXUsuario(int idUsuario) throws Exception{
+		try{
+			Query query = entityManager.createNamedQuery("Carpeta.findByUserID", Carpeta.class).setParameter("idUsuario", idUsuario);
+			List<Carpeta> listaCarpeta = query.getResultList();
+			List<CarpetaDTO> listaCarpetaDTO = new ArrayList<CarpetaDTO>();
+			for(Carpeta lista : listaCarpeta){
+				listaCarpetaDTO.add(new CarpetaDTO(lista.getIdCarpeta(),lista.getDescripcion(), lista.getNombreCarpeta()));
+			}
+			return listaCarpetaDTO;
+		}
+		catch(Exception e){
+			throw new Exception("Fallo eliminado la carpeta");
+		}
+	}
 
 }
