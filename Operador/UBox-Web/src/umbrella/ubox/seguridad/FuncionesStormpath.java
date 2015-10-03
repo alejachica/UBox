@@ -87,6 +87,8 @@ public class FuncionesStormpath {
 			//Poner todos los errrores posibles
 			if(error.indexOf("Account password minimum length not satisfied") > 0)
 				error = "La clave es demasiado corta, intente con una más compleja";
+			else if(error.indexOf("Account with that username already exists") > 0)
+				error = "Este documento ya se encuentra registrado";
 			else if(error.indexOf("Account email address cannot be null, empty, or blank") > 0)
 				error = "El correo es invalido";
 			else if(error.indexOf("Account with that email already exists.  Please choose another email") > 0)

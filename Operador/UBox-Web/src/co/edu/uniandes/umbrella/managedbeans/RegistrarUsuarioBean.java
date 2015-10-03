@@ -1,5 +1,9 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -44,10 +48,16 @@ public class RegistrarUsuarioBean {
 	public String registrarUsuario() {
 
 		// usuarioDto = new UsuarioDTO();
+		DateFormat dateFormat = new SimpleDateFormat("ss");
+		Calendar cal = Calendar.getInstance();
+		String segundosPrueba = dateFormat.format(cal.getTime()); //2014/08/06 16:00:22
+		
+
+		
 		this.usuario.setActivo((byte) 1);
-		this.usuario.setCorreo("usuario@email.com");
-		this.usuario.setIdentificacion("1013587449");
-		this.usuario.setLogin("ee.prado10");
+		this.usuario.setCorreo("usuario"+segundosPrueba+"@email.com");
+		this.usuario.setIdentificacion("1013587449"+segundosPrueba);
+		this.usuario.setLogin("ee.prado"+segundosPrueba);
 		this.usuario.setPassword("Temporal1");
 		this.usuario.setPrimerNombre("Erica");
 		this.usuario.setSegundoNombre("Nombre1");
