@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
-import co.edu.uniandes.umbrella.entidades.Documento;
 
 @Remote
 public interface DocumentosEJBRemote {
