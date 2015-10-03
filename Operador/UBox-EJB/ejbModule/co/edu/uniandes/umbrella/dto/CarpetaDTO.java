@@ -1,11 +1,14 @@
 package co.edu.uniandes.umbrella.dto;
 
+import java.util.List;
+
 public class CarpetaDTO {
 	
 	private int idCarpeta;
 	private String descripcion;
 	private String nombreCarpeta;
 	private int carpetaPadre = -1;
+	private List<DocumentoDTO> documentos;
 	
 	public CarpetaDTO(){
 	}
@@ -47,6 +50,14 @@ public class CarpetaDTO {
 
 	public void setCarpetaPadre(int carpetaPadre) {
 		this.carpetaPadre = carpetaPadre;
+	}
+
+	public List<DocumentoDTO> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<DocumentoDTO> documentos) {
+		this.documentos = documentos;
 	}
 	
 }

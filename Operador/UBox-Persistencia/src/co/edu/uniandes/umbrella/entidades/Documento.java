@@ -14,7 +14,8 @@ import java.util.List;
 @NamedQueries({ 
 	@NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"), 
 	@NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d where d.idDocumento = :id"),
-	@NamedQuery(name = "Documento.findByUsuario", query = "SELECT d FROM Documento d where d.usuario.idUsuario  = :idUsuario") 
+	@NamedQuery(name = "Documento.findByUsuario", query = "SELECT d FROM Documento d where d.usuario.idUsuario = :idUsuario"),
+	@NamedQuery(name = "Documento.findByCarpeta", query = "SELECT d FROM Documento d where d.carpeta.idCarpeta = :idCarpeta")
 })
 
 public class Documento implements Serializable {
@@ -30,7 +31,7 @@ public class Documento implements Serializable {
 
 	private String fecha;
 
-	private byte firmado;
+	private boolean firmado;
 
 	@Column(name="id_tipo_documento")
 	private BigDecimal idTipoDocumento;
@@ -43,7 +44,7 @@ public class Documento implements Serializable {
 	@Column(name="palabras_clave")
 	private String palabrasClave;
 
-	private byte papelera;
+	private boolean papelera;
 
 	private String ruta;
 
@@ -104,11 +105,11 @@ public class Documento implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public byte getFirmado() {
+	public boolean getFirmado() {
 		return this.firmado;
 	}
 
-	public void setFirmado(byte firmado) {
+	public void setFirmado(boolean firmado) {
 		this.firmado = firmado;
 	}
 
@@ -144,11 +145,11 @@ public class Documento implements Serializable {
 		this.palabrasClave = palabrasClave;
 	}
 
-	public byte getPapelera() {
+	public boolean getPapelera() {
 		return this.papelera;
 	}
 
-	public void setPapelera(byte papelera) {
+	public void setPapelera(boolean papelera) {
 		this.papelera = papelera;
 	}
 

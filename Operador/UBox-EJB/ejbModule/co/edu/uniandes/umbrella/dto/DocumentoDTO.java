@@ -13,12 +13,12 @@ public class DocumentoDTO {
 	
 	private byte[] documento;
 	private String fecha;
-	private byte firmado;
+	private boolean firmado;
 	private BigDecimal idTipoDocumento;
 	private String idTipoMime;
 	private String nombre;
 	private String palabrasClave;
-	private byte papelera;
+	private boolean papelera;
 	private String ruta;
 	private int size;
 	private String version;
@@ -68,11 +68,11 @@ public class DocumentoDTO {
 		this.fecha = fecha;
 	}
 
-	public byte getFirmado() {
+	public boolean getFirmado() {
 		return firmado;
 	}
 
-	public void setFirmado(byte firmado) {
+	public void setFirmado(boolean firmado) {
 		this.firmado = firmado;
 	}
 
@@ -108,11 +108,11 @@ public class DocumentoDTO {
 		this.palabrasClave = palabrasClave;
 	}
 
-	public byte getPapelera() {
+	public boolean getPapelera() {
 		return papelera;
 	}
 
-	public void setPapelera(byte papelera) {
+	public void setPapelera(boolean papelera) {
 		this.papelera = papelera;
 	}
 

@@ -24,9 +24,8 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	private EntityManager entityManager;
 
 	/**
-     * Metodo para crear una carpeta y persistirla en BD
-     * @param carpetaDTO
-     * @param idUsuario
+     * Metodo para crear una documento y persistirlo en BD
+     * @param documentoDTO
      */
 	public void crearDocumento(DocumentoDTO documentoDTO) throws Exception{
     	try{
@@ -55,15 +54,10 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	    }
     }
 
-	public DocumentoDTO consultarDocumento(String id) {
-		
+	public DocumentoDTO consultarDocumento(int id) {
 		DocumentoDTO docDTO = new DocumentoDTO();
-		
-		Query query
-		 = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", id);
+		Query query = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", id);
 		Documento documento = (Documento) query.getSingleResult();
-		//System.out.println(documento.getIdDocumento());
-		
 		docDTO.setDocumento(documento.getDocumento());
 		docDTO.setFecha(documento.getFecha());
 		docDTO.setFirmado(documento.getFirmado());
@@ -83,11 +77,8 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 
 	@Override
 	public List<DocumentoDTO> listarDocumentosUsuario(String id) {
-		
 		List<DocumentoDTO> docDTOList = new ArrayList<DocumentoDTO>();
-		
-		Query query
-		 = entityManager.createNamedQuery("Documento.findByUsuario ", Documento.class).setParameter("idUsuario", id);
+		Query query = entityManager.createNamedQuery("Documento.findByUsuario", Documento.class).setParameter("idUsuario", id);
 		List<Documento> documento =  (List<Documento>) query.getSingleResult();
 		
 		for(int i = 0; i< documento.size();i++){
@@ -112,7 +103,32 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		//System.out.println(documento.getIdDocumento());
 		return docDTOList;
 	}
-	
-    
+
+	@Override
+	public List<DocumentoDTO> listarDocumentosCarpeta(int id) {
+		List<DocumentoDTO> docDTOList = new ArrayList<DocumentoDTO>();
+		Query query = entityManager.createNamedQuery("Documento.findByCarpeta", Documento.class).setParameter("idCarpeta", id);
+		List<Documento> documento =  (List<Documento>) query.getResultList();
+		for(int i = 0; i< documento.size();i++){
+			DocumentoDTO docDTO = new DocumentoDTO();
+			docDTO.setDocumento(documento.get(i).getDocumento());
+			docDTO.setFecha(documento.get(i).getFecha());
+			docDTO.setFirmado(documento.get(i).getFirmado());
+			docDTO.setFkCarpeta(documento.get(i).getCarpeta().getIdCarpeta());
+			docDTO.setFkUsuario(documento.get(i).getUsuario().getIdUsuario());
+			docDTO.setIdDocumento(documento.get(i).getIdDocumento());
+			docDTO.setIdTipoDocumento(documento.get(i).getIdTipoDocumento());
+			docDTO.setIdTipoMime(documento.get(i).getIdTipoMime());
+			docDTO.setNombre(documento.get(i).getNombre());
+			docDTO.setPalabrasClave(documento.get(i).getPalabrasClave());
+			docDTO.setPapelera(documento.get(i).getPapelera());
+			docDTO.setRuta(documento.get(i).getRuta());
+			docDTO.setSize(documento.get(i).getSize());
+			docDTO.setVersion(documento.get(i).getVersion());
+			docDTOList.add(docDTO);
+			
+		}
+		return docDTOList;
+	}
 
 }

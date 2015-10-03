@@ -1,146 +1,128 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/templates/page-template.xhtml">
 
-<ui:define name="title">Documentos Personales</ui:define>
+	<ui:define name="title">Directorio documentos</ui:define>
 
-<ui:define name="bodyContent">
-  <div class="row">
-    <div class="box col-md-12">
-    <div class="box-inner">
-    <div class="box-header well" data-original-title="">
-        <h2><i class="glyphicon glyphicon-user"></i> Docs Personales</h2>
-
-        <div class="box-icon">
-            <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
-            <a href="#" class="btn btn-minimize btn-round btn-default"><i
-                    class="glyphicon glyphicon-chevron-up"></i></a>
-            <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
-        </div>
-    </div>
-    <div class="box-content">
-    
-    <div class="alert alert-info">
-                        <!--
-                        <label for="exampleInputFile">Subir Archivo</label>
-                        <input type="file" id="exampleInputFile">
-                        <a  class="btn" href="#">
-                            <i class=" glyphicon glyphicon-download-alt icon-white"></i>
-                             
-                             Cargar
-                        </a>
-                        <p class="help-block">Example block-level help text here.</p>
-                        -->
-        <table class="table">
-            <!--
-            <thead>
-                
-                <tr>
-                    <th>Subir Archivo</th>
-                    <th>Crear Carpeta</th>
-                    <th>Borrar Carpeta</th>
-                </tr>
-            </thead>
-            -->
-            <tbody>
-                <tr>
-                    <td>
-                        <a  class="btn" href="#">
-                            <i class=" glyphicon glyphicon-download-alt icon-white"></i>
-                             Cargar Documento
-                        </a>
-                        <input type="file" id="exampleInputFile" />
-                        
-                    </td>
-                    <td>
-                        <a  class="btn" href="#">
-                            <i class=" glyphicon glyphicon-ok"></i>
-                             Crear Carpeta
-                        </a>
-                        <input type="text" />
-                        
-                    </td>
-                    
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--    tabla           -->
-    <div id="cargarTablaPersonales">
-        
-        
-    </div>
-    </div>
-    </div>
-    </div>
-    <!--/span-->
-
-    </div><!--/row-->
-</ui:define>
-
-
-    <!-- Ad, you can remove it -->
-    <div class="row">
-        <div class="col-md-9 col-lg-9 col-xs-9  hidden-xs">
-<!--             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-<!--             Charisma Demo 2 -->
-<!--             <ins class="adsbygoogle" -->
-<!--                  style="display:inline-block;width:728px;height:90px" -->
-<!--                  data-ad-client="ca-pub-5108790028230107" -->
-<!--                  data-ad-slot="3193373905"></ins> -->
-<!--             <script> -->
-//                 (adsbygoogle = window.adsbygoogle || []).push({});
-<!--             </script> -->
-        </div>
-        <div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 donate">
-            <div>
-                <small>Help development of Charisma</small>
-            </div>
-            <a class="btn btn-default" href="http://flattr.com/thing/1507720/usmanhalalitcharisma-on-GitHub"
-               target="_blank"><i class="glyphicon glyphicon-usd green"></i> Donate</a>
-        </div>
-
-    </div>
-    <!-- Ad ends -->
-
-    <hr />
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h3>Settings</h3>
-                </div>
-                <div class="modal-body">
-                    <p>Here settings can be configured...</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal fade" id="modalServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3 id="h3Info"></h3>
+	<ui:define name="bodyContent">
+		<div class="row">
+			<div class="box col-md-12">
+				<div class="box-inner">
+					<div class="box-header well" data-original-title="">
+					    <h2><i class="glyphicon glyphicon-user"></i>Directorio documentos</h2>
+					    <div class="box-icon">
+					        <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+					        <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+					        <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+					    </div>
+					</div>
+					<div class="box-content">
+						<div class="alert alert-info">
+						    <table class="table">
+						        <tbody>
+						            <tr>
+						                <td>
+						                    <a  class="btn" href="#">
+						                        <i class=" glyphicon glyphicon-download-alt icon-white"></i>
+						                         Cargar Documento
+						                    </a>
+						                    <input type="file" id="exampleInputFile" />
+						                </td>
+						                <td>
+						                    <a  class="btn" href="#">
+						                        <i class=" glyphicon glyphicon-ok"></i>
+						                         Crear Carpeta
+						                    </a>
+						                    <input type="text" />
+						                </td>
+						            </tr>
+						        </tbody>
+						    </table>
+						</div>
+						<h:form id="form">
+						    <p:treeTable value="#{directorioBean.root}" var="carpeta">
+						        <f:facet name="header">
+						            Directorio
+						        </f:facet>
+						        <p:column headerText="Nombre">
+						            <h:outputText value="#{carpeta.nombre}" />
+						        </p:column>
+						        <p:column headerText="Descripcion">
+						            <h:outputText value="#{carpeta.descripcion}" />
+						        </p:column>
+							    <p:column rendered="#{carpeta.type eq 'Folder'}">
+						        		<a  class="btn" href="#">
+					                        <i class=" glyphicon glyphicon-download-alt icon-white"></i>Cargar Documento
+						                </a>
+						                <a  class="btn" href="#">
+					                        <i class=" glyphicon glyphicon-ok"></i>Crear Carpeta
+					                    </a>
+					            </p:column>
+					        	<p:column rendered="#{carpeta.type == 'Archivo'}">
+					        		<a  class="btn" href="#">
+				                        <i class=" glyphicon glyphicon-ok"></i>Eliminar Documento
+				                    </a>
+					        	</p:column>
+						        
+						        <!--p:column style="width:24px">
+						            <p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+						                <f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" />
+						            </p:commandLink>
+						        </p:column-->
+						    </p:treeTable>
+						 
+						    <!--p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+						        <p:outputPanel id="documentPanel">
+						            <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty ttBasicView.selectedDocument}">
+						                <h:outputLabel for="name" value="Name: " />
+						                <h:outputText id="name" value="#{ttBasicView.selectedDocument.name}" style="font-weight:bold" />
+						 
+						                <h:outputLabel for="size" value="Size: " />
+						                <h:outputText id="size" value="#{ttBasicView.selectedDocument.size}" style="font-weight:bold" />
+						 
+						                <h:outputLabel for="type" value="Type " />
+						                <h:outputText id="type" value="#{ttBasicView.selectedDocument.type}" style="font-weight:bold" />
+						            </p:panelGrid>
+						        </p:outputPanel>
+						    </p:dialog-->
+						</h:form>
+					</div>
+				</div>
 			</div>
-			<div class="modal-body" id="divInfo">
-			</div>
-			<div id="footerfirmar" class="modal-footer">
-				<!--<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>-->
-			</div>
-		</div>
-	</div>
-  </div>
-
+	    </div>
+	</ui:define>
 </ui:composition>
+
+
+<!--?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+</h:head>
+<f:loadBundle basename="main.resources.application" var="msg"/-->
+<!--  
+<title><h:outputText value="#{msg.welcomeTitle}" /></title>
+-->
+<!--h:body>
+	<h:form>
+	<h:inputText value="#{directorioBean.nombre}" required="true"></h:inputText>
+		<br/>
+		<h:inputText value="#{directorioBean.descripcion}" required="true"></h:inputText>
+		<br/>
+     	<h:commandButton action="#{directorioBean.crearCarpeta}" value="Crear Carpeta">
+		</h:commandButton>
+		<br/>
+		<br/>
+		<h:commandButton action="#{directorioBean.eliminarCarpeta}" value="eliminar Carpeta">
+		</h:commandButton>
+	</h:form>
+</h:body>
+</html-->
