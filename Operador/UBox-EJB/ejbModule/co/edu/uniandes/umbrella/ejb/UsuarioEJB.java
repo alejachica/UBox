@@ -48,8 +48,12 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 
 	public UsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
 
+		/*Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
+				Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", new BigDecimal(nroDoc));*/
+		
 		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
-				Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", new BigDecimal(nroDoc));
+				Usuario.class).setParameter("identificacion", nroDoc);
+		
 		Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
 
 		UsuarioDTO usuario = new UsuarioDTO();

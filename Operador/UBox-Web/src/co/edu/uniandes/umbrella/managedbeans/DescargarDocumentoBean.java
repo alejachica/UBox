@@ -3,6 +3,7 @@ package co.edu.uniandes.umbrella.managedbeans;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -26,13 +27,14 @@ public class DescargarDocumentoBean implements Serializable{
 	private DocumentosEJBRemote documentosEJB;
 	
 	
-	public void downloadFile(String id) throws FileNotFoundException, IOException {
-		  
-		  //documentosEJB.consultarDocumento(id);
-		 
-	      File file = new File("C:\\docs\\instructions.txt");
-	      InputStream fis = new FileInputStream(file);
-	      byte[] buf = new byte[fis.available()];
+	public void downloadFile(int id) throws FileNotFoundException, IOException {
+	      
+		  FileOutputStream fileOuputStream = new FileOutputStream("C:\\docs\\instructions.txt"); 
+	      //byte[] buf = new byte[fis.available()];
+		  byte[] buf = documentosEJB.consultarDocumento(id).getDocumento();
+		  fileOuputStream.write(buf);
+		  File file = new File("C:\\docs\\instructions.txt");
+		  InputStream fis = new FileInputStream(file);
 	      int offset = 0;
 	      int numRead = 0;
 	      while ((offset < buf.length) && ((numRead = fis.read(buf, offset, buf.length -offset)) >= 0)) 
@@ -50,5 +52,5 @@ public class DescargarDocumentoBean implements Serializable{
 	     response.getOutputStream().flush();
 	     response.getOutputStream().close();
 	     FacesContext.getCurrentInstance().responseComplete();
-	    }
+	}
 }

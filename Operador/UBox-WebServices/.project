@@ -3,7 +3,6 @@
 	<name>UBox-WebServices</name>
 	<comment></comment>
 	<projects>
-		<project>UBox-EJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

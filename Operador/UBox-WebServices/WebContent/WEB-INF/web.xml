@@ -13,15 +13,16 @@
   
   <servlet>
     <servlet-name>Jersey Web Application</servlet-name>
-      <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-      <init-param>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+      
+     <init-param>
           <param-name>com.sun.jersey.config.property.packages</param-name>
           <param-value>co.edu.uniandes.umbrella.ws</param-value>
       </init-param>
       <init-param>
           <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
           <param-value>true</param-value>
-      </init-param>
+      </init-param> 
   </servlet>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
