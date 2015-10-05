@@ -11,15 +11,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import co.edu.uniandes.umbrella.ejb.UsuarioEJB;
 import co.edu.uniandes.umbrella.interfaces.ITrasladoWS;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
-
+@Stateless
 @Path("/api/traslado")
-public class TrasladoWS  implements ITrasladoWS {
+public class TrasladoWS  {
 	
-	@EJB
+	 @EJB
 	private UsuarioEJBRemote usuarioEjb;
 	
 	@GET
@@ -28,6 +29,9 @@ public class TrasladoWS  implements ITrasladoWS {
     public Response iniciarTraslado(@PathParam("documento") String documento) {
     	
 		String[] partesDocumento = documento.split("-");
+		
+		//PEDIR AYUDA PARA REVISAR FUNCIONAMIENTO
+		//usuarioEjb = new UsuarioEJB();
 		
 		if(partesDocumento.length == 2)
 		{
