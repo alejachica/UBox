@@ -8,14 +8,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import co.edu.uniandes.umbrella.dto.DatosBasicosUsuarioDTO;
-import co.edu.uniandes.umbrella.interfaces.UsuariosEJBRemote;
+import co.edu.uniandes.umbrella.interfaces.UsuariosEJBLocal;
 
 @ManagedBean
 @ViewScoped
 public class RegistrarUsuarioEnCentralizadorBean {
 	
 	@EJB
-	private UsuariosEJBRemote usuario;
+	private UsuariosEJBLocal usuario;
 	
 	private DatosBasicosUsuarioDTO usuarioDto;
 	

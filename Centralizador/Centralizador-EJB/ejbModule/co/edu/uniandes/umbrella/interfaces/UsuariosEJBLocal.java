@@ -7,7 +7,7 @@ import co.edu.uniandes.umbrella.dto.DatosBasicosUsuarioDTO;
 @Local
 public interface UsuariosEJBLocal {
 	
-	void crearUsuario(DatosBasicosUsuarioDTO usuarioDto);
-
-	DatosBasicosUsuarioDTO consultarUsuario(String tipoDoc, String nroDoc);
+	public void crearUsuario(DatosBasicosUsuarioDTO usuarioDto);
+	public DatosBasicosUsuarioDTO consultarUsuario(String tipoDoc, String nroDoc);
+	
 }
