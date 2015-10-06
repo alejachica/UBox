@@ -7,7 +7,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2015-09-07T00:01:59.964-0500")
+@Generated(value="Dali", date="2015-10-03T19:09:42.301-0500")
 @StaticMetamodel(Usuario.class)
 public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, Integer> idUsuario;
@@ -28,10 +28,10 @@ public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, String> segundoNombre;
 	public static volatile SingularAttribute<Usuario, Integer> telefono;
 	public static volatile ListAttribute<Usuario, HistoricoOperadoresUsuario> historicoOperadoresUsuarios;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioNacimiento;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioExpedicionIdentificacion;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioResidencia;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioNotificacion;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioLaboral;
 	public static volatile SingularAttribute<Usuario, Operador> operador;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioExpedicionIdentificacion;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioLaboral;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioNacimiento;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioNotificacion;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioResidencia;
 }
