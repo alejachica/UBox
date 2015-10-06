@@ -23,19 +23,30 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_usuario")
 	private int idUsuario;
+	
+	@Column(name="activo")
+	private boolean activo;
 
-	private byte activo;
-
+	@Column(name="correo")
 	private String correo;
 
 	@Column(name="id_stormpath")
 	private String idStormpath;
 
+	
+	@Column(name="identificacion")
 	private String identificacion;
-
+	
+	@Column(name="login")
 	private String login;
 
+	@Column(name="password")
 	private String password;
+	
+	@Column(name="estaPazYSalvo")
+	private boolean estaPazYSalvo;
+
+	
 
 	@Column(name="primer_apellido")
 	private String primerApellido;
@@ -88,11 +99,11 @@ public class Usuario implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public byte getActivo() {
+	public boolean getActivo() {
 		return this.activo;
 	}
 
-	public void setActivo(byte activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
@@ -170,6 +181,14 @@ public class Usuario implements Serializable {
 
 	public List<Carpeta> getCarpetas() {
 		return this.carpetas;
+	}
+	
+	public boolean isEstaPazYSalvo() {
+		return estaPazYSalvo;
+	}
+
+	public void setEstaPazYSalvo(boolean estaPazYSalvo) {
+		this.estaPazYSalvo = estaPazYSalvo;
 	}
 
 	public void setCarpetas(List<Carpeta> carpetas) {

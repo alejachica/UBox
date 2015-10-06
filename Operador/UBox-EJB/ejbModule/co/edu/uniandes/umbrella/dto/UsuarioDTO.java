@@ -12,7 +12,7 @@ public class UsuarioDTO {
 	
 	private int idUsuario;
 	
-	private byte activo;
+	private boolean activo;
 
 	private String correo;
 
@@ -31,8 +31,16 @@ public class UsuarioDTO {
 	private String segundoNombre;
 	
 	private String idStormpath;
+	
+	private boolean estaPazYSalvo;
 
+	public boolean isEstaPazYSalvo() {
+		return estaPazYSalvo;
+	}
 
+	public void setEstaPazYSalvo(boolean estaPazYSalvo) {
+		this.estaPazYSalvo = estaPazYSalvo;
+	}
 
 	/**
 	 * @return the idUsuario
@@ -55,7 +63,7 @@ public class UsuarioDTO {
 	/**
 	 * @return the activo
 	 */
-	public byte getActivo() {
+	public boolean getActivo() {
 		return activo;
 	}
 
@@ -64,7 +72,7 @@ public class UsuarioDTO {
 	/**
 	 * @param activo the activo to set
 	 */
-	public void setActivo(byte activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 

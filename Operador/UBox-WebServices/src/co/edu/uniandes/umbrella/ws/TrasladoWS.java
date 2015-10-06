@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -23,7 +24,7 @@ public class TrasladoWS  {
 	 @EJB
 	private UsuarioEJBRemote usuarioEjb;
 	
-	@GET
+	@POST
 	@Path("{documento}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response iniciarTraslado(@PathParam("documento") String documento) {

@@ -27,7 +27,7 @@
 		<properties>
 			<property name="User" value="ubox" />
 			<property name="Password" value="ubox123" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://50.62.209.73:3306/ubox?autoReconnect=true"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ubox"/>
 			<property name="javax.persistence.jdbc.user" value="ubox"/>
 			<property name="javax.persistence.jdbc.password" value="ubox123"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

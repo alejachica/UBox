@@ -41,21 +41,25 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 		entityManager.persist(usuario);
 	}
 	
-	public void actualizarUsuario(UsuarioDTO usuario)
+	public void actualizarUsuario(Usuario usuario)
 	{
-		
+		entityManager.merge(usuario);
 	}
 
-	public UsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
-
-		/*Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
-				Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", new BigDecimal(nroDoc));*/
-		
+	
+	private Usuario consultarUsuarioEntity(String tipoDoc, String nroDoc)
+	{
 		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
 				Usuario.class).setParameter("identificacion", nroDoc);
 		
-		Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
+		return (Usuario) query.getSingleResult();
+	}
+	
+	public UsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
 
+
+		Usuario usuarioEncontrado = consultarUsuarioEntity(tipoDoc, nroDoc);
+		
 		UsuarioDTO usuario = new UsuarioDTO();
 		
 		usuario.setActivo(usuarioEncontrado.getActivo());
@@ -68,7 +72,7 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 		usuario.setPrimerNombre(usuarioEncontrado.getPrimerNombre());
 		usuario.setSegundoApellido(usuarioEncontrado.getSegundoApellido());
 		usuario.setSegundoNombre(usuarioEncontrado.getSegundoNombre());
-		
+		usuario.setEstaPazYSalvo(usuarioEncontrado.isEstaPazYSalvo());
 		
 		return usuario;
 	}
@@ -83,11 +87,29 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 	{
 		ResultadoOperacion respuesta = new ResultadoOperacion();
 		
-		if(usuarioEstaAPazYSalvo(tipoDocumento, numDocumento))
+		Usuario usuario = this.consultarUsuarioEntity(tipoDocumento, numDocumento);
+		
+		if(!usuario.getActivo())
 		{
-			UsuarioDTO usuario = this.consultarUsuario(tipoDocumento, numDocumento);
-			this.actualizarUsuario(usuario);
-			respuesta.setOperacionExitosa(true);
+			respuesta.setOperacionExitosa(false);
+			respuesta.setResultadoOperacion("Error usuario no se encuentra activo en nuestro operador");
+		}
+		else if(usuarioEstaAPazYSalvo(tipoDocumento, numDocumento))
+		{
+			
+			try
+			{
+				
+				usuario.setActivo(false);
+				this.actualizarUsuario(usuario);
+				respuesta.setOperacionExitosa(true);
+			}
+			catch(Exception e)
+			{
+				respuesta.setOperacionExitosa(false);
+				respuesta.setResultadoOperacion("Error guardando al usuario, intente de nuevo");
+			}
+			
 		}
 		else
 		{
@@ -100,13 +122,16 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 	
 	/****
 	 * Valida si un usuario está o no al día en pagos
+	 * Inicialmente solo consulta el usuario y retorna la propiedad
+	 * el metodo puede evolucionar para realizar más funcionalidades
 	 * @param tipoDocument
 	 * @param numeroDocumento
 	 * @return
 	 */
 	public boolean usuarioEstaAPazYSalvo(String tipoDocumento, String numeroDocumento)
 	{
-		return true;
+		UsuarioDTO usuario = consultarUsuario(tipoDocumento, numeroDocumento);
+		return usuario.isEstaPazYSalvo();
 	}
 
     /**
