@@ -14,8 +14,8 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u"),
 	@NamedQuery(name="Usuario.findByTipoNroDoc", query="SELECT u FROM Usuario u where u.identificacion = :identificacion"),
-	
-	@NamedQuery(name="Usuario.findById", query="SELECT u FROM Usuario u where u.idUsuario = :idUsuario") })
+	@NamedQuery(name="Usuario.findById", query="SELECT u FROM Usuario u where u.idUsuario = :idUsuario") 
+})
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -45,8 +45,6 @@ public class Usuario implements Serializable {
 	
 	@Column(name="estaPazYSalvo")
 	private boolean estaPazYSalvo;
-
-	
 
 	@Column(name="primer_apellido")
 	private String primerApellido;
