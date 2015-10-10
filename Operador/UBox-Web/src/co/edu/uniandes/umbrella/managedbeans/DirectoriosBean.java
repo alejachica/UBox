@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import org.primefaces.context.RequestContext;
 
 import co.edu.uniandes.umbrella.dto.CarpetaDTO;
 import co.edu.uniandes.umbrella.dto.DataTreeTable;
@@ -32,6 +33,8 @@ public class DirectoriosBean {
 	private DocumentosEJBRemote documento;
 	
 	private TreeNode root;
+	
+	private DataTreeTable elementoSeleccionado;
 	
 	private String descripcion;
 	
@@ -63,8 +66,16 @@ public class DirectoriosBean {
 		this.nombre = nombre;
 	}
 	
-	//-------------------OTROS METODOS-------------------//
+	public DataTreeTable getElementoSeleccionado() {
+		return elementoSeleccionado;
+	}
+
+	public void setElementoSeleccionado(DataTreeTable elementoSeleccionado) {
+		this.elementoSeleccionado = elementoSeleccionado;
+	}
 	
+	//-------------------OTROS METODOS-------------------//
+
 	@PostConstruct
 	public void init(){
 		root = crearRoot();
@@ -103,11 +114,15 @@ public class DirectoriosBean {
 	public void eliminarCarpeta(){
 		try{
 			carpeta.eliminarCarpeta(1);
-			}
-			catch(Exception e){
-				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando carpeta", e.getMessage());
-		        FacesContext.getCurrentInstance().addMessage(null, message);
-			}
+		}
+		catch(Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando carpeta", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 	}
+	
+	public void dialogoCargarDoc() {
+        RequestContext.getCurrentInstance().openDialog("/directorios/documentos");
+    }
 
 }
