@@ -115,7 +115,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			docDTO.setFecha(documento.get(i).getFecha());
 			docDTO.setFirmado(documento.get(i).getFirmado());
 			docDTO.setFkCarpeta(documento.get(i).getCarpeta().getIdCarpeta());
-			docDTO.setFkUsuario(documento.get(i).getUsuario().getIdUsuario());
+			//docDTO.setFkUsuario(documento.get(i).getUsuario().getIdUsuario());
 			docDTO.setIdDocumento(documento.get(i).getIdDocumento());
 			docDTO.setIdTipoDocumento(documento.get(i).getIdTipoDocumento());
 			docDTO.setIdTipoMime(documento.get(i).getIdTipoMime());
