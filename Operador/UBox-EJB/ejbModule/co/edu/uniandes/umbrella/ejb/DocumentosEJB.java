@@ -79,7 +79,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	public List<DocumentoDTO> listarDocumentosUsuario(String id) {
 		List<DocumentoDTO> docDTOList = new ArrayList<DocumentoDTO>();
 		Query query = entityManager.createNamedQuery("Documento.findByUsuario", Documento.class).setParameter("idUsuario", id);
-		List<Documento> documento =  (List<Documento>) query.getSingleResult();
+		List<Documento> documento =  (List<Documento>) query.getResultList();
 		
 		for(int i = 0; i< documento.size();i++){
 			DocumentoDTO docDTO = new DocumentoDTO();
