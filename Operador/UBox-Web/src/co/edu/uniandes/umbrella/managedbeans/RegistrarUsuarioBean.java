@@ -54,7 +54,7 @@ public class RegistrarUsuarioBean {
 		
 
 		
-		this.usuario.setActivo((byte) 1);
+		this.usuario.setActivo(true);
 		this.usuario.setCorreo("usuario"+segundosPrueba+"@email.com");
 		this.usuario.setIdentificacion("1013587449"+segundosPrueba);
 		this.usuario.setLogin("ee.prado"+segundosPrueba);
