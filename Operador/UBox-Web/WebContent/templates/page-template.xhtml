@@ -1,9 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://primefaces.org/ui">
       
     <!--
         ===			
@@ -19,190 +18,169 @@
         http://twitter.com/halalit_usman
         ===
     -->
-<h:head>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template." />
+		<meta name="author" content="Umbrella Corp." />
+		
+		<!-- The styles -->
+		<link id="bs-css" href="./resources/css/bootstrap-cerulean.min.css" rel="stylesheet" />
+		
+		<link href="./resources/css/charisma-app.css" rel="stylesheet" />
+		<link href='./resources/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet' />
+		<link href='./resources/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
+		<link href='./resources/bower_components/chosen/chosen.min.css' rel='stylesheet' />
+		<link href='./resources/bower_components/colorbox/example3/colorbox.css' rel='stylesheet' />
+		<link href='./resources/bower_components/responsive-tables/responsive-tables.css' rel='stylesheet' />
+		<link href='./resources/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet' />
+		<link href='./resources/css/jquery.noty.css' rel='stylesheet' />
+		<link href='./resources/css/noty_theme_default.css' rel='stylesheet' />
+		<link href='./resources/css/elfinder.min.css' rel='stylesheet' />
+		<link href='./resources/css/elfinder.theme.css' rel='stylesheet' />
+		<link href='./resources/css/jquery.iphone.toggle.css' rel='stylesheet' />
+		<link href='./resources/css/uploadify.css' rel='stylesheet' />
+		<link href='./resources/css/animate.min.css' rel='stylesheet' />
+		<link rel="shortcut icon" href="./static/img/icono.ico" />
+		
+		<!-- jQuery -->
+		<script src="./resources/bower_components/jquery/jquery.min.js"></script>
+		<script src="./resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		
+		<!-- library for cookie management -->
+		<script src="./resources/js/jquery.cookie.js"></script>
+		<!-- calender plugin -->
+		<script src='./resources/bower_components/moment/min/moment.min.js'></script>
+		<script src='./resources/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+		<!-- data table plugin -->
+		<script src='./resources/js/jquery.dataTables.min.js'></script>
+		
+		<!-- select or dropdown enhancer -->
+		<script src="./resources/bower_components/chosen/chosen.jquery.min.js"></script>
+		<!-- plugin for gallery image view -->
+		<script src="./resources/bower_components/colorbox/jquery.colorbox-min.js"></script>
+		<!-- notification plugin -->
+		<script src="./resources/js/jquery.noty.js"></script>
+		<!-- library for making tables responsive -->
+		<script src="./resources/bower_components/responsive-tables/responsive-tables.js"></script>
+		<!-- tour plugin -->
+		<script src="./resources/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+		<!-- star rating plugin -->
+		<script src="./resources/js/jquery.raty.min.js"></script>
+		<!-- for iOS style toggle switch -->
+		<script src="./resources/js/jquery.iphone.toggle.js"></script>
+		<!-- autogrowing textarea plugin -->
+		<script src="./resources/js/jquery.autogrow-textarea.js"></script>
+		<!-- multiple file upload plugin -->
+		<script src="./resources/js/jquery.uploadify-3.1.min.js"></script>
+		<!-- history.js for cross-browser state change on ajax -->
+		<script src="./resources/js/jquery.history.js"></script>
+		<!-- application script for Charisma demo -->
+		<script src="./resources/js/charisma.js"></script>
+		
+		<script src="./resources/js/documentos.js"></script>
+		<script src="./resources/js/documentos_table.js"></script>
+		
+		<script>
+			function setColor(btn, color){
+			    var count=1;
+			    var property = document.getElementById(btn);
+			    if (count == 0){
+			        property.style.backgroundColor = "#FFFFFF"
+			        count=1;        
+			    }
+			    else{
+			        property.style.backgroundColor = "#7FFF00"
+			        count=0;
+			    }
+			
+			}
+		</script>
+		
+	</h:head>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title><ui:insert name="title">Default Title</ui:insert></title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template." />
-    <meta name="author" content="Umbrella Corp." />
-
-    <!-- The styles -->
-    <link id="bs-css" href="./resources/css/bootstrap-cerulean.min.css" rel="stylesheet" />
-
-    <link href="./resources/css/charisma-app.css" rel="stylesheet" />
-    <link href='./resources/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet' />
-    <link href='./resources/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <link href='./resources/bower_components/chosen/chosen.min.css' rel='stylesheet' />
-    <link href='./resources/bower_components/colorbox/example3/colorbox.css' rel='stylesheet' />
-    <link href='./resources/bower_components/responsive-tables/responsive-tables.css' rel='stylesheet' />
-    <link href='./resources/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet' />
-    <link href='./resources/css/jquery.noty.css' rel='stylesheet' />
-    <link href='./resources/css/noty_theme_default.css' rel='stylesheet' />
-    <link href='./resources/css/elfinder.min.css' rel='stylesheet' />
-    <link href='./resources/css/elfinder.theme.css' rel='stylesheet' />
-    <link href='./resources/css/jquery.iphone.toggle.css' rel='stylesheet' />
-    <link href='./resources/css/uploadify.css' rel='stylesheet' />
-    <link href='./resources/css/animate.min.css' rel='stylesheet' />
-    <link rel="shortcut icon" href="./static/img/icono.ico" />
-    
-</h:head>
-
-<h:body>
-<!-- topbar starts -->
-<div class="navbar navbar-default" role="navigation">
-    <div class="navbar-inner">
-        <img alt="Ubox" src="./resources/img/logo20.png" class="hidden-xs"/>
-        <!-- user dropdown starts -->
-        <div class="btn-group pull-right">
-    	<ul class="collapse navbar-collapse nav navbar-nav top-menu">
-	    	<form>
-		    	<h:inputText placeholder="Buscar"
-					class="search-query form-control col-md-10" name="query"
-					type="text" />
-			</form>
-		</ul>			
-        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-         	<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
-                <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a href="#">Mi cuenta</a></li>
-            <li class="divider"></li>
-            <li><a href="login.html">Salir</a></li>
-        </ul>
-    </div>
-    <!-- user dropdown ends -->
-    </div>
-</div>
-<!-- topbar ends -->
-
-<div class="ch-container">
-    <div class="row">
-        
-        <!-- left menu starts -->
-        <div class="col-sm-2 col-lg-2">
-            <div class="sidebar-nav">
-                <div class="nav-canvas">
-                    <div class="nav-sm nav nav-stacked">
-                    </div>
-                    <ul class="nav nav-pills nav-stacked main-menu">
-                        <li class="nav-header">Main</li>
-                        <li><a class="ajax-link" href="index.jsf"><i class="glyphicon glyphicon-home"></i><span>Inicio</span></a>
-                        </li>
-                        <li><a class="ajax-link" href="cambiarDatosUsuario.jsf"><i class="glyphicon glyphicon-plus"></i><span>Mi Cuenta</span></a>
-                        </li>
-						<li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-briefcase"></i><span> Mis Documentos</span></a>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a class="ajax-link" href="documentosPersonales.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Docs Personales</span></a></li>
-                                <li><a class="ajax-link" href="documentosEstado.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Estado</span></a></li>
-                                <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-folder-close"></i><span> Trabajo</span></a></li>
-                                <li><a class="ajax-link" href="docRecibos.jsf"><i class="glyphicon glyphicon-briefcase"></i><span> Recibos a Pagar</span></a></li>
-                                <li><a class="ajax-link" href="docBuscar.jsf"><i class="glyphicon glyphicon-search"></i><span> Buscar Docs</span></a></li>
-                                <li><a class="ajax-link" href="papeleraDocumentos.jsf"><i class="glyphicon glyphicon-trash"></i><span> Papelera</span></a></li>
-                                <li><a class="ajax-link" href="directorios/directorio.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Directorio</span></a></li>
-                                <li><a class="ajax-link" href="directorios/documentos.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Documentos</span></a></li>
-                            </ul>
-                        </li>
-						
-                        <li><a class="ajax-link" href="buzon.jsf"><i class="glyphicon glyphicon-calendar"></i><span> Buzón de Correo</span></a>
-                        </li>
-                        <li><a class="ajax-link" href="instituciones.jsf"><i class="glyphicon glyphicon-screenshot"></i><span> Remitentes</span></a>
-                        </li>
-						 <li><a class="ajax-link" href="servicio.jsf"><i class="glyphicon glyphicon-star"></i><span> Servicios</span></a>
-                        </li>
-						 <li><a class="ajax-link" href="reportes.jsf"><i class="glyphicon glyphicon-list-alt"></i><span> Reportes</span></a>
-                        </li>
-                        </ul>
-                </div>
-            </div>
-        </div>
-        <div id="content" class="col-lg-10 col-sm-10">
-            <!-- content starts -->
-                <div>
-        <ul class="breadcrumb">
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="#">Tables</a>
-            </li>
-        </ul>
-        <ui:insert name="bodyContent">Default Body Content</ui:insert>
-    </div>
-    </div>
-    </div>
-    </div>
-	<h1 class="title"><ui:insert name="title">Default Title</ui:insert></h1>
-	<ui:insert name="leftMenu">Default Body Content</ui:insert>
-
-    <footer class="row">
-        <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="http://usman.it" target="_blank">Muhammad
-                Usman</a> 2012 - 2014</p>
-
-        <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
-                href="http://usman.it/free-responsive-admin-template">Charisma</a></p>
-    </footer>
-    
-    
-    <!-- external javascript -->
-
-    <!-- jQuery -->
-<script src="./resources/bower_components/jquery/jquery.min.js"></script>
-<script src="./resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- library for cookie management -->
-<script src="./resources/js/jquery.cookie.js"></script>
-<!-- calender plugin -->
-<script src='./resources/bower_components/moment/min/moment.min.js'></script>
-<script src='./resources/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
-<!-- data table plugin -->
-<script src='./resources/js/jquery.dataTables.min.js'></script>
-
-<!-- select or dropdown enhancer -->
-<script src="./resources/bower_components/chosen/chosen.jquery.min.js"></script>
-<!-- plugin for gallery image view -->
-<script src="./resources/bower_components/colorbox/jquery.colorbox-min.js"></script>
-<!-- notification plugin -->
-<script src="./resources/js/jquery.noty.js"></script>
-<!-- library for making tables responsive -->
-<script src="./resources/bower_components/responsive-tables/responsive-tables.js"></script>
-<!-- tour plugin -->
-<script src="./resources/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
-<!-- star rating plugin -->
-<script src="./resources/js/jquery.raty.min.js"></script>
-<!-- for iOS style toggle switch -->
-<script src="./resources/js/jquery.iphone.toggle.js"></script>
-<!-- autogrowing textarea plugin -->
-<script src="./resources/js/jquery.autogrow-textarea.js"></script>
-<!-- multiple file upload plugin -->
-<script src="./resources/js/jquery.uploadify-3.1.min.js"></script>
-<!-- history.js for cross-browser state change on ajax -->
-<script src="./resources/js/jquery.history.js"></script>
-<!-- application script for Charisma demo -->
-<script src="./resources/js/charisma.js"></script>
-
-<script src="./resources/js/documentos.js"></script>
-<script src="./resources/js/documentos_table.js"></script>
-
-<script>
-function setColor(btn, color){
-    var count=1;
-    var property = document.getElementById(btn);
-    if (count == 0){
-        property.style.backgroundColor = "#FFFFFF"
-        count=1;        
-    }
-    else{
-        property.style.backgroundColor = "#7FFF00"
-        count=0;
-    }
-
-}
-</script>
-    
-</h:body>
-
+	<h:body>
+		<!-- topbar starts -->
+		<div class="navbar navbar-default" role="navigation">
+		    <div class="navbar-inner">
+		        <img alt="Ubox" src="./resources/img/logo20.png" class="hidden-xs"/>
+		        <!-- user dropdown starts -->
+		        <div class="btn-group pull-right">
+			    	<ul class="collapse navbar-collapse nav navbar-nav top-menu">
+				    	<!-- form-->
+					    	<h:inputText placeholder="Buscar"
+								class="search-query form-control col-md-10" name="query"
+								type="text" />
+						<!--/form-->
+					</ul>			
+			        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			         	<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
+			            <span class="caret"></span>
+			        </button>
+			        <ul class="dropdown-menu">
+			            <li><a href="#">Mi cuenta</a></li>
+			            <li class="divider"></li>
+			            <li><a href="login.html">Salir</a></li>
+			        </ul>
+		    	</div>
+		    <!-- user dropdown ends -->
+		    </div>
+		</div>
+		<!-- topbar ends -->
+	
+		<div class="ch-container">
+			<div class="row">
+		        <!-- left menu starts -->
+				<div class="col-sm-2 col-lg-2">
+		            <div class="sidebar-nav">
+		                <div class="nav-canvas">
+		                    <div class="nav-sm nav nav-stacked">
+		                    </div>
+		                    <ul class="nav nav-pills nav-stacked main-menu">
+		                        <li class="nav-header">Main</li>
+		                        <li><a class="ajax-link" href="index.jsf"><i class="glyphicon glyphicon-home"></i><span>Inicio</span></a></li>
+		                        <li><a class="ajax-link" href="cambiarDatosUsuario.jsf"><i class="glyphicon glyphicon-plus"></i><span>Mi Cuenta</span></a></li>
+								<li class="accordion">
+		                            <a href="#"><i class="glyphicon glyphicon-briefcase"></i><span> Mis Documentos</span></a>
+		                            <ul class="nav nav-pills nav-stacked">
+		                                <li><a class="ajax-link" href="documentosPersonales.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Docs Personales</span></a></li>
+		                                <li><a class="ajax-link" href="documentosEstado.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Estado</span></a></li>
+		                                <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-folder-close"></i><span> Trabajo</span></a></li>
+		                                <li><a class="ajax-link" href="docRecibos.jsf"><i class="glyphicon glyphicon-briefcase"></i><span> Recibos a Pagar</span></a></li>
+		                                <li><a class="ajax-link" href="docBuscar.jsf"><i class="glyphicon glyphicon-search"></i><span> Buscar Docs</span></a></li>
+		                                <li><a class="ajax-link" href="papeleraDocumentos.jsf"><i class="glyphicon glyphicon-trash"></i><span> Papelera</span></a></li>
+		                                <li><a class="ajax-link" href="directorios/directorio.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Directorio</span></a></li>
+		                                <li><a class="ajax-link" href="directorios/documentos.jsf"><i class="glyphicon glyphicon-folder-close"></i><span> Documentos</span></a></li>
+		                            </ul>
+		                        </li>
+		                        <li><a class="ajax-link" href="buzon.jsf"><i class="glyphicon glyphicon-calendar"></i><span> Buzón de Correo</span></a></li>
+		                        <li><a class="ajax-link" href="instituciones.jsf"><i class="glyphicon glyphicon-screenshot"></i><span> Remitentes</span></a></li>
+								<li><a class="ajax-link" href="servicio.jsf"><i class="glyphicon glyphicon-star"></i><span> Servicios</span></a></li>
+								<li><a class="ajax-link" href="reportes.jsf"><i class="glyphicon glyphicon-list-alt"></i><span> Reportes</span></a></li>
+                        	</ul>
+		                </div>
+		            </div>
+				</div>
+		        <div id="content" class="col-lg-10 col-sm-10">
+		        	<div>
+		        		<ul class="breadcrumb">
+				            <li>
+				                <a href="#">Home</a>
+				            </li>
+				            <li>
+				                <a href="#">Tables</a>
+				            </li>
+		        		</ul>
+		        		<ui:insert name="bodyContent">Default Body Content</ui:insert>
+		    		</div>
+		    	</div>
+			</div>
+	    </div>
+		<br/><br/>
+	    <footer class="row">
+	        <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="http://usman.it" target="_blank">Muhammad Usman</a> 2012 - 2014</p>
+	        <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a></p>
+	    </footer>
+	</h:body>
 </html>
