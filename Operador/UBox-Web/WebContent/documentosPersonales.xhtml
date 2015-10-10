@@ -26,13 +26,6 @@
 						            <tr>
 						                <td>
 						                    <a  class="btn" href="#">
-						                        <i class=" glyphicon glyphicon-download-alt icon-white"></i>
-						                         Cargar Documento
-						                    </a>
-						                    <input type="file" id="exampleInputFile" />
-						                </td>
-						                <td>
-						                    <a  class="btn" href="#">
 						                        <i class=" glyphicon glyphicon-ok"></i>
 						                         Crear Carpeta
 						                    </a>
@@ -42,6 +35,8 @@
 						        </tbody>
 						    </table>
 						</div>
+						<p:commandLink title="Cargar Documento" actionListener="#{documentosPersonalesBean.dialogoCargarDoc}" styleClass="ui-icon ui-icon-circle-arrow-n">
+						</p:commandLink>
 						<h:form id="form">
 						    <p:treeTable value="#{directorioBean.root}" var="carpeta">
 						        <f:facet name="header">
@@ -54,17 +49,31 @@
 						            <h:outputText value="#{carpeta.descripcion}" />
 						        </p:column>
 							    <p:column rendered="#{carpeta.type eq 'Folder'}">
-						        		<a  class="btn" href="#">
-					                        <i class=" glyphicon glyphicon-download-alt icon-white"></i>Cargar Documento
-						                </a>
-						                <a  class="btn" href="#">
-					                        <i class=" glyphicon glyphicon-ok"></i>Crear Carpeta
-					                    </a>
-					            </p:column>
+							    	<p:commandLink title="Cargar Documento" actionListener="#{documentosPersonalesBean.dialogoCargarDoc}" styleClass="ui-icon ui-icon-circle-arrow-n">
+						            </p:commandLink>
+						            <p:commandButton value="Modal" type="button" actionListener="#{documentosPersonalesBean.dialogoCargarDoc}" />
+							    	<p:commandLink title="Crear Sub-Carpeta" styleClass="ui-icon ui-icon-plus">
+						                <!-- f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" /-->
+						            </p:commandLink>
+						            <p:commandLink title="Eliminar Carpeta" styleClass="ui-icon ui-icon-trash">
+						                <!--f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" /-->
+						            </p:commandLink>
+						        </p:column>
 					        	<p:column rendered="#{carpeta.type == 'Archivo'}">
 					        		<a  class="btn" href="#">
-				                        <i class=" glyphicon glyphicon-ok"></i>Eliminar Documento
+				                        <i class=" glyphicon glyphicon-ok"></i>Ver
 				                    </a>
+				                    <a  class="btn" href="#">
+				                        <i class=" glyphicon glyphicon-ok"></i>Compartir
+				                    </a>
+					        		<a  class="btn" href="#">
+				                        <i class=" glyphicon glyphicon-ok"></i>Eliminar
+				                    </a>
+				                    <h:form enctype="multipart/form-data">
+									    <p:growl id="messages" showDetail="true" />
+									    <p:fileUpload value="#{documentosPersonalesBean.file}" mode="simple" skinSimple="true"/>
+									    <p:commandButton value="Submit" ajax="false" actionListener="#{documentosPersonalesBean.upload}" />
+									</h:form>
 					        	</p:column>
 						        
 						        <!--p:column style="width:24px">
@@ -73,7 +82,17 @@
 						            </p:commandLink>
 						        </p:column-->
 						    </p:treeTable>
-						 
+						 	
+						 	<!-- Dialogo para crear una carpeta -->
+						 	
+						 	<p:dialog id="dialogoCarpetaId" header="Crear Sub-Carpeta" showEffect="fade" widgetVar="dialogoCarpeta" modal="true" resizable="false">
+								<h:inputText value="#{directorioBean.nombre}" required="true"></h:inputText>
+								<br/>
+								<h:inputText value="#{directorioBean.descripcion}" required="true"></h:inputText>
+								<br/>
+						     	<h:commandButton action="#{directorioBean.crearCarpeta}" value="Crear Carpeta">
+								</h:commandButton>
+						    </p:dialog>
 						    <!--p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
 						        <p:outputPanel id="documentPanel">
 						            <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty ttBasicView.selectedDocument}">
