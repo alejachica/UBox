@@ -34,6 +34,15 @@
     <servlet-name>Jersey Web Application</servlet-name>
     <url-pattern>/*</url-pattern>
   </servlet-mapping>
+  <filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>co.edu.uniandes.umbrella.autenticacion.RestAuthenticationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
