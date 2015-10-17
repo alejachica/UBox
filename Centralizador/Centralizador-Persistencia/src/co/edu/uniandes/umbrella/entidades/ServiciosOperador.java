@@ -10,7 +10,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="SERVICIOS_OPERADOR")
-@NamedQuery(name="ServiciosOperador.findAll", query="SELECT s FROM ServiciosOperador s")
+@NamedQueries({
+		
+	@NamedQuery(name = "ServiciosOperador.findAll", query = "SELECT s FROM ServiciosOperador s"),
+		
+	@NamedQuery(name = "ServiciosOperador.urlParaCompartirDocumentos", query = "select s from ServiciosOperador s where s.idOperador = :idOperador") 
+})
 public class ServiciosOperador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
