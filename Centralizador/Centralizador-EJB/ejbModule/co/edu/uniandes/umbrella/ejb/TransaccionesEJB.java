@@ -2,6 +2,8 @@ package co.edu.uniandes.umbrella.ejb;
 
 import javax.ejb.Stateless;
 
+import co.edu.uniandes.umbrella.dto.ServiciosOperadorUsuarioDTO;
+import co.edu.uniandes.umbrella.entidades.Operador;
 import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBRemote;
 
@@ -11,11 +13,10 @@ import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBRemote;
 @Stateless
 public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJBLocal {
 
-    /**
-     * Default constructor. 
-     */
-    public TransaccionesEJB() {
-        // TODO Auto-generated constructor stub
-    }
+	public Operador consultarOperadorUsuarioParaCompartir(
+			ServiciosOperadorUsuarioDTO datos) {
+
+		return null;
+	}
 
 }

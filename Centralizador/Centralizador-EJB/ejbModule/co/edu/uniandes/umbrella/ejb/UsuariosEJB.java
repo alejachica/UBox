@@ -1,13 +1,13 @@
 package co.edu.uniandes.umbrella.ejb;
 
 import java.math.BigDecimal;
+
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 
 import co.edu.uniandes.umbrella.dto.DatosBasicosUsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.Usuario;
@@ -25,12 +25,6 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 	@PersistenceContext(unitName = "Centralizador-Persistencia")
 	private EntityManager entityManager;
 
-	/**
-	 * Default constructor.
-	 */
-	public UsuariosEJB() {
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	@WebMethod(exclude=true)
@@ -93,6 +87,7 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 
 		return usuario;
 	}
+	
 
 	private ZonaGeografica configurarZonaGeograficaUsuario(int idZonaConfigurar) {
 
