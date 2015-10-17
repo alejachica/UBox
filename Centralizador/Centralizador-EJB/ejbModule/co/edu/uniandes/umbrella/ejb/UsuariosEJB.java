@@ -55,15 +55,15 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 		usuario.setFechaExpediciionIdentificacion(usuarioDto
 				.getFechaExpediciionIdentificacion());
 		usuario.setIdDireccionResidencia(usuarioDto.getIdDireccionResidencia());
-		usuario.setIdMunicipioExpedicionIdentificacion(configurarZonaGeograficaUsuario(usuarioDto
+		usuario.setMunicipioExpedicionDoc(configurarZonaGeograficaUsuario(usuarioDto
 				.getIdMunicipioExpedicionIdentificacion()));
-		usuario.setIdMunicipioLaboral(configurarZonaGeograficaUsuario(usuarioDto
+		usuario.setMunicipioLaboral(configurarZonaGeograficaUsuario(usuarioDto
 				.getIdMunicipioLaboral()));
-		usuario.setIdMunicipioNacimiento(configurarZonaGeograficaUsuario(usuarioDto
+		usuario.setMunicipioNacimiento(configurarZonaGeograficaUsuario(usuarioDto
 				.getIdMunicipioNacimiento()));
-		usuario.setIdMunicipioNotificacion(configurarZonaGeograficaUsuario(usuarioDto
+		usuario.setMunicipioNotificacion(configurarZonaGeograficaUsuario(usuarioDto
 				.getIdMunicipioNotificacion()));
-		usuario.setIdMunicipioResidencia(configurarZonaGeograficaUsuario(usuarioDto
+		usuario.setMunicipioResidencia(configurarZonaGeograficaUsuario(usuarioDto
 				.getIdMunicipioResidencia()));
 
 		entityManager.persist(usuario);

@@ -33,12 +33,8 @@ public class Operador implements Serializable {
 	private String telefono;
 
 	//bi-directional many-to-one association to HistoricoOperadoresUsuario
-	@OneToMany(mappedBy="operador1")
-	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios1;
-
-	//bi-directional many-to-one association to HistoricoOperadoresUsuario
-	@OneToMany(mappedBy="operador2")
-	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios2;
+	@OneToMany(mappedBy="operador")
+	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuario;
 
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="operador")
@@ -95,48 +91,26 @@ public class Operador implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public List<HistoricoOperadoresUsuario> getHistoricoOperadoresUsuarios1() {
-		return this.historicoOperadoresUsuarios1;
+	public List<HistoricoOperadoresUsuario> getHistoricoOperadoresUsuario() {
+		return this.historicoOperadoresUsuario;
 	}
 
-	public void setHistoricoOperadoresUsuarios1(List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios1) {
-		this.historicoOperadoresUsuarios1 = historicoOperadoresUsuarios1;
+	public void setHistoricoOperadoresUsuario(List<HistoricoOperadoresUsuario> historicoOperadoresUsuario) {
+		this.historicoOperadoresUsuario = historicoOperadoresUsuario;
 	}
 
-	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios1(HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
-		getHistoricoOperadoresUsuarios1().add(historicoOperadoresUsuarios1);
-		historicoOperadoresUsuarios1.setOperador1(this);
+	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuario(HistoricoOperadoresUsuario historicoOperadoresUsuario) {
+		getHistoricoOperadoresUsuario().add(historicoOperadoresUsuario);
+		historicoOperadoresUsuario.setOperador(this);
 
-		return historicoOperadoresUsuarios1;
+		return historicoOperadoresUsuario;
 	}
 
-	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios1(HistoricoOperadoresUsuario historicoOperadoresUsuarios1) {
-		getHistoricoOperadoresUsuarios1().remove(historicoOperadoresUsuarios1);
-		historicoOperadoresUsuarios1.setOperador1(null);
+	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuario(HistoricoOperadoresUsuario historicoOperadoresUsuario) {
+		getHistoricoOperadoresUsuario().remove(historicoOperadoresUsuario);
+		historicoOperadoresUsuario.setOperador(null);
 
-		return historicoOperadoresUsuarios1;
-	}
-
-	public List<HistoricoOperadoresUsuario> getHistoricoOperadoresUsuarios2() {
-		return this.historicoOperadoresUsuarios2;
-	}
-
-	public void setHistoricoOperadoresUsuarios2(List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios2) {
-		this.historicoOperadoresUsuarios2 = historicoOperadoresUsuarios2;
-	}
-
-	public HistoricoOperadoresUsuario addHistoricoOperadoresUsuarios2(HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
-		getHistoricoOperadoresUsuarios2().add(historicoOperadoresUsuarios2);
-		historicoOperadoresUsuarios2.setOperador2(this);
-
-		return historicoOperadoresUsuarios2;
-	}
-
-	public HistoricoOperadoresUsuario removeHistoricoOperadoresUsuarios2(HistoricoOperadoresUsuario historicoOperadoresUsuarios2) {
-		getHistoricoOperadoresUsuarios2().remove(historicoOperadoresUsuarios2);
-		historicoOperadoresUsuarios2.setOperador2(null);
-
-		return historicoOperadoresUsuarios2;
+		return historicoOperadoresUsuario;
 	}
 
 	public List<Usuario> getUsuarios() {

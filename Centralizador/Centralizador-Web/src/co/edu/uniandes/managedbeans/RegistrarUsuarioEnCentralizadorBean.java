@@ -1,6 +1,5 @@
 package co.edu.uniandes.managedbeans;
 
-import java.math.BigDecimal;
 import java.util.Calendar;
 
 import javax.ejb.EJB;
@@ -24,7 +23,7 @@ public class RegistrarUsuarioEnCentralizadorBean {
 
 		usuarioDto = new DatosBasicosUsuarioDTO();
 		usuarioDto.setIdTipoIdentificacion("1");
-		usuarioDto.setNroIdentificacion(new BigDecimal(1111));
+		usuarioDto.setNroIdentificacion(String.valueOf(Math.random()));
 		usuarioDto.setPrimerNombre("Nombre1");
 		usuarioDto.setSegundoNombre("Nombre1");
 		usuarioDto.setPrimerApellido("Apellido1");

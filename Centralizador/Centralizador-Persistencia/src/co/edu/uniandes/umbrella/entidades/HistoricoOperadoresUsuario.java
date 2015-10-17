@@ -22,26 +22,24 @@ public class HistoricoOperadoresUsuario implements Serializable {
 	@Column(name="id_historico")
 	private int idHistorico;
 
+	@Column(name="id_operador_origen")
+	private int idOperadorOrigen;
+
 	@Column(name="id_tipo_operacion")
 	private int idTipoOperacion;
 
 	@Column(name="num_formulario")
 	private String numFormulario;
 
-	//bi-directional many-to-one association to Operador
-	@ManyToOne
-	@JoinColumn(name="id_operador_destino")
-	private Operador operador1;
-
-	//bi-directional many-to-one association to Operador
-	@ManyToOne
-	@JoinColumn(name="id_operador_origen")
-	private Operador operador2;
-
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
+
+	//bi-directional many-to-one association to Operador
+	@ManyToOne
+	@JoinColumn(name="id_operador_destino")
+	private Operador operador;
 
 	public HistoricoOperadoresUsuario() {
 	}
@@ -62,6 +60,14 @@ public class HistoricoOperadoresUsuario implements Serializable {
 		this.idHistorico = idHistorico;
 	}
 
+	public int getIdOperadorOrigen() {
+		return this.idOperadorOrigen;
+	}
+
+	public void setIdOperadorOrigen(int idOperadorOrigen) {
+		this.idOperadorOrigen = idOperadorOrigen;
+	}
+
 	public int getIdTipoOperacion() {
 		return this.idTipoOperacion;
 	}
@@ -78,28 +84,20 @@ public class HistoricoOperadoresUsuario implements Serializable {
 		this.numFormulario = numFormulario;
 	}
 
-	public Operador getOperador1() {
-		return this.operador1;
-	}
-
-	public void setOperador1(Operador operador1) {
-		this.operador1 = operador1;
-	}
-
-	public Operador getOperador2() {
-		return this.operador2;
-	}
-
-	public void setOperador2(Operador operador2) {
-		this.operador2 = operador2;
-	}
-
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Operador getOperador() {
+		return this.operador;
+	}
+
+	public void setOperador(Operador operador) {
+		this.operador = operador;
 	}
 
 }

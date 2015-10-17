@@ -1,13 +1,12 @@
 package co.edu.uniandes.umbrella.entidades;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2015-10-03T19:09:42.301-0500")
+@Generated(value="Dali", date="2015-10-17T18:07:41.125-0500")
 @StaticMetamodel(Usuario.class)
 public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, Integer> idUsuario;
@@ -21,7 +20,7 @@ public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, Integer> idNacionalidad;
 	public static volatile SingularAttribute<Usuario, Integer> idOperador;
 	public static volatile SingularAttribute<Usuario, String> idTipoIdentificacion;
-	public static volatile SingularAttribute<Usuario, BigDecimal> nroIdentificacion;
+	public static volatile SingularAttribute<Usuario, String> nroIdentificacion;
 	public static volatile SingularAttribute<Usuario, String> primerApellido;
 	public static volatile SingularAttribute<Usuario, String> primerNombre;
 	public static volatile SingularAttribute<Usuario, String> segundoApellido;
@@ -29,9 +28,9 @@ public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, Integer> telefono;
 	public static volatile ListAttribute<Usuario, HistoricoOperadoresUsuario> historicoOperadoresUsuarios;
 	public static volatile SingularAttribute<Usuario, Operador> operador;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioExpedicionIdentificacion;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioLaboral;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioNacimiento;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioNotificacion;
-	public static volatile SingularAttribute<Usuario, ZonaGeografica> idMunicipioResidencia;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioExpedicionDoc;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioLaboral;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioNacimiento;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioNotificacion;
+	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioResidencia;
 }

@@ -2,7 +2,6 @@ package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class Usuario implements Serializable {
 	private String idTipoIdentificacion;
 
 	@Column(name="nro_identificacion")
-	private BigDecimal nroIdentificacion;
+	private String nroIdentificacion;
 
 	@Column(name="primer_apellido")
 	private String primerApellido;
@@ -75,35 +74,35 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuarios;
 
+	//uni-directional many-to-one association to ZonaGeografica
+	@ManyToOne
+	@JoinColumn(name="id_municipio_expedicion_identificacion")
+	private ZonaGeografica municipioExpedicionDoc;
+
+	//uni-directional many-to-one association to ZonaGeografica
+	@ManyToOne
+	@JoinColumn(name="id_municipio_laboral")
+	private ZonaGeografica municipioLaboral;
+
+	//uni-directional many-to-one association to ZonaGeografica
+	@ManyToOne
+	@JoinColumn(name="id_municipio_nacimiento")
+	private ZonaGeografica municipioNacimiento;
+
+	//uni-directional many-to-one association to ZonaGeografica
+	@ManyToOne
+	@JoinColumn(name="id_municipio_notificacion")
+	private ZonaGeografica municipioNotificacion;
+
+	//uni-directional many-to-one association to ZonaGeografica
+	@ManyToOne
+	@JoinColumn(name="id_municipio_residencia")
+	private ZonaGeografica municipioResidencia;
+
 	//bi-directional many-to-one association to Operador
 	@ManyToOne
 	@JoinColumn(name="id_operador_actual")
 	private Operador operador;
-
-	//bi-directional many-to-one association to ZonaGeografica
-	@ManyToOne
-	@JoinColumn(name="id_municipio_expedicion_identificacion")
-	private ZonaGeografica idMunicipioExpedicionIdentificacion;
-
-	//bi-directional many-to-one association to ZonaGeografica
-	@ManyToOne
-	@JoinColumn(name="id_municipio_laboral")
-	private ZonaGeografica idMunicipioLaboral;
-
-	//bi-directional many-to-one association to ZonaGeografica
-	@ManyToOne
-	@JoinColumn(name="id_municipio_nacimiento")
-	private ZonaGeografica idMunicipioNacimiento;
-
-	//bi-directional many-to-one association to ZonaGeografica
-	@ManyToOne
-	@JoinColumn(name="id_municipio_notificacion")
-	private ZonaGeografica idMunicipioNotificacion;
-
-	//bi-directional many-to-one association to ZonaGeografica
-	@ManyToOne
-	@JoinColumn(name="id_municipio_residencia")
-	private ZonaGeografica idMunicipioResidencia;
 
 	public Usuario() {
 	}
@@ -196,11 +195,11 @@ public class Usuario implements Serializable {
 		this.idTipoIdentificacion = idTipoIdentificacion;
 	}
 
-	public BigDecimal getNroIdentificacion() {
+	public String getNroIdentificacion() {
 		return this.nroIdentificacion;
 	}
 
-	public void setNroIdentificacion(BigDecimal nroIdentificacion) {
+	public void setNroIdentificacion(String nroIdentificacion) {
 		this.nroIdentificacion = nroIdentificacion;
 	}
 
@@ -266,6 +265,46 @@ public class Usuario implements Serializable {
 		return historicoOperadoresUsuario;
 	}
 
+	public ZonaGeografica getMunicipioExpedicionDoc() {
+		return this.municipioExpedicionDoc;
+	}
+
+	public void setMunicipioExpedicionDoc(ZonaGeografica municipioExpedicionDoc) {
+		this.municipioExpedicionDoc = municipioExpedicionDoc;
+	}
+
+	public ZonaGeografica getMunicipioLaboral() {
+		return this.municipioLaboral;
+	}
+
+	public void setMunicipioLaboral(ZonaGeografica municipioLaboral) {
+		this.municipioLaboral = municipioLaboral;
+	}
+
+	public ZonaGeografica getMunicipioNacimiento() {
+		return this.municipioNacimiento;
+	}
+
+	public void setMunicipioNacimiento(ZonaGeografica municipioNacimiento) {
+		this.municipioNacimiento = municipioNacimiento;
+	}
+
+	public ZonaGeografica getMunicipioNotificacion() {
+		return this.municipioNotificacion;
+	}
+
+	public void setMunicipioNotificacion(ZonaGeografica municipioNotificacion) {
+		this.municipioNotificacion = municipioNotificacion;
+	}
+
+	public ZonaGeografica getMunicipioResidencia() {
+		return this.municipioResidencia;
+	}
+
+	public void setMunicipioResidencia(ZonaGeografica municipioResidencia) {
+		this.municipioResidencia = municipioResidencia;
+	}
+
 	public Operador getOperador() {
 		return this.operador;
 	}
@@ -273,80 +312,5 @@ public class Usuario implements Serializable {
 	public void setOperador(Operador operador) {
 		this.operador = operador;
 	}
-
-
-
-	/**
-	 * @return the idMunicipioLaboral
-	 */
-	public ZonaGeografica getIdMunicipioLaboral() {
-		return idMunicipioLaboral;
-	}
-
-	/**
-	 * @param idMunicipioLaboral the idMunicipioLaboral to set
-	 */
-	public void setIdMunicipioLaboral(ZonaGeografica idMunicipioLaboral) {
-		this.idMunicipioLaboral = idMunicipioLaboral;
-	}
-
-	/**
-	 * @return the idMunicipioNacimiento
-	 */
-	public ZonaGeografica getIdMunicipioNacimiento() {
-		return idMunicipioNacimiento;
-	}
-
-	/**
-	 * @param idMunicipioNacimiento the idMunicipioNacimiento to set
-	 */
-	public void setIdMunicipioNacimiento(ZonaGeografica idMunicipioNacimiento) {
-		this.idMunicipioNacimiento = idMunicipioNacimiento;
-	}
-
-	/**
-	 * @return the idMunicipioNotificacion
-	 */
-	public ZonaGeografica getIdMunicipioNotificacion() {
-		return idMunicipioNotificacion;
-	}
-
-	/**
-	 * @param idMunicipioNotificacion the idMunicipioNotificacion to set
-	 */
-	public void setIdMunicipioNotificacion(ZonaGeografica idMunicipioNotificacion) {
-		this.idMunicipioNotificacion = idMunicipioNotificacion;
-	}
-
-	/**
-	 * @return the idMunicipioResidencia
-	 */
-	public ZonaGeografica getIdMunicipioResidencia() {
-		return idMunicipioResidencia;
-	}
-
-	/**
-	 * @param idMunicipioResidencia the idMunicipioResidencia to set
-	 */
-	public void setIdMunicipioResidencia(ZonaGeografica idMunicipioResidencia) {
-		this.idMunicipioResidencia = idMunicipioResidencia;
-	}
-
-	/**
-	 * @return the idMunicipioExpedicionIdentificacion
-	 */
-	public ZonaGeografica getIdMunicipioExpedicionIdentificacion() {
-		return idMunicipioExpedicionIdentificacion;
-	}
-
-	/**
-	 * @param idMunicipioExpedicionIdentificacion the idMunicipioExpedicionIdentificacion to set
-	 */
-	public void setIdMunicipioExpedicionIdentificacion(
-			ZonaGeografica idMunicipioExpedicionIdentificacion) {
-		this.idMunicipioExpedicionIdentificacion = idMunicipioExpedicionIdentificacion;
-	}
-
-
 
 }

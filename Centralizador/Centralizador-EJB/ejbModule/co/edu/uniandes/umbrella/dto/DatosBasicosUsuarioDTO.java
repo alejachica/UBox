@@ -1,6 +1,5 @@
 package co.edu.uniandes.umbrella.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class DatosBasicosUsuarioDTO {
@@ -27,7 +26,7 @@ public class DatosBasicosUsuarioDTO {
 
 	private String idTipoIdentificacion;
 
-	private BigDecimal nroIdentificacion;
+	private String nroIdentificacion;
 
 	private String primerApellido;
 
@@ -132,14 +131,6 @@ public class DatosBasicosUsuarioDTO {
 		this.idTipoIdentificacion = idTipoIdentificacion;
 	}
 
-	public BigDecimal getNroIdentificacion() {
-		return nroIdentificacion;
-	}
-
-	public void setNroIdentificacion(BigDecimal nroIdentificacion) {
-		this.nroIdentificacion = nroIdentificacion;
-	}
-
 	public String getPrimerApellido() {
 		return primerApellido;
 	}
@@ -235,6 +226,20 @@ public class DatosBasicosUsuarioDTO {
 
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	/**
+	 * @return the nroIdentificacion
+	 */
+	public String getNroIdentificacion() {
+		return nroIdentificacion;
+	}
+
+	/**
+	 * @param nroIdentificacion the nroIdentificacion to set
+	 */
+	public void setNroIdentificacion(String nroIdentificacion) {
+		this.nroIdentificacion = nroIdentificacion;
 	}
 	
 	
