@@ -1,0 +1,5 @@
+INSERT INTO `lista` (`nombre`, `activo`, `descripcion`) VALUES ('Tipo Documento', '1', '');
+
+
+INSERT INTO `lista_valor` (`fk_lista`, `valor`, `activo`, `descripcion`, `codigo_externo`) VALUES ('1', 'Personales', '1', 'Documentos Personales', 'TD0001');
+INSERT INTO `lista_valor` (`fk_lista`, `valor`, `activo`, `descripcion`, `codigo_externo`) VALUES ('1', 'Gubernamentales', '1', 'Documentos gubernamentales', 'TD0002');

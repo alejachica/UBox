@@ -18,7 +18,12 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.codec.binary.Base64;
 
+import co.edu.uniandes.umbrella.dto.DocumentoDTO;
+import co.edu.uniandes.umbrella.dto.UsuarioDTO;
+import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
+import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
+import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.models.RecibirDocumentoRequest;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
@@ -29,26 +34,72 @@ public class DocumentoWS {
 	@EJB
 	private DocumentosEJBRemote documentoEjb;
 	
-	@GET
-	@Path("recibir")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response probar()
-	{
-		return Response.status(200).entity("ok").build();
-	}
+	@EJB
+	private UsuarioEJBRemote usuarioEjb;
 	
+	@EJB
+	private ListaValorEJBLocal listaValorEjb;
 	
 	@POST
 	@Path("recibirCompartido")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response iniciarTraslado(RecibirDocumentoRequest documento) {
+    public Response iniciarTraslado(RecibirDocumentoRequest dataRequest) {
 		ResultadoOperacion respuesta = new ResultadoOperacion();
+		
+		
+		
+		
+		try	{
+			
+			UsuarioDTO usuarioDestino = usuarioEjb.consultarUsuario(dataRequest.getTipoIdentificacionDestino(), dataRequest.getIdentificacionDestino());
+			if(usuarioDestino == null)
+			{
+				respuesta.setOperacionExitosa(false);
+				respuesta.setResultadoOperacion("El usuario al que va destinado el documento no esta registrado en el operador");
+				return Response.status(400).entity(respuesta).build();
+			}
+			
+			
+			//Si el tipo documental no se encuentra retorna error
+			ListaValor tipoDocumento = listaValorEjb.buscarListaValorPorCodigoExterno(1, dataRequest.getDocumento().getTipoDocumento());
+			if(tipoDocumento == null)
+			{
+				respuesta.setOperacionExitosa(false);
+				respuesta.setResultadoOperacion("El tipo documental no existe. Verifique el codigo");
+				return Response.status(400).entity(respuesta).build();
+			}
+			
+			//Actualiza los datos del DTO para actualizar los datos
+			DocumentoDTO documento = new DocumentoDTO();
+			documento.setDocumento(dataRequest.getDocumento().getArchivo().getBytes());
+			documento.setNombre(dataRequest.getDocumento().getNombre());
+			documento.setIdTipoDocumento(tipoDocumento.getIdListaValor());
+			documento.setIdTipoMime(dataRequest.getDocumento().getTipoMime());
+			documento.setFirmado(dataRequest.getDocumento().isFirmado());
+			documento.setPalabrasClave("");
+			documentoEjb.recibirDocumentoCompartido(dataRequest.getIdentificacionOrigen(), dataRequest.getIdentificacionOrigen(), dataRequest.getIdentificacionDestino(), dataRequest.getIdentificacionDestino(), documento);
+			
+			return Response.status(200).entity(respuesta).build();
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			respuesta.setOperacionExitosa(false);
+			respuesta.setResultadoOperacion(e.toString());
+			return Response.status(500).entity(respuesta).build();
+		}
+		
+		
+		
+		
+		
 		/*
 		byte[] data = Base64.decodeBase64(documento.getDocumento().getArchivo());
 		try (OutputStream stream = new FileOutputStream("c:/decode/abc.bmp")) {
 		    stream.write(data);
 		}*/
-		String completeImageData = documento.getDocumento().getArchivo();
+		/*String completeImageData = documento.getDocumento().getArchivo();
 		String imageDataBytes = completeImageData.substring(completeImageData.indexOf(",")+1);
 		
 		byte[] buffer = new byte[8 * 1024];
@@ -77,9 +128,7 @@ public class DocumentoWS {
 			e.printStackTrace();
 		}
 		
-		//http://stackoverflow.com/questions/17506428/convert-base64-string-to-image-in-java
-		
-		return Response.status(200).entity(respuesta).build();
+		//http://stackoverflow.com/questions/17506428/convert-base64-string-to-image-in-java*/
     }
 	
 }

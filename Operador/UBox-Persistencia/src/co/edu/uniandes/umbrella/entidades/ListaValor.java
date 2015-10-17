@@ -10,7 +10,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="lista_valor")
-@NamedQuery(name="ListaValor.findAll", query="SELECT l FROM ListaValor l")
+
+
+
+@NamedQueries({ 
+	@NamedQuery(name="ListaValor.findAll", query="SELECT l FROM ListaValor l"), 
+	@NamedQuery(name="ListaValor.findByExternalCode", query="SELECT l FROM ListaValor l where l.lista.idLista = :idLista and l.codigoExterno = :codigoExterno")
+})
 public class ListaValor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +30,11 @@ public class ListaValor implements Serializable {
 	private String descripcion;
 
 	private String valor;
+	
+	@Column(name="codigo_externo")
+	private String codigoExterno;
+
+	
 
 	//bi-directional many-to-one association to Lista
 	@ManyToOne
@@ -71,6 +82,14 @@ public class ListaValor implements Serializable {
 
 	public void setLista(Lista lista) {
 		this.lista = lista;
+	}
+	
+	public String getCodigoExterno() {
+		return codigoExterno;
+	}
+
+	public void setCodigoExterno(String codigoExterno) {
+		this.codigoExterno = codigoExterno;
 	}
 
 }

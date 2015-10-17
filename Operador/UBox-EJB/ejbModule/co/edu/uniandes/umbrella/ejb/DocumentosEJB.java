@@ -12,6 +12,7 @@ import co.edu.uniandes.umbrella.entidades.Carpeta;
 import co.edu.uniandes.umbrella.entidades.Documento;
 import co.edu.uniandes.umbrella.entidades.DocumentoXUsuarioCompartido;
 import co.edu.uniandes.umbrella.entidades.Usuario;
+import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
@@ -29,6 +30,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	
 	@EJB
 	private UsuarioEJBRemote ejbUsuario;
+	
+	@EJB
+	private CarpetaEJBRemote ejbCarpeta;
 
 	/**
      * Metodo para crear una documento y persistirlo en BD
@@ -138,6 +142,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		return docDTOList;
 	}
 
+
 	@Override
 	public void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, String tipoIdentificacionDestino, 
 			String identificacionDestino, DocumentoDTO documentoDto) {
@@ -150,6 +155,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		
 		Documento documento = new Documento();
 		documento.setUsuario(usuarioDestino);
+		documento.setCarpeta(ejbCarpeta.obtenerCarpetaRaizPorUsuario(usuarioDestino.getIdUsuario()));
 		documento.setNombre(documentoDto.getNombre());
 		documento.setIdTipoDocumento(documentoDto.getIdTipoDocumento());
 		documento.setIdTipoMime(documentoDto.getIdTipoMime());
@@ -157,6 +163,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		documento.setVersion("1");
 		documento.setFirmado(documentoDto.getFirmado());
 		documento.setPapelera(false);
+		documento.setPalabrasClave(documentoDto.getPalabrasClave());
 		documento.setDocumento(documentoDto.getDocumento());
 		documento.setSize(documentoDto.getDocumento().length);
 		entityManager.persist(documento);

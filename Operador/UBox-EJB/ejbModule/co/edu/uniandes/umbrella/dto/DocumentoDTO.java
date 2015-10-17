@@ -15,7 +15,7 @@ public class DocumentoDTO {
 	private byte[] documento;
 	private Date fecha;
 	private boolean firmado;
-	private BigDecimal idTipoDocumento;
+	private int idTipoDocumento;
 	private String idTipoMime;
 	private String nombre;
 	private String palabrasClave;
@@ -77,11 +77,11 @@ public class DocumentoDTO {
 		this.firmado = firmado;
 	}
 
-	public BigDecimal getIdTipoDocumento() {
+	public int getIdTipoDocumento() {
 		return idTipoDocumento;
 	}
 
-	public void setIdTipoDocumento(BigDecimal idTipoDocumento) {
+	public void setIdTipoDocumento(int idTipoDocumento) {
 		this.idTipoDocumento = idTipoDocumento;
 	}
 
