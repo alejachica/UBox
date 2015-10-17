@@ -40,7 +40,7 @@ public class AuthenticationService {
 
 			// we have fixed the userid and password as admin
 			// call some UserService/LDAP here
-			boolean authenticationStatus = "admin".equals(username)	&& "admin".equals(password);
+			boolean authenticationStatus = AuthenticationCredentials.USER.equals(username)	&& AuthenticationCredentials.PASSWORD.equals(password);
 			
 			return authenticationStatus;
 		}
