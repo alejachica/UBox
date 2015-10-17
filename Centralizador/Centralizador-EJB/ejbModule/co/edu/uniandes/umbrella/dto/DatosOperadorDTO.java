@@ -13,6 +13,8 @@ public class DatosOperadorDTO {
 	private String razonSocial;
 	
 	private String telefono;
+	
+	private String urlServicio;
 
 	/**
 	 * @return the idOperador
@@ -96,6 +98,20 @@ public class DatosOperadorDTO {
 	 */
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	/**
+	 * @return the urlServicio
+	 */
+	public String getUrlServicio() {
+		return urlServicio;
+	}
+
+	/**
+	 * @param urlServicio the urlServicio to set
+	 */
+	public void setUrlServicio(String urlServicio) {
+		this.urlServicio = urlServicio;
 	}
 	
 	
