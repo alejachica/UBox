@@ -2,7 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" template="/templates/template-prueba.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/templates/page-template.xhtml">
 	<ui:define name="bodyContent">
 		<!--div class="row"-->
 			<!--div class="box col-md-12"-->
@@ -16,15 +16,19 @@
 						        <tbody>
 						            <tr>
 						                <td>
-						                    <p:commandLink onclick="PF('dialogoCrearCarpeta').show();" value="Crear Carpeta">
-						            		</p:commandLink>
+						                    <a  class="btn" href="#">
+						                        <i class=" glyphicon glyphicon-ok"></i>
+						                         Crear Carpeta
+						                    </a>
+						                    <input type="text" />
 						                </td>
 						            </tr>
 						        </tbody>
 						    </table>
 						</div>
-						<h:form id="formDirectorioId">
-						    <p:treeTable value="#{directorioBean.root}" var="carpeta" id="directorio">
+						<p:commandLink title="Cargar Documento" actionListener="PF('dialogoCarpeta').show();" styleClass="ui-icon ui-icon-circle-arrow-n">
+						</p:commandLink>
+						    <p:treeTable value="#{directorioBean.root}" var="carpeta">
 						        <f:facet name="header">
 						            Directorio
 						        </f:facet>
@@ -35,12 +39,14 @@
 						            <h:outputText value="#{carpeta.descripcion}" />
 						        </p:column>
 							    <p:column headerText="Acciones" rendered="#{carpeta.type eq 'Folder'}">
-							    	<p:commandLink title="Cargar Documento" styleClass="ui-icon ui-icon-circle-arrow-n">
+							    	<p:commandLink title="Cargar Documento" actionListener="PF('dialogoCarpeta').show();" styleClass="ui-icon ui-icon-circle-arrow-n">
 						            </p:commandLink>
-							    	<p:commandLink title="Crear Sub-Carpeta" onclick="PF('dialogoCrearCarpeta').show();" styleClass="ui-icon ui-icon-plus">
+						            <p:commandButton value="Modal" type="button" onclick="PF('dialogoCarpeta').show();" />
+							    	<p:commandLink title="Crear Sub-Carpeta" styleClass="ui-icon ui-icon-plus">
+						                <!-- f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" /-->
 						            </p:commandLink>
-						            <p:commandLink update=":formDialog:dialogoElimCarpetaId" oncomplete="PF('dialogoElimCarpeta').show();" title="Eliminar Carpeta" styleClass="ui-icon ui-icon-trash">
-						                <f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
+						            <p:commandLink title="Eliminar Carpeta" styleClass="ui-icon ui-icon-trash">
+						                <!--f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" /-->
 						            </p:commandLink>
 						        </p:column>
 					        	<p:column headerText="Acciones" rendered="#{carpeta.type eq 'Archivo'}">
@@ -53,11 +59,11 @@
 					        		<a  class="btn" href="#">
 				                        <i class=" glyphicon glyphicon-ok"></i>Eliminar
 				                    </a>
-				                    <!--h:form enctype="multipart/form-data"-->
+				                    <h:form enctype="multipart/form-data">
 									    <p:growl id="messages" showDetail="true" />
 									    <p:fileUpload value="#{documentosPersonalesBean.file}" mode="simple" skinSimple="true"/>
 									    <p:commandButton value="Submit" ajax="false" actionListener="#{documentosPersonalesBean.upload}" />
-									<!--/h:form-->
+									</h:form>
 					        	</p:column>
 						        
 						        <!--p:column style="width:24px">
@@ -66,38 +72,31 @@
 						            </p:commandLink>
 						        </p:column-->
 						    </p:treeTable>
-					 	</h:form>
-					 	<h:form id="formDialog">
+						 	
 						 	<!-- Dialogo para crear una carpeta -->
-						 	<p:dialog id="dialogoCrearCarpetaId" header="Crear Carpeta" showEffect="fade" widgetVar="dialogoCrearCarpeta" modal="true" resizable="false">
-						 		<table>
-						 			<tr>
-						 				<td><h:outputText value="Nombre: "></h:outputText></td>
-						 				<td><h:inputText value="#{directorioBean.nombre}"></h:inputText></td>
-						 			</tr>
-						 			<tr>
-						 				<td><h:outputText  value="Descripcion: "></h:outputText></td>
-						 				<td><h:inputText value="#{directorioBean.descripcion}"></h:inputText></td>
-						 			</tr>
-						 			<tr>
-						 			</tr>
-						 		</table>
+						 	
+						 	<p:dialog id="dialogoCarpetaId" header="Crear Sub-Carpeta" showEffect="fade" widgetVar="dialogoCarpeta" modal="true" resizable="false">
+								<h:inputText value="#{directorioBean.nombre}" required="true"></h:inputText>
 								<br/>
-						     	<h:commandButton action="#{directorioBean.crearCarpeta}" value="Crear Carpeta" update=":formDirectorioId:directorio">
+								<h:inputText value="#{directorioBean.descripcion}" required="true"></h:inputText>
+								<br/>
+						     	<h:commandButton action="#{directorioBean.crearCarpeta}" value="Crear Carpeta">
 								</h:commandButton>
 						    </p:dialog>
-						    <!-- Dialogo para eliminar una carpeta -->
-						    <p:dialog id="dialogoElimCarpetaId" header="Eliminar Carpeta" showEffect="fade" widgetVar="dialogoElimCarpeta" modal="true" resizable="false">
-						 		<td><h:outputText value="Esta seguro de eliminar esta carpeta?"></h:outputText></td>
-								<br/>
-								<table>
-									<tr>
-										<td><h:commandButton action="PF('dialogoElimCarpeta').hide();" value="NO"></h:commandButton></td>
-										<td><h:commandButton action="#{directorioBean.eliminarCarpeta}" value="SI"></h:commandButton></td>
-									</tr>
-								</table>
-						    </p:dialog>
-					    </h:form>
+						    <!--p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+						        <p:outputPanel id="documentPanel">
+						            <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty ttBasicView.selectedDocument}">
+						                <h:outputLabel for="name" value="Name: " />
+						                <h:outputText id="name" value="#{ttBasicView.selectedDocument.name}" style="font-weight:bold" />
+						 
+						                <h:outputLabel for="size" value="Size: " />
+						                <h:outputText id="size" value="#{ttBasicView.selectedDocument.size}" style="font-weight:bold" />
+						 
+						                <h:outputLabel for="type" value="Type " />
+						                <h:outputText id="type" value="#{ttBasicView.selectedDocument.type}" style="font-weight:bold" />
+						            </p:panelGrid>
+						        </p:outputPanel>
+						    </p:dialog-->
 					<!--/div-->
 				<!--/div-->
 			<!--/div-->
