@@ -3,6 +3,7 @@ package co.edu.uniandes.umbrella.entidades;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -28,8 +29,9 @@ public class Documento implements Serializable {
 
 	@Lob
 	private byte[] documento;
-
-	private String fecha;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fecha;
 
 	private boolean firmado;
 
@@ -97,11 +99,11 @@ public class Documento implements Serializable {
 		this.documento = documento;
 	}
 
-	public String getFecha() {
+	public Date getFecha() {
 		return this.fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

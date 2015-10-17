@@ -3,14 +3,18 @@ package co.edu.uniandes.umbrella.ejb;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
+import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.Carpeta;
 import co.edu.uniandes.umbrella.entidades.Documento;
+import co.edu.uniandes.umbrella.entidades.DocumentoXUsuarioCompartido;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
+import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 
 import javax.persistence.*;
 
@@ -22,6 +26,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	
 	@PersistenceContext(unitName = "UBox-Persistencia")
 	private EntityManager entityManager;
+	
+	@EJB
+	private UsuarioEJBRemote ejbUsuario;
 
 	/**
      * Metodo para crear una documento y persistirlo en BD
@@ -130,5 +137,44 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		}
 		return docDTOList;
 	}
+
+	@Override
+	public void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, String tipoIdentificacionDestino, 
+			String identificacionDestino, DocumentoDTO documentoDto) {
+		
+		//Busca el usuario al que se le va compartir el archivo
+		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
+				Usuario.class).setParameter("identificacion", identificacionDestino);
+		Usuario usuarioDestino = (Usuario) query.getSingleResult();
+		
+		
+		Documento documento = new Documento();
+		documento.setUsuario(usuarioDestino);
+		documento.setNombre(documentoDto.getNombre());
+		documento.setIdTipoDocumento(documentoDto.getIdTipoDocumento());
+		documento.setIdTipoMime(documentoDto.getIdTipoMime());
+		documento.setFecha(documentoDto.getFecha());
+		documento.setVersion("1");
+		documento.setFirmado(documentoDto.getFirmado());
+		documento.setPapelera(false);
+		documento.setDocumento(documentoDto.getDocumento());
+		documento.setSize(documentoDto.getDocumento().length);
+		entityManager.persist(documento);
+		
+		/*
+		DocumentoXUsuarioCompartido compartido = new DocumentoXUsuarioCompartido();
+		compartido.setUsuario(usuarioDestino);
+		//compartido.setFormaComparticion(formaComparticion);
+		compartido.setLectura(true);
+		compartido.setEscritura(true);
+		compartido.setEscritura(true);
+		compartido.setIdentificacionComparticion(identificacionOrigen);
+		compartido.setRecibido(true);
+		compartido.setRecibido(true);
+		documento.addDocumentoXUsuarioCompartido(compartido);*/
+	}
+	
+	
+	
 
 }
