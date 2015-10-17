@@ -20,13 +20,13 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 	@Column(name="id_compartido")
 	private int idCompartido;
 
-	private byte compartir;
+	private boolean compartir;
 
-	private byte descarga;
+	private boolean descarga;
 
-	private byte enviado;
+	private boolean enviado;
 
-	private byte escritura;
+	private boolean escritura;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_expiracion")
@@ -34,16 +34,16 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 
 	private String identificacionComparticion;
 
-	private byte lectura;
+	private boolean lectura;
 
 	private String link;
 
 	private String operadorComparticion;
 
 	@Column(name="permiso_acitvo")
-	private byte permisoAcitvo;
+	private boolean permisoAcitvo;
 
-	private byte recibido;
+	private boolean recibido;
 
 	//bi-directional many-to-one association to Documento
 	@ManyToOne
@@ -71,35 +71,35 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 		this.idCompartido = idCompartido;
 	}
 
-	public byte getCompartir() {
+	public boolean getCompartir() {
 		return this.compartir;
 	}
 
-	public void setCompartir(byte compartir) {
+	public void setCompartir(boolean compartir) {
 		this.compartir = compartir;
 	}
 
-	public byte getDescarga() {
+	public boolean getDescarga() {
 		return this.descarga;
 	}
 
-	public void setDescarga(byte descarga) {
+	public void setDescarga(boolean descarga) {
 		this.descarga = descarga;
 	}
 
-	public byte getEnviado() {
+	public boolean getEnviado() {
 		return this.enviado;
 	}
 
-	public void setEnviado(byte enviado) {
+	public void setEnviado(boolean enviado) {
 		this.enviado = enviado;
 	}
 
-	public byte getEscritura() {
+	public boolean getEscritura() {
 		return this.escritura;
 	}
 
-	public void setEscritura(byte escritura) {
+	public void setEscritura(boolean escritura) {
 		this.escritura = escritura;
 	}
 
@@ -119,11 +119,11 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 		this.identificacionComparticion = identificacionComparticion;
 	}
 
-	public byte getLectura() {
+	public boolean getLectura() {
 		return this.lectura;
 	}
 
-	public void setLectura(byte lectura) {
+	public void setLectura(boolean lectura) {
 		this.lectura = lectura;
 	}
 
@@ -143,19 +143,19 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 		this.operadorComparticion = operadorComparticion;
 	}
 
-	public byte getPermisoAcitvo() {
+	public boolean getPermisoAcitvo() {
 		return this.permisoAcitvo;
 	}
 
-	public void setPermisoAcitvo(byte permisoAcitvo) {
+	public void setPermisoAcitvo(boolean permisoAcitvo) {
 		this.permisoAcitvo = permisoAcitvo;
 	}
 
-	public byte getRecibido() {
+	public boolean getRecibido() {
 		return this.recibido;
 	}
 
-	public void setRecibido(byte recibido) {
+	public void setRecibido(boolean recibido) {
 		this.recibido = recibido;
 	}
 

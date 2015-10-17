@@ -1,0 +1,7 @@
+ALTER TABLE `documento_x_usuario_compartido`
+MODIFY COLUMN `lectura`  bit(1) NULL DEFAULT NULL AFTER `fk_forma_comparticion`,
+MODIFY COLUMN `escritura`  bit(1) NULL DEFAULT NULL AFTER `lectura`,
+MODIFY COLUMN `descarga`  bit(1) NULL DEFAULT NULL AFTER `escritura`,
+MODIFY COLUMN `compartir`  bit(1) NULL DEFAULT NULL AFTER `descarga`,
+MODIFY COLUMN `enviado`  bit(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue enviado o compartido a otro usuario' AFTER `uboxComparticion`,
+MODIFY COLUMN `recibido`  bit(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue recibido de otro usuario' AFTER `enviado`;

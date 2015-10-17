@@ -17,4 +17,20 @@ public interface DocumentosEJBRemote {
 	
 	List<DocumentoDTO> listarDocumentosCarpeta(int id);
 	
+	/***
+	 * Carga un documento en el listado de doucmentos del usuario Destino y crea 
+	 * @param tipoIdentificacionOrigen 
+	 * Tipo de documento del usuario que comparte el documento
+	 * @param identificacionOrigen 
+	 * numero de documento del usuario que comparte el documento
+	 * @param tipoIdentificacionDestino
+	 * Tipo de documento del usuario al que le comparten el documento
+	 * @param identificacionDestino
+	 * Número de documento del usuario al que le comparten el documento
+	 * @param documento
+	 * 
+	 */
+	void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, String tipoIdentificacionDestino, String identificacionDestino, DocumentoDTO documento);
+	
+	
 }

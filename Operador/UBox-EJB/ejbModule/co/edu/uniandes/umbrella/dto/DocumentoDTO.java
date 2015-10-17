@@ -1,6 +1,7 @@
 package co.edu.uniandes.umbrella.dto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 public class DocumentoDTO {
@@ -12,7 +13,7 @@ public class DocumentoDTO {
 	private int fkUsuario;
 	
 	private byte[] documento;
-	private String fecha;
+	private Date fecha;
 	private boolean firmado;
 	private BigDecimal idTipoDocumento;
 	private String idTipoMime;
@@ -60,11 +61,11 @@ public class DocumentoDTO {
 		this.documento = documento;
 	}
 
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
