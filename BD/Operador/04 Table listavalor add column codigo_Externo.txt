@@ -1,0 +1,5 @@
+ALTER TABLE `lista_valor`
+ADD COLUMN `codigo_externo`  varchar(20) NULL AFTER `descripcion`;
+
+ALTER TABLE `documento`
+MODIFY COLUMN `id_tipo_documento`  int(10) NOT NULL AFTER `nombre`;

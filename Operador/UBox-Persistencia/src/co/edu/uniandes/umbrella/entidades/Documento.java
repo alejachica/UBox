@@ -36,7 +36,7 @@ public class Documento implements Serializable {
 	private boolean firmado;
 
 	@Column(name="id_tipo_documento")
-	private BigDecimal idTipoDocumento;
+	private int idTipoDocumento;
 
 	@Column(name="id_tipo_mime")
 	private String idTipoMime;
@@ -115,11 +115,11 @@ public class Documento implements Serializable {
 		this.firmado = firmado;
 	}
 
-	public BigDecimal getIdTipoDocumento() {
+	public int getIdTipoDocumento() {
 		return this.idTipoDocumento;
 	}
 
-	public void setIdTipoDocumento(BigDecimal idTipoDocumento) {
+	public void setIdTipoDocumento(int idTipoDocumento) {
 		this.idTipoDocumento = idTipoDocumento;
 	}
 

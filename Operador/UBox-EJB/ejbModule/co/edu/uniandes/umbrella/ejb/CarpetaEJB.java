@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -22,14 +23,15 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 	private EntityManager entityManager;
 	
 	@Override
-	public void crearCarpeta(CarpetaDTO carpetaDTO) {
+	public Carpeta crearCarpeta(CarpetaDTO carpetaDTO) {
 		Carpeta carpeta = new Carpeta();
 		
 		carpeta.setIdCarpeta(carpetaDTO.getIdCarpeta());
 		carpeta.setNombreCarpeta(carpetaDTO.getNombreCarpeta());
 		carpeta.setDescripcion(carpetaDTO.getDescripcion());
 		
-		entityManager.persist(carpeta);			
+		entityManager.persist(carpeta);
+		return carpeta;
 	}
 	
 	/**
@@ -37,7 +39,7 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
      * @param carpetaDTO
      * @param idUsuario
      */
-    public void crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario)throws Exception {
+    public Carpeta crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario)throws Exception {
     	try{
 	        Carpeta carpeta = new Carpeta();
 	        carpeta.setNombreCarpeta(carpetaDTO.getNombreCarpeta());
@@ -51,6 +53,7 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 	        Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
 	        carpeta.setUsuario(usuarioEncontrado);
 	        entityManager.persist(carpeta);
+	        return carpeta;
     	}
 	    catch(Exception e){
 	    	throw new Exception("Fallo persistiendo la carpeta");
@@ -89,6 +92,50 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 		}
 		catch(Exception e){
 			throw new Exception("Fallo eliminado la carpeta");
+		}
+	}
+	
+	/***
+	 * Retorna el listado de carpetas raiz de un usuario
+	 * @param idUsuario
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Carpeta> obtenerCarpetasRaizXUsuario(int idUsuario) {
+		try{
+			Query query = entityManager.createNamedQuery("Carpeta.findByUserIDAndRootFolder", Carpeta.class).setParameter("idUsuario", idUsuario);
+			List<Carpeta> resultList = (List<Carpeta>)query.getResultList();
+			
+			return  resultList;
+		}
+		catch(NoResultException e){
+			return new ArrayList<Carpeta>();
+		}
+	}
+	
+	/***
+	 * Retorna la carpeta raiz de un usuario, sino tiene la crea
+	 * @param idUsuario
+	 * @return
+	 */
+	public Carpeta obtenerCarpetaRaizPorUsuario(int idUsuario)
+	{
+		List<Carpeta> carpetasRaiz =  (List<Carpeta>) obtenerCarpetasRaizXUsuario(idUsuario);
+		
+		if(carpetasRaiz.size() > 0)
+			return carpetasRaiz.get(0);
+		else
+		{
+			CarpetaDTO carpetaDTO = new CarpetaDTO();
+			carpetaDTO.setDescripcion("Carpeta por defecto");
+			carpetaDTO.setNombreCarpeta("root");
+			try {
+				return crearCarpeta(carpetaDTO, idUsuario);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
 		}
 	}
 

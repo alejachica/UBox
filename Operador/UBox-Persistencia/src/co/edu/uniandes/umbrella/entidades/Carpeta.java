@@ -13,7 +13,8 @@ import java.util.List;
 @NamedQueries({ 
 	@NamedQuery(name = "Carpeta.findAll", query = "SELECT c FROM Carpeta c"), 
 	@NamedQuery(name = "Carpeta.findByID", query = "SELECT c FROM Carpeta c where c.idCarpeta = :idCarpeta"),
-	@NamedQuery(name = "Carpeta.findByUserID", query = "SELECT c FROM Carpeta c where c.usuario.idUsuario = :idUsuario") 
+	@NamedQuery(name = "Carpeta.findByUserID", query = "SELECT c FROM Carpeta c where c.usuario.idUsuario = :idUsuario"),
+	@NamedQuery(name = "Carpeta.findByUserIDAndRootFolder", query = "SELECT c FROM Carpeta c where c.usuario.idUsuario = :idUsuario and c.carpeta is null") 
 })
 public class Carpeta implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +44,7 @@ public class Carpeta implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Documento
-	@OneToMany(mappedBy="carpeta")
+	@OneToMany(mappedBy="carpeta", cascade=CascadeType.ALL)
 	private List<Documento> documentos;
 
 	public Carpeta() {

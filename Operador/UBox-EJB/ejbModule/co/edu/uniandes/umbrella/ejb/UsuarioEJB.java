@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -52,13 +53,26 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
 				Usuario.class).setParameter("identificacion", nroDoc);
 		
-		return (Usuario) query.getSingleResult();
+		Usuario respuesta = null;
+		
+		try {
+			
+			respuesta = (Usuario) query.getSingleResult();
+			
+		} catch (NoResultException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return respuesta;
 	}
 	
 	public UsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
 
 
 		Usuario usuarioEncontrado = consultarUsuarioEntity(tipoDoc, nroDoc);
+		
+		if(usuarioEncontrado == null)
+			return null;
 		
 		UsuarioDTO usuario = new UsuarioDTO();
 		
@@ -88,8 +102,12 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 		ResultadoOperacion respuesta = new ResultadoOperacion();
 		
 		Usuario usuario = this.consultarUsuarioEntity(tipoDocumento, numDocumento);
-		
-		if(!usuario.getActivo())
+		if(usuario == null)
+		{
+			respuesta.setOperacionExitosa(false);
+			respuesta.setResultadoOperacion("El usuario no está registrado en nuestro operador");
+		}
+		else if(!usuario.getActivo())
 		{
 			respuesta.setOperacionExitosa(false);
 			respuesta.setResultadoOperacion("Error usuario no se encuentra activo en nuestro operador");
@@ -131,6 +149,10 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 	public boolean usuarioEstaAPazYSalvo(String tipoDocumento, String numeroDocumento)
 	{
 		UsuarioDTO usuario = consultarUsuario(tipoDocumento, numeroDocumento);
+		if(usuario == null)
+			//throw new Exception("El usuario no se encuentra registrador en el sistema");
+			return false;
+		
 		return usuario.isEstaPazYSalvo();
 	}
 
