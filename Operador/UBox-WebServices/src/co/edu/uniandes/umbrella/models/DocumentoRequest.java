@@ -7,7 +7,7 @@ public class DocumentoRequest {
 	private String tipoDocumento;
 	private String tipoMime;
 	private Date fechaCreacion;
-	private byte[] archivo;
+	private String archivo;
 	private boolean firmado;
 	public String getNombre() {
 		return nombre;
@@ -33,10 +33,10 @@ public class DocumentoRequest {
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-	public byte[] getArchivo() {
+	public String getArchivo() {
 		return archivo;
 	}
-	public void setArchivo(byte[] archivo) {
+	public void setArchivo(String archivo) {
 		this.archivo = archivo;
 	}
 	public boolean isFirmado() {
