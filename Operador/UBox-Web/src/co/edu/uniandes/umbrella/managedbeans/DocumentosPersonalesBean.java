@@ -4,9 +4,7 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
 import javax.faces.bean.ManagedBean;
-
-import java.math.BigDecimal;
-
+import javax.faces.bean.SessionScoped;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -21,12 +19,15 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
  *
  */
 @ManagedBean(name="documentosPersonalesBean")
+@SessionScoped
 public class DocumentosPersonalesBean {
 	
 	@EJB
 	private DocumentosEJBRemote documentosEJB;
 	
 	private UploadedFile file;
+	
+	private int carpetaId;
 	 
     public UploadedFile getFile() {
         return file;
@@ -36,14 +37,22 @@ public class DocumentosPersonalesBean {
         this.file = file;
     }
      
-    public void upload() {
+    public int getCarpetaId() {
+		return carpetaId;
+	}
+
+	public void setCarpetaId(int carpetaId) {
+		this.carpetaId = carpetaId;
+	}
+
+	public void upload() {
     	try{
 	        if(file != null) {
 	        	DocumentoDTO documentoDTO = new DocumentoDTO();
 	        	documentoDTO.setDocumento(file.getContents());
 	        	//documentoDTO.setFecha(""); TODO ajustar fecha
 	        	documentoDTO.setFirmado(false);
-	        	documentoDTO.setFkCarpeta(1);
+	        	documentoDTO.setFkCarpeta(carpetaId);
 	        	documentoDTO.setFkUsuario(3);
 	        	//documentoDTO.setIdTipoDocumento(new BigDecimal(1)); TODO seleccionar el tipo adecuado
 	        	documentoDTO.setIdTipoMime(file.getContentType());
