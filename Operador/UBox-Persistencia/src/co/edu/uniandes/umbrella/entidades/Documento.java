@@ -65,7 +65,7 @@ public class Documento implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to DocumentoXUsuarioCompartido
-	@OneToMany(mappedBy="documento")
+	@OneToMany(mappedBy="documento", cascade = CascadeType.ALL)
 	private List<DocumentoXUsuarioCompartido> documentoXUsuarioCompartidos;
 
 	//bi-directional many-to-one association to HistorialDocumento

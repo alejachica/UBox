@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -118,6 +120,8 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 	 * @param idUsuario
 	 * @return
 	 */
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Carpeta obtenerCarpetaRaizPorUsuario(int idUsuario)
 	{
 		List<Carpeta> carpetasRaiz =  (List<Carpeta>) obtenerCarpetasRaizXUsuario(idUsuario);

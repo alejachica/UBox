@@ -40,14 +40,16 @@ public class DocumentoWS {
 	@EJB
 	private ListaValorEJBLocal listaValorEjb;
 	
+	/***
+	 * Metodo encargado de recibir un documento para ser compartido a un usuario existente en el operador
+	 * @param dataRequest Estructura de datos con el documento, el remitente y el destinatario
+	 * @return
+	 */
 	@POST
 	@Path("recibirCompartido")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response iniciarTraslado(RecibirDocumentoRequest dataRequest) {
+    public Response compartirDocumento(RecibirDocumentoRequest dataRequest) {
 		ResultadoOperacion respuesta = new ResultadoOperacion();
-		
-		
-		
 		
 		try	{
 			
@@ -77,8 +79,11 @@ public class DocumentoWS {
 			documento.setIdTipoMime(dataRequest.getDocumento().getTipoMime());
 			documento.setFirmado(dataRequest.getDocumento().isFirmado());
 			documento.setPalabrasClave("");
-			documentoEjb.recibirDocumentoCompartido(dataRequest.getIdentificacionOrigen(), dataRequest.getIdentificacionOrigen(), dataRequest.getIdentificacionDestino(), dataRequest.getIdentificacionDestino(), documento);
+			documentoEjb.recibirDocumentoCompartido(dataRequest.getIdentificacionOrigen(), dataRequest.getIdentificacionOrigen(), dataRequest.isEmpresaPublica(), dataRequest.getIdentificacionDestino(), dataRequest.getIdentificacionDestino(), dataRequest.getIdOperadorExterno(), documento);
 			
+			respuesta.setOperacionExitosa(true);
+			
+			//Retorna respuesta exitosa
 			return Response.status(200).entity(respuesta).build();
 			
 		}

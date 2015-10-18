@@ -1,5 +1,6 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +10,13 @@ import javax.ejb.Stateless;
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
 import co.edu.uniandes.umbrella.entidades.Carpeta;
 import co.edu.uniandes.umbrella.entidades.Documento;
+import co.edu.uniandes.umbrella.entidades.DocumentoXUsuarioCompartido;
+import co.edu.uniandes.umbrella.entidades.FormaComparticionEnum;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
+import co.edu.uniandes.umbrella.interfaces.FormaComparticionEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 
 import javax.persistence.*;
@@ -31,6 +35,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	
 	@EJB
 	private CarpetaEJBRemote ejbCarpeta;
+	
+	@EJB
+	private FormaComparticionEJBLocal ejbFormaComparticion;
 
 	/**
      * Metodo para crear una documento y persistirlo en BD
@@ -139,20 +146,22 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		}
 		return docDTOList;
 	}
+	
 
 
 	@Override
-	public void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, String tipoIdentificacionDestino, 
-			String identificacionDestino, DocumentoDTO documentoDto) {
+	public void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, boolean esEmpresaPublica, String tipoIdentificacionDestino, 
+			String identificacionDestino, String idOperadorExterno, DocumentoDTO documentoDto) {
 		
 		//Busca el usuario al que se le va compartir el archivo
 		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
 				Usuario.class).setParameter("identificacion", identificacionDestino);
 		Usuario usuarioDestino = (Usuario) query.getSingleResult();
 		
-		
+		//Carga los datos basicos del documento
 		Documento documento = new Documento();
 		documento.setUsuario(usuarioDestino);
+		//Si no existe la carpeta raiz la crea
 		documento.setCarpeta(ejbCarpeta.obtenerCarpetaRaizPorUsuario(usuarioDestino.getIdUsuario()));
 		documento.setNombre(documentoDto.getNombre());
 		documento.setIdTipoDocumento(documentoDto.getIdTipoDocumento());
@@ -164,19 +173,27 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		documento.setPalabrasClave(documentoDto.getPalabrasClave());
 		documento.setDocumento(documentoDto.getDocumento());
 		documento.setSize(documentoDto.getDocumento().length);
-		entityManager.persist(documento);
 		
-		/*
+		
+		//Despues de crear el documento agrega la comparticion del mismo
 		DocumentoXUsuarioCompartido compartido = new DocumentoXUsuarioCompartido();
 		compartido.setUsuario(usuarioDestino);
-		//compartido.setFormaComparticion(formaComparticion);
+		//Le asigna el tipo de comparticion
+		//En este caso solo puede ser de entidad publica o de entidad privada desde otro operador
+		compartido.setFormaComparticion(ejbFormaComparticion.obtenerFormaComparticionPorId(esEmpresaPublica ? FormaComparticionEnum.DE_PUBLICA.getValue() : FormaComparticionEnum.DE_PRIVADA.getValue()));
 		compartido.setLectura(true);
 		compartido.setEscritura(true);
-		compartido.setEscritura(true);
+		compartido.setDescarga(true);
 		compartido.setIdentificacionComparticion(identificacionOrigen);
 		compartido.setRecibido(true);
-		compartido.setRecibido(true);
-		documento.addDocumentoXUsuarioCompartido(compartido);*/
+		compartido.setEnviado(false);
+		compartido.setIdOperadorExterno(idOperadorExterno);
+		documento.setDocumentoXUsuarioCompartidos(new ArrayList<DocumentoXUsuarioCompartido>());
+		
+		documento.addDocumentoXUsuarioCompartido(compartido);
+		
+		
+		entityManager.persist(documento);
 	}
 	
 	public boolean eliminarDocumento(int id){
