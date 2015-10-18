@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>Centralizador-Web</groupId>
 	<artifactId>Centralizador-Web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2</version>
 	<packaging>war</packaging>
 	<name>Centralizador-Web</name>
 	<description>Centralizador-Web</description>
