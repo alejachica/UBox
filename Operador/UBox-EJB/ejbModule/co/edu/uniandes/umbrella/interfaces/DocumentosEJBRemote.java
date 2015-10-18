@@ -32,5 +32,6 @@ public interface DocumentosEJBRemote {
 	 */
 	void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, String tipoIdentificacionDestino, String identificacionDestino, DocumentoDTO documento);
 	
+	public boolean eliminarDocumento(int id);
 	
 }
