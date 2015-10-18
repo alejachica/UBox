@@ -25,7 +25,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 @ViewScoped
 public class DirectoriosBean {
 	
-	//-------------------ATRIBUTOS-------------------//
+	//------------------ATRIBUTOS------------------//
 	
 	@EJB
 	private CarpetaEJBRemote carpeta;
