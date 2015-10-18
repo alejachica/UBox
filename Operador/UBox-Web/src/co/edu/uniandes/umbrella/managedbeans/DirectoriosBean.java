@@ -1,6 +1,3 @@
-/**
- * 
- */
 package co.edu.uniandes.umbrella.managedbeans;
 
 import java.util.List;
