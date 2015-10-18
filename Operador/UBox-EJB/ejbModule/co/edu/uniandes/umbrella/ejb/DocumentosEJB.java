@@ -7,10 +7,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
-import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.Carpeta;
 import co.edu.uniandes.umbrella.entidades.Documento;
-import co.edu.uniandes.umbrella.entidades.DocumentoXUsuarioCompartido;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBLocal;
@@ -181,7 +179,16 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		documento.addDocumentoXUsuarioCompartido(compartido);*/
 	}
 	
-	
-	
+	public boolean eliminarDocumento(int id){
+		try{
+			Query query= entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", id);
+			Documento doc = (Documento) query.getSingleResult();
+			entityManager.remove(doc);
+		}
+		catch(Exception e){
+			return false;
+		}
+		return true;
+	}
 
 }
