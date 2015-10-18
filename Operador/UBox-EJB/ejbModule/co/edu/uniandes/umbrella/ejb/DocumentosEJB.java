@@ -114,9 +114,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	}
 
 	@Override
-	public List<DocumentoDTO> listarDocumentosCarpeta(int id) {
+	public List<DocumentoDTO> listarDocumentosCarpeta(int carpetaId) {
 		List<DocumentoDTO> docDTOList = new ArrayList<DocumentoDTO>();
-		Query query = entityManager.createNamedQuery("Documento.findByCarpeta", Documento.class).setParameter("idCarpeta", id);
+		Query query = entityManager.createNamedQuery("Documento.findByCarpeta", Documento.class).setParameter("idCarpeta", carpetaId);
 		List<Documento> documento =  (List<Documento>) query.getResultList();
 		for(int i = 0; i< documento.size();i++){
 			DocumentoDTO docDTO = new DocumentoDTO();
