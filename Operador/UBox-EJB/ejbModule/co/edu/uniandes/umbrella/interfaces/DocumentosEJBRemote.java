@@ -1,15 +1,18 @@
 package co.edu.uniandes.umbrella.interfaces;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
 
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
+import co.edu.uniandes.umbrella.entidades.Documento;
+import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 @Remote
 public interface DocumentosEJBRemote {
 	
-	public void crearDocumento(DocumentoDTO documentoDTO) throws Exception;
+	public Documento crearDocumento(DocumentoDTO documentoDTO) throws Exception;
 	
 	DocumentoDTO consultarDocumento(int id);
 	
@@ -30,7 +33,20 @@ public interface DocumentosEJBRemote {
 	 * @param documento
 	 * 
 	 */
-	void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, boolean esEmpresaPublica, String tipoIdentificacionDestino, String identificacionDestino, String idOperadorExterno, DocumentoDTO documento);
+	public void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, boolean esEmpresaPublica, String tipoIdentificacionDestino, String identificacionDestino, String idOperadorExterno, DocumentoDTO documento);
+	
+	/****
+	 * Permite compartir un documento entre un usuario del mismo operador
+	 * @param idUsuarioOrigen 
+	 * usuario que comparte el documento
+	 * @param idUsuarioDestino
+	 * Usuario al que le comparten el doucmento
+	 * @param soloLectura
+	 * true: solo lectura false: se puede descargar también
+	 * @param idDocumento
+	 * Id del documento que se desea compartir
+	 */
+	public ResultadoOperacion compartirDocumentoInterno(int idUsuarioOrigen, int idUsuarioDestino, boolean soloLectura, int idDocumento, Date fechaExpiracion);
 	
 	public boolean eliminarDocumento(int id);
 	
