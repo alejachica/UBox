@@ -1,16 +1,23 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.TreeNode;
+import org.primefaces.model.UploadedFile;
 
 import co.edu.uniandes.umbrella.dto.CarpetaDTO;
 import co.edu.uniandes.umbrella.dto.DataTreeTable;
@@ -19,16 +26,16 @@ import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 
 @ManagedBean(name="directorioBean")
-@ViewScoped
+@SessionScoped
 public class DirectoriosBean {
 	
 	//------------------ATRIBUTOS------------------//
 	
 	@EJB
-	private CarpetaEJBRemote carpeta;
+	private CarpetaEJBRemote carpetaEJB;
 	
 	@EJB
-	private DocumentosEJBRemote documento;
+	private DocumentosEJBRemote documentoEJB;
 	
 	private TreeNode root;
 	
@@ -39,6 +46,12 @@ public class DirectoriosBean {
 	private String nombre;
 	
 	private int carpetaId;
+	
+	private int documentoId;
+	
+	private UploadedFile file;
+	
+	private StreamedContent fileDown;
 	
 	//-------------------METODOS GET Y SET-------------------//
 
@@ -82,6 +95,26 @@ public class DirectoriosBean {
 		this.carpetaId = carpetaId;
 	}
 	
+	public int getDocumentoId() {
+		return documentoId;
+	}
+
+	public void setDocumentoId(int documentoId) {
+		this.documentoId = documentoId;
+	}
+	
+	public UploadedFile getFile() {
+        return file;
+    }
+ 
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+    
+    public StreamedContent getFileDown() {
+		return fileDown;
+	}
+	
 	//-------------------OTROS METODOS-------------------//
 
 	@PostConstruct
@@ -92,10 +125,10 @@ public class DirectoriosBean {
 	public TreeNode crearRoot(){
 		TreeNode root = new DefaultTreeNode(new DataTreeTable(), null);
 		try {
-			List<CarpetaDTO> carpetas = carpeta.carpetasXUsuario(3); //TODO manejo de usuario, quitar id quemado.
+			List<CarpetaDTO> carpetas = carpetaEJB.carpetasXUsuario(3); //TODO manejo de usuario, quitar id quemado.
 			for(CarpetaDTO carp: carpetas){
 				TreeNode carpeta = new DefaultTreeNode(new DataTreeTable(carp.getIdCarpeta(), carp.getNombreCarpeta(), carp.getDescripcion(), null, "Folder"), root);
-				List<DocumentoDTO> docsDTO= documento.listarDocumentosCarpeta(carp.getIdCarpeta());
+				List<DocumentoDTO> docsDTO = documentoEJB.listarDocumentosCarpeta(carp.getIdCarpeta());
 				for(DocumentoDTO doc: docsDTO){
 					TreeNode docum = new DefaultTreeNode(new DataTreeTable(doc.getIdDocumento(), doc.getNombre(), null, Integer.toString(doc.getSize()), "Archivo"), carpeta);
 				}
@@ -111,7 +144,7 @@ public class DirectoriosBean {
 		CarpetaDTO carpetaDTO = new CarpetaDTO();
 		carpetaDTO.setDescripcion(descripcion);
 		carpetaDTO.setNombreCarpeta(nombre);
-		carpeta.crearCarpeta(carpetaDTO, 3);
+		carpetaEJB.crearCarpeta(carpetaDTO, 3);
 		root = crearRoot();
 		}
 		catch(Exception e){
@@ -122,7 +155,7 @@ public class DirectoriosBean {
 	
 	public void eliminarCarpeta(){
 		try{
-			carpeta.eliminarCarpeta(this.carpetaId);
+			carpetaEJB.eliminarCarpeta(this.carpetaId);
 			root = crearRoot();
 		}
 		catch(Exception e){
@@ -130,5 +163,71 @@ public class DirectoriosBean {
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
+	
+	public void upload() {
+    	try{
+	        if(file != null) {
+	        	DocumentoDTO documentoDTO = new DocumentoDTO();
+	        	documentoDTO.setDocumento(file.getContents());
+	        	//documentoDTO.setFecha(""); TODO ajustar fecha
+	        	documentoDTO.setFirmado(false);
+	        	documentoDTO.setFkCarpeta(carpetaId);
+	        	documentoDTO.setFkUsuario(3);
+	        	//documentoDTO.setIdTipoDocumento(new BigDecimal(1)); TODO seleccionar el tipo adecuado
+	        	documentoDTO.setIdTipoMime(file.getContentType());
+	        	documentoDTO.setNombre(file.getFileName());
+	        	documentoDTO.setPalabrasClave("archivo1");
+	        	documentoDTO.setVersion("version1");
+	        	documentoDTO.setPapelera(false);
+	        	documentoDTO.setSize((int)file.getSize());
+	        	documentoEJB.crearDocumento(documentoDTO);
+	            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+	            FacesContext.getCurrentInstance().addMessage(null, message);
+	            root = crearRoot();
+	        }
+    	}
+    	catch(Exception e){
+    		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando carpeta", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+    	}
+    }
 
+	public void eliminarDocumento(){
+		try{
+			documentoEJB.eliminarDocumento(this.documentoId);
+			root = crearRoot();
+		}
+		catch(Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando documento", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+	
+	public void downLoad() throws IOException {
+		DocumentoDTO documento = documentoEJB.consultarDocumento(this.documentoId);
+		FacesContext context = FacesContext.getCurrentInstance();  
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();  
+		response.reset();
+		response.setBufferSize(documento.getDocumento().length);  
+		response.setContentType("application/octet-stream");  
+		response.setHeader("Content-Length", String.valueOf(documento.getDocumento().length));  
+		response.setHeader("Content-Disposition", "attachment;filename=\"" + documento.getNombre() + "\"");  
+	    BufferedInputStream input = null;  
+	    BufferedOutputStream output = null;  
+	    try {  
+	    	input = new BufferedInputStream(new ByteArrayInputStream(documento.getDocumento()),documento.getDocumento().length);  
+	        output = new BufferedOutputStream(response.getOutputStream(),documento.getDocumento().length);  
+	        byte[] buffer = new byte[documento.getDocumento().length];  
+			int length;  
+			while ((length = input.read(buffer)) > 0) {
+				output.write(buffer, 0, length);  
+			}  
+		} 
+	    finally {  
+			input.close();  
+			output.close();  
+		}  
+		context.responseComplete();  
+	}  
+	
 }
