@@ -41,11 +41,11 @@ public class DocumentosPersonalesBean {
 	        if(file != null) {
 	        	DocumentoDTO documentoDTO = new DocumentoDTO();
 	        	documentoDTO.setDocumento(file.getContents());
-	        	documentoDTO.setFecha("");
+	        	//documentoDTO.setFecha(""); TODO ajustar fecha
 	        	documentoDTO.setFirmado(false);
 	        	documentoDTO.setFkCarpeta(1);
 	        	documentoDTO.setFkUsuario(3);
-	        	documentoDTO.setIdTipoDocumento(new BigDecimal(1));
+	        	//documentoDTO.setIdTipoDocumento(new BigDecimal(1)); TODO seleccionar el tipo adecuado
 	        	documentoDTO.setIdTipoMime(file.getContentType());
 	        	documentoDTO.setNombre(file.getFileName());
 	        	documentoDTO.setPalabrasClave("archivo1");
