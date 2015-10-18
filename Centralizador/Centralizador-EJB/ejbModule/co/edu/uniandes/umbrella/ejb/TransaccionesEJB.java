@@ -19,9 +19,17 @@ import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBRemote;
 @WebService
 public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJBLocal {
 	
+	/**
+	 * Entity manager
+	 */
 	@PersistenceContext(unitName = "Centralizador-Persistencia")
 	private EntityManager entityManager;
 
+	/**
+	 * Servicio que permite consultar los datos del operador de un usuario al que se le compartira un documento
+	 * @param datos Filtro para la consulta
+	 * @return DatosOperadorDTO Datos del operador para compartir documentos
+	 */
 	public DatosOperadorDTO consultarOperadorUsuarioParaCompartir(
 			ServiciosOperadorUsuarioDTO datos) {
 		

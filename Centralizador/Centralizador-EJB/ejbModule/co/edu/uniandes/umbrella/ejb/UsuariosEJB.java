@@ -1,7 +1,5 @@
 package co.edu.uniandes.umbrella.ejb;
 
-import java.math.BigDecimal;
-
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -10,22 +8,31 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import co.edu.uniandes.umbrella.dto.DatosBasicosUsuarioDTO;
+import co.edu.uniandes.umbrella.dto.DatosOperadorDTO;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 import co.edu.uniandes.umbrella.interfaces.UsuariosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuariosEJBRemote;
 
 /**
+ * EJB con los servicios necesarios para el usuario 
  * Session Bean implementation class UsuariosEJB
  */
 @Stateless
 @WebService
 public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 
+	/**
+	 * Entity manager
+	 */
 	@PersistenceContext(unitName = "Centralizador-Persistencia")
 	private EntityManager entityManager;
 
 
+	/**
+	 * Servicio que permite registrar un usuario en el centralizador
+	 * @param usuarioDto Datos del usuario a registrar
+	 */
 	@Override
 	@WebMethod(exclude=true)
 	public void crearUsuario(DatosBasicosUsuarioDTO usuarioDto) {
@@ -69,10 +76,18 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 		entityManager.persist(usuario);
 	}
 
+	/**
+	 * Servicio que permite consultar un usuario en el centralizador
+	 * @param TipoDoc tipo de documento del usuario
+	 * @param NroDoc nro de document del usuario
+	 * @return DatosBasicosUsuarioDTO Resultado de la consulta
+	 */
+	@Override
 	public DatosBasicosUsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
 
 		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
-				Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", new BigDecimal(nroDoc));
+				Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", nroDoc);
+		
 		Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
 
 		DatosBasicosUsuarioDTO usuario = new DatosBasicosUsuarioDTO();
@@ -88,7 +103,32 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 		return usuario;
 	}
 	
+	/**
+	 * Servicio que permite consultar el operador en el que esta registrado un usuario en el centralizador
+	 * @param TipoDoc tipo de documento del usuario
+	 * @param NroDoc nro de document del usuario
+	 * @return DatosOperadorDTO Datos del operador donde esta registrado el usuario
+	 */
+	@Override
+	public DatosOperadorDTO consultarOperadorUsuario(String tipoDoc, String nroDoc) {
 
+		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
+				Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", nroDoc);
+		Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
+
+		DatosOperadorDTO datosOperador = new DatosOperadorDTO();
+		datosOperador.setIdOperador(usuarioEncontrado.getOperador().getIdOperador());
+		datosOperador.setNit(usuarioEncontrado.getOperador().getNit());
+		
+		return datosOperador;
+	}
+	
+
+	/**
+	 * Metodo que permite configurar la zona geografica
+	 * @param idZonaConfigurar Id de la zona geografica
+	 * @return ZonaGeografica Zona geografica creada
+	 */
 	private ZonaGeografica configurarZonaGeograficaUsuario(int idZonaConfigurar) {
 
 		ZonaGeografica zona = new ZonaGeografica();
@@ -96,4 +136,5 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 
 		return zona;
 	}
+	
 }
