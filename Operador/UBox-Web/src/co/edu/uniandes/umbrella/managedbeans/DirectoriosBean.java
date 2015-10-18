@@ -9,11 +9,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
-import org.primefaces.context.RequestContext;
 
 import co.edu.uniandes.umbrella.dto.CarpetaDTO;
 import co.edu.uniandes.umbrella.dto.DataTreeTable;
@@ -22,6 +22,7 @@ import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 
 @ManagedBean(name="directorioBean")
+@ViewScoped
 public class DirectoriosBean {
 	
 	//-------------------ATRIBUTOS-------------------//
@@ -39,6 +40,8 @@ public class DirectoriosBean {
 	private String descripcion;
 	
 	private String nombre;
+	
+	private int carpetaId;
 	
 	//-------------------METODOS GET Y SET-------------------//
 
@@ -74,6 +77,14 @@ public class DirectoriosBean {
 		this.elementoSeleccionado = elementoSeleccionado;
 	}
 	
+	public int getCarpetaId() {
+		return carpetaId;
+	}
+
+	public void setCarpetaId(int carpetaId) {
+		this.carpetaId = carpetaId;
+	}
+	
 	//-------------------OTROS METODOS-------------------//
 
 	@PostConstruct
@@ -104,6 +115,7 @@ public class DirectoriosBean {
 		carpetaDTO.setDescripcion(descripcion);
 		carpetaDTO.setNombreCarpeta(nombre);
 		carpeta.crearCarpeta(carpetaDTO, 3);
+		root = crearRoot();
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error creando carpeta", e.getMessage());
@@ -113,16 +125,13 @@ public class DirectoriosBean {
 	
 	public void eliminarCarpeta(){
 		try{
-			carpeta.eliminarCarpeta(1);
+			carpeta.eliminarCarpeta(this.carpetaId);
+			root = crearRoot();
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando carpeta", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
-	
-	public void dialogoCargarDoc() {
-        RequestContext.getCurrentInstance().openDialog("/directorios/documentos");
-    }
 
 }
