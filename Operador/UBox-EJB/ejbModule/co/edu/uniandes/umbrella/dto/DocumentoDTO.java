@@ -1,8 +1,6 @@
 package co.edu.uniandes.umbrella.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
-
 
 public class DocumentoDTO {
 	
@@ -26,7 +24,6 @@ public class DocumentoDTO {
 
 	public DocumentoDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getIdDocumento() {
@@ -141,6 +138,4 @@ public class DocumentoDTO {
 		this.version = version;
 	}
 	
-	
-
 }
