@@ -163,4 +163,16 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
         // TODO Auto-generated constructor stub
     }
 
+	@Override
+	public Usuario consultarUsuarioPorId(int id) {
+		Query query = entityManager.createNamedQuery("Usuario.findById")
+				.setParameter("idUsuario", id);
+		try {
+			return (Usuario) query.getSingleResult();	
+		} catch (NoResultException e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
+
 }

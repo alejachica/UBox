@@ -2,7 +2,6 @@ package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +14,8 @@ import java.util.List;
 @NamedQueries({ 
 	@NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"), 
 	@NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d where d.idDocumento = :id"),
-	@NamedQuery(name = "Documento.findByUsuario", query = "SELECT d FROM Documento d where d.usuario.idUsuario = :idUsuario"),
-	@NamedQuery(name = "Documento.findByCarpeta", query = "SELECT d FROM Documento d where d.carpeta.idCarpeta = :idCarpeta")
+	@NamedQuery(name = "Documento.findInTrash", query = "SELECT d FROM Documento d where d.usuario.idUsuario = :idUsuario and d.papelera = true"),
+	@NamedQuery(name = "Documento.findByCarpeta", query = "SELECT d FROM Documento d where d.carpeta.idCarpeta = :idCarpeta and d.papelera = false")
 })
 
 public class Documento implements Serializable {
@@ -53,6 +52,9 @@ public class Documento implements Serializable {
 	private int size;
 
 	private String version;
+	
+	private boolean archivoCompartidoTemporal;
+	private boolean archivoCompartidoTipoLink;
 
 	//bi-directional many-to-one association to Carpeta
 	@ManyToOne
@@ -65,7 +67,7 @@ public class Documento implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to DocumentoXUsuarioCompartido
-	@OneToMany(mappedBy="documento")
+	@OneToMany(mappedBy="documento", cascade = CascadeType.ALL)
 	private List<DocumentoXUsuarioCompartido> documentoXUsuarioCompartidos;
 
 	//bi-directional many-to-one association to HistorialDocumento
@@ -281,6 +283,22 @@ public class Documento implements Serializable {
 		pago.setDocumento(null);
 
 		return pago;
+	}
+
+	public boolean isArchivoCompartidoTemporal() {
+		return archivoCompartidoTemporal;
+	}
+
+	public void setArchivoCompartidoTemporal(boolean archivoCompartidoTemporal) {
+		this.archivoCompartidoTemporal = archivoCompartidoTemporal;
+	}
+
+	public boolean isArchivoCompartidoTipoLink() {
+		return archivoCompartidoTipoLink;
+	}
+
+	public void setArchivoCompartidoTipoLink(boolean archivoCompartidoTipoLink) {
+		this.archivoCompartidoTipoLink = archivoCompartidoTipoLink;
 	}
 
 }

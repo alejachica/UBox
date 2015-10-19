@@ -28,46 +28,41 @@
 						        <f:facet name="header">
 						            Directorio
 						        </f:facet>
+						        <p:column headerText="Tipo">
+						            <h:outputText styleClass="ui-icon ui-icon-folder-collapsed" rendered="#{carpeta.type eq 'Folder'}"/>
+						            <h:outputText styleClass="ui-icon ui-icon-document" rendered="#{carpeta.type eq 'Archivo'}"/>
+						        </p:column>
 						        <p:column headerText="Nombre">
-						            <h:outputText value="#{carpeta.nombre}" />
+						            <h:outputText value="#{carpeta.nombre}"/>
 						        </p:column>
 						        <p:column headerText="Descripcion">
 						            <h:outputText value="#{carpeta.descripcion}" />
 						        </p:column>
-							    <p:column headerText="Acciones" rendered="#{carpeta.type eq 'Folder'}">
-							    	<p:commandLink title="Cargar Documento" styleClass="ui-icon ui-icon-circle-arrow-n">
+							    <p:column headerText="Acciones">
+							    	<!-- Manejo de carpetas -->
+							    	<p:commandLink title="Cargar Documento" onclick="PF('dialogoCargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-n"  rendered="#{carpeta.type eq 'Folder'}">
+							    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
 						            </p:commandLink>
-							    	<p:commandLink title="Crear Sub-Carpeta" onclick="PF('dialogoCrearCarpeta').show();" styleClass="ui-icon ui-icon-plus">
+							    	<p:commandLink title="Crear Sub-Carpeta" onclick="PF('dialogoCrearCarpeta').show();" styleClass="ui-icon ui-icon-plus" rendered="#{carpeta.type eq 'Folder'}">
 						            </p:commandLink>
-						            <p:commandLink update=":formDialog:dialogoElimCarpetaId" oncomplete="PF('dialogoElimCarpeta').show();" title="Eliminar Carpeta" styleClass="ui-icon ui-icon-trash">
+						            <p:commandLink oncomplete="PF('dialogoElimCarpeta').show();" title="Eliminar Carpeta" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Folder'}">
 						                <f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
 						            </p:commandLink>
-						        </p:column>
-					        	<p:column headerText="Acciones" rendered="#{carpeta.type eq 'Archivo'}">
-					        		<a  class="btn" href="#">
-				                        <i class=" glyphicon glyphicon-ok"></i>Ver
-				                    </a>
-				                    <a  class="btn" href="#">
-				                        <i class=" glyphicon glyphicon-ok"></i>Compartir
-				                    </a>
-					        		<a  class="btn" href="#">
-				                        <i class=" glyphicon glyphicon-ok"></i>Eliminar
-				                    </a>
-				                    <!--h:form enctype="multipart/form-data"-->
-									    <p:growl id="messages" showDetail="true" />
-									    <p:fileUpload value="#{documentosPersonalesBean.file}" mode="simple" skinSimple="true"/>
-									    <p:commandButton value="Submit" ajax="false" actionListener="#{documentosPersonalesBean.upload}" />
-									<!--/h:form-->
-					        	</p:column>
-						        
-						        <!--p:column style="width:24px">
-						            <p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
-						                <f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" />
+						        	<!-- Manejo de documentos -->
+				                    <p:commandLink title="Descargar Documento" onclick="PF('dialogoDescargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-s" rendered="#{carpeta.type eq 'Archivo'}">
+				                    	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
+				                    	<!--p:fileDownload value="#{directorioBean.fileDown}"></p:fileDownload-->
 						            </p:commandLink>
-						        </p:column-->
+							    	<p:commandLink title="Compartir Documento" styleClass="ui-icon ui-icon-person" rendered="#{carpeta.type eq 'Archivo'}">
+						            </p:commandLink>
+						            <p:commandLink title="Eliminar Documento" oncomplete="PF('dialogoDoc').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Archivo'}">
+						            	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
+						            </p:commandLink>
+					        	</p:column>
 						    </p:treeTable>
 					 	</h:form>
-					 	<h:form id="formDialog">
+					 	
+					 	<h:form enctype="multipart/form-data" id="formDialog">
 						 	<!-- Dialogo para crear una carpeta -->
 						 	<p:dialog id="dialogoCrearCarpetaId" header="Crear Carpeta" showEffect="fade" widgetVar="dialogoCrearCarpeta" modal="true" resizable="false">
 						 		<table>
@@ -92,6 +87,39 @@
 									<tr>
 										<td><h:commandButton action="PF('dialogoElimCarpeta').hide();" value="NO"></h:commandButton></td>
 										<td><h:commandButton action="#{directorioBean.eliminarCarpeta}" value="SI"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+						    <!-- Dialogo para cargar documento -->
+						    <p:dialog id="dialogoCargarDocId" header="Cargar documento" showEffect="fade" widgetVar="dialogoCargarDoc" modal="true" resizable="false" width="600" height="100">
+						    	<table>
+						    		<tr>
+							    	<td><p:fileUpload value="#{directorioBean.file}" mode="simple" skinSimple="true"/></td>
+			    					</tr>
+			    					<tr>
+			    					<td><p:commandButton value="Cargar" ajax="false" actionListener="#{directorioBean.upload}"/></td>
+			    					</tr>
+						    	</table>
+						    </p:dialog>
+						    <!-- Dialogo para eliminar una documento -->
+						    <p:dialog id="dialogoElimDocId" header="Eliminar Documento" showEffect="fade" widgetVar="dialogoDoc" modal="true" resizable="false">
+						 		<td><h:outputText value="Esta seguro de eliminar este documento?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoDoc').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton action="#{directorioBean.eliminarDocumento}" value="SI"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+						    <!-- Dialogo para descargar una documento -->
+						    <p:dialog id="dialogoDescargarDocId" header="Desgargar Documento" showEffect="fade" widgetVar="dialogoDescargarDoc" modal="true" resizable="false">
+						 		<td><h:outputText value="Esta seguro que desea descargar este documento?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoDescargarDoc').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton action="#{directorioBean.downLoad}" onclick="PF('dialogoDescargarDoc').hide();" value="SI"></h:commandButton></td>
 									</tr>
 								</table>
 						    </p:dialog>

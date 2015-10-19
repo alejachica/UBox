@@ -1,21 +1,72 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" >
-<h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-</h:head>
-<f:loadBundle basename="main.resources.application" var="msg"/>
-<!--  
-<title><h:outputText value="#{msg.welcomeTitle}" /></title>
--->
-<h:body>
-<f:view>
-		<h:form>
-		</h:form>
-	</f:view>
-</h:body>
-</html>
+	xmlns:p="http://primefaces.org/ui" template="/templates/template-prueba.xhtml">
+	<ui:define name="bodyContent">
+		<!--div class="row"-->
+			<!--div class="box col-md-12"-->
+				<!--div class="box-inner"-->
+					<div class="box-header well" data-original-title="">
+					    <h2><i class="glyphicon glyphicon-user"></i>Papelera de reciclaje</h2>
+					</div>
+					<!--div class="box-content"-->
+						<div class="alert alert-info">
+						    <table class="table">
+						        <tbody>
+						            <tr>
+						                <td>
+						                    <p:commandLink onclick="PF('dialogoVaciarPapelera').show();" value="Vaciar papelera">
+						            		</p:commandLink>
+						                </td>
+						            </tr>
+						        </tbody>
+						    </table>
+						</div>
+						<h:form id="formPapeleraId">
+							<p:dataTable var="doc" value="#{papeleraBean.documentos}">
+						    	<p:column headerText="Nombre"  style="text-align: center">
+						    		<h:outputText value="#{doc.nombre}" />
+						    	</p:column>
+						    	<p:column headerText="Tamaño(kb)"  style="text-align: center">
+						    		<h:outputText value="#{doc.size}" />
+						    	</p:column>
+						    	<p:column headerText="Eliminar" >
+									<p:commandLink title="Eliminar Documento" oncomplete="PF('dialogoElimDoc').show();" styleClass="ui-icon ui-icon-trash">
+						            	<f:setPropertyActionListener value="#{doc.idDocumento}" target="#{papeleraBean.documentoId}"/>
+						            </p:commandLink>
+						    	</p:column>
+						    </p:dataTable>
+					 	</h:form>
+					 	
+					 	<h:form enctype="multipart/form-data" id="formDialog">
+						    <!-- Dialogo para vaciar papelera -->
+						    <p:dialog id="dialogoVaciarPapeleraId" header="Vaciar papelera" showEffect="fade" widgetVar="dialogoVaciarPapelera" modal="true" resizable="false">
+						 		<td><h:outputText value="Esta seguro de vaciar la papelera?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoVaciarPapelera').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton action="#{papeleraBean.vaciarPapelera}" value="SI"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+
+						    <!-- Dialogo para eliminar una documento -->
+						    <p:dialog id="dialogoElimDocId" header="Eliminar Documento" showEffect="fade" widgetVar="dialogoElimDoc" modal="true" resizable="false">
+						 		<td><h:outputText value="Esta seguro de eliminar este documento?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoElimDoc').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton action="#{papeleraBean.eliminarDocumento}" value="SI"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+					    </h:form>
+					<!--/div-->
+				<!--/div-->
+			<!--/div-->
+	    <!--/div-->
+	</ui:define>
+</ui:composition>
