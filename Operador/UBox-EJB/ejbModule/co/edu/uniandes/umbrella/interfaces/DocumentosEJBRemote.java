@@ -11,11 +11,11 @@ public interface DocumentosEJBRemote {
 	
 	public void crearDocumento(DocumentoDTO documentoDTO) throws Exception;
 	
-	DocumentoDTO consultarDocumento(int id);
+	DocumentoDTO consultarDocumento(int documentoId);
 	
-	List<DocumentoDTO> listarDocumentosUsuario(String id);
+	List<DocumentoDTO> listarDocumentosPapelera(int usuarioId);
 	
-	List<DocumentoDTO> listarDocumentosCarpeta(int id);
+	List<DocumentoDTO> listarDocumentosCarpeta(int carpetaId);
 	
 	/***
 	 * Carga un documento en el listado de doucmentos del usuario Destino y crea 
@@ -32,6 +32,10 @@ public interface DocumentosEJBRemote {
 	 */
 	void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, String tipoIdentificacionDestino, String identificacionDestino, DocumentoDTO documento);
 	
-	public boolean eliminarDocumento(int id);
+	public boolean eliminarDocumento(int documentoId);
+	
+	public boolean enviarAPapelera(int documentoId);
+	
+	public boolean vaciarPapelera(int usuarioId);
 	
 }
