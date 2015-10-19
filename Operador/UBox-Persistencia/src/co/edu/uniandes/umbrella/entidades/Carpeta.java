@@ -44,7 +44,7 @@ public class Carpeta implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Documento
-	@OneToMany(mappedBy="carpeta", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="carpeta")
 	private List<Documento> documentos;
 
 	public Carpeta() {
