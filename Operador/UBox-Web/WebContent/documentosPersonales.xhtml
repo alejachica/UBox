@@ -40,12 +40,13 @@
 						        </p:column>
 							    <p:column headerText="Acciones">
 							    	<!-- Manejo de carpetas -->
-							    	<p:commandLink title="Cargar Documento" onclick="PF('dialogoCargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-n"  rendered="#{carpeta.type eq 'Folder'}">
+							    	<p:commandLink title="Cargar Documento" onclick="PF('dialogoCargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-n" rendered="#{carpeta.type eq 'Folder'}">
 							    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
 						            </p:commandLink>
-							    	<p:commandLink title="Crear Sub-Carpeta" onclick="PF('dialogoCrearCarpeta').show();" styleClass="ui-icon ui-icon-plus" rendered="#{carpeta.type eq 'Folder'}">
+							    	<p:commandLink title="Crear Sub-Carpeta" oncomplete="PF('dialogoCrearSubCarpeta').show();" styleClass="ui-icon ui-icon-plus" rendered="#{carpeta.type eq 'Folder'}">
+							    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
 						            </p:commandLink>
-						            <p:commandLink oncomplete="PF('dialogoElimCarpeta').show();" title="Eliminar Carpeta" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Folder'}">
+						            <p:commandLink title="Eliminar Carpeta" oncomplete="PF('dialogoElimCarpeta').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Folder'}">
 						                <f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
 						            </p:commandLink>
 						        	<!-- Manejo de documentos -->
@@ -76,7 +77,23 @@
 						 			</tr>
 						 		</table>
 								<br/>
-						     	<h:commandButton action="#{directorioBean.crearCarpeta}" value="Crear Carpeta" update=":formDirectorioId:directorio">
+						     	<h:commandButton action="#{directorioBean.crearCarpeta}" value="Crear Carpeta">
+								</h:commandButton>
+						    </p:dialog>
+						    <!-- Dialogo para crear una sub-carpeta -->
+						 	<p:dialog id="dialogoCrearSubCarpetaId" header="Crear Carpeta" showEffect="fade" widgetVar="dialogoCrearSubCarpeta" modal="true" resizable="false">
+						 		<table>
+						 			<tr>
+						 				<td><h:outputText value="Nombre: "></h:outputText></td>
+						 				<td><h:inputText value="#{directorioBean.nombre}"></h:inputText></td>
+						 			</tr>
+						 			<tr>
+						 				<td><h:outputText  value="Descripcion: "></h:outputText></td>
+						 				<td><h:inputText value="#{directorioBean.descripcion}"></h:inputText></td>
+						 			</tr>
+						 		</table>
+								<br/>
+						     	<h:commandButton action="#{directorioBean.crearsubCarpeta}" value="Crear Sub-Carpeta">
 								</h:commandButton>
 						    </p:dialog>
 						    <!-- Dialogo para eliminar una carpeta -->
