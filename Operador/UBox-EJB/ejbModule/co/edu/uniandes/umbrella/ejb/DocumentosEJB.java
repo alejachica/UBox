@@ -63,9 +63,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	    }
     }
 
-	public DocumentoDTO consultarDocumento(int id) {
+	public DocumentoDTO consultarDocumento(int documentoId) {
 		DocumentoDTO docDTO = new DocumentoDTO();
-		Query query = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", id);
+		Query query = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", documentoId);
 		Documento documento = (Documento) query.getSingleResult();
 		docDTO.setDocumento(documento.getDocumento());
 		docDTO.setFecha(documento.getFecha());
@@ -85,9 +85,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	}
 
 	@Override
-	public List<DocumentoDTO> listarDocumentosUsuario(String id) {
+	public List<DocumentoDTO> listarDocumentosPapelera(int usuarioId) {
 		List<DocumentoDTO> docDTOList = new ArrayList<DocumentoDTO>();
-		Query query = entityManager.createNamedQuery("Documento.findByUsuario", Documento.class).setParameter("idUsuario", id);
+		Query query = entityManager.createNamedQuery("Documento.findInTrash", Documento.class).setParameter("idUsuario", usuarioId);
 		List<Documento> documento =  (List<Documento>) query.getResultList();
 		
 		for(int i = 0; i< documento.size();i++){
@@ -109,7 +109,6 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			docDTOList.add(docDTO);
 			
 		}
-		//System.out.println(documento.getIdDocumento());
 		return docDTOList;
 	}
 
@@ -179,11 +178,41 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		documento.addDocumentoXUsuarioCompartido(compartido);*/
 	}
 	
+	@Override
 	public boolean eliminarDocumento(int id){
 		try{
 			Query query= entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", id);
 			Documento doc = (Documento) query.getSingleResult();
 			entityManager.remove(doc);
+		}
+		catch(Exception e){
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean enviarAPapelera(int documentoId){
+		try{
+			Query query= entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", documentoId);
+			Documento doc = (Documento) query.getSingleResult();
+			doc.setPapelera(true);
+			entityManager.merge(doc);
+		}
+		catch(Exception e){
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean vaciarPapelera(int usuarioId){
+		try{
+			Query query = entityManager.createNamedQuery("Documento.findInTrash", Documento.class).setParameter("idUsuario", usuarioId);
+			List<Documento> documento =  (List<Documento>) query.getResultList();
+			for(Documento doc : documento){
+				entityManager.remove(doc);
+			}
 		}
 		catch(Exception e){
 			return false;
