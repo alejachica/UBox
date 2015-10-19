@@ -15,8 +15,8 @@ import java.util.List;
 @NamedQueries({ 
 	@NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"), 
 	@NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d where d.idDocumento = :id"),
-	@NamedQuery(name = "Documento.findByUsuario", query = "SELECT d FROM Documento d where d.usuario.idUsuario = :idUsuario"),
-	@NamedQuery(name = "Documento.findByCarpeta", query = "SELECT d FROM Documento d where d.carpeta.idCarpeta = :idCarpeta")
+	@NamedQuery(name = "Documento.findInTrash", query = "SELECT d FROM Documento d where d.usuario.idUsuario = :idUsuario and d.papelera = true"),
+	@NamedQuery(name = "Documento.findByCarpeta", query = "SELECT d FROM Documento d where d.carpeta.idCarpeta = :idCarpeta and d.papelera = false")
 })
 
 public class Documento implements Serializable {
