@@ -53,6 +53,9 @@ public class Documento implements Serializable {
 	private int size;
 
 	private String version;
+	
+	private boolean archivoCompartidoTemporal;
+	private boolean archivoCompartidoTipoLink;
 
 	//bi-directional many-to-one association to Carpeta
 	@ManyToOne
@@ -65,7 +68,7 @@ public class Documento implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to DocumentoXUsuarioCompartido
-	@OneToMany(mappedBy="documento")
+	@OneToMany(mappedBy="documento", cascade = CascadeType.ALL)
 	private List<DocumentoXUsuarioCompartido> documentoXUsuarioCompartidos;
 
 	//bi-directional many-to-one association to HistorialDocumento
@@ -281,6 +284,22 @@ public class Documento implements Serializable {
 		pago.setDocumento(null);
 
 		return pago;
+	}
+
+	public boolean isArchivoCompartidoTemporal() {
+		return archivoCompartidoTemporal;
+	}
+
+	public void setArchivoCompartidoTemporal(boolean archivoCompartidoTemporal) {
+		this.archivoCompartidoTemporal = archivoCompartidoTemporal;
+	}
+
+	public boolean isArchivoCompartidoTipoLink() {
+		return archivoCompartidoTipoLink;
+	}
+
+	public void setArchivoCompartidoTipoLink(boolean archivoCompartidoTipoLink) {
+		this.archivoCompartidoTipoLink = archivoCompartidoTipoLink;
 	}
 
 }

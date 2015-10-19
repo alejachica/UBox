@@ -1,0 +1,15 @@
+ALTER TABLE `forma_comparticion`
+MODIFY COLUMN `mismoubox`  bit(1) NULL DEFAULT NULL AFTER `descripcion`,
+CHANGE COLUMN `entreuboxes` `entreOperadores`  bit(1) NULL DEFAULT NULL AFTER `mismoubox`,
+MODIFY COLUMN `entidadesPublicasaUsuario`  bit(1) NULL DEFAULT NULL AFTER `entreOperadores`,
+MODIFY COLUMN `entidadesPrivadasaUsuario`  bit(1) NULL DEFAULT NULL AFTER `entidadesPublicasaUsuario`,
+MODIFY COLUMN `simple`  bit(1) NULL DEFAULT NULL AFTER `entidadesPrivadasaUsuario`;
+ALTER TABLE `forma_comparticion`
+CHANGE COLUMN `mismoubox` `mismoOperador`  bit(1) NULL DEFAULT NULL AFTER `descripcion`;
+ALTER TABLE `forma_comparticion`
+ADD COLUMN `aplicaFechaExpiracion`  bit(1) NULL AFTER `simple`;
+
+/************ ALTER documento_x_usuario_compartido ****************/
+ALTER TABLE `documento_x_usuario_compartido`
+CHANGE COLUMN `uboxComparticion` `idOperadorExterno`  varchar(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'Identificador del ubox al cual pertenece el usuario que comparte el documento' AFTER `identificacionComparticion`;
+

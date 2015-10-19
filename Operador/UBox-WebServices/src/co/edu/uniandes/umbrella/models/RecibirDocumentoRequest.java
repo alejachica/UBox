@@ -3,6 +3,8 @@ package co.edu.uniandes.umbrella.models;
 public class RecibirDocumentoRequest {
 	private String tipoIdentificacionOrigen;
 	private String identificacionOrigen;
+	private boolean empresaPublica;
+	private String idOperadorExterno;
 	private String tipoIdentificacionDestino;
 	private String identificacionDestino;
 	private DocumentoRequest documento;
@@ -36,6 +38,18 @@ public class RecibirDocumentoRequest {
 	}
 	public void setIdentificacionDestino(String identificacionDestino) {
 		this.identificacionDestino = identificacionDestino;
+	}
+	public boolean isEmpresaPublica() {
+		return empresaPublica;
+	}
+	public void setEmpresaPublica(boolean empresaPublica) {
+		this.empresaPublica = empresaPublica;
+	}
+	public String getIdOperadorExterno() {
+		return idOperadorExterno;
+	}
+	public void setIdOperadorExterno(String idOperadorExterno) {
+		this.idOperadorExterno = idOperadorExterno;
 	}
 	
 	

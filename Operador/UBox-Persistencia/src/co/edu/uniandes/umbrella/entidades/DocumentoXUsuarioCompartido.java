@@ -38,7 +38,7 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 
 	private String link;
 
-	private String operadorComparticion;
+	private String idOperadorExterno;
 
 	@Column(name="permiso_acitvo")
 	private boolean permisoAcitvo;
@@ -135,12 +135,12 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 		this.link = link;
 	}
 
-	public String getOperadorComparticion() {
-		return this.operadorComparticion;
+	public String getIdOperadorExterno() {
+		return this.idOperadorExterno;
 	}
 
-	public void setOperadorComparticion(String operadorComparticion) {
-		this.operadorComparticion = operadorComparticion;
+	public void setIdOperadorExterno(String idOperadorExterno) {
+		this.idOperadorExterno = idOperadorExterno;
 	}
 
 	public boolean getPermisoAcitvo() {

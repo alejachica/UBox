@@ -21,6 +21,8 @@ public class DocumentoDTO {
 	private String ruta;
 	private int size;
 	private String version;
+	private boolean archivoCompartidoTemporal;
+	private boolean archivoCompartidoTipoLink;
 
 	public DocumentoDTO() {
 		super();
@@ -136,6 +138,22 @@ public class DocumentoDTO {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public boolean isArchivoCompartidoTemporal() {
+		return archivoCompartidoTemporal;
+	}
+
+	public void setArchivoCompartidoTemporal(boolean archivoCompartidoTemporal) {
+		this.archivoCompartidoTemporal = archivoCompartidoTemporal;
+	}
+
+	public boolean isArchivoCompartidoTipoLink() {
+		return archivoCompartidoTipoLink;
+	}
+
+	public void setArchivoCompartidoTipoLink(boolean archivoCompartidoTipoLink) {
+		this.archivoCompartidoTipoLink = archivoCompartidoTipoLink;
 	}
 	
 }

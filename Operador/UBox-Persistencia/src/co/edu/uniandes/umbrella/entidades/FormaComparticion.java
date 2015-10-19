@@ -11,7 +11,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="forma_comparticion")
-@NamedQuery(name="FormaComparticion.findAll", query="SELECT f FROM FormaComparticion f")
+
+
+@NamedQueries({ 
+	@NamedQuery(name="FormaComparticion.findAll", query="SELECT f FROM FormaComparticion f"),
+	@NamedQuery(name="FormaComparticion.findById", query="SELECT f FROM FormaComparticion f where f.idFormaComparticion = :id")
+})
 public class FormaComparticion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,15 +29,25 @@ public class FormaComparticion implements Serializable {
 
 	private String entidadesPrivadasaUsuario;
 
-	private byte entidadesPublicasaUsuario;
+	private boolean entidadesPublicasaUsuario;
 
-	private byte entreOperadores;
+	private boolean entreOperadores;
 
-	private byte mismoOperador;
+	private boolean mismoOperador;
+	
+	private boolean aplicaFechaExpiracion;
+
+	public boolean isAplicaFechaExpiracion() {
+		return aplicaFechaExpiracion;
+	}
+
+	public void setAplicaFechaExpiracion(boolean aplicaFechaExpiracion) {
+		this.aplicaFechaExpiracion = aplicaFechaExpiracion;
+	}
 
 	private String nombre;
 
-	private String simple;
+	private boolean simple;
 
 	//bi-directional many-to-one association to DocumentoXUsuarioCompartido
 	@OneToMany(mappedBy="formaComparticion")
@@ -65,27 +80,27 @@ public class FormaComparticion implements Serializable {
 		this.entidadesPrivadasaUsuario = entidadesPrivadasaUsuario;
 	}
 
-	public byte getEntidadesPublicasaUsuario() {
+	public boolean getEntidadesPublicasaUsuario() {
 		return this.entidadesPublicasaUsuario;
 	}
 
-	public void setEntidadesPublicasaUsuario(byte entidadesPublicasaUsuario) {
+	public void setEntidadesPublicasaUsuario(boolean entidadesPublicasaUsuario) {
 		this.entidadesPublicasaUsuario = entidadesPublicasaUsuario;
 	}
 
-	public byte getEntreOperadores() {
+	public boolean getEntreOperadores() {
 		return this.entreOperadores;
 	}
 
-	public void setEntreOperadores(byte entreOperadores) {
+	public void setEntreOperadores(boolean entreOperadores) {
 		this.entreOperadores = entreOperadores;
 	}
 
-	public byte getMismoOperador() {
+	public boolean getMismoOperador() {
 		return this.mismoOperador;
 	}
 
-	public void setMismoOperador(byte mismoOperador) {
+	public void setMismoOperador(boolean mismoOperador) {
 		this.mismoOperador = mismoOperador;
 	}
 
@@ -97,11 +112,11 @@ public class FormaComparticion implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getSimple() {
+	public boolean getSimple() {
 		return this.simple;
 	}
 
-	public void setSimple(String simple) {
+	public void setSimple(boolean simple) {
 		this.simple = simple;
 	}
 

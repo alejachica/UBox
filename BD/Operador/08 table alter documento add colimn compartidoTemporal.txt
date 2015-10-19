@@ -1,0 +1,3 @@
+ALTER TABLE `documento`
+ADD COLUMN `archivoCompartidoTemporal`  bit(1) NULL AFTER `size`,
+ADD COLUMN `archivoCompartidoTipoLink`  bit(1) NULL AFTER `archivoCompartidoTemporal`;
