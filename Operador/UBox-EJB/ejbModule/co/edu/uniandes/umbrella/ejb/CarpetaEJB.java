@@ -46,14 +46,16 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 	        Carpeta carpeta = new Carpeta();
 	        carpeta.setNombreCarpeta(carpetaDTO.getNombreCarpeta());
 	        carpeta.setDescripcion(carpetaDTO.getDescripcion());
-	        if(carpetaDTO.getCarpetaPadre() != -1){
-		        Query query = entityManager.createNamedQuery("Carpeta.findById", Carpeta.class).setParameter("idCarpeta", carpetaDTO.getIdCarpeta());
-		        Carpeta carpetaEncontrada = (Carpeta) query.getSingleResult();
-		        carpeta.addCarpeta(carpetaEncontrada);
-	        }
 	        Query query = entityManager.createNamedQuery("Usuario.findById", Usuario.class).setParameter("idUsuario", idUsuario);
 	        Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
 	        carpeta.setUsuario(usuarioEncontrado);
+	        if(carpetaDTO.getCarpetaPadre() != -1){
+		        Query query2 = entityManager.createNamedQuery("Carpeta.findByID", Carpeta.class).setParameter("idCarpeta", carpetaDTO.getCarpetaPadre());
+		        Carpeta carpetaEncontrada = (Carpeta) query2.getSingleResult();
+		        List<Carpeta> carpetaPadre = new ArrayList<Carpeta>();
+		        carpeta.setCarpetas(carpetaPadre);
+		        carpeta.addCarpeta(carpetaEncontrada);
+	        }
 	        entityManager.persist(carpeta);
 	        return carpeta;
     	}
@@ -88,7 +90,10 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 			List<Carpeta> listaCarpeta = query.getResultList();
 			List<CarpetaDTO> listaCarpetaDTO = new ArrayList<CarpetaDTO>();
 			for(Carpeta lista : listaCarpeta){
-				listaCarpetaDTO.add(new CarpetaDTO(lista.getIdCarpeta(),lista.getDescripcion(), lista.getNombreCarpeta()));
+				CarpetaDTO carpetaDTO = new CarpetaDTO(lista.getIdCarpeta(),lista.getDescripcion(), lista.getNombreCarpeta());
+				if(lista.getCarpeta()!=null)
+					carpetaDTO.setCarpetaPadre(lista.getCarpeta().getIdCarpeta());
+				listaCarpetaDTO.add(carpetaDTO);
 			}
 			return listaCarpetaDTO;
 		}
