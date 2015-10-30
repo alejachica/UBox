@@ -19,14 +19,38 @@ import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
 @Stateless
 public class ListaValorEJB implements ListaValorEJBLocal{
 
+	public static final int IDLISTA_TIPODOCUMENTO = 1;
+	public static final int IDLISTA_TIPOCARPETA = 2;
+	public static final int IDLISTA_PERMISOSDOCUMENTO = 3;
+	public static final int IDLISTA_PERMISOSCARPETA = 4;
+	public static final int IDLISTA_TIPOPQR = 5;
+	public static final int IDLISTA_TIPOTRAMITE = 6;
 	
 	@PersistenceContext(unitName = "UBox-Persistencia")
 	private EntityManager entityManager;
 	
 	@Override
+	public ListaValor buscarLista(int idLista) {
+		Query query = entityManager.createNamedQuery("ListaValor.findByIdLista",
+				ListaValor.class)
+				.setParameter("idLista", idLista);
+		
+		ListaValor respuesta = null;
+		
+		try {
+			respuesta = (ListaValor) query.getSingleResult();
+		} catch (NoResultException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return respuesta;
+	}
+	
+	@Override
 	public ListaValor buscarListaValorPorCodigoExterno(int idLista, String codigoExterno) {
 		Query query = entityManager.createNamedQuery("ListaValor.findByExternalCode",
-				Usuario.class)
+				ListaValor.class)
 				.setParameter("idLista", idLista)
 				.setParameter("codigoExterno", codigoExterno);
 		
