@@ -2,5 +2,27 @@
 
 <!DOCTYPE glassfish-ejb-jar PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 EJB 3.1//EN" "http://glassfish.org/dtds/glassfish-ejb-jar_3_1-1.dtd">
 <glassfish-ejb-jar>
-    <enterprise-beans/>
+  <security-role-mapping>
+     <role-name>admin</role-name>
+     <group-name>admin</group-name>
+   </security-role-mapping>
+   
+      
+   
+    <enterprise-beans>
+    	 <ejb>
+            <ejb-name>TransaccionesEJB</ejb-name>
+            <webservice-endpoint>
+                <port-component-name>TransaccionesEJB</port-component-name>
+                    <login-config>
+                        <auth-method>BASIC</auth-method>
+                        <realm>filerealmws</realm>
+                	</login-config>
+                	
+                	
+                	
+            </webservice-endpoint>               
+        </ejb>
+
+    </enterprise-beans>
 </glassfish-ejb-jar>
