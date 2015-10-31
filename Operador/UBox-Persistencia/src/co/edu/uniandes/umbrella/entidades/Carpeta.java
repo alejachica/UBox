@@ -13,9 +13,11 @@ import java.util.List;
 @NamedQueries({ 
 	@NamedQuery(name = "Carpeta.findAll", query = "SELECT c FROM Carpeta c"), 
 	@NamedQuery(name = "Carpeta.findByID", query = "SELECT c FROM Carpeta c where c.idCarpeta = :idCarpeta"),
-	@NamedQuery(name = "Carpeta.findByUserID", query = "SELECT c FROM Carpeta c where c.usuario.idUsuario = :idUsuario"),
+	@NamedQuery(name = "Carpeta.findByPadreID", query = "SELECT c FROM Carpeta c where c.carpeta.idCarpeta = :idCarpeta"),
+	@NamedQuery(name = "Carpeta.findByUserID", query = "SELECT c FROM Carpeta c where c.usuario.idUsuario = :idUsuario and c.carpeta is null"),
 	@NamedQuery(name = "Carpeta.findByUserIDAndRootFolder", query = "SELECT c FROM Carpeta c where c.usuario.idUsuario = :idUsuario and c.carpeta is null") 
 })
+@Cacheable(false)
 public class Carpeta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
