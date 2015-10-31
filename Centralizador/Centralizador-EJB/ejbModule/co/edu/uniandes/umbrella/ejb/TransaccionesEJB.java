@@ -44,5 +44,18 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 		
 		return datosOperador;
 	}
+	
+	/**
+	 * Servicio que permite realizar el traslado de un usuario a un nuevo operador
+	 * @param tipoDocUsuario Tipo de documento del usuario	
+	 * @param nroDocUsuario Numero de documento del usuario
+	 * @param idNuevoOperador Id del nuevo operador al que se trasladara el usuario
+	 * @return true si el traslado fue exitoso, false en caso contrario.
+	 */
+	public boolean trasladarUsuarioDeOperador(String tipoDocUsuario,
+			String nroDocUsuario, long idNuevoOperador) {
+
+		return false;
+	}
 
 }
