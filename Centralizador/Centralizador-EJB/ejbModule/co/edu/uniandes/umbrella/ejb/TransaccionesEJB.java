@@ -1,5 +1,7 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
@@ -15,6 +17,7 @@ import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBRemote;
 /**
  * Session Bean implementation class InstitucionesEJB
  */
+@DeclareRoles("admin")
 @Stateless
 @WebService
 public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJBLocal {
@@ -30,6 +33,7 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 	 * @param datos Filtro para la consulta
 	 * @return DatosOperadorDTO Datos del operador para compartir documentos
 	 */
+	@RolesAllowed("admin")
 	public DatosOperadorDTO consultarOperadorUsuarioParaCompartir(
 			ServiciosOperadorUsuarioDTO datos) {
 		
