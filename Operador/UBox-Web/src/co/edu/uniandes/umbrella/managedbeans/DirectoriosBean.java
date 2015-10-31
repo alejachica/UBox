@@ -4,13 +4,14 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,9 +27,14 @@ import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 
 @ManagedBean(name="directorioBean")
-@SessionScoped
-public class DirectoriosBean {
+@ViewScoped
+public class DirectoriosBean implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7143308144394007334L;
+
 	//------------------ATRIBUTOS------------------//
 	
 	@EJB
@@ -132,6 +138,7 @@ public class DirectoriosBean {
 				for(DocumentoDTO doc: docsDTO){
 					TreeNode docum = new DefaultTreeNode(new DataTreeTable(doc.getIdDocumento(), doc.getNombre(), null, Integer.toString(doc.getSize()), "Archivo"), carpeta);
 				}
+				crearSubCarpeta(carpeta, carp.getIdCarpeta());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,12 +146,44 @@ public class DirectoriosBean {
 		return root;
 	}
 	
+	public TreeNode crearSubCarpeta(TreeNode rama, int idCarpeta) throws Exception{
+		List<CarpetaDTO> carpetasHijas = carpetaEJB.consultarCarpetasHijas(idCarpeta);
+		for(CarpetaDTO carpHijas: carpetasHijas){
+			TreeNode carpeta = new DefaultTreeNode(new DataTreeTable(carpHijas.getIdCarpeta(), carpHijas.getNombreCarpeta(), carpHijas.getDescripcion(), null, "Folder"), rama);
+			List<DocumentoDTO> docsDTOHijas = documentoEJB.listarDocumentosCarpeta(carpHijas.getIdCarpeta());
+			for(DocumentoDTO doc: docsDTOHijas){
+				TreeNode docum = new DefaultTreeNode(new DataTreeTable(doc.getIdDocumento(), doc.getNombre(), null, Integer.toString(doc.getSize()), "Archivo"), carpeta);
+			}
+			carpetasHijas = carpetaEJB.consultarCarpetasHijas(carpHijas.getIdCarpeta());
+			if(carpetasHijas!=null)
+				crearSubCarpeta(carpeta, carpHijas.getIdCarpeta());
+			else
+				return carpeta;
+		}
+		return rama;
+	}
+	
 	public void crearCarpeta(){
 		try{
 		CarpetaDTO carpetaDTO = new CarpetaDTO();
 		carpetaDTO.setDescripcion(descripcion);
 		carpetaDTO.setNombreCarpeta(nombre);
-		carpetaEJB.crearCarpeta(carpetaDTO, 3);
+		carpetaEJB.crearCarpeta(carpetaDTO, 3); //TODO cambiar usuario quemado
+		root = crearRoot();
+		}
+		catch(Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error creando carpeta", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+	
+	public void crearsubCarpeta(){
+		try{
+		CarpetaDTO carpetaDTO = new CarpetaDTO();
+		carpetaDTO.setDescripcion(descripcion);
+		carpetaDTO.setNombreCarpeta(nombre);
+		carpetaDTO.setCarpetaPadre(carpetaId);
+		carpetaEJB.crearCarpeta(carpetaDTO, 3); //TODO cambiar usuario quemado
 		root = crearRoot();
 		}
 		catch(Exception e){
@@ -194,7 +233,7 @@ public class DirectoriosBean {
 
 	public void eliminarDocumento(){
 		try{
-			documentoEJB.eliminarDocumento(this.documentoId);
+			documentoEJB.enviarAPapelera(this.documentoId);
 			root = crearRoot();
 		}
 		catch(Exception e){
