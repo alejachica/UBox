@@ -51,10 +51,8 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 	        carpeta.setUsuario(usuarioEncontrado);
 	        if(carpetaDTO.getCarpetaPadre() != -1){
 		        Query query2 = entityManager.createNamedQuery("Carpeta.findByID", Carpeta.class).setParameter("idCarpeta", carpetaDTO.getCarpetaPadre());
-		        Carpeta carpetaEncontrada = (Carpeta) query2.getSingleResult();
-		        List<Carpeta> carpetaPadre = new ArrayList<Carpeta>();
-		        carpeta.setCarpetas(carpetaPadre);
-		        carpeta.addCarpeta(carpetaEncontrada);
+		        Carpeta carpetaPadre = (Carpeta) query2.getSingleResult();
+		        carpeta.setCarpeta(carpetaPadre);
 	        }
 	        entityManager.persist(carpeta);
 	        return carpeta;
@@ -65,11 +63,13 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
     }
 
 	@Override
-	public Carpeta consultarCarpetao(String id) {
-		Query query
-		 = entityManager.createNamedQuery("Carpeta.findById", Documento.class).setParameter("idCarpeta", id);
+	public CarpetaDTO consultarCarpetao(int id) {
+		Query query = entityManager.createNamedQuery("Carpeta.findByID", Documento.class).setParameter("idCarpeta", id);
 		Carpeta carpeta = (Carpeta) query.getSingleResult();
-		return carpeta;
+		CarpetaDTO carpetaDTO = new CarpetaDTO(carpeta.getIdCarpeta(),carpeta.getDescripcion(), carpeta.getNombreCarpeta());
+		if(carpeta.getCarpeta()!=null)
+			carpetaDTO.setCarpetaPadre(carpeta.getCarpeta().getIdCarpeta());
+		return carpetaDTO;
 	}
 	
 	@Override
@@ -84,6 +84,7 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 		}
 	}
 	
+	@Override
 	public List<CarpetaDTO> carpetasXUsuario(int idUsuario) throws Exception{
 		try{
 			Query query = entityManager.createNamedQuery("Carpeta.findByUserID", Carpeta.class).setParameter("idUsuario", idUsuario);
@@ -91,14 +92,28 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 			List<CarpetaDTO> listaCarpetaDTO = new ArrayList<CarpetaDTO>();
 			for(Carpeta lista : listaCarpeta){
 				CarpetaDTO carpetaDTO = new CarpetaDTO(lista.getIdCarpeta(),lista.getDescripcion(), lista.getNombreCarpeta());
-				if(lista.getCarpeta()!=null)
-					carpetaDTO.setCarpetaPadre(lista.getCarpeta().getIdCarpeta());
 				listaCarpetaDTO.add(carpetaDTO);
 			}
 			return listaCarpetaDTO;
 		}
 		catch(Exception e){
-			throw new Exception("Fallo eliminado la carpeta");
+			throw new Exception("Fallo consultando las carpetas del usuario");
+		}
+	}
+	
+	public List<CarpetaDTO> consultarCarpetasHijas(int idCarpetaId) throws Exception{
+		try{
+			Query query = entityManager.createNamedQuery("Carpeta.findByPadreID", Carpeta.class).setParameter("idCarpeta",  idCarpetaId);
+			List<Carpeta> listaCarpeta = query.getResultList();
+			List<CarpetaDTO> listaCarpetaDTO = new ArrayList<CarpetaDTO>();
+			for(Carpeta lista : listaCarpeta){
+				CarpetaDTO carpetaDTO = new CarpetaDTO(lista.getIdCarpeta(),lista.getDescripcion(), lista.getNombreCarpeta());
+				listaCarpetaDTO.add(carpetaDTO);
+			}
+			return listaCarpetaDTO;
+		}
+		catch(Exception e){
+			throw new Exception("Fallo consultando la carpeta hija");
 		}
 	}
 	
