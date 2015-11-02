@@ -1,0 +1,13 @@
+INSERT INTO `lista` (`nombre`, `activo`, `descripcion`) VALUES ('Tipo Documento', '1', '');
+
+
+INSERT INTO `lista_valor` (`fk_lista`, `valor`, `activo`, `descripcion`, `codigo_externo`) VALUES ('1', 'Personales', '1', 'Documentos Personales', 'TD0001');
+INSERT INTO `lista_valor` (`fk_lista`, `valor`, `activo`, `descripcion`, `codigo_externo`) VALUES ('1', 'Gubernamentales', '1', 'Documentos gubernamentales', 'TD0002');
+
+insert into lista values(1,'Tipo Documento',1,'');
+insert into lista values(2,'Tipo Carpeta',1,'');
+insert into lista values(3,'Permisos Documento',1,'');
+insert into lista values(4,'Permisos Carpeta',1,'');
+insert into lista values(5,'Tipo PQR',1,'');
+insert into lista values(6,'Tipo Tramite',1,'');
+commit;
