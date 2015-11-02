@@ -11,13 +11,15 @@ public interface CarpetaEJBRemote {
 	
 	Carpeta crearCarpeta(CarpetaDTO carpetaDTO);
 	
-	Carpeta consultarCarpetao(String id);
+	CarpetaDTO consultarCarpetao(int id);
 	
 	public void eliminarCarpeta(int idCarpeta) throws Exception;
 	
 	public Carpeta crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario)throws Exception;
 	
 	public List<CarpetaDTO> carpetasXUsuario(int idUsuario) throws Exception;
+	
+	public List<CarpetaDTO> consultarCarpetasHijas(int idCarpetaId) throws Exception;
 	
 	public Carpeta obtenerCarpetaRaizPorUsuario(int idUsuario);
 	

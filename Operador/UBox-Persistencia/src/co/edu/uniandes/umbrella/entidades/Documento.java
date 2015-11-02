@@ -17,7 +17,7 @@ import java.util.List;
 	@NamedQuery(name = "Documento.findInTrash", query = "SELECT d FROM Documento d where d.usuario.idUsuario = :idUsuario and d.papelera = true"),
 	@NamedQuery(name = "Documento.findByCarpeta", query = "SELECT d FROM Documento d where d.carpeta.idCarpeta = :idCarpeta and d.papelera = false")
 })
-
+@Cacheable(false)
 public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
 

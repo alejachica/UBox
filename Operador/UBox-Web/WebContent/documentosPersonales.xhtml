@@ -4,6 +4,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="/templates/template-prueba.xhtml">
 	<ui:define name="bodyContent">
+		<style>
+			.opcionesDirectorio td {border: 0px !important;}
+		</style>
 		<!--div class="row"-->
 			<!--div class="box col-md-12"-->
 				<!--div class="box-inner"-->
@@ -16,7 +19,7 @@
 						        <tbody>
 						            <tr>
 						                <td>
-						                    <p:commandLink onclick="PF('dialogoCrearCarpeta').show();" value="Crear Carpeta">
+						                    <p:commandLink oncomplete="PF('dialogoCrearCarpeta').show();" value="Crear Carpeta">
 						            		</p:commandLink>
 						                </td>
 						            </tr>
@@ -40,25 +43,33 @@
 						        </p:column>
 							    <p:column headerText="Acciones">
 							    	<!-- Manejo de carpetas -->
-							    	<p:commandLink title="Cargar Documento" onclick="PF('dialogoCargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-n" rendered="#{carpeta.type eq 'Folder'}">
-							    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
-						            </p:commandLink>
-							    	<p:commandLink title="Crear Sub-Carpeta" oncomplete="PF('dialogoCrearSubCarpeta').show();" styleClass="ui-icon ui-icon-plus" rendered="#{carpeta.type eq 'Folder'}">
-							    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
-						            </p:commandLink>
-						            <p:commandLink title="Eliminar Carpeta" oncomplete="PF('dialogoElimCarpeta').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Folder'}">
-						                <f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
-						            </p:commandLink>
+							    	<table class='opcionesDirectorio'>
+							    		<tr>
+									    	<td align="center"><p:commandLink title="Cargar Documento" onclick="PF('dialogoCargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-n" rendered="#{carpeta.type eq 'Folder'}">
+									    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
+								            </p:commandLink></td>
+									    	<td align="center"><p:commandLink title="Crear Sub-Carpeta" oncomplete="PF('dialogoCrearSubCarpeta').show();" styleClass="ui-icon ui-icon-plus" rendered="#{carpeta.type eq 'Folder'}">
+									    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
+								            </p:commandLink></td>
+								            <td align="center"><p:commandLink title="Eliminar Carpeta" oncomplete="PF('dialogoElimCarpeta').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Folder'}">
+								                <f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.carpetaId}"/>
+								            </p:commandLink></td>
+							            </tr>
+						            </table>
 						        	<!-- Manejo de documentos -->
-				                    <p:commandLink title="Descargar Documento" onclick="PF('dialogoDescargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-s" rendered="#{carpeta.type eq 'Archivo'}">
-				                    	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
-				                    	<!--p:fileDownload value="#{directorioBean.fileDown}"></p:fileDownload-->
-						            </p:commandLink>
-							    	<p:commandLink title="Compartir Documento" styleClass="ui-icon ui-icon-person" rendered="#{carpeta.type eq 'Archivo'}">
-						            </p:commandLink>
-						            <p:commandLink title="Eliminar Documento" oncomplete="PF('dialogoDoc').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Archivo'}">
-						            	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
-						            </p:commandLink>
+						        	<table class='opcionesDirectorio'>
+						        		<tr>
+						                    <td align="center"><p:commandLink title="Descargar Documento" onclick="PF('dialogoDescargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-s" rendered="#{carpeta.type eq 'Archivo'}">
+						                    	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
+						                    	<!--p:fileDownload value="#{directorioBean.fileDown}"></p:fileDownload-->
+								            </p:commandLink></td>
+									    	<td align="center"><p:commandLink title="Compartir Documento" styleClass="ui-icon ui-icon-person" rendered="#{carpeta.type eq 'Archivo'}">
+								            </p:commandLink></td>
+								            <td align="center"><p:commandLink title="Eliminar Documento" oncomplete="PF('dialogoDoc').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Archivo'}">
+								            	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
+								            </p:commandLink></td>
+							            </tr>
+						            </table>
 					        	</p:column>
 						    </p:treeTable>
 					 	</h:form>

@@ -1,5 +1,7 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
@@ -15,6 +17,7 @@ import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBRemote;
 /**
  * Session Bean implementation class InstitucionesEJB
  */
+@DeclareRoles("admin")
 @Stateless
 @WebService
 public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJBLocal {
@@ -30,6 +33,7 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 	 * @param datos Filtro para la consulta
 	 * @return DatosOperadorDTO Datos del operador para compartir documentos
 	 */
+	@RolesAllowed("admin")
 	public DatosOperadorDTO consultarOperadorUsuarioParaCompartir(
 			ServiciosOperadorUsuarioDTO datos) {
 		
@@ -43,6 +47,19 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 		datosOperador.setUrlServicio(resultado.getUrl());
 		
 		return datosOperador;
+	}
+	
+	/**
+	 * Servicio que permite realizar el traslado de un usuario a un nuevo operador
+	 * @param tipoDocUsuario Tipo de documento del usuario	
+	 * @param nroDocUsuario Numero de documento del usuario
+	 * @param idNuevoOperador Id del nuevo operador al que se trasladara el usuario
+	 * @return true si el traslado fue exitoso, false en caso contrario.
+	 */
+	public boolean trasladarUsuarioDeOperador(String tipoDocUsuario,
+			String nroDocUsuario, long idNuevoOperador) {
+
+		return false;
 	}
 
 }
