@@ -1,0 +1,4 @@
+Bundle-Name: CompositeApp2central
+Bundle-SymbolicName: CompositeApp2central
+Bundle-ManifestVersion: 2
+Bundle-Version: 1.0.0

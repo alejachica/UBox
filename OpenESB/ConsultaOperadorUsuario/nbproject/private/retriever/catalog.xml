@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://arnaor:8080/UsuariosEJBService/UsuariosEJB?xsd=1" uri="arnaor_8080/UsuariosEJBService/UsuariosEJB.xsd_1.xsd"/>
+</catalog>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/ConsultaOperadorUsuario/consultaOperadorUsuario" xmlns:ns2="http://ejb.umbrella.uniandes.edu.co/" xmlns:ns3="http://enterprise.netbeans.org/bpel/ConsultaUsuario/consultaUsuario" xmlns:ns4="http://j2ee.netbeans.org/wsdl/ConsultaUsuario/UserProcess/consultarEstadoUsuario" xmlns:ns5="http://j2ee.netbeans.org/wsdl/ConsultaOperadorUsuario/UserProcess/newWSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/jbi ./jbi.xsd">
+    <service-assembly>
+        <identification>
+            <name>CompositeApp2central</name>
+            <description>Represents the Service Assembly of CompositeApp2central</description>
+        </identification>
+        <service-unit>
+            <identification>
+                <name>CompositeApp2central-ConsultaOperadorUsuario</name>
+                <description>Represents this Service Unit</description>
+            </identification>
+            <target>
+                <artifacts-zip>ConsultaOperadorUsuario.jar</artifacts-zip>
+                <component-name>sun-bpel-engine</component-name>
+            </target>
+        </service-unit>
+        <service-unit>
+            <identification>
+                <name>CompositeApp2central-ConsultaUsuario</name>
+                <description>Represents this Service Unit</description>
+            </identification>
+            <target>
+                <artifacts-zip>ConsultaUsuario.jar</artifacts-zip>
+                <component-name>sun-bpel-engine</component-name>
+            </target>
+        </service-unit>
+        <service-unit>
+            <identification>
+                <name>CompositeApp2central-sun-http-binding</name>
+                <description>Represents this Service Unit</description>
+            </identification>
+            <target>
+                <artifacts-zip>sun-http-binding.jar</artifacts-zip>
+                <component-name>sun-http-binding</component-name>
+            </target>
+        </service-unit>
+        <connections>
+            <connection>
+                <consumer endpoint-name="UsuariosEJBRole_partnerRole" service-name="ns1:ConsultaCentralizador"/>
+                <provider endpoint-name="UsuariosEJBPort" service-name="ns2:UsuariosEJBService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="UsuariosEJBRole_partnerRole" service-name="ns3:PartnerLink2"/>
+                <provider endpoint-name="UsuariosEJBPort" service-name="ns2:UsuariosEJBService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="consultarEstadoUsuarioPort" service-name="ns4:consultarEstadoUsuarioService"/>
+                <provider endpoint-name="consultarEstadoUsuarioPortTypeRole_myRole" service-name="ns3:PartnerLink1"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="newWSDLPort" service-name="ns5:newWSDLService"/>
+                <provider endpoint-name="newWSDLPortTypeRole_myRole" service-name="ns1:ConsultaOpESB"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>
