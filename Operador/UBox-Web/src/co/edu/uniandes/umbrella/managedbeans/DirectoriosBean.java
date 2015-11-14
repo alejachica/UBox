@@ -131,7 +131,7 @@ public class DirectoriosBean implements Serializable{
 	public TreeNode crearRoot(){
 		TreeNode root = new DefaultTreeNode(new DataTreeTable(), null);
 		try {
-			List<CarpetaDTO> carpetas = carpetaEJB.carpetasXUsuario(3); //TODO manejo de usuario, quitar id quemado.
+			List<CarpetaDTO> carpetas = carpetaEJB.carpetasXUsuario(this.getUsuarioAutenticado().getId());
 			for(CarpetaDTO carp: carpetas){
 				TreeNode carpeta = new DefaultTreeNode(new DataTreeTable(carp.getIdCarpeta(), carp.getNombreCarpeta(), carp.getDescripcion(), null, "Folder"), root);
 				List<DocumentoDTO> docsDTO = documentoEJB.listarDocumentosCarpeta(carp.getIdCarpeta());
@@ -168,7 +168,7 @@ public class DirectoriosBean implements Serializable{
 		CarpetaDTO carpetaDTO = new CarpetaDTO();
 		carpetaDTO.setDescripcion(descripcion);
 		carpetaDTO.setNombreCarpeta(nombre);
-		carpetaEJB.crearCarpeta(carpetaDTO, 3); //TODO cambiar usuario quemado
+		carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId());
 		root = crearRoot();
 		}
 		catch(Exception e){
@@ -183,7 +183,7 @@ public class DirectoriosBean implements Serializable{
 		carpetaDTO.setDescripcion(descripcion);
 		carpetaDTO.setNombreCarpeta(nombre);
 		carpetaDTO.setCarpetaPadre(carpetaId);
-		carpetaEJB.crearCarpeta(carpetaDTO, 3); //TODO cambiar usuario quemado
+		carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId());
 		root = crearRoot();
 		}
 		catch(Exception e){
@@ -211,7 +211,7 @@ public class DirectoriosBean implements Serializable{
 	        	//documentoDTO.setFecha(""); TODO ajustar fecha
 	        	documentoDTO.setFirmado(false);
 	        	documentoDTO.setFkCarpeta(carpetaId);
-	        	documentoDTO.setFkUsuario(3);
+	        	documentoDTO.setFkUsuario(this.getUsuarioAutenticado().getId());
 	        	//documentoDTO.setIdTipoDocumento(new BigDecimal(1)); TODO seleccionar el tipo adecuado
 	        	documentoDTO.setIdTipoMime(file.getContentType());
 	        	documentoDTO.setNombre(file.getFileName());
@@ -233,7 +233,7 @@ public class DirectoriosBean implements Serializable{
 
 	public void eliminarDocumento(){
 		try{
-			documentoEJB.enviarAPapelera(this.documentoId);
+			documentoEJB.manejoPapelera(this.documentoId, true);
 			root = crearRoot();
 		}
 		catch(Exception e){

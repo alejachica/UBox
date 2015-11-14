@@ -1,8 +1,9 @@
 package co.edu.uniandes.umbrella.ejb;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -10,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import co.edu.uniandes.umbrella.entidades.ListaValor;
-import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
 
 /**
@@ -30,15 +30,15 @@ public class ListaValorEJB implements ListaValorEJBLocal{
 	private EntityManager entityManager;
 	
 	@Override
-	public ListaValor buscarLista(int idLista) {
+	public List<ListaValor> buscarLista(int idLista) {
 		Query query = entityManager.createNamedQuery("ListaValor.findByIdLista",
 				ListaValor.class)
 				.setParameter("idLista", idLista);
 		
-		ListaValor respuesta = null;
+		List<ListaValor> respuesta = new ArrayList<ListaValor>();
 		
 		try {
-			respuesta = (ListaValor) query.getSingleResult();
+			respuesta = (List<ListaValor>) query.getResultList();
 		} catch (NoResultException e) {
 			// TODO: handle exception
 			e.printStackTrace();

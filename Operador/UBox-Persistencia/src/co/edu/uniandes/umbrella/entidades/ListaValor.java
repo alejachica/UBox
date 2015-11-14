@@ -26,7 +26,7 @@ public class ListaValor implements Serializable {
 	@Column(name="id_lista_valor")
 	private int idListaValor;
 
-	private byte activo;
+	private boolean activo;
 
 	private String descripcion;
 
@@ -53,11 +53,11 @@ public class ListaValor implements Serializable {
 		this.idListaValor = idListaValor;
 	}
 
-	public byte getActivo() {
+	public boolean getActivo() {
 		return this.activo;
 	}
 
-	public void setActivo(byte activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
