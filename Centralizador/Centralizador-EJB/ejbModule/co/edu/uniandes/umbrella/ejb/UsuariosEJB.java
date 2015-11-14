@@ -1,10 +1,13 @@
 package co.edu.uniandes.umbrella.ejb;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -14,6 +17,9 @@ import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 import co.edu.uniandes.umbrella.interfaces.UsuariosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuariosEJBRemote;
+
+import java.util.logging.Logger;
+
 import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.*;
 
 /**
@@ -30,6 +36,10 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 	@PersistenceContext(unitName = "Centralizador-Persistencia")
 	private EntityManager entityManager;
 
+	/**
+	 * Log del servidor para registrar eventos
+	 */
+	private Logger logger = Logger.getLogger(this.getClass().getName());
 
 	/**
 	 * Servicio que permite registrar un usuario en el centralizador
@@ -81,15 +91,15 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 
 		entityManager.persist(usuario);
 		
-		return COD_001.getIdCodigo() + COD_001.getMensaje();
+		return COD_001.getIdCodigo();
 		
 		} catch(EntityExistsException eex){
 			
-			return COD_002.getIdCodigo() + COD_002.getMensaje();
+			return COD_002.getIdCodigo();
 		}
 		catch (Exception e) {
 			
-			return COD_003.getIdCodigo() + COD_003.getMensaje();
+			return COD_003.getIdCodigo();
 		}
 	}
 
@@ -102,7 +112,9 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 	@Override
 	@WebMethod
 	public DatosBasicosUsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
-
+		
+		try {
+			
 		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
 				Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", nroDoc);
 		
@@ -119,6 +131,20 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 		usuario.setSegundoApellido(usuarioEncontrado.getSegundoApellido());
 
 		return usuario;
+		
+		} catch (NoResultException nre) {
+
+			return null;
+			
+		} catch (NonUniqueResultException nue) {
+
+			logger.severe(COD_005.getIdCodigo());
+			return null;
+			
+		} catch (Exception e) {
+
+			return null;
+		}
 	}
 	
 	/**

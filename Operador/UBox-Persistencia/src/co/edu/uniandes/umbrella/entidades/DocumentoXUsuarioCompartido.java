@@ -11,7 +11,10 @@ import java.util.Date;
  */
 @Entity
 @Table(name="documento_x_usuario_compartido")
-@NamedQuery(name="DocumentoXUsuarioCompartido.findAll", query="SELECT d FROM DocumentoXUsuarioCompartido d")
+@NamedQueries({
+	@NamedQuery(name="DocumentoXUsuarioCompartido.findAll", query="SELECT d FROM DocumentoXUsuarioCompartido d"),
+	@NamedQuery(name="DocumentoXUsuarioCompartido.findByLink", query="SELECT d FROM DocumentoXUsuarioCompartido d where d.link = :link")
+})	
 public class DocumentoXUsuarioCompartido implements Serializable {
 	private static final long serialVersionUID = 1L;
 

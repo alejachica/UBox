@@ -1,5 +1,6 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.FormaComparticionEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
+import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 import javax.persistence.*;
@@ -74,6 +76,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	    }
     }
 
+	
+	
+	
 	public DocumentoDTO consultarDocumento(int documentoId) {
 		DocumentoDTO docDTO = new DocumentoDTO();
 		Query query = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", documentoId);
@@ -232,7 +237,6 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		DocumentoDTO documentoDto = consultarDocumento(idDocumento);
 		//documentoDto.setFkUsuario(idUsuarioDestino);
 		documentoDto.setArchivoCompartidoTemporal(true);
-		documentoDto.setArchivoCompartidoTemporal(false);
 		//documentoDto.setFkCarpeta(ejbCarpeta.obtenerCarpetaRaizPorUsuario(idUsuarioDestino).getIdCarpeta());
 
 		//Copia el documento en persistencia 
@@ -332,6 +336,79 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public ResultadoOperacion compartirDocumentoPorLink(int idUsuarioOrigen, int idDocumento, String identificacionDestino,
+			String emailDestino, Date fechaExpiracion, String clave) {
+		
+		ResultadoOperacion respuesta = new ResultadoOperacion();
+		
+		//Consulta el usuario origen
+		Usuario usuarioOrigen = ejbUsuario.consultarUsuarioPorId(idUsuarioOrigen);
+		
+		if(usuarioOrigen == null)
+		{
+			respuesta.setOperacionExitosa(false);
+			respuesta.setResultadoOperacion("El usuario origen no existe");
+			return respuesta;
+		}
+		
+		//consulta el documento que se desea compartir
+		Query query = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", idDocumento);
+		Documento documento = (Documento) query.getSingleResult();
+		
+		//Despues de copiar el documento agrega la comparticion del mismo
+		DocumentoXUsuarioCompartido compartido = new DocumentoXUsuarioCompartido();
+		compartido.setUsuario(usuarioOrigen);
+		//Le asigna el tipo de comparticion. Si viene con clave o no
+		compartido.setFormaComparticion(ejbFormaComparticion.obtenerFormaComparticionPorId(clave.equals("") ? FormaComparticionEnum.LINK.getValue() : FormaComparticionEnum.LINK_CON_CLAVE.getValue()));
+		compartido.setLectura(true);
+		compartido.setEscritura(false);
+		compartido.setDescarga(false);
+		compartido.setIdentificacionComparticion(identificacionDestino);
+		compartido.setFechaExpiracion(fechaExpiracion);
+		compartido.setRecibido(false);
+		compartido.setEnviado(true);
+		compartido.setDocumento(documento);
+		
+		//Genera una clave de 15 caracteres el cual va a ser el identificador del link
+		RandomString randomString = new RandomString(15);
+ 		String link = randomString.nextString();
+ 		compartido.setLink(link);
+		
+		entityManager.persist(compartido);
+		
+		respuesta.setOperacionExitosa(true);
+		return respuesta;
+		
+	}
+	
+	
+	public DocumentoDTO ConsultarDocumentoPorLink(String link)
+	{	
+		DocumentoDTO docDTO = new DocumentoDTO();
+		Query query = entityManager.createNamedQuery("DocumentoXUsuarioCompartido.findByLink", DocumentoXUsuarioCompartido.class).setParameter("link", link);
+		DocumentoXUsuarioCompartido compartido = (DocumentoXUsuarioCompartido) query.getSingleResult();
+		
+		Documento documento = compartido.getDocumento();
+		docDTO.setDocumento(documento.getDocumento());
+		docDTO.setFecha(documento.getFecha());
+		docDTO.setFirmado(documento.getFirmado());
+		docDTO.setFkCarpeta(documento.getCarpeta().getIdCarpeta());
+		docDTO.setFkUsuario(documento.getUsuario().getIdUsuario());
+		docDTO.setIdDocumento(documento.getIdDocumento());
+		docDTO.setIdTipoDocumento(documento.getIdTipoDocumento());
+		docDTO.setIdTipoMime(documento.getIdTipoMime());
+		docDTO.setNombre(documento.getNombre());
+		docDTO.setPalabrasClave(documento.getPalabrasClave());
+		docDTO.setPapelera(documento.getPapelera());
+		docDTO.setRuta(documento.getRuta());
+		docDTO.setSize(documento.getSize());
+		docDTO.setVersion(documento.getVersion());
+		docDTO.setArchivoCompartidoTemporal(documento.isArchivoCompartidoTemporal());
+		docDTO.setArchivoCompartidoTipoLink(documento.isArchivoCompartidoTipoLink());
+		return docDTO;
 	}
 
 }

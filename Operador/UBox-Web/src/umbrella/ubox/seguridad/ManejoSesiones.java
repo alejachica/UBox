@@ -2,10 +2,15 @@ package umbrella.ubox.seguridad;
 
 import java.util.Map;
 
+import javax.ejb.EJB;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.primefaces.expression.impl.ThisExpressionResolver;
+
+import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 
 /***
  * Clase encargada de conectarse con stormpath y realizar operaciones sobre los usuarios
@@ -36,6 +41,10 @@ public class ManejoSesiones {
 		}
 	}
 	
+	
+	
+	
+	
 	/***
 	 * Valida si hay un usuario autenticado y retorna la información del mismo en una estructura de tpo UsuarioAutenticado
 	 * @return
@@ -47,7 +56,12 @@ public class ManejoSesiones {
 		{
 			//Si esta autenicado instancia un nuevo UsuarioAutenticado
 			Map<String, String> userAttributes = SecurityUtils.getSubject().getPrincipals().oneByType(java.util.Map.class);
-			return new UsuarioAutenticado(userAttributes);
+			
+			
+			UsuarioAutenticado usuario = new UsuarioAutenticado(userAttributes);
+			return usuario;
+			
+			
 		}
 		else
 		{
