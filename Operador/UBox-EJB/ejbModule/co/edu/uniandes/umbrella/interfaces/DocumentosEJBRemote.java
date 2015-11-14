@@ -48,6 +48,24 @@ public interface DocumentosEJBRemote {
 	 */
 	public ResultadoOperacion compartirDocumentoInterno(int idUsuarioOrigen, int idUsuarioDestino, boolean soloLectura, int idDocumento, Date fechaExpiracion);
 	
+	/***
+	 * Permite compartir un documento por medio de un link, con fecha de expiracion
+	 * Retorna el link para ser compartido y envia un correo al usuario destinatario
+	 * @param idDocumento
+	 * @param soloLectura
+	 * @param fechaExpiracion
+	 * @return
+	 */
+	public ResultadoOperacion compartirDocumentoPorLink(int idDocumento, int idUsuarioOrigen, String identificacionDestino, String emailDestino, Date fechaExpiracion, String clave);
+	
+	
+	/****
+	 * Consulta un documento por la llave link y retorna los datos del documento
+	 * @param link
+	 * @return
+	 */
+	public DocumentoDTO ConsultarDocumentoPorLink(String link);
+	
 	public boolean eliminarDocumento(int documentoId);
 	
 	public boolean enviarAPapelera(int documentoId);

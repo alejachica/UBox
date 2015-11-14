@@ -7,7 +7,7 @@ import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
-@Local
+@Remote
 public interface UsuarioEJBRemote {
 	
 	void crearUsuario(UsuarioDTO usuarioDto);

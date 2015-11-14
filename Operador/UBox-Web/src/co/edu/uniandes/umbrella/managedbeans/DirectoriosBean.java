@@ -28,7 +28,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 
 @ManagedBean(name="directorioBean")
 @ViewScoped
-public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
+public class DirectoriosBean implements Serializable{
 	
 	/**
 	 * 
