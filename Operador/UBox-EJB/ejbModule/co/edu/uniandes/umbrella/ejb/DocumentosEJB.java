@@ -290,11 +290,11 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	}
 	
 	@Override
-	public boolean enviarAPapelera(int documentoId){
+	public boolean manejoPapelera(int documentoId, boolean papelera){
 		try{
 			Query query= entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", documentoId);
 			Documento doc = (Documento) query.getSingleResult();
-			doc.setPapelera(true);
+			doc.setPapelera(papelera);
 			entityManager.merge(doc);
 		}
 		catch(Exception e){
@@ -310,6 +310,22 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			List<Documento> documento =  (List<Documento>) query.getResultList();
 			for(Documento doc : documento){
 				entityManager.remove(doc);
+			}
+		}
+		catch(Exception e){
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean restaurarPapelera(int usuarioId){
+		try{
+			Query query = entityManager.createNamedQuery("Documento.findInTrash", Documento.class).setParameter("idUsuario", usuarioId);
+			List<Documento> documento =  (List<Documento>) query.getResultList();
+			for(Documento doc : documento){
+				doc.setPapelera(false);
+				entityManager.merge(doc);
 			}
 		}
 		catch(Exception e){

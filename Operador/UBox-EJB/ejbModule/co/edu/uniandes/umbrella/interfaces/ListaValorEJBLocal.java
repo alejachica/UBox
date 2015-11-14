@@ -5,6 +5,6 @@ import java.util.List;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 
 public interface ListaValorEJBLocal {
-	ListaValor buscarListaValorPorCodigoExterno(int idLista, String codigoExterno);
-	ListaValor buscarLista(int idLista);
+	List<ListaValor> buscarListaValorPorCodigoExterno(int idLista, String codigoExterno);
+	List<ListaValor> buscarLista(int idLista);
 }

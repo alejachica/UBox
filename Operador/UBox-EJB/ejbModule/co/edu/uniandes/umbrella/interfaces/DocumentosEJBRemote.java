@@ -50,8 +50,10 @@ public interface DocumentosEJBRemote {
 	
 	public boolean eliminarDocumento(int documentoId);
 	
-	public boolean enviarAPapelera(int documentoId);
+	public boolean manejoPapelera(int documentoId, boolean papelera);
 	
 	public boolean vaciarPapelera(int usuarioId);
+	
+	public boolean restaurarPapelera(int usuarioId);
 	
 }
