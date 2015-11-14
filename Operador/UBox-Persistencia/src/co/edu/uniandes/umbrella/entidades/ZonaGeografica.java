@@ -13,8 +13,8 @@ import java.util.List;
 @Table(name="ZONA_GEOGRAFICA")
 @NamedQueries({
 	@NamedQuery(name="ZonaGeografica.findAll", query="SELECT z FROM ZonaGeografica z"),
-	@NamedQuery(name="ZonaGeografica.findByDepartamento", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica" + " = :id_padre "),
-	@NamedQuery(name="ZonaGeografica.findCiudad", query="SELECT z FROM ZonaGeografica z where z.idZonaGeografica = :id_zona_geografica ")
+	@NamedQuery(name="ZonaGeografica.findCiudadesByDepartamentos", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica" + " = :id_padre "),
+	@NamedQuery(name="ZonaGeografica.findAllDepartamentos", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica is null")
 })
 public class ZonaGeografica implements Serializable {
 	private static final long serialVersionUID = 1L;
