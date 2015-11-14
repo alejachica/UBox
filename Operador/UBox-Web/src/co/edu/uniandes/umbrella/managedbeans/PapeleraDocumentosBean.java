@@ -24,7 +24,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
  */
 @ManagedBean(name="papeleraBean")
 @ViewScoped
-public class PapeleraDocumentosBean {
+public class PapeleraDocumentosBean extends BaseBeanConSesion {
 	
 	//------------------ATRIBUTOS------------------//
 	
@@ -63,7 +63,7 @@ public class PapeleraDocumentosBean {
 	public List<DocumentoDTO> crearArbol(){
 		List<DocumentoDTO> listaDocs = new ArrayList<DocumentoDTO>();
 		try {
-			List<DocumentoDTO> docsDTO = documentoEJB.listarDocumentosPapelera(3); //TODO dejar de utilizar usuario quemado
+			List<DocumentoDTO> docsDTO = documentoEJB.listarDocumentosPapelera(this.getUsuarioAutenticado().getId());
 			for(DocumentoDTO doc: docsDTO){
 				listaDocs.add(doc);
 			}
@@ -99,7 +99,7 @@ public class PapeleraDocumentosBean {
 	
 	public void vaciarPapelera(){
 		try{
-			documentoEJB.vaciarPapelera(3);//TODO cambiar el usuario quemado
+			documentoEJB.vaciarPapelera(this.getUsuarioAutenticado().getId());
 			documentos = crearArbol();
 		}
 		catch(Exception e){
@@ -112,7 +112,7 @@ public class PapeleraDocumentosBean {
 	
 	public void restaurarPapelera(){
 		try{
-			documentoEJB.restaurarPapelera(3);//TODO cambiar el usuario quemado
+			documentoEJB.restaurarPapelera(this.getUsuarioAutenticado().getId());
 			documentos = crearArbol();
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se restuaran todos los elementos exitosamente", null);
 	        FacesContext.getCurrentInstance().addMessage(null, message);
