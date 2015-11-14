@@ -44,14 +44,10 @@
 						<td width="">Tipo Documento:</td>
 						<td>
 							<div class="controls">
-								<select id="selectError" data-rel="chosen">
-									<option>Cédula Ciudadanía</option>
-									<option>Cédula Extranjería</option>
-									<option>Tarjeta de Identidad</option>
-									<option>Registro Civil</option>
-									<option>Pasaporte</option>
-									<option>Carné Diplomático</option>
-								</select>
+								<h:selectOneMenu id="tipo" value="#{registrarUsuarioBean.tipoIdentificacion}" styleClass="required" title="El tipo es obligatorio!" >
+								<f:selectItem id="tipo0" itemValue="" itemLabel="Seleccione"/>
+								<f:selectItems id="selectItems1" value="#{registrarUsuarioBean.tiposDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.descripcion}" itemValue="#{tipoDocumento.valor}" />
+								</h:selectOneMenu>
 							</div>
 						</td>
 						<td>Número Documento:</td>
@@ -66,27 +62,19 @@
 						</td>
 						<td>
 							<div class="controls">
-								<select id="selectError" data-rel="chosen">
-									<option>Amazonas</option>
-									<option>Bolívar</option>
-									<option>Casanare</option>
-									<option>Cundinamarca</option>
-									<option>Magdalena</option>
-									<option>Putumayo</option>
-								</select>
+								<h:selectOneMenu id="deptoExp" value="#{registrarUsuarioBean.departamentoExpedicionDoc}" styleClass="required" title="El departamento de Expedicion de Documento es obligatorio!" onchange="submit()" valueChangeListener="#{registrarUsuarioBean.onCountryChange}" >								
+								<f:selectItem id="deptoExp0" itemValue="" itemLabel="Seleccione"/>
+								<f:selectItems id="deptoExp1" value="#{registrarUsuarioBean.departamentos}" var="departamentoExpedicionDoc" itemLabel="#{departamentoExpedicionDoc.nombre}" itemValue="#{departamentoExpedicionDoc.idZonaGeografica}" />
+								</h:selectOneMenu>
 							</div>
 						</td>						
 						<td>Municipio de Expedición del Documento:</td>
 						<td>
 							<div class="controls">
-								<select id="selectError" data-rel="chosen">
-									<option>Abejorral</option>
-									<option>Bello</option>
-									<option>Caceres</option>
-									<option>Envigado</option>
-									<option>La Estrella</option>
-									<option>Sabaneta</option>
-								</select>
+								<h:selectOneMenu id="ciudadExp" value="#{registrarUsuarioBean.ciudadExpedicionDoc}" styleClass="required" title="La ciudad de Expedicion de Documento es obligatorio!" >
+								<f:selectItem id="ciudadExp0" itemValue="" itemLabel="Seleccione"/>
+								<f:selectItems id="ciudadExp1" value="#{registrarUsuarioBean.ciudadesExpDocumento}" var="ciudadExpedicionDoc" itemLabel="#{ciudadExpedicionDoc.nombre}" itemValue="#{ciudadExpedicionDoc.idZonaGeografica}" />
+								</h:selectOneMenu>
 							</div>
 						</td>						
 					</tr>
@@ -331,7 +319,7 @@
 						<td>Dirección Sitio Laboral:
 						</td>
 						<td>
-							<h:inputText class="form-control" id="txtCorreo" value="#{registrarUsuarioBean.usuario.correo}"></h:inputText>
+<!-- 							<h:inputText class="form-control" id="txtCorreo" value="#{registrarUsuarioBean.usuario.correo}"></h:inputText> -->
 						</td>	
 					</tr>	
 					<tr>
