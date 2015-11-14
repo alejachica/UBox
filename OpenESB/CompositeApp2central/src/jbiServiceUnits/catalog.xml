@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://arnaor:8080/UsuariosEJBService/UsuariosEJB?wsdl" uri="../ConsultaOperadorUsuario/arnaor_8080/UsuariosEJBService/UsuariosEJB.wsdl"/>
-    <system systemId="file:/home/gremly/NetBeansProjects/ConsultaOperadorUsuario/src/UserProcess/consultaOperadorWSDL.wsdl" uri="../ConsultaOperadorUsuario/UserProcess/consultaOperadorWSDL.wsdl"/>
-    <system systemId="http://arnaor:8080/UsuariosEJBService/UsuariosEJB?xsd=1" uri="ConsultaOperadorUsuario/src/_references/_relative/nbproject/private/retriever/arnaor_8080/UsuariosEJBService/UsuariosEJB.xsd_1.xsd"/>
-
-    <system systemId="http://localhost:8080/UsuariosEJBService/UsuariosEJB?wsdl" uri="../ConsultaUsuario/localhost_8080/UsuariosEJBService/UsuariosEJB.wsdl"/>
-    <system systemId="http://localhost:8080/UsuariosEJBService/UsuariosEJB?xsd=1" uri="../ConsultaUsuario/localhost_8080/UsuariosEJBService/UsuariosEJB.xsd_1.xsd"/>
-</catalog>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/ConsultaOperadorUsuario/consultaOperadorUsuario" xmlns:ns2="http://ejb.umbrella.uniandes.edu.co/" xmlns:ns3="http://enterprise.netbeans.org/bpel/ConsultaUsuario/consultaUsuario" xmlns:ns4="http://j2ee.netbeans.org/wsdl/ConsultaUsuario/UserProcess/consultarEstadoUsuario" xmlns:ns5="http://j2ee.netbeans.org/wsdl/ConsultaOperadorUsuario/UserProcess/newWSDL" version="1.0">
-    <services binding-component="true">
-        <provides endpoint-name="UsuariosEJBPort" interface-name="ns2:UsuariosEJB" service-name="ns2:UsuariosEJBService"/>
-        <consumes endpoint-name="consultarEstadoUsuarioPort" interface-name="ns4:consultarEstadoUsuarioPortType" service-name="ns4:consultarEstadoUsuarioService"/>
-        <consumes endpoint-name="newWSDLPort" interface-name="ns5:newWSDLPortType" service-name="ns5:newWSDLService"/>
-    </services>
-</jbi>
