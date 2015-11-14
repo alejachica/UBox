@@ -11,8 +11,9 @@ public interface UsuariosEJBLocal {
 	/**
 	 * Servicio que permite registrar un usuario en el centralizador
 	 * @param usuarioDto Datos del usuario a registrar
+	 * @return codigo de respuesta
 	 */
-	void crearUsuario(DatosBasicosUsuarioDTO usuarioDto);
+	String crearUsuario(DatosBasicosUsuarioDTO usuarioDto);
 	
 	/**
 	 * Servicio que permite consultar un usuario en el centralizador
