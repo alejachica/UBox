@@ -19,12 +19,12 @@ import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
 @Stateless
 public class ListaValorEJB implements ListaValorEJBLocal{
 
-	public static final int IDLISTA_TIPODOCUMENTO = 1;
-	public static final int IDLISTA_TIPOCARPETA = 2;
-	public static final int IDLISTA_PERMISOSDOCUMENTO = 3;
-	public static final int IDLISTA_PERMISOSCARPETA = 4;
-	public static final int IDLISTA_TIPOPQR = 5;
-	public static final int IDLISTA_TIPOTRAMITE = 6;
+	//public static final int IDLISTA_TIPODOCUMENTO = 1;
+	//public static final int IDLISTA_TIPOCARPETA = 2;
+	//public static final int IDLISTA_PERMISOSDOCUMENTO = 3;
+	//public static final int IDLISTA_PERMISOSCARPETA = 4;
+	//public static final int IDLISTA_TIPOPQR = 5;
+	//public static final int IDLISTA_TIPOTRAMITE = 6;
 	
 	@PersistenceContext(unitName = "UBox-Persistencia")
 	private EntityManager entityManager;
