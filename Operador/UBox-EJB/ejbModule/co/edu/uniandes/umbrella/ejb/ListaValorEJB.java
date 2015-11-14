@@ -1,8 +1,6 @@
 package co.edu.uniandes.umbrella.ejb;
 
-import java.util.List;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -10,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import co.edu.uniandes.umbrella.entidades.ListaValor;
-import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
 
 /**
