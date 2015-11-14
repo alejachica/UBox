@@ -12,7 +12,11 @@ public enum CodigosRespuesta {
 	
 	COD_001("001", "Usuario creado exitosamente"), 
 	COD_002("002", "Usuario ya existe"), 
-	COD_003("003", "Error desconocido al crear el usuario");
+	COD_003("003", "Error desconocido al crear el usuario"),
+	COD_004("004", "No se encontro usuario con el tipo y nro de documento enviado"),
+	COD_005("005", "Se encontraron varios usuarios con el tipo y nro de documento enviado"),
+	COD_006("006", "Error desconocido al consultar usuario"),
+	;
 	
 	/**
 	 * Id del codigo de mensaje
