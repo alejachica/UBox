@@ -15,10 +15,12 @@ import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBRemote;
 
 @Stateless
 public class ZonaGeograficaEJB implements ZonaGeograficaEJBLocal, ZonaGeograficaEJBRemote{
-	
-	@PersistenceContext(unitName = "UBox-Persistencia")
+	/**
+	 * Entity manager
+	 */
+	@PersistenceContext(unitName = "Centralizador-Persistencia")
 	private EntityManager entityManager;
-
+	
 	@Override
 	public List<ZonaGeografica> getZonasGeograficas() {
 		Query query = entityManager.createNamedQuery("ZonaGeografica.findAll",ZonaGeografica.class);
@@ -71,5 +73,4 @@ public class ZonaGeograficaEJB implements ZonaGeograficaEJBLocal, ZonaGeografica
 		
 		return respuesta;
 	}
-	
 }

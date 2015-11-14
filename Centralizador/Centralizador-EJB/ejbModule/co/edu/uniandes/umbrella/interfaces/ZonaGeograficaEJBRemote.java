@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 
-public interface ZonaGeograficaEJBLocal {
+public interface ZonaGeograficaEJBRemote {
 	List<ZonaGeografica> getZonasGeograficas();
 	List<ZonaGeografica> buscarZonaGeograficaPorDepartamento(int idZonaGeografica);
 	ZonaGeografica buscarCiudad(int idZonaGeografica);
