@@ -34,7 +34,7 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 	 * @param usuarioDto Datos del usuario a registrar
 	 */
 	@Override
-	@WebMethod(exclude=true)
+	@WebMethod
 	public void crearUsuario(DatosBasicosUsuarioDTO usuarioDto) {
 
 		Usuario usuario = new Usuario();
@@ -83,6 +83,7 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 	 * @return DatosBasicosUsuarioDTO Resultado de la consulta
 	 */
 	@Override
+	@WebMethod
 	public DatosBasicosUsuarioDTO consultarUsuario(String tipoDoc, String nroDoc) {
 
 		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
