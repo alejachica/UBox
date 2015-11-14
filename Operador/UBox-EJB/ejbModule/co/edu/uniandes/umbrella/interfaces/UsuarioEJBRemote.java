@@ -16,6 +16,8 @@ public interface UsuarioEJBRemote {
 	 
 	 Usuario consultarUsuarioPorId(int id);
 	 
+	 Usuario consultarUsuarioPorStormpathId(String stormpath);
+	 
 	 ResultadoOperacion generarTraslado(String tipoDocumento, String numeroDocumento);
 
 }
