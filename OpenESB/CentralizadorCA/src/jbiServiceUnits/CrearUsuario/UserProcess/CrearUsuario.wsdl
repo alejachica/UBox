@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="CrearUsuario" targetNamespace="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/CrearUsuario"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/CrearUsuario" xmlns:ns="http://ejb.umbrella.uniandes.edu.co/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/CrearUsuario">
+            <xsd:import namespace="http://ejb.umbrella.uniandes.edu.co/" schemaLocation="http://arnaor:8080/UsuariosEJBService/UsuariosEJB?xsd=1"/>
+        </xsd:schema>
+    </types>
+    <message name="CrearUsuarioOperationRequest">
+        <part name="UsuarioDTO" type="ns:datosBasicosUsuarioDTO"/>
+    </message>
+    <message name="CrearUsuarioOperationResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <portType name="CrearUsuarioPortType">
+        <operation name="CrearUsuarioOperation">
+            <input name="input1" message="tns:CrearUsuarioOperationRequest"/>
+            <output name="output1" message="tns:CrearUsuarioOperationResponse"/>
+        </operation>
+    </portType>
+    <binding name="CrearUsuarioBinding" type="tns:CrearUsuarioPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="CrearUsuarioOperation">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/CrearUsuario"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/CrearUsuario"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="CrearUsuarioService">
+        <port name="CrearUsuarioPort" binding="tns:CrearUsuarioBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/CrearUsuarioService/CrearUsuarioPort"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="CrearUsuario">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="CrearUsuarioPortTypeRole" portType="tns:CrearUsuarioPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
