@@ -9,6 +9,7 @@ import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 @Remote
 public interface ZonaGeograficaEJBRemote {
 	List<ZonaGeografica> getZonasGeograficas();
-	ZonaGeografica buscarZonaGeograficaPorDepartamento(int idZonaGeografica);
+	List<ZonaGeografica> buscarZonaGeograficaPorDepartamento(int idZonaGeografica);
 	ZonaGeografica buscarCiudad(int idZonaGeografica);
+	List<ZonaGeografica> buscarTodosDepartamento();
 }
