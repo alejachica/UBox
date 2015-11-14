@@ -48,16 +48,16 @@ public class ListaValorEJB implements ListaValorEJBLocal{
 	}
 	
 	@Override
-	public ListaValor buscarListaValorPorCodigoExterno(int idLista, String codigoExterno) {
+	public List<ListaValor> buscarListaValorPorCodigoExterno(int idLista, String codigoExterno) {
 		Query query = entityManager.createNamedQuery("ListaValor.findByExternalCode",
 				ListaValor.class)
 				.setParameter("idLista", idLista)
 				.setParameter("codigoExterno", codigoExterno);
 		
-		ListaValor respuesta = null;
+		List<ListaValor> respuesta = null;
 		
 		try {
-			respuesta = (ListaValor) query.getSingleResult();
+			respuesta = (List<ListaValor>) query.getResultList();
 		} catch (NoResultException e) {
 			// TODO: handle exception
 			e.printStackTrace();
