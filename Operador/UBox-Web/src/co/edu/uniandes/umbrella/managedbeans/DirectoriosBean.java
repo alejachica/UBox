@@ -233,7 +233,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
 
 	public void eliminarDocumento(){
 		try{
-			documentoEJB.enviarAPapelera(this.documentoId);
+			documentoEJB.manejoPapelera(this.documentoId, true);
 			root = crearRoot();
 		}
 		catch(Exception e){

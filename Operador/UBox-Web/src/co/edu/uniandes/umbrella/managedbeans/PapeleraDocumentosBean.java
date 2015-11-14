@@ -10,6 +10,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -82,6 +84,19 @@ public class PapeleraDocumentosBean {
 		}
 	}
 	
+	public void restaurarDocumento(){
+		try{
+			documentoEJB.manejoPapelera(this.documentoId, false);
+			documentos = crearArbol();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Documento restaurado", null);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		catch(Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error restaurando documento", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+	
 	public void vaciarPapelera(){
 		try{
 			documentoEJB.vaciarPapelera(3);//TODO cambiar el usuario quemado
@@ -89,6 +104,21 @@ public class PapeleraDocumentosBean {
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error vaciando la papelera", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error vaciando la papelera", "asdfasf");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+	
+	public void restaurarPapelera(){
+		try{
+			documentoEJB.restaurarPapelera(3);//TODO cambiar el usuario quemado
+			documentos = crearArbol();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se restuaran todos los elementos exitosamente", null);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		catch(Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error restaurando la papelera", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
