@@ -22,8 +22,8 @@ public interface TransaccionesEJBLocal {
 	 * @param tipoDocUsuario Tipo de documento del usuario	
 	 * @param nroDocUsuario Numero de documento del usuario
 	 * @param idNuevoOperador Id del nuevo operador al que se trasladara el usuario
-	 * @return true si el traslado fue exitoso, false en caso contrario.
+	 * @return String codigo de respuesta
 	 */
-	boolean trasladarUsuarioDeOperador(String tipoDocUsuario, String nroDocUsuario, long idNuevoOperador);
+	String trasladarUsuarioDeOperador(String tipoDocUsuario, String nroDocUsuario, int idNuevoOperador);
 
 }

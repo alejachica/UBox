@@ -3,6 +3,7 @@ package co.edu.uniandes.umbrella.ejb;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,6 +14,7 @@ import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 import co.edu.uniandes.umbrella.interfaces.UsuariosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuariosEJBRemote;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.*;
 
 /**
  * EJB con los servicios necesarios para el usuario 
@@ -32,11 +34,14 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 	/**
 	 * Servicio que permite registrar un usuario en el centralizador
 	 * @param usuarioDto Datos del usuario a registrar
+	 * @return codigo de respuesta
 	 */
 	@Override
 	@WebMethod(exclude=true)
-	public void crearUsuario(DatosBasicosUsuarioDTO usuarioDto) {
-
+	public String crearUsuario(DatosBasicosUsuarioDTO usuarioDto) {
+		
+		try {
+			
 		Usuario usuario = new Usuario();
 
 		/*
@@ -74,6 +79,17 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 				.getIdMunicipioResidencia()));
 
 		entityManager.persist(usuario);
+		
+		return COD_001.getIdCodigo() + COD_001.getMensaje();
+		
+		} catch(EntityExistsException eex){
+			
+			return COD_002.getIdCodigo() + COD_002.getMensaje();
+		}
+		catch (Exception e) {
+			
+			return COD_003.getIdCodigo() + COD_003.getMensaje();
+		}
 	}
 
 	/**
