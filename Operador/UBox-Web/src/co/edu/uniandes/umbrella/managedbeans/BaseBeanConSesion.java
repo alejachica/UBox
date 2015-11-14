@@ -1,5 +1,6 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
+import co.edu.uniandes.umbrella.entidades.Usuario;
 import umbrella.ubox.seguridad.ManejoSesiones;
 import umbrella.ubox.seguridad.UsuarioAutenticado;
 
@@ -10,6 +11,7 @@ import umbrella.ubox.seguridad.UsuarioAutenticado;
  */
 public class BaseBeanConSesion {
 	
+
 	/***
 	 * Datos del usuario auteticado
 	 */
@@ -20,7 +22,10 @@ public class BaseBeanConSesion {
 		if(this.usuarioAuntenticado != null)
 			return this.usuarioAuntenticado;
 		else
+		{
+			
 			return ManejoSesiones.getUsuarioAutenticado();
+		} 
 	}
 	
 	public BaseBeanConSesion()

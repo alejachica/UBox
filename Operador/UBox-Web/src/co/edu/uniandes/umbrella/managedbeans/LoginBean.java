@@ -48,7 +48,7 @@ public class LoginBean implements Serializable {
 			ManejoSesiones objSesion = new ManejoSesiones();
 			if(objSesion.validarAutenticacion(this.usuario,  this.clave, "127.0.0.1"))
 			{
-				return "documentosPersonales.xhtml";
+				return "directorios/documentosPersonales.xhtml";
 			}
 			else
 			{

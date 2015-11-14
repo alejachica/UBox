@@ -1,5 +1,8 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,33 +28,40 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 public class DescargarDocumentoBean implements Serializable{
 	
 	@EJB
-	private DocumentosEJBRemote documentosEJB;
+	private DocumentosEJBRemote documentoEJB;
 	
+	private DocumentoDTO documentoActual;
 	
-	public void downloadFile(int id) throws FileNotFoundException, IOException {
-	      
-		  FileOutputStream fileOuputStream = new FileOutputStream("C:\\docs\\instructions.txt"); 
-	      //byte[] buf = new byte[fis.available()];
-		  byte[] buf = documentosEJB.consultarDocumento(id).getDocumento();
-		  fileOuputStream.write(buf);
-		  File file = new File("C:\\docs\\instructions.txt");
-		  InputStream fis = new FileInputStream(file);
-	      int offset = 0;
-	      int numRead = 0;
-	      while ((offset < buf.length) && ((numRead = fis.read(buf, offset, buf.length -offset)) >= 0)) 
-	      {
-	        offset += numRead;
-	      }
-	      fis.close();
-	      HttpServletResponse response =
-	         (HttpServletResponse) FacesContext.getCurrentInstance()
-	        .getExternalContext().getResponse();
-
-	     response.setContentType("application/octet-stream");
-	     response.setHeader("Content-Disposition", "attachment;filename=instructions.txt");
-	     response.getOutputStream().write(buf);
-	     response.getOutputStream().flush();
-	     response.getOutputStream().close();
-	     FacesContext.getCurrentInstance().responseComplete();
+	@PostConstruct
+	public void validarDocumento()
+	{
+		String a = "";
+	}
+	
+	public void descargarArchivo() throws FileNotFoundException, IOException {
+		
+		FacesContext context = FacesContext.getCurrentInstance();  
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();  
+		response.reset();
+		response.setBufferSize(documentoActual.getDocumento().length);  
+		response.setContentType("application/octet-stream");  
+		response.setHeader("Content-Length", String.valueOf(documentoActual.getDocumento().length));  
+		response.setHeader("Content-Disposition", "attachment;filename=\"" + documentoActual.getNombre() + "\"");  
+	    BufferedInputStream input = null;  
+	    BufferedOutputStream output = null;  
+	    try {  
+	    	input = new BufferedInputStream(new ByteArrayInputStream(documentoActual.getDocumento()),documentoActual.getDocumento().length);  
+	        output = new BufferedOutputStream(response.getOutputStream(),documentoActual.getDocumento().length);  
+	        byte[] buffer = new byte[documentoActual.getDocumento().length];  
+			int length;  
+			while ((length = input.read(buffer)) > 0) {
+				output.write(buffer, 0, length);  
+			}  
+		} 
+	    finally {  
+			input.close();  
+			output.close();  
+		}  
+		context.responseComplete();
 	}
 }

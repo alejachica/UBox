@@ -11,12 +11,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="ZONA_GEOGRAFICA")
-@NamedQuery(name="ZonaGeografica.findAll", query="SELECT z FROM ZonaGeografica z")
+@NamedQueries({
+	@NamedQuery(name="ZonaGeografica.findAll", query="SELECT z FROM ZonaGeografica z"),
+	@NamedQuery(name="ZonaGeografica.findCiudadesByDepartamentos", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica" + " = :id_padre "),
+	@NamedQuery(name="ZonaGeografica.findAllDepartamentos", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica is null")
+})
 public class ZonaGeografica implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_zona_geografica")
 	private int idZonaGeografica;
 

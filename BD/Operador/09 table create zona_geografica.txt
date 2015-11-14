@@ -1,0 +1,7 @@
+CREATE TABLE `ZONA_GEOGRAFICA` (
+`id_zona_geografica`  int(11) NOT NULL ,
+`nombre`  varchar(50) NOT NULL ,
+`id_padre`  int(11) NULL ,
+PRIMARY KEY (`id_zona_geografica`)
+)
+;

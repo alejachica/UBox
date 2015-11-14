@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,6 +28,7 @@ import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.models.RecibirDocumentoRequest;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
+
 
 
 @Stateless
@@ -74,13 +76,18 @@ public class DocumentoWS {
 			
 			//Actualiza los datos del DTO para actualizar los datos
 			DocumentoDTO documento = new DocumentoDTO();
-			documento.setDocumento(dataRequest.getDocumento().getArchivo().getBytes());
+			documento.setDocumento(Base64.decodeBase64(dataRequest.getDocumento().getArchivo().getBytes()));
 			documento.setNombre(dataRequest.getDocumento().getNombre());
 			documento.setIdTipoDocumento(tipoDocumento.getIdListaValor());
 			documento.setIdTipoMime(dataRequest.getDocumento().getTipoMime());
 			documento.setFirmado(dataRequest.getDocumento().isFirmado());
 			documento.setPalabrasClave("");
 			documentoEjb.recibirDocumentoCompartido(dataRequest.getIdentificacionOrigen(), dataRequest.getIdentificacionOrigen(), dataRequest.isEmpresaPublica(), dataRequest.getIdentificacionDestino(), dataRequest.getIdentificacionDestino(), dataRequest.getIdOperadorExterno(), documento);
+			
+			byte[] data = Base64.decodeBase64(dataRequest.getDocumento().getArchivo().getBytes());
+			try (OutputStream stream = new FileOutputStream("c:/decode/"+ dataRequest.getDocumento().getNombre())) {
+			    stream.write(data);
+			}
 			
 			respuesta.setOperacionExitosa(true);
 			
@@ -100,11 +107,8 @@ public class DocumentoWS {
 		
 		
 		
-		/*
-		byte[] data = Base64.decodeBase64(documento.getDocumento().getArchivo());
-		try (OutputStream stream = new FileOutputStream("c:/decode/abc.bmp")) {
-		    stream.write(data);
-		}*/
+		
+		
 		/*String completeImageData = documento.getDocumento().getArchivo();
 		String imageDataBytes = completeImageData.substring(completeImageData.indexOf(",")+1);
 		
