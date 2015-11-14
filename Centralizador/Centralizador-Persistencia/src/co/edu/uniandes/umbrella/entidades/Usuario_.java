@@ -6,7 +6,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2015-10-17T18:07:41.125-0500")
+@Generated(value="Dali", date="2015-10-17T19:37:11.992-0500")
 @StaticMetamodel(Usuario.class)
 public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, Integer> idUsuario;
@@ -27,10 +27,10 @@ public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, String> segundoNombre;
 	public static volatile SingularAttribute<Usuario, Integer> telefono;
 	public static volatile ListAttribute<Usuario, HistoricoOperadoresUsuario> historicoOperadoresUsuarios;
-	public static volatile SingularAttribute<Usuario, Operador> operador;
 	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioExpedicionDoc;
 	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioLaboral;
 	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioNacimiento;
 	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioNotificacion;
 	public static volatile SingularAttribute<Usuario, ZonaGeografica> municipioResidencia;
+	public static volatile SingularAttribute<Usuario, Operador> operador;
 }
