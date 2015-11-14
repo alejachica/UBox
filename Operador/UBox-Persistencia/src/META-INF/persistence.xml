@@ -24,12 +24,13 @@
 		<class>co.edu.uniandes.umbrella.entidades.Tramite</class>
 		<class>co.edu.uniandes.umbrella.entidades.TramiteUsuario</class>
 		<class>co.edu.uniandes.umbrella.entidades.Usuario</class>
+		<class>co.edu.uniandes.umbrella.entidades.ZonaGeografica</class>
 		<properties>
-			<property name="User" value="ubox" />
-			<property name="Password" value="ubox123" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ubox"/>
-			<property name="javax.persistence.jdbc.user" value="ubox"/>
-			<property name="javax.persistence.jdbc.password" value="ubox123"/>
+			<property name="User" value="userUboxOp" />
+			<property name="Password" value="UboxBDOperador" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/operador"/>
+			<property name="javax.persistence.jdbc.user" value="userUboxOp"/>
+			<property name="javax.persistence.jdbc.password" value="UboxBDOperador"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>

@@ -10,6 +10,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -22,7 +24,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
  */
 @ManagedBean(name="papeleraBean")
 @ViewScoped
-public class PapeleraDocumentosBean {
+public class PapeleraDocumentosBean extends BaseBeanConSesion {
 	
 	//------------------ATRIBUTOS------------------//
 	
@@ -61,7 +63,7 @@ public class PapeleraDocumentosBean {
 	public List<DocumentoDTO> crearArbol(){
 		List<DocumentoDTO> listaDocs = new ArrayList<DocumentoDTO>();
 		try {
-			List<DocumentoDTO> docsDTO = documentoEJB.listarDocumentosPapelera(3); //TODO dejar de utilizar usuario quemado
+			List<DocumentoDTO> docsDTO = documentoEJB.listarDocumentosPapelera(this.getUsuarioAutenticado().getId());
 			for(DocumentoDTO doc: docsDTO){
 				listaDocs.add(doc);
 			}
@@ -82,13 +84,41 @@ public class PapeleraDocumentosBean {
 		}
 	}
 	
+	public void restaurarDocumento(){
+		try{
+			documentoEJB.manejoPapelera(this.documentoId, false);
+			documentos = crearArbol();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Documento restaurado", null);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		catch(Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error restaurando documento", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+	
 	public void vaciarPapelera(){
 		try{
-			documentoEJB.vaciarPapelera(3);//TODO cambiar el usuario quemado
+			documentoEJB.vaciarPapelera(this.getUsuarioAutenticado().getId());
 			documentos = crearArbol();
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error vaciando la papelera", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error vaciando la papelera", "asdfasf");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+	
+	public void restaurarPapelera(){
+		try{
+			documentoEJB.restaurarPapelera(this.getUsuarioAutenticado().getId());
+			documentos = crearArbol();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se restuaran todos los elementos exitosamente", null);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		catch(Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error restaurando la papelera", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}

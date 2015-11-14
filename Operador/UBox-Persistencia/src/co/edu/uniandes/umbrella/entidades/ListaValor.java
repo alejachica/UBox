@@ -15,7 +15,8 @@ import javax.persistence.*;
 
 @NamedQueries({ 
 	@NamedQuery(name="ListaValor.findAll", query="SELECT l FROM ListaValor l"), 
-	@NamedQuery(name="ListaValor.findByExternalCode", query="SELECT l FROM ListaValor l where l.lista.idLista = :idLista and l.codigoExterno = :codigoExterno")
+	@NamedQuery(name="ListaValor.findByExternalCode", query="SELECT l FROM ListaValor l where l.lista.idLista = :idLista and l.codigoExterno = :codigoExterno"),
+	@NamedQuery(name="ListaValor.findByIdLista", query="SELECT l FROM ListaValor l where l.lista.idLista = :idLista")
 })
 public class ListaValor implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,7 @@ public class ListaValor implements Serializable {
 	@Column(name="id_lista_valor")
 	private int idListaValor;
 
-	private byte activo;
+	private boolean activo;
 
 	private String descripcion;
 
@@ -52,11 +53,11 @@ public class ListaValor implements Serializable {
 		this.idListaValor = idListaValor;
 	}
 
-	public byte getActivo() {
+	public boolean getActivo() {
 		return this.activo;
 	}
 
-	public void setActivo(byte activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
