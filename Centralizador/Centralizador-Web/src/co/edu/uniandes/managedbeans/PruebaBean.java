@@ -3,19 +3,20 @@ package co.edu.uniandes.managedbeans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBLocal;
+import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBRemote;
 
 @ManagedBean
-@ViewScoped
 public class PruebaBean {
 	
 	@EJB
-	private ZonaGeograficaEJBLocal zonaGeograficaEJB;
+	private ZonaGeograficaEJBRemote zonaGeograficaEJB;
 	
 	private ZonaGeografica prueba;
 	private String tipoIdentificacion = "";
@@ -28,7 +29,13 @@ public class PruebaBean {
 		
 		this.departamentos = new ArrayList<ZonaGeografica>();
 		this.ciudadesExpDocumento = new ArrayList<ZonaGeografica>();
-		this.cargarDatos();
+		//this.cargarDatos();
+	}
+	
+	@PostConstruct
+	public void init(){
+	
+		cargarDatos();
 	}
 
 	public ZonaGeografica getPrueba(){
@@ -69,12 +76,11 @@ public class PruebaBean {
 public void cargarDatos(){
 		
 		try {
-			
-			ZonaGeografica prueba2 = (ZonaGeografica) zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(5);
-			departamentos = (List<ZonaGeografica>) prueba2;
-			List<ZonaGeografica> lista = zonaGeograficaEJB.getZonasGeograficas();
-			ZonaGeografica ciudad = zonaGeograficaEJB.buscarCiudad(1);
-				
+			this.departamentos = new ArrayList<ZonaGeografica>();
+			departamentos = zonaGeograficaEJB.getZonasGeograficas();
+			//List<ZonaGeografica> lista = zonaGeograficaEJB.getZonasGeograficas();
+			//ZonaGeografica ciudad = zonaGeograficaEJB.buscarCiudad(1);
+			//System.out.println("cacacacacacacacac" + zonaGeograficaEJB.buscarCiudad(1).getNombre() );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
