@@ -9,8 +9,6 @@ import co.edu.uniandes.umbrella.entidades.Carpeta;
 @Remote
 public interface CarpetaEJBRemote {
 	
-	Carpeta crearCarpeta(CarpetaDTO carpetaDTO);
-	
 	CarpetaDTO consultarCarpetao(int id);
 	
 	public void eliminarCarpeta(int idCarpeta) throws Exception;
