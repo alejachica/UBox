@@ -178,14 +178,19 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 	}
 
 	@Override
-	public Usuario consultarUsuarioPorStormpathId(String stormpath) {
-		Query query = entityManager.createNamedQuery("Usuario.findByStormpathId")
-				.setParameter("idStormpath", stormpath);
+	public int consultarUsuarioPorStormpathId(String stormpath) {
+		Query query = entityManager.createNamedQuery("Usuario.findByStormpathId").setParameter("idStormpath", stormpath);
 		try {
-			return (Usuario) query.getSingleResult();	
-		} catch (NoResultException e) {
+			int idUsuario = (int)query.getSingleResult();
+			return idUsuario;	
+		} 
+		catch (NoResultException e) {
 			// TODO: handle exception
-			return null;
+			return -1;
+		}
+		catch(Exception e){
+			// TODO: handle exception
+			return -1;
 		}
 	}
 

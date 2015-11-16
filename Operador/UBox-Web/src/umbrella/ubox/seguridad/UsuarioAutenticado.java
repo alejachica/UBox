@@ -7,7 +7,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 
 public class UsuarioAutenticado {
@@ -35,8 +34,8 @@ public class UsuarioAutenticado {
 			e.printStackTrace();
 		}
 		
-		Usuario usuario = usuarioEjb.consultarUsuarioPorStormpathId(this.idStormpath);
-		this.id = usuario.getIdUsuario();
+		int idUsuario = usuarioEjb.consultarUsuarioPorStormpathId(this.idStormpath);
+		this.id = idUsuario;
 	}
 	
 	
