@@ -1,6 +1,5 @@
 package co.edu.uniandes.umbrella.ejb;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +45,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
      * Metodo para crear una documento y persistirlo en BD
      * @param documentoDTO
      */
-	public Documento crearDocumento(DocumentoDTO documentoDTO) throws Exception{
+	public boolean crearDocumento(DocumentoDTO documentoDTO) throws Exception{
     	try{
 	        Documento documento = new Documento();
 	        documento.setDocumento(documentoDTO.getDocumento());
@@ -69,16 +68,13 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	        Usuario usuarioEncontrado = (Usuario) query1.getSingleResult();
 	        documento.setUsuario(usuarioEncontrado);
 	        entityManager.persist(documento);
-	        return documento;
+	        return true;
     	}
 	    catch(Exception e){
 	    	throw new Exception("Fallo persistiendo el documento");
 	    }
     }
 
-	
-	
-	
 	public DocumentoDTO consultarDocumento(int documentoId) {
 		DocumentoDTO docDTO = new DocumentoDTO();
 		Query query = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", documentoId);
