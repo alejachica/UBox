@@ -14,18 +14,20 @@
 					    <h2><i class="glyphicon glyphicon-user"></i>Directorio documentos</h2>
 					</div>
 					<!--div class="box-content"-->
-						<div class="alert alert-info">
-						    <table class="table">
-						        <tbody>
-						            <tr>
-						                <td>
-						                    <p:commandLink oncomplete="PF('dialogoCrearCarpeta').show();" value="Crear Carpeta">
-						            		</p:commandLink>
-						                </td>
-						            </tr>
-						        </tbody>
-						    </table>
-						</div>
+						<h:form>
+							<div class="alert alert-info">
+							    <table class="table">
+							        <tbody>
+							            <tr>
+							                <td>
+							                    <p:commandLink oncomplete="PF('dialogoCrearCarpeta').show();" value="Crear Carpeta">
+							            		</p:commandLink>
+							                </td>
+							            </tr>
+							        </tbody>
+							    </table>
+							</div>
+						</h:form>
 						<h:form id="formDirectorioId">
 						    <p:treeTable value="#{directorioBean.root}" var="carpeta" id="directorio">
 						        <f:facet name="header">
