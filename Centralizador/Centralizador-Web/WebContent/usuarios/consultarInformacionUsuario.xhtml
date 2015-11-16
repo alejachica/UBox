@@ -23,6 +23,38 @@
 				<h:commandButton value="boton"
 					action="#{consultarInformacionUsuarioBean.consultarUsuario}" />
 			</h:panelGrid>
+			
+			
+			
+			<h:form>
+            	
+				<tr >
+						<td>Departamento de Expedición del Documento:
+						</td>
+						<td>
+							<div class="controls">
+								<h:selectOneMenu id="deptoExp" value="#{pruebaBean.departamentoExpedicionDoc}" styleClass="required" title="El departamento de Expedicion de Documento es obligatorio!" onchange="submit()" valueChangeListener="#{registrarUsuarioBean.onCountryChange}" >								
+								<f:selectItem id="deptoExp0" itemValue="" itemLabel="Seleccione"/>
+								<f:selectItems id="deptoExp1" value="#{pruebaBean.departamentos}" var="departamentoExpedicionDoc" itemLabel="#{departamentoExpedicionDoc.nombre}" itemValue="#{departamentoExpedicionDoc.idZonaGeografica}" />
+								</h:selectOneMenu>
+							</div>
+						</td>						
+						<td>Municipio de Expedición del Documento:</td>
+						<td>
+							<div class="controls">
+								<h:selectOneMenu id="ciudadExp" value="#{pruebaBean.ciudadExpedicionDoc}" styleClass="required" title="La ciudad de Expedicion de Documento es obligatorio!" >
+								<f:selectItem id="ciudadExp0" itemValue="" itemLabel="Seleccione"/>
+								<f:selectItems id="ciudadExp1" value="#{pruebaBean.ciudadesExpDocumento}" var="ciudadExpedicionDoc" itemLabel="#{ciudadExpedicionDoc.nombre}" itemValue="#{ciudadExpedicionDoc.idZonaGeografica}" />
+								</h:selectOneMenu>
+							</div>
+						</td>						
+					</tr>
+					
+        	</h:form>
+			
+			
+			
+			
 		</h:form>
 	</f:view>
 </h:body>
