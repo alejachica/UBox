@@ -29,7 +29,8 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
      * @param carpetaDTO
      * @param idUsuario
      */
-    public Carpeta crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario)throws Exception {
+	@Override
+    public boolean crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario) throws Exception {
     	try{
 	        Carpeta carpeta = new Carpeta();
 	        carpeta.setNombreCarpeta(carpetaDTO.getNombreCarpeta());
@@ -42,6 +43,27 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 		        Carpeta carpetaPadre = (Carpeta) query2.getSingleResult();
 		        carpeta.setCarpeta(carpetaPadre);
 	        }
+	        entityManager.persist(carpeta);
+	        return true;
+    	}
+	    catch(Exception e){
+	    	throw new Exception("Fallo persistiendo la carpeta");
+	    }
+    }
+    
+    /**
+     * Metodo para crear carpeta Raiz de un usuario
+     */
+    @Override
+    public Carpeta crearCarpetaRaiz(CarpetaDTO carpetaDTO, int idUsuario)throws Exception {
+    	try{
+	        Carpeta carpeta = new Carpeta();
+	        carpeta.setNombreCarpeta(carpetaDTO.getNombreCarpeta());
+	        carpeta.setDescripcion(carpetaDTO.getDescripcion());
+	        Query query = entityManager.createNamedQuery("Usuario.findById", Usuario.class).setParameter("idUsuario", idUsuario);
+	        Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
+	        carpeta.setUsuario(usuarioEncontrado);
+	        carpeta.setCarpetaRaiz(true);
 	        entityManager.persist(carpeta);
 	        return carpeta;
     	}
@@ -142,7 +164,7 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 			carpetaDTO.setDescripcion("Carpeta por defecto");
 			carpetaDTO.setNombreCarpeta("root");
 			try {
-				return crearCarpeta(carpetaDTO, idUsuario);
+				return crearCarpetaRaiz(carpetaDTO, idUsuario);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -12,7 +12,7 @@ import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 @Remote
 public interface DocumentosEJBRemote {
 	
-	public Documento crearDocumento(DocumentoDTO documentoDTO) throws Exception;
+	public boolean crearDocumento(DocumentoDTO documentoDTO) throws Exception;
 	
 	DocumentoDTO consultarDocumento(int documentoId);
 	
