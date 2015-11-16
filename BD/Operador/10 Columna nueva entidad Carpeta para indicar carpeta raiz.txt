@@ -1,0 +1,2 @@
+ALTER TABLE `carpeta` 
+ADD COLUMN `isCarpetaRaiz` TINYINT(1) NOT NULL DEFAULT 0 AFTER `id_carpeta_padre`;

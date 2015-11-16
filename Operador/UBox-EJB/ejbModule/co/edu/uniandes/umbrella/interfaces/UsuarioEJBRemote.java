@@ -7,7 +7,7 @@ import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
-@Local
+@Remote
 public interface UsuarioEJBRemote {
 	
 	void crearUsuario(UsuarioDTO usuarioDto);
@@ -15,6 +15,8 @@ public interface UsuarioEJBRemote {
 	 UsuarioDTO consultarUsuario(String tipoDoc, String nroDoc);
 	 
 	 Usuario consultarUsuarioPorId(int id);
+	 
+	 int consultarUsuarioPorStormpathId(String stormpath);
 	 
 	 ResultadoOperacion generarTraslado(String tipoDocumento, String numeroDocumento);
 

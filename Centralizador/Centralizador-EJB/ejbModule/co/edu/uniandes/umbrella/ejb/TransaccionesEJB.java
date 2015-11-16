@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import co.edu.uniandes.umbrella.dto.DatosOperadorDTO;
 import co.edu.uniandes.umbrella.dto.ServiciosOperadorUsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.ServiciosOperador;
+import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBRemote;
 
@@ -54,12 +55,23 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 	 * @param tipoDocUsuario Tipo de documento del usuario	
 	 * @param nroDocUsuario Numero de documento del usuario
 	 * @param idNuevoOperador Id del nuevo operador al que se trasladara el usuario
-	 * @return true si el traslado fue exitoso, false en caso contrario.
+	 * @return String codigo de respuesta
 	 */
-	public boolean trasladarUsuarioDeOperador(String tipoDocUsuario,
-			String nroDocUsuario, long idNuevoOperador) {
+	public String trasladarUsuarioDeOperador(String tipoDocUsuario,
+			String nroDocUsuario, int idNuevoOperador) {
+		
+		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
+				Usuario.class).setParameter("tipoDoc", tipoDocUsuario).setParameter("nroDoc", nroDocUsuario);
+		
+		Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
+		
+		/*
+		 * Se actualiza el operador del usuario
+		 */
+		usuarioEncontrado.setIdOperador(idNuevoOperador);
+		entityManager.merge(usuarioEncontrado);
 
-		return false;
+		return "";
 	}
 
 }

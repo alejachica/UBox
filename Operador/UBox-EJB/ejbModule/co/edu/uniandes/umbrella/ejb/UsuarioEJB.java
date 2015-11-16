@@ -2,6 +2,7 @@ package co.edu.uniandes.umbrella.ejb;
 
 import java.math.BigDecimal;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -18,6 +19,7 @@ import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
  * Session Bean implementation class UsuarioEJB
  */
 @Stateless
+@EJB(name = "usuariosEjb", beanInterface=UsuarioEJBRemote.class)
 public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 	
 	@PersistenceContext(unitName = "UBox-Persistencia")
@@ -172,6 +174,23 @@ public class UsuarioEJB implements UsuarioEJBRemote, UsuarioEJBLocal {
 		} catch (NoResultException e) {
 			// TODO: handle exception
 			return null;
+		}
+	}
+
+	@Override
+	public int consultarUsuarioPorStormpathId(String stormpath) {
+		Query query = entityManager.createNamedQuery("Usuario.findByStormpathId").setParameter("idStormpath", stormpath);
+		try {
+			int idUsuario = (int)query.getSingleResult();
+			return idUsuario;	
+		} 
+		catch (NoResultException e) {
+			// TODO: handle exception
+			return -1;
+		}
+		catch(Exception e){
+			// TODO: handle exception
+			return -1;
 		}
 	}
 

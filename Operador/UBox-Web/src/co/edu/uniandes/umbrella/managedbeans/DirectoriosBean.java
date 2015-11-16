@@ -28,7 +28,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 
 @ManagedBean(name="directorioBean")
 @ViewScoped
-public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
+public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	
 	/**
 	 * 
@@ -46,6 +46,10 @@ public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
 	private TreeNode root;
 	
 	private DataTreeTable elementoSeleccionado;
+	
+	private String descripcionCarpeta;
+	
+	private String nombreCarpeta;
 	
 	private String descripcion;
 	
@@ -69,6 +73,22 @@ public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
 		this.root = root;
 	}
 	
+	public String getDescripcionCarpeta() {
+		return descripcionCarpeta;
+	}
+
+	public void setDescripcionCarpeta(String descripcionCarpeta) {
+		this.descripcionCarpeta = descripcionCarpeta;
+	}
+
+	public String getNombreCarpeta() {
+		return nombreCarpeta;
+	}
+
+	public void setNombreCarpeta(String nombreCarpeta) {
+		this.nombreCarpeta = nombreCarpeta;
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -166,10 +186,12 @@ public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
 	public void crearCarpeta(){
 		try{
 		CarpetaDTO carpetaDTO = new CarpetaDTO();
-		carpetaDTO.setDescripcion(descripcion);
-		carpetaDTO.setNombreCarpeta(nombre);
-		carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId());
-		root = crearRoot();
+		carpetaDTO.setDescripcion(descripcionCarpeta);
+		carpetaDTO.setNombreCarpeta(nombreCarpeta);
+		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId()))
+			root = crearRoot();
+		else
+			throw new Exception("Fallo creando carpeta, comuniquese con el administrador");
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error creando carpeta", e.getMessage());
@@ -183,8 +205,10 @@ public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
 		carpetaDTO.setDescripcion(descripcion);
 		carpetaDTO.setNombreCarpeta(nombre);
 		carpetaDTO.setCarpetaPadre(carpetaId);
-		carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId());
-		root = crearRoot();
+		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId()))
+			root = crearRoot();
+		else
+			throw new Exception("Fallo creando carpeta, comuniquese con el administrador");
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error creando carpeta", e.getMessage());
@@ -219,10 +243,11 @@ public class DirectoriosBean extends BaseBeanConSesion implements Serializable{
 	        	documentoDTO.setVersion("version1");
 	        	documentoDTO.setPapelera(false);
 	        	documentoDTO.setSize((int)file.getSize());
-	        	documentoEJB.crearDocumento(documentoDTO);
-	            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-	            FacesContext.getCurrentInstance().addMessage(null, message);
-	            root = crearRoot();
+	        	if(documentoEJB.crearDocumento(documentoDTO)){
+		            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+		            FacesContext.getCurrentInstance().addMessage(null, message);
+		            root = crearRoot();
+	        	}
 	        }
     	}
     	catch(Exception e){

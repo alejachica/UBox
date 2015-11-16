@@ -12,12 +12,13 @@ import javax.persistence.Query;
 
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
+import co.edu.uniandes.umbrella.interfaces.ListaValorEJBRemote;
 
 /**
  * Session Bean implementation class ListaValorEJB
  */
 @Stateless
-public class ListaValorEJB implements ListaValorEJBLocal{
+public class ListaValorEJB implements ListaValorEJBLocal, ListaValorEJBRemote{
 
 	//public static final int IDLISTA_TIPODOCUMENTO = 1;
 	//public static final int IDLISTA_TIPOCARPETA = 2;
