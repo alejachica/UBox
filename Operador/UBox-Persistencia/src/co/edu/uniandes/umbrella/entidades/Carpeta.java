@@ -48,6 +48,8 @@ public class Carpeta implements Serializable {
 	//bi-directional many-to-one association to Documento
 	@OneToMany(mappedBy="carpeta")
 	private List<Documento> documentos;
+	
+	private boolean isCarpetaRaiz;
 
 	public Carpeta() {
 	}
@@ -122,17 +124,23 @@ public class Carpeta implements Serializable {
 		this.documentos = documentos;
 	}
 
+	public boolean isCarpetaRaiz() {
+		return isCarpetaRaiz;
+	}
+
+	public void setCarpetaRaiz(boolean isCarpetaRaiz) {
+		this.isCarpetaRaiz = isCarpetaRaiz;
+	}
+
 	public Documento addDocumento(Documento documento) {
 		getDocumentos().add(documento);
 		documento.setCarpeta(this);
-
 		return documento;
 	}
 
 	public Documento removeDocumento(Documento documento) {
 		getDocumentos().remove(documento);
 		documento.setCarpeta(null);
-
 		return documento;
 	}
 
