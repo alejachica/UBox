@@ -15,7 +15,7 @@ import java.util.List;
 	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u"),
 	@NamedQuery(name="Usuario.findByTipoNroDoc", query="SELECT u FROM Usuario u where u.identificacion = :identificacion"),
 	@NamedQuery(name="Usuario.findById", query="SELECT u FROM Usuario u where u.idUsuario = :idUsuario"),
-	@NamedQuery(name="Usuario.findByStormpathId", query="SELECT u FROM Usuario u where u.idStormpath = :idStormpath")
+	@NamedQuery(name="Usuario.findByStormpathId", query="SELECT u.idUsuario FROM Usuario u where u.idStormpath = :idStormpath")
 	
 })
 public class Usuario implements Serializable {
