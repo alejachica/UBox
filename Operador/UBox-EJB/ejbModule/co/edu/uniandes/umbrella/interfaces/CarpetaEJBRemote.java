@@ -13,7 +13,9 @@ public interface CarpetaEJBRemote {
 	
 	public void eliminarCarpeta(int idCarpeta) throws Exception;
 	
-	public Carpeta crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario)throws Exception;
+	public boolean crearCarpeta(CarpetaDTO carpetaDTO, int idUsuario)throws Exception;
+	
+	public Carpeta crearCarpetaRaiz(CarpetaDTO carpetaDTO, int idUsuario)throws Exception;
 	
 	public List<CarpetaDTO> carpetasXUsuario(int idUsuario) throws Exception;
 	
