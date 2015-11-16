@@ -24,18 +24,6 @@ public class CarpetaEJB implements CarpetaEJBRemote,CarpetaEJBLocal{
 	@PersistenceContext(unitName = "UBox-Persistencia")
 	private EntityManager entityManager;
 	
-	@Override
-	public Carpeta crearCarpeta(CarpetaDTO carpetaDTO) {
-		Carpeta carpeta = new Carpeta();
-		
-		carpeta.setIdCarpeta(carpetaDTO.getIdCarpeta());
-		carpeta.setNombreCarpeta(carpetaDTO.getNombreCarpeta());
-		carpeta.setDescripcion(carpetaDTO.getDescripcion());
-		
-		entityManager.persist(carpeta);
-		return carpeta;
-	}
-	
 	/**
      * Metodo para crear una carpeta y persistirla en BD
      * @param carpetaDTO
