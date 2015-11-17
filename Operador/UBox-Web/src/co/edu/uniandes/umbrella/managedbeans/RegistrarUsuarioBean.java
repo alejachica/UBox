@@ -25,12 +25,30 @@ import umbrella.ubox.seguridad.FuncionesStormpath;
 @SessionScoped
 public class RegistrarUsuarioBean {
 
+
+	public static final String ID_CBO_DPTO_EXP = "dptoExp";
+	public static final String ID_CBO_DPTO_NAC = "dptoNac";
+	public static final String ID_CBO_DPTO_RES = "";
+	public static final String ID_CBO_DPTO_COR = "";
+	public static final String ID_CBO_DPTO_LAB = "";
+	
+	public static final String ID_CBO_CIUD_EXP = "ciudadExp";
+	public static final String ID_CBO_CIUD_NAC = "ciudadNac";
+	public static final String ID_CBO_CIUD_RES = "";
+	public static final String ID_CBO_CIUD_COR = "";
+	public static final String ID_CBO_CIUD_LAB = "";
+	
+	
 	public RegistrarUsuarioBean() {
 
 		this.usuario = new UsuarioDTO();
 		this.tiposDocumento = new ArrayList<ListaValor>();
 		this.departamentos = new ArrayList<ZonaGeografica>();
 		this.ciudadesExpDocumento = new ArrayList<ZonaGeografica>();
+		this.ciudadesNacimiento = new ArrayList<ZonaGeografica>();
+		this.ciudadesResidencia = new ArrayList<ZonaGeografica>();
+		this.ciudadesLaboral = new ArrayList<ZonaGeografica>();
+		this.ciudadesCorrespondencia = new ArrayList<ZonaGeografica>();
 		
 	}
 	
@@ -39,6 +57,8 @@ public class RegistrarUsuarioBean {
 	
 		cargarDatos();
 	}
+	
+	
 
 	@EJB
 	private UsuarioEJBRemote usuarioEJB;
@@ -64,11 +84,29 @@ public class RegistrarUsuarioBean {
 	
 	public List<ZonaGeografica> ciudadesCorrespondencia;
 	
-	public List<ZonaGeografica> ciudadesSitioLaboral;
+	public List<ZonaGeografica> ciudadesLaboral;
 	
 	private String tipoIdentificacion = "";
+	
+	
+	
+	//Variables Temporales
 	private String departamentoExpedicionDoc = "";
 	private String ciudadExpedicionDoc = "";
+	
+	private String departamentoNacimiento = "";
+	private String ciudadNacimiento = "";
+	
+	private String departamentoResidencia = "";
+	private String ciudadResidencia = "";
+	
+	private String departamentoCorrespondencia = "";
+	private String ciudadCorrespondencia = "";
+	
+	private String departamentoLaboral = "";
+	private String ciudadLaboral = "";
+	//Borrar Variables Temporales
+	
 	
 	
 
@@ -142,6 +180,11 @@ public class RegistrarUsuarioBean {
 	public void setCiudadesExpDocumento(List<ZonaGeografica> ciudadesExpDocumento) {
 		this.ciudadesExpDocumento = ciudadesExpDocumento;
 	}
+	
+	
+	
+	
+	
 
 	
 	public void cambioDepto(){
@@ -189,10 +232,7 @@ public class RegistrarUsuarioBean {
 			
 			tiposDocumento = listaValorEJB.buscarLista(7);
 			
-			
-			
-			
-			
+			//Temporal Borrar
 			ZonaGeografica dep1 = new ZonaGeografica();
 			dep1.setIdZonaGeografica(1);
 			dep1.setNombre("Antioquia");
@@ -203,8 +243,11 @@ public class RegistrarUsuarioBean {
 			
 			departamentos.add(dep1);
 			departamentos.add(dep2);
+			//Temporal Borrar
 			
 			
+			
+			//Temporal Borrar
 			ZonaGeografica ciu1 = new ZonaGeografica();
 			ciu1.setIdZonaGeografica(3);
 			ciu1.setNombre("Medellin");
@@ -216,12 +259,26 @@ public class RegistrarUsuarioBean {
 			ciudadesExpDocumento.add(ciu1);
 			ciudadesExpDocumento.add(ciu2);
 			
+			ciudadesCorrespondencia.add(ciu1);
+			ciudadesCorrespondencia.add(ciu2);
+			
+			ciudadesLaboral.add(ciu1);
+			ciudadesLaboral.add(ciu2);
+			
+			ciudadesNacimiento.add(ciu1);
+			ciudadesNacimiento.add(ciu2);
+			
+			ciudadesResidencia.add(ciu1);
+			ciudadesResidencia.add(ciu2);
+			//Temporal Borrar
 			
 			
 			
 			
 			
-//			ZonaGeografica prueba2 = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(5);
+			
+			
+	//		ZonaGeografica prueba2 = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(5);
 			
 	//		List<ZonaGeografica> lista = zonaGeograficaEJB.getZonasGeograficas();
 			
@@ -235,8 +292,162 @@ public class RegistrarUsuarioBean {
 
 	}
 
-	 public void onCountryChange(ValueChangeEvent event) {
-	       System.out.println("prueba");
+	 public void onDptoChange(ValueChangeEvent event) {
+		 
+		 if(event.getNewValue() != null && !event.getNewValue().toString().isEmpty()){
+			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_EXP)){
+				 //TODO Borrar
+				 ZonaGeografica ciu2 = new ZonaGeografica();
+				 ciu2.setIdZonaGeografica(4);
+				 ciu2.setNombre("Armenia");
+				 
+				 ciudadesExpDocumento.add(ciu2);
+				 
+			 }
+			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_NAC)){
+				 //TODO Borrar
+				 ZonaGeografica ciu2 = new ZonaGeografica();
+				 ciu2.setIdZonaGeografica(5);
+				 ciu2.setNombre("LEticia");
+				 
+				 ciudadesNacimiento.add(ciu2);
+				 
+			 }
+			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_RES)){
+				 //TODO Borrar
+				 ZonaGeografica ciu2 = new ZonaGeografica();
+				 ciu2.setIdZonaGeografica(6);
+				 ciu2.setNombre("Pasto");
+				 
+				 ciudadesResidencia.add(ciu2);
+				 
+			 }
+			 
+			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_COR)){
+				 //TODO Borrar
+				 ZonaGeografica ciu2 = new ZonaGeografica();
+				 ciu2.setIdZonaGeografica(6);
+				 ciu2.setNombre("Quibdo");
+				 
+				 ciudadesCorrespondencia.add(ciu2);
+				 
+			 }
+			 
+			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_LAB)){
+				 //TODO Borrar
+				 ZonaGeografica ciu2 = new ZonaGeografica();
+				 ciu2.setIdZonaGeografica(7);
+				 ciu2.setNombre("fsd");
+				 
+				 ciudadesLaboral.add(ciu2);
+				 
+			 }
+			 
+		 }
+	       
 	    }
+
+
+
+	public String getDepartamentoNacimiento() {
+		return departamentoNacimiento;
+	}
+
+	public void setDepartamentoNacimiento(String departamentoNacimiento) {
+		this.departamentoNacimiento = departamentoNacimiento;
+	}
+
+	public String getCiudadNacimiento() {
+		return ciudadNacimiento;
+	}
+
+	public void setCiudadNacimiento(String ciudadNacimiento) {
+		this.ciudadNacimiento = ciudadNacimiento;
+	}
+
+	public String getDepartamentoResidencia() {
+		return departamentoResidencia;
+	}
+
+	public void setDepartamentoResidencia(String departamentoResidencia) {
+		this.departamentoResidencia = departamentoResidencia;
+	}
+
+	public String getCiudadResidencia() {
+		return ciudadResidencia;
+	}
+
+	public void setCiudadResidencia(String ciudadResidencia) {
+		this.ciudadResidencia = ciudadResidencia;
+	}
+
+	public String getDepartamentoCorrespondencia() {
+		return departamentoCorrespondencia;
+	}
+
+	public void setDepartamentoCorrespondencia(String departamentoCorrespondencia) {
+		this.departamentoCorrespondencia = departamentoCorrespondencia;
+	}
+
+	public String getCiudadCorrespondencia() {
+		return ciudadCorrespondencia;
+	}
+
+	public void setCiudadCorrespondencia(String ciudadCorrespondencia) {
+		this.ciudadCorrespondencia = ciudadCorrespondencia;
+	}
+
+	public String getDepartamentoLaboral() {
+		return departamentoLaboral;
+	}
+
+	public void setDepartamentoLaboral(String departamentoLaboral) {
+		this.departamentoLaboral = departamentoLaboral;
+	}
+
+	public String getCiudadLaboral() {
+		return ciudadLaboral;
+	}
+
+	public void setCiudadLaboral(String ciudadLaboral) {
+		this.ciudadLaboral = ciudadLaboral;
+	}
+
+	public List<ZonaGeografica> getCiudadesNacimiento() {
+		return ciudadesNacimiento;
+	}
+
+	public void setCiudadesNacimiento(List<ZonaGeografica> ciudadesNacimiento) {
+		this.ciudadesNacimiento = ciudadesNacimiento;
+	}
+
+	public List<ZonaGeografica> getCiudadesResidencia() {
+		return ciudadesResidencia;
+	}
+
+	public void setCiudadesResidencia(List<ZonaGeografica> ciudadesResidencia) {
+		this.ciudadesResidencia = ciudadesResidencia;
+	}
+
+	public List<ZonaGeografica> getCiudadesCorrespondencia() {
+		return ciudadesCorrespondencia;
+	}
+
+	public void setCiudadesCorrespondencia(List<ZonaGeografica> ciudadesCorrespondencia) {
+		this.ciudadesCorrespondencia = ciudadesCorrespondencia;
+	}
+
+	public List<ZonaGeografica> getCiudadesLaboral() {
+		return ciudadesLaboral;
+	}
+
+	public void setCiudadesLaboral(List<ZonaGeografica> ciudadesLaboral) {
+		this.ciudadesLaboral = ciudadesLaboral;
+	}
 	
 }
