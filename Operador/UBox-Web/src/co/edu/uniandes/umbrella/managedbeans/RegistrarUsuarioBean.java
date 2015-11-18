@@ -13,7 +13,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
 import co.edu.uniandes.umbrella.dto.UsuarioDTO;
-import co.edu.uniandes.umbrella.ejb.ZonaGeograficaEJB;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
@@ -49,13 +48,12 @@ public class RegistrarUsuarioBean {
 		
 	}
 	
-	@PostConstruct
-	public void init(){
 	
+	@PostConstruct
+	public void init(){	
 		cargarDatos();
 	}
-	
-	
+		
 
 	@EJB
 	private UsuarioEJBRemote usuarioEJB;
@@ -114,6 +112,11 @@ public class RegistrarUsuarioBean {
 	private String departamentoLaboral = "";
 	private String ciudadLaboral = "";
 	private String genero = "";
+	private String direccionResidencia = "";
+	private String direccionCorrespondencia = "";
+	private String direccionLaboral = "";
+	private String telefono = "";
+	private String estadoCivil = "";
 	//Borrar Variables Temporales
 	
 	
@@ -236,7 +239,7 @@ public class RegistrarUsuarioBean {
 		
 		try {	
 			tiposDocumento = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPOIDENTIFICACION.getValue());
-			nacionalidades = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_NACIONALIDAD.getValue());
+			nacionalidades = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_NACIONALIDAD.getValue());			 
 			departamentos = zonaGeograficaEJB.buscarTodosDepartamento();				
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -395,6 +398,58 @@ public class RegistrarUsuarioBean {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
+
+
+	public String getDireccionResidencia() {
+		return direccionResidencia;
+	}
+
+
+	public void setDireccionResidencia(String direccionResidencia) {
+		this.direccionResidencia = direccionResidencia;
+	}
+
+
+	public String getDireccionCorrespondencia() {
+		return direccionCorrespondencia;
+	}
+
+
+	public void setDireccionCorrespondencia(String direccionCorrespondencia) {
+		this.direccionCorrespondencia = direccionCorrespondencia;
+	}
+
+
+	public String getDireccionLaboral() {
+		return direccionLaboral;
+	}
+
+
+	public void setDireccionLaboral(String direccionLaboral) {
+		this.direccionLaboral = direccionLaboral;
+	}
+
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+	
+	
 	
 	
 	
