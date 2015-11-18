@@ -14,8 +14,9 @@ import javax.faces.event.ValueChangeEvent;
 
 import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
+import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
-import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
+import co.edu.uniandes.umbrella.interfaces.ListaValorEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBRemote;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
@@ -28,21 +29,16 @@ public class RegistrarUsuarioBean {
 
 	public static final String ID_CBO_DPTO_EXP = "dptoExp";
 	public static final String ID_CBO_DPTO_NAC = "dptoNac";
-	public static final String ID_CBO_DPTO_RES = "";
-	public static final String ID_CBO_DPTO_COR = "";
-	public static final String ID_CBO_DPTO_LAB = "";
-	
-	public static final String ID_CBO_CIUD_EXP = "ciudadExp";
-	public static final String ID_CBO_CIUD_NAC = "ciudadNac";
-	public static final String ID_CBO_CIUD_RES = "";
-	public static final String ID_CBO_CIUD_COR = "";
-	public static final String ID_CBO_CIUD_LAB = "";
+	public static final String ID_CBO_DPTO_RES = "dptoRes";
+	public static final String ID_CBO_DPTO_COR = "dptoCor";
+	public static final String ID_CBO_DPTO_LAB = "dptoLab";
 	
 	
 	public RegistrarUsuarioBean() {
 
 		this.usuario = new UsuarioDTO();
 		this.tiposDocumento = new ArrayList<ListaValor>();
+		this.nacionalidades = new ArrayList<ListaValor>();
 		this.departamentos = new ArrayList<ZonaGeografica>();
 		this.ciudadesExpDocumento = new ArrayList<ZonaGeografica>();
 		this.ciudadesNacimiento = new ArrayList<ZonaGeografica>();
@@ -52,13 +48,12 @@ public class RegistrarUsuarioBean {
 		
 	}
 	
-	@PostConstruct
-	public void init(){
 	
+	@PostConstruct
+	public void init(){	
 		cargarDatos();
 	}
-	
-	
+		
 
 	@EJB
 	private UsuarioEJBRemote usuarioEJB;
@@ -67,12 +62,14 @@ public class RegistrarUsuarioBean {
 	private ZonaGeograficaEJBRemote zonaGeograficaEJB;
 	
 	@EJB
-	private ListaValorEJBLocal listaValorEJB;
+	private ListaValorEJBRemote listaValorEJB;
 	
 
 	private UsuarioDTO usuario;
 	
 	private List<ListaValor> tiposDocumento;
+	
+	private List<ListaValor> nacionalidades;
 	
 	private List<ZonaGeografica> departamentos;
 	
@@ -86,7 +83,16 @@ public class RegistrarUsuarioBean {
 	
 	public List<ZonaGeografica> ciudadesLaboral;
 	
+	
+	//TEmporales
+	
 	private String tipoIdentificacion = "";
+	
+	private String nacionalidad = "";
+	
+	private String fechaExpedicionDoc = "";
+	
+	
 	
 	
 	
@@ -105,6 +111,12 @@ public class RegistrarUsuarioBean {
 	
 	private String departamentoLaboral = "";
 	private String ciudadLaboral = "";
+	private String genero = "";
+	private String direccionResidencia = "";
+	private String direccionCorrespondencia = "";
+	private String direccionLaboral = "";
+	private String telefono = "";
+	private String estadoCivil = "";
 	//Borrar Variables Temporales
 	
 	
@@ -187,9 +199,6 @@ public class RegistrarUsuarioBean {
 	
 
 	
-	public void cambioDepto(){
-		System.out.println("ID: " );
-	}
 	
 	public String registrarUsuario() {
 
@@ -228,129 +237,37 @@ public class RegistrarUsuarioBean {
 	
 	public void cargarDatos(){
 		
-		try {
-			
-			tiposDocumento = listaValorEJB.buscarLista(7);
-			
-			//Temporal Borrar
-			ZonaGeografica dep1 = new ZonaGeografica();
-			dep1.setIdZonaGeografica(1);
-			dep1.setNombre("Antioquia");
-			
-			ZonaGeografica dep2 = new ZonaGeografica();
-			dep2.setIdZonaGeografica(2);
-			dep2.setNombre("Cundinamarca");
-			
-			departamentos.add(dep1);
-			departamentos.add(dep2);
-			//Temporal Borrar
-			
-			
-			
-			//Temporal Borrar
-			ZonaGeografica ciu1 = new ZonaGeografica();
-			ciu1.setIdZonaGeografica(3);
-			ciu1.setNombre("Medellin");
-			
-			ZonaGeografica ciu2 = new ZonaGeografica();
-			ciu2.setIdZonaGeografica(2);
-			ciu2.setNombre("Bogota");
-			
-			ciudadesExpDocumento.add(ciu1);
-			ciudadesExpDocumento.add(ciu2);
-			
-			ciudadesCorrespondencia.add(ciu1);
-			ciudadesCorrespondencia.add(ciu2);
-			
-			ciudadesLaboral.add(ciu1);
-			ciudadesLaboral.add(ciu2);
-			
-			ciudadesNacimiento.add(ciu1);
-			ciudadesNacimiento.add(ciu2);
-			
-			ciudadesResidencia.add(ciu1);
-			ciudadesResidencia.add(ciu2);
-			//Temporal Borrar
-			
-			
-			
-			
-			
-			
-			
-	//		ZonaGeografica prueba2 = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(5);
-			
-	//		List<ZonaGeografica> lista = zonaGeograficaEJB.getZonasGeograficas();
-			
-	//		ZonaGeografica ciudad = zonaGeograficaEJB.buscarCiudad(1);
-				
+		try {	
+			tiposDocumento = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPOIDENTIFICACION.getValue());
+			nacionalidades = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_NACIONALIDAD.getValue());			 
+			departamentos = zonaGeograficaEJB.buscarTodosDepartamento();				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		 
-
 	}
 
 	 public void onDptoChange(ValueChangeEvent event) {
 		 
 		 if(event.getNewValue() != null && !event.getNewValue().toString().isEmpty()){
 			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_EXP)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(4);
-				 ciu2.setNombre("Armenia");
-				 
-				 ciudadesExpDocumento.add(ciu2);
-				 
-			 }
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_EXP))			 
+				 ciudadesExpDocumento = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));
+				 			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_NAC))
+				 ciudadesNacimiento = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));
+							 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_RES))
+				 ciudadesResidencia = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));				 
+				 			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_COR))
+				 ciudadesCorrespondencia = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));
 			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_NAC)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(5);
-				 ciu2.setNombre("LEticia");
-				 
-				 ciudadesNacimiento.add(ciu2);
-				 
-			 }
-			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_RES)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(6);
-				 ciu2.setNombre("Pasto");
-				 
-				 ciudadesResidencia.add(ciu2);
-				 
-			 }
-			 
-			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_COR)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(6);
-				 ciu2.setNombre("Quibdo");
-				 
-				 ciudadesCorrespondencia.add(ciu2);
-				 
-			 }
-			 
-			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_LAB)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(7);
-				 ciu2.setNombre("fsd");
-				 
-				 ciudadesLaboral.add(ciu2);
-				 
-			 }
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_LAB))
+				 ciudadesLaboral = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));			 
 			 
 		 }
 	       
-	    }
+	 }
 
 
 
@@ -449,5 +366,92 @@ public class RegistrarUsuarioBean {
 	public void setCiudadesLaboral(List<ZonaGeografica> ciudadesLaboral) {
 		this.ciudadesLaboral = ciudadesLaboral;
 	}
+
+	public List<ListaValor> getNacionalidades() {
+		return nacionalidades;
+	}
+
+	public void setNacionalidades(List<ListaValor> nacionalidades) {
+		this.nacionalidades = nacionalidades;
+	}
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
+	public String getFechaExpedicionDoc() {
+		return fechaExpedicionDoc;
+	}
+
+	public void setFechaExpedicionDoc(String fechaExpedicionDoc) {
+		this.fechaExpedicionDoc = fechaExpedicionDoc;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+
+	public String getDireccionResidencia() {
+		return direccionResidencia;
+	}
+
+
+	public void setDireccionResidencia(String direccionResidencia) {
+		this.direccionResidencia = direccionResidencia;
+	}
+
+
+	public String getDireccionCorrespondencia() {
+		return direccionCorrespondencia;
+	}
+
+
+	public void setDireccionCorrespondencia(String direccionCorrespondencia) {
+		this.direccionCorrespondencia = direccionCorrespondencia;
+	}
+
+
+	public String getDireccionLaboral() {
+		return direccionLaboral;
+	}
+
+
+	public void setDireccionLaboral(String direccionLaboral) {
+		this.direccionLaboral = direccionLaboral;
+	}
+
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+	
+	
+	
+	
+	
 	
 }

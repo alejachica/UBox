@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="ZonaGeografica.findAll", query="SELECT z FROM ZonaGeografica z"),
 	@NamedQuery(name="ZonaGeografica.findCiudadesByDepartamentos", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica" + " = :id_padre "),
-	@NamedQuery(name="ZonaGeografica.findAllDepartamentos", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica is null")
+	@NamedQuery(name="ZonaGeografica.findAllDepartamentos", query="SELECT z FROM ZonaGeografica z where z.zonaGeografica.idZonaGeografica = 1000")
 })
 public class ZonaGeografica implements Serializable {
 	private static final long serialVersionUID = 1L;

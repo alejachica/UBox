@@ -540,6 +540,13 @@ ul.github-buttons li {
     text-align: center;
 }
 
+.label1 {
+	font-family: Arial;
+ 	font-weight: bold;
+    font-size: 14px;	
+}
+
+
 /* Mobile */
 @media only screen and (max-width: 767px) {
 

@@ -36,24 +36,26 @@
 											value="#{registrarUsuarioBean.error}"
 											class="alert alert-danger"
 											rendered="#{registrarUsuarioBean.error != null}"></h:outputLabel>
+											
+											<h:messages errorStyle="color:red" />
 									</td>
 								</tr>
 								<tr>
 									<td colspan="4">
-										<div class="pull-right">
-											<h4>Formulario N° 458</h4>
-										</div>
+										
 									</td>
 								</tr>
 								<tr style="border-top: groove">
-									<td width="">Tipo Documento:</td>
+									<td width="" class="label1">Tipo Documento:</td>
 									<td>
-										<div class="controls">
-											<h:selectOneMenu id="tipo"
+										<div>
+											<h:selectOneMenu id="tipoDocumento"
 												value="#{registrarUsuarioBean.tipoIdentificacion}"
-												styleClass="required" title="El tipo es obligatorio!">
-												<f:selectItem id="tipo0" itemValue="" itemLabel="Seleccione" />
-												<f:selectItems id="selectItems1"
+												styleClass="required"
+												required="true" requiredMessage="Tipo Documento es obligatorio">
+												<f:selectItem id="tipoDocumento0" itemValue=""
+													itemLabel="Seleccione" />
+												<f:selectItems id="tipoDocumento1"
 													value="#{registrarUsuarioBean.tiposDocumento}"
 													var="tipoDocumento"
 													itemLabel="#{tipoDocumento.descripcion}"
@@ -61,19 +63,20 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Número Documento:</td>
+									<td class="label1">Número Documento:</td>
 									<td><h:inputText id="txtDocument" class="form-control"
-											value="#{registrarUsuarioBean.usuario.identificacion}"></h:inputText>
+											value="#{registrarUsuarioBean.usuario.identificacion}" required="true" requiredMessage="Número Documento es obligatorio"></h:inputText>
 									</td>
 								</tr>
 								<tr>
-									<td>Departamento de Expedición del Documento:</td>
+									<td class="label1">Departamento de Expedición del Documento:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="dptoExp"
 												value="#{registrarUsuarioBean.departamentoExpedicionDoc}"
 												styleClass="required"
-												valueChangeListener="#{registrarUsuarioBean.onDptoChange}">
+												valueChangeListener="#{registrarUsuarioBean.onDptoChange}"
+												required="true" requiredMessage="Departamento de Expedición del Documento es obligatorio">
 												<f:ajax event="change" execute="@form" render="ciudadExp" />
 												<f:selectItem id="deptoExp0" itemValue=""
 													itemLabel="Seleccione" />
@@ -85,13 +88,13 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Municipio de Expedición del Documento:</td>
+									<td class="label1">Municipio de Expedición del Documento:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="ciudadExp"
 												value="#{registrarUsuarioBean.ciudadExpedicionDoc}"
 												styleClass="required"
-												title="La ciudad de Expedicion de Documento es obligatorio!">
+												required="true" requiredMessage="Municipio de Expedición del Documento es obligatorio">
 												<f:selectItem id="ciudadExp0" itemValue=""
 													itemLabel="Seleccione" />
 												<f:selectItems id="ciudadExp1"
@@ -104,9 +107,10 @@
 									</td>
 								</tr>
 								<tr style="border-bottom: groove">
-									<td>Fecha de Expedición del Documento:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" placeholder="yyyy/MM/dd" /></td>
+									<td class="label1">Fecha de Expedición del Documento:</td>
+									<td><h:inputText id="txtFechaExpDoc" class="form-control" placeholder="yyyy/MM/dd"
+											value="#{registrarUsuarioBean.fechaExpedicionDoc}" required="true" requiredMessage="Fecha de Expedición del Documento es obligatorio"></h:inputText>
+									</td>
 									<td></td>
 									<td></td>
 								</tr>
@@ -116,21 +120,22 @@
 							<table>
 							
 								<tr>
-									<td>Primer Nombre:</td>
+									<td class="label1">Primer Nombre:</td>
 									<td><h:inputText id="txtPrimerNombre" class="form-control"
-											value="#{registrarUsuarioBean.usuario.primerNombre}"></h:inputText>
+											value="#{registrarUsuarioBean.usuario.primerNombre}" required="true" requiredMessage="Primer Nombre es obligatorio"></h:inputText>
 									</td>
-									<td>Segundo Nombre:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td class="label1">Segundo Nombre:</td>
+									<td><h:inputText id="txtSegundoNombre" class="form-control"
+											value="#{registrarUsuarioBean.usuario.segundoNombre}" required="true" requiredMessage="Segundo Nombre es obligatorio"></h:inputText>
+									</td>
 								</tr>
 								<tr>
-									<td>Primer Apellido:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
-									<td>Segundo Apellido:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td class="label1">Primer Apellido:</td>
+									<td><h:inputText id="txtPrimerApellido" class="form-control"
+											value="#{registrarUsuarioBean.usuario.primerApellido}" required="true" requiredMessage="Primer Apellido es obligatorio"></h:inputText></td>
+									<td class="label1">Segundo Apellido:</td>
+									<td><h:inputText id="txtSegundoApellido" class="form-control"
+											value="#{registrarUsuarioBean.usuario.segundoApellido}" required="true" requiredMessage="Segundo Apellido es obligatorio"></h:inputText></td>
 								</tr>
 							
 							</table>
@@ -139,30 +144,43 @@
 							<table width="100%">
 							
 								<tr style="border-top: groove">
-									<td>Genero:</td>
+									<td class="label1">Fecha de Nacimiento:</td>
+									<td><input type="text" class="form-control"
+										id="inputSuccess1" size="20px" placeholder="yyyy/MM/dd" /></td>																	
+									<td class="label1">Nacionalidad:</td>
 									<td>
-										<div class="radio">
-											<label> <input type="radio" name="optionsRadios"
-												id="optionsRadios1" value="option1" checked="checked" />
-												Femenino
-											</label>
-										</div>
-										<div class="radio">
-											<label> <input type="radio" name="optionsRadios"
-												id="optionsRadios2" value="option2" /> Masculino
-											</label>
+										<div class="controls">
+											<h:selectOneMenu id="nacionalidad"
+												value="#{registrarUsuarioBean.nacionalidad}"
+												styleClass="required"
+												required="true" requiredMessage="Nacionalidad es obligatorio">
+												<f:selectItem id="nacionalidad0" itemValue=""
+													itemLabel="Seleccione" />
+												<f:selectItems id="nacionalidad1"
+													value="#{registrarUsuarioBean.nacionalidades}"
+													var="nacionalidad"
+													itemLabel="#{nacionalidad.descripcion}"
+													itemValue="#{nacionalidad.valor}" />
+											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Fecha de Nacimiento:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" placeholder="yyyy/MM/dd" /></td>
-									<td>Departamento de Nacimiento:</td>
+									<td class="label1">Género:</td>
+									<td>																		
+										<h:selectOneRadio value="#{registrarUsuarioBean.genero}">
+										   	<f:selectItem itemValue="M" itemLabel="Masculino" />
+										   	<f:selectItem itemValue="F" itemLabel="Femenino" />										   	
+										</h:selectOneRadio>
+									</td>	
+								</tr>
+								<tr>	
+								<td class="label1">Departamento de Nacimiento:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="dptoNac"
 												value="#{registrarUsuarioBean.departamentoNacimiento}"
 												styleClass="required"
-												valueChangeListener="#{registrarUsuarioBean.onDptoChange}">
+												valueChangeListener="#{registrarUsuarioBean.onDptoChange}"
+												required="true" requiredMessage="Departamento de Nacimiento es obligatorio">
 												<f:ajax event="change" execute="@form" render="ciudadNac" />
 												<f:selectItem id="deptoNac0" itemValue=""
 													itemLabel="Seleccione" />
@@ -173,16 +191,14 @@
 													itemValue="#{departamentoNacimiento.idZonaGeografica}" />
 											</h:selectOneMenu>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>Municipio de Nacimiento:</td>
+									</td>																	
+									<td class="label1">Municipio de Nacimiento:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="ciudadNac"
 												value="#{registrarUsuarioBean.ciudadNacimiento}"
 												styleClass="required"
-												title="La ciudad de Expedicion de Documento es obligatorio!">
+												required="true" requiredMessage="Municipio de Nacimiento es obligatorio">
 												<f:selectItem id="ciudadNac0" itemValue=""
 													itemLabel="Seleccione" />
 												<f:selectItems id="ciudadNac1"
@@ -193,18 +209,6 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Nacionalidad:</td>
-									<td>
-										<div class="controls">
-											<select id="selectError" data-rel="chosen">
-												<option>Argentino</option>
-												<option>Chileno</option>
-												<option>Colombiano</option>
-												<option>Uruguayo</option>
-												<option>Ecuatoriano</option>
-											</select>
-										</div>
-									</td>
 								</tr>
 							
 							</table>
@@ -212,13 +216,14 @@
 							<table width="100%">
 
 								<tr style="border-top: groove">
-									<td>Departamento Residencia:</td>
+									<td class="label1">Departamento Residencia:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="dptoRes"
 												value="#{registrarUsuarioBean.departamentoResidencia}"
 												styleClass="required"
-												valueChangeListener="#{registrarUsuarioBean.onDptoChange}">
+												valueChangeListener="#{registrarUsuarioBean.onDptoChange}"
+												required="true" requiredMessage="Departamento Residencia es obligatorio">
 												<f:ajax event="change" execute="@form" render="ciudadRes" />
 												<f:selectItem id="deptoRes0" itemValue=""
 													itemLabel="Seleccione" />
@@ -230,13 +235,13 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Municipio Residencia:</td>
+									<td class="label1">Municipio Residencia:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="ciudadRes"
 												value="#{registrarUsuarioBean.ciudadResidencia}"
 												styleClass="required"
-												title="La ciudad de Expedicion de Documento es obligatorio!">
+												required="true" requiredMessage="Municipio de Residencia es obligatorio">
 												<f:selectItem id="ciudadRes0" itemValue=""
 													itemLabel="Seleccione" />
 												<f:selectItems id="ciudadRes1"
@@ -247,18 +252,21 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Dirección Residencia:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td class="label1">Dirección Residencia:</td>
+									<td>
+									<h:inputText id="txtDireccionResidencia" class="form-control"
+											value="#{registrarUsuarioBean.direccionResidencia}" required="true" requiredMessage="Dirección Residencia es obligatorio"></h:inputText>
+									</td>
 								</tr>
 								<tr>
-									<td>Departamento Correspondencia:</td>
+									<td class="label1">Departamento Correspondencia:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="dptoCor"
 												value="#{registrarUsuarioBean.departamentoCorrespondencia}"
 												styleClass="required"
-												valueChangeListener="#{registrarUsuarioBean.onDptoChange}">
+												valueChangeListener="#{registrarUsuarioBean.onDptoChange}"
+												required="true" requiredMessage="Departamento Correspondencia es obligatorio">
 												<f:ajax event="change" execute="@form" render="ciudadCor" />
 												<f:selectItem id="deptoCor0" itemValue=""
 													itemLabel="Seleccione" />
@@ -270,13 +278,13 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Municipio Correspondencia:</td>
+									<td class="label1">Municipio Correspondencia:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="ciudadCor"
 												value="#{registrarUsuarioBean.ciudadCorrespondencia}"
 												styleClass="required"
-												title="La ciudad de Expedicion de Documento es obligatorio!">
+												required="true" requiredMessage="Municipio Correspondencia es obligatorio">
 												<f:selectItem id="ciudadCor0" itemValue=""
 													itemLabel="Seleccione" />
 												<f:selectItems id="ciudadCor1"
@@ -287,9 +295,11 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Dirección Correspondencia:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td class="label1">Dirección Correspondencia:</td>
+									<td>
+									<h:inputText id="txtDireccionCorrespondencia" class="form-control"
+											value="#{registrarUsuarioBean.direccionCorrespondencia}" required="true" requiredMessage="Dirección Correspondencia es obligatorio"></h:inputText>
+									</td>
 								</tr>
 
 							</table>
@@ -297,41 +307,36 @@
 							<table width="100%">
 
 								<tr style="border-top: groove">
-									<td>Teléfono:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td class="label1">Teléfono:</td>
+									<td>
+									<h:inputText id="txtTelefono" class="form-control"
+											value="#{registrarUsuarioBean.telefono}" required="true" requiredMessage="Teléfono es obligatorio"></h:inputText>
+									</td>
 									<td>Correo Electrónico:</td>
 									<td><h:inputText class="form-control" id="txtCorreo"
-											value="#{registrarUsuarioBean.usuario.correo}"></h:inputText>
+											value="#{registrarUsuarioBean.usuario.correo}" required="true" requiredMessage="Correo Electrónico es obligatorio"></h:inputText>
 									</td>
-									<td>Estado Civil:</td>
+									<td class="label1">Estado Civil:</td>
 									<td>
-										<div class="radio">
-											<label> <input type="radio" name="optionsRadios"
-												id="optionsRadios1" value="option1" checked="checked" />
-												Soltero
-											</label>
-										</div>
-										<div class="radio">
-											<label> <input type="radio" name="optionsRadios"
-												id="optionsRadios2" value="option2" /> Casado
-											</label>
-										</div>
-										<div class="radio">
-											<label> <input type="radio" name="optionsRadios"
-												id="optionsRadios2" value="option2" /> Viudo
-											</label>
-										</div>
+										
+										<h:selectOneRadio value="#{registrarUsuarioBean.estadoCivil}">
+										   	<f:selectItem itemValue="1" itemLabel="Soltero" />
+										   	<f:selectItem itemValue="2" itemLabel="Casado" />										   	
+										   	<f:selectItem itemValue="3" itemLabel="Viudo" />
+										   	<f:selectItem itemValue="4" itemLabel="Divorsiado" />
+										</h:selectOneRadio>
+										
 									</td>
 								</tr>
 								<tr style="border-bottom: groove">
-									<td>Departamento Sitio Laboral:</td>
+									<td class="label1">Departamento Sitio Laboral:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="dptoLab"
 												value="#{registrarUsuarioBean.departamentoLaboral}"
 												styleClass="required"
-												valueChangeListener="#{registrarUsuarioBean.onDptoChange}">
+												valueChangeListener="#{registrarUsuarioBean.onDptoChange}"
+												required="true" requiredMessage="Departamento Sitio Laboral es obligatorio">
 												<f:ajax event="change" execute="@form" render="ciudadLab" />
 												<f:selectItem id="deptoLab0" itemValue=""
 													itemLabel="Seleccione" />
@@ -343,13 +348,13 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Municipio Sitio Laboral:</td>
+									<td class="label1">Municipio Sitio Laboral:</td>
 									<td>
 										<div class="controls">
 											<h:selectOneMenu id="ciudadLab"
 												value="#{registrarUsuarioBean.ciudadLaboral}"
 												styleClass="required"
-												title="La ciudad de Expedicion de Documento es obligatorio!">
+												required="true" requiredMessage="Municipio Sitio Laboral es obligatorio">
 												<f:selectItem id="ciudadLab0" itemValue=""
 													itemLabel="Seleccione" />
 												<f:selectItems id="ciudadLab1"
@@ -360,13 +365,17 @@
 											</h:selectOneMenu>
 										</div>
 									</td>
-									<td>Dirección Sitio Laboral:</td>
+									<td class="label1">Dirección Sitio Laboral:</td>
 									<td>
-										<!-- 							<h:inputText class="form-control" id="txtCorreo" value="#{registrarUsuarioBean.usuario.correo}"></h:inputText> -->
+										<h:inputText id="txtDireccionLaboral" class="form-control" 
+											value="#{registrarUsuarioBean.direccionLaboral}" required="true" requiredMessage="Dirección Sitio Laboral es obligatorio"></h:inputText>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="6"><br /> <h:commandButton value="boton"
+									<td colspan="6"><br /> 
+							
+     
+									<h:commandButton value="Registrar Usuario" size="50"
 											action="#{registrarUsuarioBean.registrarUsuario}" /></td>
 								</tr>
 
@@ -384,31 +393,7 @@
 	</ui:define>
 
 
-	<!-- Ad, you can remove it -->
-	<div class="row">
-		<div class="col-md-9 col-lg-9 col-xs-9  hidden-xs">
-			<!--             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-			<!--             Charisma Demo 2 -->
-			<!--             <ins class="adsbygoogle" -->
-			<!--                  style="display:inline-block;width:728px;height:90px" -->
-			<!--                  data-ad-client="ca-pub-5108790028230107" -->
-			<!--                  data-ad-slot="3193373905"></ins> -->
-			<!--             <script> -->
-			// (adsbygoogle = window.adsbygoogle || []).push({});
-			<!--             </script> -->
-		</div>
-		<div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 donate">
-			<div>
-				<small>Help development of Charisma</small>
-			</div>
-			<a class="btn btn-default"
-				href="http://flattr.com/thing/1507720/usmanhalalitcharisma-on-GitHub"
-				target="_blank"><i class="glyphicon glyphicon-usd green"></i>
-				Donate</a>
-		</div>
-
-	</div>
-	<!-- Ad ends -->
+	
 
 	<hr />
 
