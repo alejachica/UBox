@@ -36,6 +36,8 @@
 											value="#{registrarUsuarioBean.error}"
 											class="alert alert-danger"
 											rendered="#{registrarUsuarioBean.error != null}"></h:outputLabel>
+											
+											<h:messages errorStyle="color:red" />
 									</td>
 								</tr>
 								<tr>
@@ -49,11 +51,13 @@
 									<td width="">Tipo Documento:</td>
 									<td>
 										<div class="controls">
-											<h:selectOneMenu id="tipo"
+											<h:selectOneMenu id="tipoDocumento"
 												value="#{registrarUsuarioBean.tipoIdentificacion}"
-												styleClass="required" title="El tipo es obligatorio!">
-												<f:selectItem id="tipo0" itemValue="" itemLabel="Seleccione" />
-												<f:selectItems id="selectItems1"
+												styleClass="required"
+												required="true" requiredMessage="Tipo Documento es obligatorio">
+												<f:selectItem id="tipoDocumento0" itemValue=""
+													itemLabel="Seleccione" />
+												<f:selectItems id="tipoDocumento1"
 													value="#{registrarUsuarioBean.tiposDocumento}"
 													var="tipoDocumento"
 													itemLabel="#{tipoDocumento.descripcion}"
@@ -63,7 +67,7 @@
 									</td>
 									<td>Número Documento:</td>
 									<td><h:inputText id="txtDocument" class="form-control"
-											value="#{registrarUsuarioBean.usuario.identificacion}"></h:inputText>
+											value="#{registrarUsuarioBean.usuario.identificacion}" required="true" requiredMessage="Número Documento es obligatorio"></h:inputText>
 									</td>
 								</tr>
 								<tr>
@@ -73,7 +77,8 @@
 											<h:selectOneMenu id="dptoExp"
 												value="#{registrarUsuarioBean.departamentoExpedicionDoc}"
 												styleClass="required"
-												valueChangeListener="#{registrarUsuarioBean.onDptoChange}">
+												valueChangeListener="#{registrarUsuarioBean.onDptoChange}"
+												required="true" requiredMessage="Departamento de Expedición del Documento es obligatorio">
 												<f:ajax event="change" execute="@form" render="ciudadExp" />
 												<f:selectItem id="deptoExp0" itemValue=""
 													itemLabel="Seleccione" />
@@ -91,7 +96,7 @@
 											<h:selectOneMenu id="ciudadExp"
 												value="#{registrarUsuarioBean.ciudadExpedicionDoc}"
 												styleClass="required"
-												title="La ciudad de Expedicion de Documento es obligatorio!">
+												required="true" requiredMessage="Municipio de Expedición del Documento es obligatorio">
 												<f:selectItem id="ciudadExp0" itemValue=""
 													itemLabel="Seleccione" />
 												<f:selectItems id="ciudadExp1"
@@ -105,8 +110,9 @@
 								</tr>
 								<tr style="border-bottom: groove">
 									<td>Fecha de Expedición del Documento:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" placeholder="yyyy/MM/dd" /></td>
+									<td><h:inputText id="txtFechaExpDoc" class="form-control"
+											value="#{registrarUsuarioBean.fechaExpedicionDoc}" required="true" requiredMessage="Fecha de Expedición del Documento es obligatorio" placeholder="yyyy/MM/dd"></h:inputText>
+									</td>
 									<td></td>
 									<td></td>
 								</tr>
@@ -118,11 +124,12 @@
 								<tr>
 									<td>Primer Nombre:</td>
 									<td><h:inputText id="txtPrimerNombre" class="form-control"
-											value="#{registrarUsuarioBean.usuario.primerNombre}"></h:inputText>
+											value="#{registrarUsuarioBean.usuario.primerNombre}" required="true" requiredMessage="Primer Nombre es obligatorio"></h:inputText>
 									</td>
 									<td>Segundo Nombre:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td><h:inputText id="txtSegundoNombre" class="form-control"
+											value="#{registrarUsuarioBean.usuario.segundoNombre}" required="true" requiredMessage="Segundo Nombre es obligatorio"></h:inputText>
+									</td>
 								</tr>
 								<tr>
 									<td>Primer Apellido:</td>
@@ -196,13 +203,18 @@
 									<td>Nacionalidad:</td>
 									<td>
 										<div class="controls">
-											<select id="selectError" data-rel="chosen">
-												<option>Argentino</option>
-												<option>Chileno</option>
-												<option>Colombiano</option>
-												<option>Uruguayo</option>
-												<option>Ecuatoriano</option>
-											</select>
+											<h:selectOneMenu id="nacionalidad"
+												value="#{registrarUsuarioBean.nacionalidad}"
+												styleClass="required"
+												title="La ciudad de Expedicion de Documento es obligatorio!">
+												<f:selectItem id="nacionalidad0" itemValue=""
+													itemLabel="Seleccione" />
+												<f:selectItems id="nacionalidad1"
+													value="#{registrarUsuarioBean.nacionalidades}"
+													var="nacionalidad"
+													itemLabel="#{nacionalidad.descripcion}"
+													itemValue="#{nacionalidad.valor}" />
+											</h:selectOneMenu>
 										</div>
 									</td>
 								</tr>
@@ -366,7 +378,10 @@
 									</td>
 								</tr>
 								<tr>
-									<td colspan="6"><br /> <h:commandButton value="boton"
+									<td colspan="6"><br /> 
+							
+     
+									<h:commandButton value="boton"
 											action="#{registrarUsuarioBean.registrarUsuario}" /></td>
 								</tr>
 
@@ -384,31 +399,7 @@
 	</ui:define>
 
 
-	<!-- Ad, you can remove it -->
-	<div class="row">
-		<div class="col-md-9 col-lg-9 col-xs-9  hidden-xs">
-			<!--             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-			<!--             Charisma Demo 2 -->
-			<!--             <ins class="adsbygoogle" -->
-			<!--                  style="display:inline-block;width:728px;height:90px" -->
-			<!--                  data-ad-client="ca-pub-5108790028230107" -->
-			<!--                  data-ad-slot="3193373905"></ins> -->
-			<!--             <script> -->
-			// (adsbygoogle = window.adsbygoogle || []).push({});
-			<!--             </script> -->
-		</div>
-		<div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 donate">
-			<div>
-				<small>Help development of Charisma</small>
-			</div>
-			<a class="btn btn-default"
-				href="http://flattr.com/thing/1507720/usmanhalalitcharisma-on-GitHub"
-				target="_blank"><i class="glyphicon glyphicon-usd green"></i>
-				Donate</a>
-		</div>
-
-	</div>
-	<!-- Ad ends -->
+	
 
 	<hr />
 
