@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import co.edu.uniandes.umbrella.dto.CompartidoDTO;
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
 import co.edu.uniandes.umbrella.entidades.Documento;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
@@ -19,6 +20,17 @@ public interface DocumentosEJBRemote {
 	List<DocumentoDTO> listarDocumentosPapelera(int usuarioId);
 	
 	List<DocumentoDTO> listarDocumentosCarpeta(int carpetaId);
+	
+	/****
+	 * Permite compartir un documento sea por un usuario interno o externo. Si no tiene operador retorna false con la información
+	 * @param idUsuario id de usuario que comparte el documento
+	 * @param documentoDestino documento del usuario destino 
+	 * @param tipoDocumentoDestino tipo de documento del usuario destino
+	 * @param idDocumentoCompartir id del documento que se va a compartir
+	 * @param fechaExpiracion fecha limite para poder ver el archivo
+	 * @return
+	 */
+	public ResultadoOperacion compartirDocumento(int idUsuario, String documentoDestino, String tipoDocumentoDestino, int idDocumentoCompartir, Date fechaExpiracion);
 	
 	/***
 	 * Carga un documento en el listado de doucmentos del usuario Destino y crea 
@@ -64,7 +76,7 @@ public interface DocumentosEJBRemote {
 	 * @param link
 	 * @return
 	 */
-	public DocumentoDTO ConsultarDocumentoPorLink(String link);
+	public CompartidoDTO ConsultarDocumentoPorLink(String link);
 	
 	public boolean eliminarDocumento(int documentoId);
 	

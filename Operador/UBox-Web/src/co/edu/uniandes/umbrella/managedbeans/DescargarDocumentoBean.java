@@ -14,31 +14,136 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.model.UploadedFile;
 
+import co.edu.uniandes.umbrella.dto.CompartidoDTO;
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 
-@ManagedBean
-@SessionScoped
+@ManagedBean(name="descargarDocumentoBean")
+@ViewScoped
 public class DescargarDocumentoBean implements Serializable{
 	
+
+
 	@EJB
 	private DocumentosEJBRemote documentoEJB;
 	
-	private DocumentoDTO documentoActual;
+	/***
+	 * True: el archivo fue encontrado, false: No fue encontrado
+	 */
+	private boolean fileFound;
 	
-	@PostConstruct
-	public void validarDocumento()
-	{
-		String a = "";
+	/****
+	 * True: El archivo solo se puede ver si mete la clave
+	 */
+	private boolean withPassword;
+	
+	
+	
+
+	/***
+	 * Id del archivo que se consulta por request
+	 */
+	private String fileId;
+	
+	//private String usuario;
+	
+	private String clave;
+	
+	private String errorClave;
+	
+	public boolean isWithPassword() {
+		return withPassword;
+	}
+
+	public void setWithPassword(boolean withPassword) {
+		this.withPassword = withPassword;
+	}
+
+	/*public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}*/
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public String getErrorClave() {
+		return errorClave;
+	}
+
+	public void setErrorClave(String errorClave) {
+		this.errorClave = errorClave;
 	}
 	
-	public void descargarArchivo() throws FileNotFoundException, IOException {
+	
+	private DocumentoDTO documentoActual;
+	
+	private String claveCompartido;
+	
+	
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+	
+	public boolean isFileFound() {
+		return fileFound;
+	}
+
+	public void setFileFound(boolean fileFound) {
+		this.fileFound = fileFound;
+	}
+
+	public void validarDocumento()
+	{
+		if(!getFileId().equals(""))
+		{
+			CompartidoDTO compartido = documentoEJB.ConsultarDocumentoPorLink(this.getFileId());
+			if(compartido != null)
+			{
+				documentoActual = compartido.getDocumento();
+				claveCompartido = compartido.getClave();
+				if(compartido.getClave() != null)
+					setWithPassword(!compartido.getClave().equals(""));
+				setFileFound(true);
+			}
+		}
+			
+	}
+	
+	public void validarClave()
+	{
+		if(!getClave().equals(claveCompartido))
+		{
+			this.setErrorClave("La clave no es valida");
+		}
+		else
+		{
+			this.setErrorClave("");
+			this.withPassword = false;
+		}
+	}
+	
+	public void descargarDocumento() throws FileNotFoundException, IOException {
 		
 		FacesContext context = FacesContext.getCurrentInstance();  
 		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();  
@@ -64,4 +169,7 @@ public class DescargarDocumentoBean implements Serializable{
 		}  
 		context.responseComplete();
 	}
+	
+	
+	
 }
