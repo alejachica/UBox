@@ -13,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
 import co.edu.uniandes.umbrella.dto.UsuarioDTO;
+import co.edu.uniandes.umbrella.ejb.ZonaGeograficaEJB;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
@@ -112,6 +113,7 @@ public class RegistrarUsuarioBean {
 	
 	private String departamentoLaboral = "";
 	private String ciudadLaboral = "";
+	private String genero = "";
 	//Borrar Variables Temporales
 	
 	
@@ -235,142 +237,34 @@ public class RegistrarUsuarioBean {
 		try {	
 			tiposDocumento = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPOIDENTIFICACION.getValue());
 			nacionalidades = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_NACIONALIDAD.getValue());
-	
-			//Temporal Borrar
-			ZonaGeografica dep1 = new ZonaGeografica();
-			dep1.setIdZonaGeografica(1);
-			dep1.setNombre("Antioquia");
-			
-			ZonaGeografica dep2 = new ZonaGeografica();
-			dep2.setIdZonaGeografica(2);
-			dep2.setNombre("Cundinamarca");
-			
-			departamentos.add(dep1);
-			departamentos.add(dep2);
-			//Temporal Borrar
-			
-			
-			
-			//Temporal Borrar
-			ZonaGeografica ciu1 = new ZonaGeografica();
-			ciu1.setIdZonaGeografica(3);
-			ciu1.setNombre("Medellin");
-			
-			ZonaGeografica ciu2 = new ZonaGeografica();
-			ciu2.setIdZonaGeografica(2);
-			ciu2.setNombre("Bogota");
-			
-			ciudadesExpDocumento.add(ciu1);
-			ciudadesExpDocumento.add(ciu2);
-			
-			ciudadesCorrespondencia.add(ciu1);
-			ciudadesCorrespondencia.add(ciu2);
-			
-			ciudadesLaboral.add(ciu1);
-			ciudadesLaboral.add(ciu2);
-			
-			ciudadesNacimiento.add(ciu1);
-			ciudadesNacimiento.add(ciu2);
-			
-			ciudadesResidencia.add(ciu1);
-			ciudadesResidencia.add(ciu2);
-			//Temporal Borrar
-			
-			
-			
-			
-			
-			
-			
-			List<ZonaGeografica> prueba2 = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(5);		
-			
-			List<ZonaGeografica> prueba3 = zonaGeograficaEJB.buscarTodosDepartamento();
-			
-			
-			for (int i = 0; i < prueba2.size(); i++) {
-				ZonaGeografica print = (ZonaGeografica) prueba2.get(i);
-				System.out.println("*" + print.getIdZonaGeografica()+"*"+print.getNombre());
-			}
-			System.out.println("#################################");
-			for (int i = 0; i < prueba3.size(); i++) {
-				ZonaGeografica print = (ZonaGeografica) prueba3.get(i);
-				System.out.println("*" + print.getIdZonaGeografica()+"*"+print.getNombre());
-			}
-			
-			System.out.println("tamaño " + prueba2.size());
-			System.out.println("tamaño " + prueba3.size());
-			
-	//		List<ZonaGeografica> lista = zonaGeograficaEJB.getZonasGeograficas();
-			
-	//		ZonaGeografica ciudad = zonaGeograficaEJB.buscarCiudad(1);
-				
+			departamentos = zonaGeograficaEJB.buscarTodosDepartamento();				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		 
-
 	}
 
 	 public void onDptoChange(ValueChangeEvent event) {
 		 
 		 if(event.getNewValue() != null && !event.getNewValue().toString().isEmpty()){
 			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_EXP)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(4);
-				 ciu2.setNombre("Armenia");
-				 
-				 ciudadesExpDocumento.add(ciu2);
-				 
-			 }
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_EXP))			 
+				 ciudadesExpDocumento = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));
+				 			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_NAC))
+				 ciudadesNacimiento = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));
+							 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_RES))
+				 ciudadesResidencia = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));				 
+				 			 
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_COR))
+				 ciudadesCorrespondencia = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));
 			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_NAC)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(5);
-				 ciu2.setNombre("LEticia");
-				 
-				 ciudadesNacimiento.add(ciu2);
-				 
-			 }
-			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_RES)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(6);
-				 ciu2.setNombre("Pasto");
-				 
-				 ciudadesResidencia.add(ciu2);
-				 
-			 }
-			 
-			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_COR)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(6);
-				 ciu2.setNombre("Quibdo");
-				 
-				 ciudadesCorrespondencia.add(ciu2);
-				 
-			 }
-			 
-			 
-			 if(event.getComponent().getId().equals(ID_CBO_DPTO_LAB)){
-				 //TODO Borrar
-				 ZonaGeografica ciu2 = new ZonaGeografica();
-				 ciu2.setIdZonaGeografica(7);
-				 ciu2.setNombre("fsd");
-				 
-				 ciudadesLaboral.add(ciu2);
-				 
-			 }
+			 if(event.getComponent().getId().equals(ID_CBO_DPTO_LAB))
+				 ciudadesLaboral = zonaGeograficaEJB.buscarZonaGeograficaPorDepartamento(Integer.parseInt(event.getNewValue().toString()));			 
 			 
 		 }
 	       
-	    }
+	 }
 
 
 
@@ -492,6 +386,14 @@ public class RegistrarUsuarioBean {
 
 	public void setFechaExpedicionDoc(String fechaExpedicionDoc) {
 		this.fechaExpedicionDoc = fechaExpedicionDoc;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 	
 	
