@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `ubox`.`carpeta` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `FK_Carpeta_Padre` ON `ubox`.`carpeta` (`id_carpeta_padre` ASC)  COMMENT '';
+CREATE INDEX `FK_Carpeta_Padre1` ON `ubox`.`carpeta` (`id_carpeta_padre` ASC)  COMMENT '';
 
 CREATE INDEX `fk_carpeta_usuario1_idx` ON `ubox`.`carpeta` (`id_usuario` ASC)  COMMENT '';
 
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `ubox`.`plan` (
   `nombre` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   `id_tipo_plan` DECIMAL(10,2) NULL DEFAULT NULL COMMENT '',
   `activo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
-  `características` TEXT NULL DEFAULT NULL COMMENT '',
+  `caracteristicas` TEXT NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_plan`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento_x_usuario_compartido` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `fk_documento_compartido_documento1_idx` ON `ubox`.`documento_x_usuario_compartido` (`fk_documento` ASC)  COMMENT '';
+CREATE INDEX `fk_documento_compartido_documento_idx` ON `ubox`.`documento_x_usuario_compartido` (`fk_documento` ASC)  COMMENT '';
 
 CREATE INDEX `fk_documento_x_usuario_compartido_usuario1_idx` ON `ubox`.`documento_x_usuario_compartido` (`fk_usuario` ASC)  COMMENT '';
 

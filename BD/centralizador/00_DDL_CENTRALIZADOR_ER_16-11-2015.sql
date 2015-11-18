@@ -23,7 +23,7 @@ USE `centralizador` ;
 DROP TABLE IF EXISTS `centralizador`.`CONTRATO_OPERADOR` ;
 
 CREATE TABLE IF NOT EXISTS `centralizador`.`CONTRATO_OPERADOR` (
-  `id_operador` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `id_operador` INT(11) NOT NULL COMMENT '',
   `nro_contrato` DECIMAL(10,2) NOT NULL COMMENT '',
   `fecha_inicio` DATE NOT NULL COMMENT '',
   `fecha_fin` DATE NULL DEFAULT NULL COMMENT '',
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`CONTRATO_OPERADOR` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_operador_idx` ON `centralizador`.`CONTRATO_OPERADOR` (`id_operador` ASC)  COMMENT '';
+CREATE INDEX `fk_operador_idx1` ON `centralizador`.`CONTRATO_OPERADOR` (`id_operador` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`ZONA_GEOGRAFICA` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_padre_idx` ON `centralizador`.`ZONA_GEOGRAFICA` (`id_padre` ASC)  COMMENT '';
+CREATE INDEX `fk_padre_idx1` ON `centralizador`.`ZONA_GEOGRAFICA` (`id_padre` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
@@ -72,7 +72,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
 
-CREATE UNIQUE INDEX `UQ_OPERADOR_id_operador` ON `centralizador`.`OPERADOR` (`id_operador` ASC)  COMMENT '';
+CREATE UNIQUE INDEX `UQ_OPERADOR_id_operador1` ON `centralizador`.`OPERADOR` (`id_operador` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
@@ -134,21 +134,21 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
-CREATE UNIQUE INDEX `constraint1` ON `centralizador`.`USUARIO` (`id_tipo_identificacion` ASC, `nro_identificacion` ASC)  COMMENT '';
+CREATE UNIQUE INDEX `constraint11` ON `centralizador`.`USUARIO` (`id_tipo_identificacion` ASC, `nro_identificacion` ASC)  COMMENT '';
 
-CREATE INDEX `IXFK_USUARIO_OPERADOR` ON `centralizador`.`USUARIO` (`id_operador_actual` ASC)  COMMENT '';
+CREATE INDEX `IXFK_USUARIO_OPERADOR1` ON `centralizador`.`USUARIO` (`id_operador_actual` ASC)  COMMENT '';
 
-CREATE INDEX `IXFK_USUARIO_OPERADOR_02` ON `centralizador`.`USUARIO` (`id_operador` ASC)  COMMENT '';
+CREATE INDEX `IXFK_USUARIO_OPERADOR_021` ON `centralizador`.`USUARIO` (`id_operador` ASC)  COMMENT '';
 
-CREATE INDEX `fk_municipio_nacimiento_idx` ON `centralizador`.`USUARIO` (`id_municipio_nacimiento` ASC)  COMMENT '';
+CREATE INDEX `fk_municipio_nacimiento_idx1` ON `centralizador`.`USUARIO` (`id_municipio_nacimiento` ASC)  COMMENT '';
 
-CREATE INDEX `fk_municipio_Expedicion_idx` ON `centralizador`.`USUARIO` (`id_municipio_expedicion_identificacion` ASC)  COMMENT '';
+CREATE INDEX `fk_municipio_Expedicion_idx1` ON `centralizador`.`USUARIO` (`id_municipio_expedicion_identificacion` ASC)  COMMENT '';
 
-CREATE INDEX `fk_municipio_residencia_idx` ON `centralizador`.`USUARIO` (`id_municipio_residencia` ASC)  COMMENT '';
+CREATE INDEX `fk_municipio_residencia_idx1` ON `centralizador`.`USUARIO` (`id_municipio_residencia` ASC)  COMMENT '';
 
-CREATE INDEX `fk_municipio_notificacion_idx` ON `centralizador`.`USUARIO` (`id_municipio_notificacion` ASC)  COMMENT '';
+CREATE INDEX `fk_municipio_notificacion_idx1` ON `centralizador`.`USUARIO` (`id_municipio_notificacion` ASC)  COMMENT '';
 
-CREATE INDEX `fk_municipio_laboral_idx` ON `centralizador`.`USUARIO` (`id_municipio_laboral` ASC)  COMMENT '';
+CREATE INDEX `fk_municipio_laboral_idx1` ON `centralizador`.`USUARIO` (`id_municipio_laboral` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
@@ -180,11 +180,11 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`HISTORICO_OPERADORES_USUARIO` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_operador_idx` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_operador_origen` ASC)  COMMENT '';
+CREATE INDEX `fk_operador_idx1` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_operador_origen` ASC)  COMMENT '';
 
-CREATE INDEX `fk_usuario_idx` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_usuario` ASC)  COMMENT '';
+CREATE INDEX `fk_usuario_idx1` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_usuario` ASC)  COMMENT '';
 
-CREATE INDEX `fk_operador_Destino_idx` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_operador_destino` ASC)  COMMENT '';
+CREATE INDEX `fk_operador_Destino_idx1` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_operador_destino` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`SERVICIOS_OPERADOR` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_operador_idx` ON `centralizador`.`SERVICIOS_OPERADOR` (`id_operador` ASC)  COMMENT '';
+CREATE INDEX `fk_operador_idx1` ON `centralizador`.`SERVICIOS_OPERADOR` (`id_operador` ASC)  COMMENT '';
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
