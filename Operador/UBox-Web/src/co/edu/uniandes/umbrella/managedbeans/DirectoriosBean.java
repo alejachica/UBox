@@ -158,7 +158,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 				for(DocumentoDTO doc: docsDTO){
 					TreeNode docum = new DefaultTreeNode(new DataTreeTable(doc.getIdDocumento(), doc.getNombre(), null, Integer.toString(doc.getSize()), "Archivo"), carpeta);
 				}
-				crearSubCarpeta(carpeta, carp.getIdCarpeta());
+				crearSubRoot(carpeta, carp.getIdCarpeta());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,7 +166,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		return root;
 	}
 	
-	public TreeNode crearSubCarpeta(TreeNode rama, int idCarpeta) throws Exception{
+	public TreeNode crearSubRoot(TreeNode rama, int idCarpeta) throws Exception{
 		List<CarpetaDTO> carpetasHijas = carpetaEJB.consultarCarpetasHijas(idCarpeta);
 		for(CarpetaDTO carpHijas: carpetasHijas){
 			TreeNode carpeta = new DefaultTreeNode(new DataTreeTable(carpHijas.getIdCarpeta(), carpHijas.getNombreCarpeta(), carpHijas.getDescripcion(), null, "Folder"), rama);
@@ -176,7 +176,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 			}
 			carpetasHijas = carpetaEJB.consultarCarpetasHijas(carpHijas.getIdCarpeta());
 			if(carpetasHijas!=null)
-				crearSubCarpeta(carpeta, carpHijas.getIdCarpeta());
+				crearSubRoot(carpeta, carpHijas.getIdCarpeta());
 			else
 				return carpeta;
 		}
@@ -188,13 +188,16 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		CarpetaDTO carpetaDTO = new CarpetaDTO();
 		carpetaDTO.setDescripcion(descripcionCarpeta);
 		carpetaDTO.setNombreCarpeta(nombreCarpeta);
-		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId()))
+		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId())){
 			root = crearRoot();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se creo la carpeta correctamente");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 		else
 			throw new Exception("Fallo creando carpeta, comuniquese con el administrador");
 		}
 		catch(Exception e){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error creando carpeta", e.getMessage());
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
@@ -205,13 +208,16 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		carpetaDTO.setDescripcion(descripcion);
 		carpetaDTO.setNombreCarpeta(nombre);
 		carpetaDTO.setCarpetaPadre(carpetaId);
-		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId()))
+		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId())){
 			root = crearRoot();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se creo la sub-carpeta correctamente");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 		else
-			throw new Exception("Fallo creando carpeta, comuniquese con el administrador");
+			throw new Exception("Fallo creando sub-carpeta, comuniquese con el administrador");
 		}
 		catch(Exception e){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error creando carpeta", e.getMessage());
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
@@ -220,9 +226,11 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		try{
 			carpetaEJB.eliminarCarpeta(this.carpetaId);
 			root = crearRoot();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se elimino la carpeta correctamente");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		catch(Exception e){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando carpeta", e.getMessage());
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
@@ -244,14 +252,16 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	        	documentoDTO.setPapelera(false);
 	        	documentoDTO.setSize((int)file.getSize());
 	        	if(documentoEJB.crearDocumento(documentoDTO)){
-		            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+		            FacesMessage message = new FacesMessage("Exito", file.getFileName() + " ha sido cargado.");
 		            FacesContext.getCurrentInstance().addMessage(null, message);
 		            root = crearRoot();
 	        	}
+	        	else
+	        		throw new Exception("Fallo cargando el documento, comuniquese con el administrador");
 	        }
     	}
     	catch(Exception e){
-    		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando carpeta", e.getMessage());
+    		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
     	}
     }
@@ -260,9 +270,11 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		try{
 			documentoEJB.manejoPapelera(this.documentoId, true);
 			root = crearRoot();
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se elimino el documento correctamente");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		catch(Exception e){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error eliminando documento", e.getMessage());
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}

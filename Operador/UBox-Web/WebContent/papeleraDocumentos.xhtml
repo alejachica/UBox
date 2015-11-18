@@ -54,6 +54,7 @@
 					 	</h:form>
 					 	
 					 	<h:form enctype="multipart/form-data" id="formDialog">
+					 		<p:growl id="growl" showDetail="true" sticky="true" />
 						    <!-- Dialogo para vaciar papelera -->
 						    <p:dialog id="dialogoVaciarPapeleraId" header="Vaciar papelera" showEffect="fade" widgetVar="dialogoVaciarPapelera" modal="true" resizable="false">
 						 		<td><h:outputText value="Esta seguro de vaciar la papelera?"></h:outputText></td>
@@ -61,7 +62,7 @@
 								<table>
 									<tr>
 										<td><h:commandButton action="PF('dialogoVaciarPapelera').hide();" value="NO"></h:commandButton></td>
-										<td><h:commandButton action="#{papeleraBean.vaciarPapelera}" value="SI"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.vaciarPapelera}" value="SI" update="growl"></h:commandButton></td>
 									</tr>
 								</table>
 						    </p:dialog>
@@ -73,7 +74,7 @@
 								<table>
 									<tr>
 										<td><h:commandButton action="PF('dialogoRestaurarPapelera').hide();" value="NO"></h:commandButton></td>
-										<td><h:commandButton action="#{papeleraBean.restaurarPapelera}" value="SI"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.restaurarPapelera}" value="SI" update="growl"></h:commandButton></td>
 									</tr>
 								</table>
 						    </p:dialog>
@@ -85,7 +86,7 @@
 								<table>
 									<tr>
 										<td><h:commandButton action="PF('dialogoElimDoc').hide();" value="NO"></h:commandButton></td>
-										<td><h:commandButton actionListener="#{papeleraBean.eliminarDocumento}" value="SI"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.eliminarDocumento}" value="SI" update="growl"></h:commandButton></td>
 									</tr>
 								</table>
 						    </p:dialog>
@@ -97,7 +98,7 @@
 								<table>
 									<tr>
 										<td><h:commandButton action="PF('dialogoRestDoc').hide();" value="NO"></h:commandButton></td>
-										<td><h:commandButton action="#{papeleraBean.restaurarDocumento}" value="SI"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.restaurarDocumento}" value="SI" update="growl"></h:commandButton></td>
 									</tr>
 								</table>
 						    </p:dialog>
