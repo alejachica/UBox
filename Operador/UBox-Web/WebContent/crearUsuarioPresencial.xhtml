@@ -133,11 +133,11 @@
 								</tr>
 								<tr>
 									<td>Primer Apellido:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td><h:inputText id="txtPrimerApellido" class="form-control"
+											value="#{registrarUsuarioBean.usuario.primerApellido}" required="true" requiredMessage="Primer Apellido es obligatorio"></h:inputText></td>
 									<td>Segundo Apellido:</td>
-									<td><input type="text" class="form-control"
-										id="inputSuccess1" size="20px" /></td>
+									<td><h:inputText id="txtSegundoApellido" class="form-control"
+											value="#{registrarUsuarioBean.usuario.segundoApellido}" required="true" requiredMessage="Segundo Apellido es obligatorio"></h:inputText></td>
 								</tr>
 							
 							</table>
@@ -148,17 +148,10 @@
 								<tr style="border-top: groove">
 									<td>Genero:</td>
 									<td>
-										<div class="radio">
-											<label> <input type="radio" name="optionsRadios"
-												id="optionsRadios1" value="option1" checked="checked" />
-												Femenino
-											</label>
-										</div>
-										<div class="radio">
-											<label> <input type="radio" name="optionsRadios"
-												id="optionsRadios2" value="option2" /> Masculino
-											</label>
-										</div>
+										<h:selectOneRadio value="#{registrarUsuarioBean.genero}">
+										   	<f:selectItem itemValue="M" itemLabel="Masculino" />
+										   	<f:selectItem itemValue="F" itemLabel="Femenino" />										   	
+										</h:selectOneRadio>
 									</td>
 									<td>Fecha de Nacimiento:</td>
 									<td><input type="text" class="form-control"
