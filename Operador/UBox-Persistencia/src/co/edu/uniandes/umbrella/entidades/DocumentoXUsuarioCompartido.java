@@ -47,6 +47,9 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 	private boolean permisoAcitvo;
 
 	private boolean recibido;
+	
+	
+	private String clave;
 
 	//bi-directional many-to-one association to Documento
 	@ManyToOne
@@ -57,7 +60,10 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
-
+	
+	
+	
+	
 	//bi-directional many-to-one association to FormaComparticion
 	@ManyToOne
 	@JoinColumn(name="fk_forma_comparticion")
@@ -144,6 +150,16 @@ public class DocumentoXUsuarioCompartido implements Serializable {
 
 	public void setIdOperadorExterno(String idOperadorExterno) {
 		this.idOperadorExterno = idOperadorExterno;
+	}
+	
+	
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
 
 	public boolean getPermisoAcitvo() {

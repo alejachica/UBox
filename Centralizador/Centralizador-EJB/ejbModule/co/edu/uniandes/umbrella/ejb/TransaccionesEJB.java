@@ -1,10 +1,16 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.*;
+
+import java.util.logging.Logger;
+
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -28,6 +34,11 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 	 */
 	@PersistenceContext(unitName = "Centralizador-Persistencia")
 	private EntityManager entityManager;
+	
+	/**
+	 * Log del servidor para registrar eventos
+	 */
+	private Logger logger = Logger.getLogger(this.getClass().getName());
 
 	/**
 	 * Servicio que permite consultar los datos del operador de un usuario al que se le compartira un documento
@@ -38,16 +49,39 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 	public DatosOperadorDTO consultarOperadorUsuarioParaCompartir(
 			ServiciosOperadorUsuarioDTO datos) {
 		
-		Query query = entityManager.createNamedQuery("ServiciosOperador.urlParaCompartirDocumentos",
-				ServiciosOperador.class).setParameter("idOperador", datos.getIdOperador());
+		try {
 		
-		ServiciosOperador resultado = (ServiciosOperador) query.getSingleResult();
+			Query query = entityManager.createNamedQuery("ServiciosOperador.urlParaCompartirDocumentos",
+					ServiciosOperador.class).setParameter("idOperador", datos.getIdOperador());
+			
+			ServiciosOperador resultado = (ServiciosOperador) query.getSingleResult();
+	
+			DatosOperadorDTO datosOperador = new DatosOperadorDTO();
+			datosOperador.setIdOperador(resultado.getIdOperador());
+			datosOperador.setUrlServicio(resultado.getUrl());
+			
+			logger.info(COD_012.getIdCodigo() + COD_012.getMensaje() );
+			
+			return datosOperador;
+		
+		} catch (NoResultException nre) {
 
-		DatosOperadorDTO datosOperador = new DatosOperadorDTO();
-		datosOperador.setIdOperador(resultado.getIdOperador());
-		datosOperador.setUrlServicio(resultado.getUrl());
-		
-		return datosOperador;
+			logger.severe(COD_013.getIdCodigo());
+			logger.severe(nre.getMessage());
+			return null;
+			
+		} catch (NonUniqueResultException nue) {
+
+			logger.severe(COD_014.getIdCodigo());
+			logger.severe(nue.getMessage());
+			return null;
+			
+		} catch (Exception e) {
+
+			logger.severe(COD_015.getIdCodigo());
+			logger.severe(e.getMessage());
+			return null;
+		}
 	}
 	
 	/**
@@ -60,18 +94,52 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 	public String trasladarUsuarioDeOperador(String tipoDocUsuario,
 			String nroDocUsuario, int idNuevoOperador) {
 		
-		Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
-				Usuario.class).setParameter("tipoDoc", tipoDocUsuario).setParameter("nroDoc", nroDocUsuario);
+		try {
 		
-		Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
+			Query query = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
+					Usuario.class).setParameter("tipoDoc", tipoDocUsuario).setParameter("nroDoc", nroDocUsuario);
+			
+			Usuario usuarioEncontrado = (Usuario) query.getSingleResult();
+			
+			if(usuarioEncontrado != null && usuarioEncontrado.getIdUsuario() > 0){
+				
+				logger.info(COD_016.getIdCodigo() + COD_016.getMensaje());
+				
+				/*
+				 * Se actualiza el operador del usuario
+				 */
+				usuarioEncontrado.setIdOperador(idNuevoOperador);
+				entityManager.merge(usuarioEncontrado);
 		
-		/*
-		 * Se actualiza el operador del usuario
-		 */
-		usuarioEncontrado.setIdOperador(idNuevoOperador);
-		entityManager.merge(usuarioEncontrado);
+				logger.info(COD_017.getIdCodigo() + COD_017.getMensaje());
+				
+				return COD_017.getIdCodigo();
+				
+			}else {
+				
+				logger.info(COD_018.getIdCodigo() + COD_018.getMensaje());
+				
+				return COD_018.getIdCodigo();
+			}
+		
+		} catch (NoResultException nre) {
 
-		return "";
+			logger.severe(COD_018.getIdCodigo() + COD_018.getMensaje());
+			logger.severe(nre.getMessage());
+			return null;
+			
+		} catch (NonUniqueResultException nue) {
+
+			logger.severe(COD_019.getIdCodigo());
+			logger.severe(nue.getMessage());
+			return null;
+			
+		} catch (Exception e) {
+
+			logger.severe(COD_020.getIdCodigo());
+			logger.severe(e.getMessage());
+			return null;
+		}
 	}
 
 }
