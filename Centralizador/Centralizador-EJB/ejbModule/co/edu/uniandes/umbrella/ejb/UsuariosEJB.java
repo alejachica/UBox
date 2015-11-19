@@ -51,48 +51,47 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 		
 		try {
 			
+			Usuario usuario = new Usuario();
 
-		Usuario usuario = new Usuario();
-
-		/*
-		 * Datos personales
-		 */
-		usuario.setPrimerApellido(usuarioDto.getPrimerApellido());
-		usuario.setPrimerNombre(usuarioDto.getPrimerNombre());
-		usuario.setSegundoApellido(usuarioDto.getSegundoApellido());
-		usuario.setSegundoNombre(usuarioDto.getSegundoNombre());
-		usuario.setIdTipoIdentificacion(usuarioDto.getIdTipoIdentificacion());
-		usuario.setNroIdentificacion(usuarioDto.getNroIdentificacion());
-		usuario.setIdNacionalidad(usuarioDto.getIdNacionalidad());
-		usuario.setEmailPersonal(usuarioDto.getEmailPersonal());
-		usuario.setFechaNacimiento(usuarioDto.getFechaNacimiento());
-		usuario.setGenero(usuarioDto.getGenero());
-		usuario.setIdEstadoCivil(usuarioDto.getIdEstadoCivil());
-
-		/*
-		 * Datos de contacto
-		 */
-		usuario.setTelefono(usuarioDto.getTelefono());
-		usuario.setDireccionNotificacion(usuarioDto.getDireccionNotificacion());
-		usuario.setFechaExpediciionIdentificacion(usuarioDto
-				.getFechaExpediciionIdentificacion());
-		usuario.setIdDireccionResidencia(usuarioDto.getIdDireccionResidencia());
-		usuario.setMunicipioExpedicionDoc(configurarZonaGeograficaUsuario(usuarioDto
-				.getIdMunicipioExpedicionIdentificacion()));
-		usuario.setMunicipioLaboral(configurarZonaGeograficaUsuario(usuarioDto
-				.getIdMunicipioLaboral()));
-		usuario.setMunicipioNacimiento(configurarZonaGeograficaUsuario(usuarioDto
-				.getIdMunicipioNacimiento()));
-		usuario.setMunicipioNotificacion(configurarZonaGeograficaUsuario(usuarioDto
-				.getIdMunicipioNotificacion()));
-		usuario.setMunicipioResidencia(configurarZonaGeograficaUsuario(usuarioDto
-				.getIdMunicipioResidencia()));
-
-		entityManager.persist(usuario);
-		
-		logger.info(COD_001.getIdCodigo() + COD_001.getMensaje() );
-		
-		return COD_001.getIdCodigo();
+			/*
+			 * Datos personales
+			 */
+			usuario.setPrimerApellido(usuarioDto.getPrimerApellido());
+			usuario.setPrimerNombre(usuarioDto.getPrimerNombre());
+			usuario.setSegundoApellido(usuarioDto.getSegundoApellido());
+			usuario.setSegundoNombre(usuarioDto.getSegundoNombre());
+			usuario.setIdTipoIdentificacion(usuarioDto.getIdTipoIdentificacion());
+			usuario.setNroIdentificacion(usuarioDto.getNroIdentificacion());
+			usuario.setIdNacionalidad(usuarioDto.getIdNacionalidad());
+			usuario.setEmailPersonal(usuarioDto.getEmailPersonal());
+			usuario.setFechaNacimiento(usuarioDto.getFechaNacimiento());
+			usuario.setGenero(usuarioDto.getGenero());
+			usuario.setIdEstadoCivil(usuarioDto.getIdEstadoCivil());
+	
+			/*
+			 * Datos de contacto
+			 */
+			usuario.setTelefono(usuarioDto.getTelefono());
+			usuario.setDireccionNotificacion(usuarioDto.getDireccionNotificacion());
+			usuario.setFechaExpediciionIdentificacion(usuarioDto
+					.getFechaExpediciionIdentificacion());
+			usuario.setIdDireccionResidencia(usuarioDto.getIdDireccionResidencia());
+			usuario.setMunicipioExpedicionDoc(configurarZonaGeograficaUsuario(usuarioDto
+					.getIdMunicipioExpedicionIdentificacion()));
+			usuario.setMunicipioLaboral(configurarZonaGeograficaUsuario(usuarioDto
+					.getIdMunicipioLaboral()));
+			usuario.setMunicipioNacimiento(configurarZonaGeograficaUsuario(usuarioDto
+					.getIdMunicipioNacimiento()));
+			usuario.setMunicipioNotificacion(configurarZonaGeograficaUsuario(usuarioDto
+					.getIdMunicipioNotificacion()));
+			usuario.setMunicipioResidencia(configurarZonaGeograficaUsuario(usuarioDto
+					.getIdMunicipioResidencia()));
+	
+			entityManager.persist(usuario);
+			
+			logger.info(COD_001.getIdCodigo() + COD_001.getMensaje() );
+			
+			return COD_001.getIdCodigo();
 		
 		} catch(EntityExistsException eex){
 			
