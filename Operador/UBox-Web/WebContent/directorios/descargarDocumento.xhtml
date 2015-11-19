@@ -4,9 +4,98 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="../templates/page-template.xhtml">
+	<f:metadata>
+			<f:viewParam name="f" value="#{descargarDocumentoBean.fileId}" />
+			<f:viewAction action="#{descargarDocumentoBean.validarDocumento}" />
+	</f:metadata>
 	<ui:define name="title">Directorio documentos</ui:define>
 	<ui:define name="bodyContent">
-		<!-- <h:commandButton action="#{descargarDocumentoBean.descargarArchivo}"></h:commandButton> -->
+	<h:form>
+		<p:panel name="panelNotFound" id="panelNotFound" visible="#{!descargarDocumentoBean.fileFound}">
+			<div>
+				El archivo no existe o ha expirado
+			</div>
+		</p:panel>
+		
+		<p:panel name="panelFound" id="panelFound" visible="#{descargarDocumentoBean.fileFound}">
+				<p:panel id="panelPassword" name="panelPassword" visible="#{descargarDocumentoBean.withPassword}">
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<div class="row">
+				<div class="well col-md-5 pull-center login-box">
+				<div class="alert alert-info">
+					Para ver este archivo debe ingresar la clave que debió llegar a su correo
+				</div>
+				
+					<fieldset>
+			
+			
+			
+			
+						<div class="clearfix"></div><br></br>
+	
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+							<h:inputSecret id="clave" maxlength="20" value="#{descargarDocumentoBean.clave}" type="password" class="form-control"  placeholder="Clave"></h:inputSecret>
+						</div>
+						<div class="clearfix"></div>
+	
+						
+						<div></div>
+						<div class="center">
+						<h:outputLabel id="error" value="#{descargarDocumentoBean.errorClave}" class="alert alert-danger" rendered="#{descargarDocumentoBean.errorClave != null}"></h:outputLabel>
+						</div> 
+						
+						<p class="center col-md-5">
+							<h:commandButton id="btnSend" value="Validar Clave" class="btn btn-primary btn-lg" action="#{descargarDocumentoBean.validarClave}"></h:commandButton>
+						</p>
+		
+		</fieldset>
+				
+			</div>
+			</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				</p:panel>
+				<p:panel id="panelNoPassword" name="panelNoPassword" visible="#{!descargarDocumentoBean.withPassword}">
+					<div>
+					<h:commandButton action="#{descargarDocumentoBean.descargarDocumento}" value="Descargar documento" ></h:commandButton>
+					</div>	
+				</p:panel>
+				
+				
+		</p:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
 

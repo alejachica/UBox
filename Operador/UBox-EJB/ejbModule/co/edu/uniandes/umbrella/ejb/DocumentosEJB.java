@@ -1,5 +1,8 @@
 package co.edu.uniandes.umbrella.ejb;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,12 +10,16 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import co.edu.uniandes.umbrella.dto.CompartidoDTO;
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
+import co.edu.uniandes.umbrella.dto.UsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.Carpeta;
 import co.edu.uniandes.umbrella.entidades.Documento;
 import co.edu.uniandes.umbrella.entidades.DocumentoXUsuarioCompartido;
 import co.edu.uniandes.umbrella.entidades.FormaComparticionEnum;
 import co.edu.uniandes.umbrella.entidades.Usuario;
+import co.edu.uniandes.umbrella.external.DocumentoRequest;
+import co.edu.uniandes.umbrella.external.RecibirDocumentoRequest;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
@@ -22,6 +29,14 @@ import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 import javax.persistence.*;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Session Bean implementation class DocumentosEJB
@@ -156,7 +171,131 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	}
 	
 
+	public ResultadoOperacion compartirDocumento(int idUsuario, String documentoDestino, String tipoDocumentoDestino, int idDocumentoCompartir, Date fechaExpiracion)
+	{
+		//Valida si el usuario está registrado en el mismo operador
+		UsuarioDTO usuarioDestino = ejbUsuario.consultarUsuario(tipoDocumentoDestino, documentoDestino);
+		if(usuarioDestino != null)
+		{
+			//Si el usuario está registrado en UBOX hace el compartido del archivo internamente
+			return compartirDocumentoInterno(idUsuario, usuarioDestino.getIdUsuario(), false, idDocumentoCompartir, fechaExpiracion);
+		}
+		else
+		{
+			ResultadoOperacion respuesta = new ResultadoOperacion();
+			
+			//Si la url del operador es igual a null
+			String urlOperador = this.getUrlServicioOperador(idUsuario);
+			if(urlOperador != null)
+			{
+				//consulta el documento que se desea compartir
+				Query query = entityManager.createNamedQuery("Documento.findById", Documento.class).setParameter("id", idDocumentoCompartir);
+				Documento documento = (Documento) query.getSingleResult();
+				
+				Usuario usuarioOrigen = ejbUsuario.consultarUsuarioPorId(idUsuario);
+				
+				respuesta = this.compartirConUsuarioExterno(urlOperador, documento, usuarioDestino, usuarioOrigen);
+				
+				//Si compartio satisfactoriamente actualiza la BD
+				if(respuesta.isOperacionExitosa())
+				{
+					DocumentoXUsuarioCompartido compartido = new DocumentoXUsuarioCompartido();
+					compartido.setUsuario(usuarioOrigen);
+					//Le asigna el tipo de comparticion. Si viene con clave o no
+					compartido.setFormaComparticion(ejbFormaComparticion.obtenerFormaComparticionPorId(FormaComparticionEnum.DE_PRIVADA.getValue()));
+					compartido.setLectura(true);
+					compartido.setEscritura(false);
+					compartido.setDescarga(true);
+					compartido.setIdentificacionComparticion(documentoDestino);
+					compartido.setFechaExpiracion(fechaExpiracion);
+					compartido.setRecibido(false);
+					compartido.setEnviado(true);
+					compartido.setDocumento(documento);
+				}
 
+			}
+			else
+			{
+				respuesta.setOperacionExitosa(false);
+				respuesta.setResultadoOperacion("El usuario no tiene ningún operador registrado, es mejor compartir como link");
+			}
+			
+			return respuesta;
+
+		}
+	}
+	
+	/***
+	 * Realiza el llamado Rest a un Operador externo
+	 * @param documento informacion del doucmeot
+	 * @param usuarioDestino informacion del usuario al que se le comparte el archivo
+	 * @param usuarioOrigen indormacion del usuario que comparte
+	 * @return
+	 */
+	private ResultadoOperacion compartirConUsuarioExterno(String urlOperador, Documento documento, UsuarioDTO usuarioDestino,
+			Usuario usuarioOrigen) {
+		
+//		ResultadoOperacion respuesta = new ResultadoOperacion();
+//		
+//		String rutaServicioRest = urlOperador + "api/documentos/recibirCompartido";
+//
+//		RecibirDocumentoRequest requestObj = new RecibirDocumentoRequest();
+//		requestObj.setEmpresaPublica(false);
+//		requestObj.setIdentificacionDestino(usuarioDestino.getIdentificacion());
+//		requestObj.setIdentificacionOrigen(usuarioOrigen.getIdentificacion());
+//		/***REVISAR QUEMADO ***/
+//		requestObj.setIdOperadorExterno("1");
+//		
+//		DocumentoRequest documentoRequest = new DocumentoRequest();
+//		documentoRequest.setArchivo(Base64.encodeToString(documento.getDocumento(), 0));
+//		
+//		
+//		try {
+//			
+//			HttpClient client = new DefaultHttpClient();
+//
+//			  HttpPost post = new HttpPost(rutaServicioRest);
+//
+//			
+//			
+//			ObjectMapper mapper = new ObjectMapper();
+//			//String jsonInString = mapper.writeValueAsString(obj);
+//			
+//			StringEntity input = new StringEntity("");
+//			
+//			post.setEntity(input);
+//
+//			  HttpResponse response = client.execute(post);
+//
+//			  BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//
+//			  String line = "";
+//
+//			  while ((line = rd.readLine()) != null) {
+//
+//			   System.out.println(line);
+//
+//			  }
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		 return respuesta;
+		return null;
+	}
+
+	/***
+	 * Consulta en el centralizado r el operador actual de un usuario
+	 * @param idUsuario
+	 * @return Url del servicio de un operador
+	 */ 
+	private String getUrlServicioOperador(int idUsuario)
+	{
+		return "http://localhost:15094/";
+	}
+	
+	
 	@Override
 	public void recibirDocumentoCompartido(String tipoIdentificacionOrigen, String identificacionOrigen, boolean esEmpresaPublica, String tipoIdentificacionDestino,
  
@@ -381,30 +520,44 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	}
 	
 	
-	public DocumentoDTO ConsultarDocumentoPorLink(String link)
+	public CompartidoDTO ConsultarDocumentoPorLink(String link)
 	{	
-		DocumentoDTO docDTO = new DocumentoDTO();
-		Query query = entityManager.createNamedQuery("DocumentoXUsuarioCompartido.findByLink", DocumentoXUsuarioCompartido.class).setParameter("link", link);
-		DocumentoXUsuarioCompartido compartido = (DocumentoXUsuarioCompartido) query.getSingleResult();
+		CompartidoDTO compartidoDto = new CompartidoDTO();
+		try {
+			Query query = entityManager.createNamedQuery("DocumentoXUsuarioCompartido.findByLink", DocumentoXUsuarioCompartido.class).setParameter("link", link);
+			DocumentoXUsuarioCompartido compartido = (DocumentoXUsuarioCompartido) query.getSingleResult();
+			
+			Documento documento = compartido.getDocumento();
+			
+			
+			
+			DocumentoDTO docDTO = new DocumentoDTO();
+			docDTO.setDocumento(documento.getDocumento());
+			docDTO.setFecha(documento.getFecha());
+			docDTO.setFirmado(documento.getFirmado());
+			docDTO.setFkCarpeta(documento.getCarpeta().getIdCarpeta());
+			docDTO.setFkUsuario(documento.getUsuario().getIdUsuario());
+			docDTO.setIdDocumento(documento.getIdDocumento());
+			docDTO.setIdTipoDocumento(documento.getIdTipoDocumento());
+			docDTO.setIdTipoMime(documento.getIdTipoMime());
+			docDTO.setNombre(documento.getNombre());
+			docDTO.setPalabrasClave(documento.getPalabrasClave());
+			docDTO.setPapelera(documento.getPapelera());
+			docDTO.setRuta(documento.getRuta());
+			docDTO.setSize(documento.getSize());
+			docDTO.setVersion(documento.getVersion());
+			docDTO.setArchivoCompartidoTemporal(documento.isArchivoCompartidoTemporal());
+			docDTO.setArchivoCompartidoTipoLink(documento.isArchivoCompartidoTipoLink());
+			
+			compartidoDto.setDocumento(docDTO);
+			compartidoDto.setClave(compartido.getClave());
+			
+			return compartidoDto;
+	
+		} catch (NoResultException e) {
+			return null;
+		}
 		
-		Documento documento = compartido.getDocumento();
-		docDTO.setDocumento(documento.getDocumento());
-		docDTO.setFecha(documento.getFecha());
-		docDTO.setFirmado(documento.getFirmado());
-		docDTO.setFkCarpeta(documento.getCarpeta().getIdCarpeta());
-		docDTO.setFkUsuario(documento.getUsuario().getIdUsuario());
-		docDTO.setIdDocumento(documento.getIdDocumento());
-		docDTO.setIdTipoDocumento(documento.getIdTipoDocumento());
-		docDTO.setIdTipoMime(documento.getIdTipoMime());
-		docDTO.setNombre(documento.getNombre());
-		docDTO.setPalabrasClave(documento.getPalabrasClave());
-		docDTO.setPapelera(documento.getPapelera());
-		docDTO.setRuta(documento.getRuta());
-		docDTO.setSize(documento.getSize());
-		docDTO.setVersion(documento.getVersion());
-		docDTO.setArchivoCompartidoTemporal(documento.isArchivoCompartidoTemporal());
-		docDTO.setArchivoCompartidoTipoLink(documento.isArchivoCompartidoTipoLink());
-		return docDTO;
 	}
 
 }
