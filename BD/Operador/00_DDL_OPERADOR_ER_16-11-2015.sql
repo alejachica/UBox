@@ -26,11 +26,12 @@ CREATE TABLE IF NOT EXISTS `ubox`.`Forma_Comparticion` (
   `id_forma_comparticion` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NOT NULL COMMENT '',
   `descripcion` VARCHAR(200) NOT NULL COMMENT '',
-  `mismoubox` TINYINT(1) NULL DEFAULT NULL COMMENT '',
-  `entreuboxes` TINYINT(1) NULL DEFAULT NULL COMMENT '',
-  `entidadesPublicasaUsuario` TINYINT(1) NULL DEFAULT NULL COMMENT '',
-  `entidadesPrivadasaUsuario` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
-  `simple` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `mismoOperador`  bit(1) NULL DEFAULT NULL AFTER `descripcion`,
+  `entreOperadores` bit(1) NULL DEFAULT NULL AFTER `mismoubox`,
+  `entidadesPublicasaUsuario`  bit(1) NULL DEFAULT NULL AFTER `entreOperadores`,
+  `entidadesPrivadasaUsuario`  bit(1) NULL DEFAULT NULL AFTER `entidadesPublicasaUsuario`,
+  `simple`  bit(1) NULL DEFAULT NULL AFTER `entidadesPrivadasaUsuario`,
+  `aplicaFechaExpiracion`  bit(1) NULL AFTER `simple`,
   PRIMARY KEY (`id_forma_comparticion`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -68,11 +69,12 @@ CREATE TABLE IF NOT EXISTS `ubox`.`usuario` (
   `password` VARCHAR(50) NOT NULL COMMENT '',
   `correo` VARCHAR(50) NOT NULL COMMENT '',
   `identificacion` VARCHAR(50) NOT NULL COMMENT '',
-  `activo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
+  `activo` BIT NOT NULL DEFAULT NULL COMMENT '',
   `primer_nombre` VARCHAR(50) NOT NULL COMMENT '',
   `segundo_nombre` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   `primer_apellido` VARCHAR(50) NOT NULL COMMENT '',
   `segundo_apellido` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  `estaPazYSalvo` BIT NOT NULL,
   PRIMARY KEY (`id_usuario`)  COMMENT '')
 ENGINE = InnoDB
 AUTO_INCREMENT = 12
@@ -92,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `ubox`.`carpeta` (
   `nombre_carpeta` VARCHAR(50) NOT NULL COMMENT '',
   `descripcion` VARCHAR(500) NULL DEFAULT NULL COMMENT '',
   `id_carpeta_padre` INT(11) NULL DEFAULT NULL COMMENT '',
+  `isCarpetaRaiz` TINYINT(1) NOT NULL DEFAULT 0 AFTER `id_carpeta_padre`,
   PRIMARY KEY (`id_carpeta`)  COMMENT '',
   CONSTRAINT `carpeta_ibfk_1`
     FOREIGN KEY (`id_carpeta_padre`)
@@ -163,10 +166,10 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento` (
   `fk_carpeta` INT(11) NOT NULL COMMENT '',
   `fk_usuario` INT(11) NOT NULL COMMENT '',
   `nombre` VARCHAR(50) NOT NULL COMMENT '',
-  `id_tipo_documento` INT(10) NOT NULL COMMENT '',
+  `id_tipo_documento`  int(10) NOT NULL AFTER `nombre`,
   `id_tipo_mime` VARCHAR(20) NULL DEFAULT NULL COMMENT '',
   `palabras_clave` VARCHAR(50) NOT NULL COMMENT '',
-  `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+  `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER palabras_clave,
   `version` VARCHAR(50) NOT NULL COMMENT '',
   `firmado` TINYINT(1) NULL DEFAULT NULL COMMENT '',
   `papelera` TINYINT(1) NOT NULL COMMENT 'Columna para identificar si un documento esta en la papelera de reciclaje o no.',
@@ -202,17 +205,17 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento_x_usuario_compartido` (
   `fk_documento` INT(11) NOT NULL COMMENT '',
   `fk_usuario` INT(11) NOT NULL COMMENT '',
   `fk_forma_comparticion` INT(11) NOT NULL COMMENT '',
-  `lectura` BIT(1) NULL DEFAULT NULL COMMENT '',
-  `escritura` BIT(1) NULL DEFAULT NULL COMMENT '',
-  `descarga` BIT(1) NULL DEFAULT NULL COMMENT '',
-  `compartir` BIT(1) NULL DEFAULT NULL COMMENT '',
+  `lectura`  bit(1) NULL DEFAULT NULL AFTER `fk_forma_comparticion`,
+  `escritura`  bit(1) NULL DEFAULT NULL AFTER `lectura`,
+  `descarga`  bit(1) NULL DEFAULT NULL AFTER `escritura`,
+  `compartir`  bit(1) NULL DEFAULT NULL AFTER `descarga`,
   `link` VARCHAR(128) NULL DEFAULT NULL COMMENT '',
   `permiso_acitvo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
   `fecha_expiracion` DATE NULL DEFAULT NULL COMMENT '',
   `identificacionComparticion` VARCHAR(50) NULL DEFAULT NULL COMMENT 'Numero de identificación a quien se le comparte el documento o de quien compartio el documento con un usuario.',
-  `uboxComparticion` VARCHAR(45) NULL DEFAULT NULL COMMENT 'Identificador del ubox al cual pertenece el usuario que comparte el documento',
-  `enviado` BIT(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue enviado o compartido a otro usuario',
-  `recibido` BIT(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue recibido de otro usuario',
+  `idOperadorExterno` VARCHAR(45) NULL DEFAULT NULL COMMENT 'Identificador del ubox al cual pertenece el usuario que comparte el documento',
+  `enviado`  bit(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue enviado o compartido a otro usuario' AFTER `uboxComparticion`,
+  `recibido`  bit(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue recibido de otro usuario' AFTER `enviado`,
   PRIMARY KEY (`id_compartido`)  COMMENT '',
   CONSTRAINT `fk_documento_compartido_documento`
     FOREIGN KEY (`fk_documento`)
@@ -347,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `ubox`.`lista_valor` (
   `valor` VARCHAR(50) NOT NULL COMMENT '',
   `activo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
   `descripcion` VARCHAR(256) NOT NULL COMMENT '',
-  `codigo_externo` VARCHAR(20) NULL DEFAULT NULL COMMENT '',
+  `codigo_externo`  varchar(20) NULL AFTER `descripcion`,
   PRIMARY KEY (`id_lista_valor`)  COMMENT '',
   CONSTRAINT `fk_lista_valor_lista`
     FOREIGN KEY (`fk_lista`)

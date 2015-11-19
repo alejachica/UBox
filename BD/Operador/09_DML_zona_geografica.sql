@@ -35,6 +35,39 @@ insert into ZONA_GEOGRAFICA values(95,'GUAVIARE',1000);
 insert into ZONA_GEOGRAFICA values(97,'VAUPES',1000);
 insert into ZONA_GEOGRAFICA values(99,'VICHADA',1000);
 --//departamentos fin
+
+insert into ZONA_GEOGRAFICA values(1001,'BARRANQUILLA',08);
+insert into ZONA_GEOGRAFICA values(1002,'BOGOTA, D.C.',11);
+insert into ZONA_GEOGRAFICA values(1003,'CARTAGENA',13);
+insert into ZONA_GEOGRAFICA values(1004,'TUNJA',15);
+insert into ZONA_GEOGRAFICA values(1005,'MANIZALES',17);
+insert into ZONA_GEOGRAFICA values(1006,'FLORENCIA',18);
+insert into ZONA_GEOGRAFICA values(1007,'POPAYAN',19);
+insert into ZONA_GEOGRAFICA values(1008,'VALLEDUPAR',20);
+insert into ZONA_GEOGRAFICA values(1009,'MONTERIA',23);
+insert into ZONA_GEOGRAFICA values(1010,'AGUA DE DIOS',25);
+insert into ZONA_GEOGRAFICA values(1011,'QUIBDO',27);
+insert into ZONA_GEOGRAFICA values(1012,'NEIVA',41);
+insert into ZONA_GEOGRAFICA values(1013,'RIOHACHA',44);
+insert into ZONA_GEOGRAFICA values(1014,'SANTA MARTA',47);
+insert into ZONA_GEOGRAFICA values(1015,'VILLAVICENCIO',50);
+insert into ZONA_GEOGRAFICA values(1016,'PASTO',52);
+insert into ZONA_GEOGRAFICA values(1017,'CUCUTA',54);
+insert into ZONA_GEOGRAFICA values(1018,'ARMENIA',63);
+insert into ZONA_GEOGRAFICA values(1019,'PEREIRA',66);
+insert into ZONA_GEOGRAFICA values(1020,'BUCARAMANGA',68);
+insert into ZONA_GEOGRAFICA values(1021,'SINCELEJO',70);
+insert into ZONA_GEOGRAFICA values(1022,'IBAGUE',73);
+insert into ZONA_GEOGRAFICA values(1023,'CALI',76);
+insert into ZONA_GEOGRAFICA values(1024,'ARAUCA',81);
+insert into ZONA_GEOGRAFICA values(1025,'YOPAL',85);
+insert into ZONA_GEOGRAFICA values(1026,'MOCOA',86);
+insert into ZONA_GEOGRAFICA values(1027,'SAN ANDRES',88);
+insert into ZONA_GEOGRAFICA values(1028,'INIRIDA',94);
+insert into ZONA_GEOGRAFICA values(1029,'MITU',97);
+insert into ZONA_GEOGRAFICA values(1030,'PUERTO CARREÑO',99);
+
+
 insert into ZONA_GEOGRAFICA values(001,'MEDELLIN',05);
 insert into ZONA_GEOGRAFICA values(002,'ABEJORRAL',05);
 insert into ZONA_GEOGRAFICA values(004,'ABRIAQUI',05);
@@ -160,7 +193,7 @@ insert into ZONA_GEOGRAFICA values(887,'YARUMAL',05);
 insert into ZONA_GEOGRAFICA values(890,'YOLOMBO',05);
 insert into ZONA_GEOGRAFICA values(893,'YONDO',05);
 insert into ZONA_GEOGRAFICA values(895,'ZARAGOZA',05);
-insert into ZONA_GEOGRAFICA values(001,'BARRANQUILLA',08);
+
 insert into ZONA_GEOGRAFICA values(078,'BARANOA',08);
 insert into ZONA_GEOGRAFICA values(137,'CAMPO DE LA CRUZ',08);
 insert into ZONA_GEOGRAFICA values(141,'CANDELARIA',08);
@@ -183,8 +216,7 @@ insert into ZONA_GEOGRAFICA values(758,'SOLEDAD',08);
 insert into ZONA_GEOGRAFICA values(770,'SUAN',08);
 insert into ZONA_GEOGRAFICA values(832,'TUBARA',08);
 insert into ZONA_GEOGRAFICA values(849,'USIACURI',08);
-insert into ZONA_GEOGRAFICA values(001,'BOGOTA, D.C.',11);
-insert into ZONA_GEOGRAFICA values(001,'CARTAGENA',13);
+
 insert into ZONA_GEOGRAFICA values(006,'ACHI',13);
 insert into ZONA_GEOGRAFICA values(030,'ALTOS DEL ROSARIO',13);
 insert into ZONA_GEOGRAFICA values(042,'ARENAL',13);
@@ -230,7 +262,7 @@ insert into ZONA_GEOGRAFICA values(836,'TURBACO',13);
 insert into ZONA_GEOGRAFICA values(838,'TURBANA',13);
 insert into ZONA_GEOGRAFICA values(873,'VILLANUEVA',13);
 insert into ZONA_GEOGRAFICA values(894,'ZAMBRANO',13);
-insert into ZONA_GEOGRAFICA values(001,'TUNJA',15);
+
 insert into ZONA_GEOGRAFICA values(022,'ALMEIDA',15);
 insert into ZONA_GEOGRAFICA values(047,'AQUITANIA',15);
 insert into ZONA_GEOGRAFICA values(051,'ARCABUCO',15);
@@ -353,7 +385,7 @@ insert into ZONA_GEOGRAFICA values(842,'UMBITA',15);
 insert into ZONA_GEOGRAFICA values(861,'VENTAQUEMADA',15);
 insert into ZONA_GEOGRAFICA values(879,'VIRACACHA',15);
 insert into ZONA_GEOGRAFICA values(897,'ZETAQUIRA',15);
-insert into ZONA_GEOGRAFICA values(001,'MANIZALES',17);
+
 insert into ZONA_GEOGRAFICA values(013,'AGUADAS',17);
 insert into ZONA_GEOGRAFICA values(042,'ANSERMA',17);
 insert into ZONA_GEOGRAFICA values(050,'ARANZAZU',17);
@@ -380,7 +412,7 @@ insert into ZONA_GEOGRAFICA values(777,'SUPIA',17);
 insert into ZONA_GEOGRAFICA values(867,'VICTORIA',17);
 insert into ZONA_GEOGRAFICA values(873,'VILLAMARIA',17);
 insert into ZONA_GEOGRAFICA values(877,'VITERBO',17);
-insert into ZONA_GEOGRAFICA values(001,'FLORENCIA',18);
+
 insert into ZONA_GEOGRAFICA values(029,'ALBANIA',18);
 insert into ZONA_GEOGRAFICA values(094,'BELEN DE LOS ANDAQUIES',18);
 insert into ZONA_GEOGRAFICA values(150,'CARTAGENA DEL CHAIRA',18);
@@ -396,7 +428,7 @@ insert into ZONA_GEOGRAFICA values(753,'SAN VICENTE DEL CAGUAN',18);
 insert into ZONA_GEOGRAFICA values(756,'SOLANO',18);
 insert into ZONA_GEOGRAFICA values(785,'SOLITA',18);
 insert into ZONA_GEOGRAFICA values(860,'VALPARAISO',18);
-insert into ZONA_GEOGRAFICA values(001,'POPAYAN',19);
+
 insert into ZONA_GEOGRAFICA values(022,'ALMAGUER',19);
 insert into ZONA_GEOGRAFICA values(050,'ARGELIA',19);
 insert into ZONA_GEOGRAFICA values(075,'BALBOA',19);
@@ -438,7 +470,7 @@ insert into ZONA_GEOGRAFICA values(809,'TIMBIQUI',19);
 insert into ZONA_GEOGRAFICA values(821,'TORIBIO',19);
 insert into ZONA_GEOGRAFICA values(824,'TOTORO',19);
 insert into ZONA_GEOGRAFICA values(845,'VILLA RICA',19);
-insert into ZONA_GEOGRAFICA values(001,'VALLEDUPAR',20);
+
 insert into ZONA_GEOGRAFICA values(011,'AGUACHICA',20);
 insert into ZONA_GEOGRAFICA values(013,'AGUSTIN CODAZZI',20);
 insert into ZONA_GEOGRAFICA values(032,'ASTREA',20);
@@ -463,7 +495,7 @@ insert into ZONA_GEOGRAFICA values(710,'SAN ALBERTO',20);
 insert into ZONA_GEOGRAFICA values(750,'SAN DIEGO',20);
 insert into ZONA_GEOGRAFICA values(770,'SAN MARTIN',20);
 insert into ZONA_GEOGRAFICA values(787,'TAMALAMEQUE',20);
-insert into ZONA_GEOGRAFICA values(001,'MONTERIA',23);
+
 insert into ZONA_GEOGRAFICA values(068,'AYAPEL',23);
 insert into ZONA_GEOGRAFICA values(079,'BUENAVISTA',23);
 insert into ZONA_GEOGRAFICA values(090,'CANALETE',23);
@@ -491,7 +523,7 @@ insert into ZONA_GEOGRAFICA values(678,'SAN CARLOS',23);
 insert into ZONA_GEOGRAFICA values(686,'SAN PELAYO',23);
 insert into ZONA_GEOGRAFICA values(807,'TIERRALTA',23);
 insert into ZONA_GEOGRAFICA values(855,'VALENCIA',23);
-insert into ZONA_GEOGRAFICA values(001,'AGUA DE DIOS',25);
+
 insert into ZONA_GEOGRAFICA values(019,'ALBAN',25);
 insert into ZONA_GEOGRAFICA values(035,'ANAPOIMA',25);
 insert into ZONA_GEOGRAFICA values(040,'ANOLAIMA',25);
@@ -607,7 +639,7 @@ insert into ZONA_GEOGRAFICA values(878,'VIOTA',25);
 insert into ZONA_GEOGRAFICA values(885,'YACOPI',25);
 insert into ZONA_GEOGRAFICA values(898,'ZIPACON',25);
 insert into ZONA_GEOGRAFICA values(899,'ZIPAQUIRA',25);
-insert into ZONA_GEOGRAFICA values(001,'QUIBDO',27);
+
 insert into ZONA_GEOGRAFICA values(006,'ACANDI',27);
 insert into ZONA_GEOGRAFICA values(025,'ALTO BAUDO',27);
 insert into ZONA_GEOGRAFICA values(050,'ATRATO',27);
@@ -637,7 +669,7 @@ insert into ZONA_GEOGRAFICA values(745,'SIPI',27);
 insert into ZONA_GEOGRAFICA values(787,'TADO',27);
 insert into ZONA_GEOGRAFICA values(800,'UNGUIA',27);
 insert into ZONA_GEOGRAFICA values(810,'UNION PANAMERICANA',27);
-insert into ZONA_GEOGRAFICA values(001,'NEIVA',41);
+
 insert into ZONA_GEOGRAFICA values(006,'ACEVEDO',41);
 insert into ZONA_GEOGRAFICA values(013,'AGRADO',41);
 insert into ZONA_GEOGRAFICA values(016,'AIPE',41);
@@ -674,7 +706,7 @@ insert into ZONA_GEOGRAFICA values(801,'TERUEL',41);
 insert into ZONA_GEOGRAFICA values(807,'TIMANA',41);
 insert into ZONA_GEOGRAFICA values(872,'VILLAVIEJA',41);
 insert into ZONA_GEOGRAFICA values(885,'YAGUARA',41);
-insert into ZONA_GEOGRAFICA values(001,'RIOHACHA',44);
+
 insert into ZONA_GEOGRAFICA values(035,'ALBANIA',44);
 insert into ZONA_GEOGRAFICA values(078,'BARRANCAS',44);
 insert into ZONA_GEOGRAFICA values(090,'DIBULLA',44);
@@ -689,7 +721,7 @@ insert into ZONA_GEOGRAFICA values(650,'SAN JUAN DEL CESAR',44);
 insert into ZONA_GEOGRAFICA values(847,'URIBIA',44);
 insert into ZONA_GEOGRAFICA values(855,'URUMITA',44);
 insert into ZONA_GEOGRAFICA values(874,'VILLANUEVA',44);
-insert into ZONA_GEOGRAFICA values(001,'SANTA MARTA',47);
+
 insert into ZONA_GEOGRAFICA values(030,'ALGARROBO',47);
 insert into ZONA_GEOGRAFICA values(053,'ARACATACA',47);
 insert into ZONA_GEOGRAFICA values(058,'ARIGUANI',47);
@@ -719,7 +751,7 @@ insert into ZONA_GEOGRAFICA values(745,'SITIONUEVO',47);
 insert into ZONA_GEOGRAFICA values(798,'TENERIFE',47);
 insert into ZONA_GEOGRAFICA values(960,'ZAPAYAN',47);
 insert into ZONA_GEOGRAFICA values(980,'ZONA BANANERA',47);
-insert into ZONA_GEOGRAFICA values(001,'VILLAVICENCIO',50);
+
 insert into ZONA_GEOGRAFICA values(006,'ACACIAS',50);
 insert into ZONA_GEOGRAFICA values(110,'BARRANCA DE UPIA',50);
 insert into ZONA_GEOGRAFICA values(124,'CABUYARO',50);
@@ -748,7 +780,7 @@ insert into ZONA_GEOGRAFICA values(683,'SAN JUAN DE ARAMA',50);
 insert into ZONA_GEOGRAFICA values(686,'SAN JUANITO',50);
 insert into ZONA_GEOGRAFICA values(689,'SAN MARTIN',50);
 insert into ZONA_GEOGRAFICA values(711,'VISTAHERMOSA',50);
-insert into ZONA_GEOGRAFICA values(001,'PASTO',52);
+
 insert into ZONA_GEOGRAFICA values(019,'ALBAN',52);
 insert into ZONA_GEOGRAFICA values(022,'ALDANA',52);
 insert into ZONA_GEOGRAFICA values(036,'ANCUYA',52);
@@ -812,7 +844,7 @@ insert into ZONA_GEOGRAFICA values(788,'TANGUA',52);
 insert into ZONA_GEOGRAFICA values(835,'SAN ANDRES DE TUMACO',52);
 insert into ZONA_GEOGRAFICA values(838,'TUQUERRES',52);
 insert into ZONA_GEOGRAFICA values(885,'YACUANQUER',52);
-insert into ZONA_GEOGRAFICA values(001,'CUCUTA',54);
+
 insert into ZONA_GEOGRAFICA values(003,'ABREGO',54);
 insert into ZONA_GEOGRAFICA values(051,'ARBOLEDAS',54);
 insert into ZONA_GEOGRAFICA values(099,'BOCHALEMA',54);
@@ -852,7 +884,7 @@ insert into ZONA_GEOGRAFICA values(810,'TIBU',54);
 insert into ZONA_GEOGRAFICA values(820,'TOLEDO',54);
 insert into ZONA_GEOGRAFICA values(871,'VILLA CARO',54);
 insert into ZONA_GEOGRAFICA values(874,'VILLA DEL ROSARIO',54);
-insert into ZONA_GEOGRAFICA values(001,'ARMENIA',63);
+
 insert into ZONA_GEOGRAFICA values(111,'BUENAVISTA',63);
 insert into ZONA_GEOGRAFICA values(130,'CALARCA',63);
 insert into ZONA_GEOGRAFICA values(190,'CIRCASIA',63);
@@ -864,7 +896,7 @@ insert into ZONA_GEOGRAFICA values(470,'MONTENEGRO',63);
 insert into ZONA_GEOGRAFICA values(548,'PIJAO',63);
 insert into ZONA_GEOGRAFICA values(594,'QUIMBAYA',63);
 insert into ZONA_GEOGRAFICA values(690,'SALENTO',63);
-insert into ZONA_GEOGRAFICA values(001,'PEREIRA',66);
+
 insert into ZONA_GEOGRAFICA values(045,'APIA',66);
 insert into ZONA_GEOGRAFICA values(075,'BALBOA',66);
 insert into ZONA_GEOGRAFICA values(088,'BELEN DE UMBRIA',66);
@@ -878,7 +910,7 @@ insert into ZONA_GEOGRAFICA values(572,'PUEBLO RICO',66);
 insert into ZONA_GEOGRAFICA values(594,'QUINCHIA',66);
 insert into ZONA_GEOGRAFICA values(682,'SANTA ROSA DE CABAL',66);
 insert into ZONA_GEOGRAFICA values(687,'SANTUARIO',66);
-insert into ZONA_GEOGRAFICA values(001,'BUCARAMANGA',68);
+
 insert into ZONA_GEOGRAFICA values(013,'AGUADA',68);
 insert into ZONA_GEOGRAFICA values(020,'ALBANIA',68);
 insert into ZONA_GEOGRAFICA values(051,'ARATOCA',68);
@@ -965,7 +997,7 @@ insert into ZONA_GEOGRAFICA values(861,'VELEZ',68);
 insert into ZONA_GEOGRAFICA values(867,'VETAS',68);
 insert into ZONA_GEOGRAFICA values(872,'VILLANUEVA',68);
 insert into ZONA_GEOGRAFICA values(895,'ZAPATOCA',68);
-insert into ZONA_GEOGRAFICA values(001,'SINCELEJO',70);
+
 insert into ZONA_GEOGRAFICA values(110,'BUENAVISTA',70);
 insert into ZONA_GEOGRAFICA values(124,'CAIMITO',70);
 insert into ZONA_GEOGRAFICA values(204,'COLOSO',70);
@@ -991,7 +1023,7 @@ insert into ZONA_GEOGRAFICA values(742,'SAN LUIS DE SINCE',70);
 insert into ZONA_GEOGRAFICA values(771,'SUCRE',70);
 insert into ZONA_GEOGRAFICA values(820,'SANTIAGO DE TOLU',70);
 insert into ZONA_GEOGRAFICA values(823,'TOLU VIEJO',70);
-insert into ZONA_GEOGRAFICA values(001,'IBAGUE',73);
+
 insert into ZONA_GEOGRAFICA values(024,'ALPUJARRA',73);
 insert into ZONA_GEOGRAFICA values(026,'ALVARADO',73);
 insert into ZONA_GEOGRAFICA values(030,'AMBALEMA',73);
@@ -1038,7 +1070,7 @@ insert into ZONA_GEOGRAFICA values(854,'VALLE DE SAN JUAN',73);
 insert into ZONA_GEOGRAFICA values(861,'VENADILLO',73);
 insert into ZONA_GEOGRAFICA values(870,'VILLAHERMOSA',73);
 insert into ZONA_GEOGRAFICA values(873,'VILLARRICA',73);
-insert into ZONA_GEOGRAFICA values(001,'CALI',76);
+
 insert into ZONA_GEOGRAFICA values(020,'ALCALA',76);
 insert into ZONA_GEOGRAFICA values(036,'ANDALUCIA',76);
 insert into ZONA_GEOGRAFICA values(041,'ANSERMANUEVO',76);
@@ -1080,14 +1112,14 @@ insert into ZONA_GEOGRAFICA values(869,'VIJES',76);
 insert into ZONA_GEOGRAFICA values(890,'YOTOCO',76);
 insert into ZONA_GEOGRAFICA values(892,'YUMBO',76);
 insert into ZONA_GEOGRAFICA values(895,'ZARZAL',76);
-insert into ZONA_GEOGRAFICA values(001,'ARAUCA',81);
+
 insert into ZONA_GEOGRAFICA values(065,'ARAUQUITA',81);
 insert into ZONA_GEOGRAFICA values(220,'CRAVO NORTE',81);
 insert into ZONA_GEOGRAFICA values(300,'FORTUL',81);
 insert into ZONA_GEOGRAFICA values(591,'PUERTO RONDON',81);
 insert into ZONA_GEOGRAFICA values(736,'SARAVENA',81);
 insert into ZONA_GEOGRAFICA values(794,'TAME',81);
-insert into ZONA_GEOGRAFICA values(001,'YOPAL',85);
+
 insert into ZONA_GEOGRAFICA values(010,'AGUAZUL',85);
 insert into ZONA_GEOGRAFICA values(015,'CHAMEZA',85);
 insert into ZONA_GEOGRAFICA values(125,'HATO COROZAL',85);
@@ -1106,7 +1138,7 @@ insert into ZONA_GEOGRAFICA values(400,'TAMARA',85);
 insert into ZONA_GEOGRAFICA values(410,'TAURAMENA',85);
 insert into ZONA_GEOGRAFICA values(430,'TRINIDAD',85);
 insert into ZONA_GEOGRAFICA values(440,'VILLANUEVA',85);
-insert into ZONA_GEOGRAFICA values(001,'MOCOA',86);
+
 insert into ZONA_GEOGRAFICA values(219,'COLON',86);
 insert into ZONA_GEOGRAFICA values(320,'ORITO',86);
 insert into ZONA_GEOGRAFICA values(568,'PUERTO ASIS',86);
@@ -1119,7 +1151,7 @@ insert into ZONA_GEOGRAFICA values(757,'SAN MIGUEL',86);
 insert into ZONA_GEOGRAFICA values(760,'SANTIAGO',86);
 insert into ZONA_GEOGRAFICA values(865,'VALLE DEL GUAMUEZ',86);
 insert into ZONA_GEOGRAFICA values(885,'VILLAGARZON',86);
-insert into ZONA_GEOGRAFICA values(001,'SAN ANDRES',88);
+
 insert into ZONA_GEOGRAFICA values(564,'PROVIDENCIA',88);
 insert into ZONA_GEOGRAFICA values(001,'LETICIA',91);
 insert into ZONA_GEOGRAFICA values(263,'EL ENCANTO',91);
@@ -1132,7 +1164,7 @@ insert into ZONA_GEOGRAFICA values(536,'PUERTO ARICA',91);
 insert into ZONA_GEOGRAFICA values(540,'PUERTO NARIÑO',91);
 insert into ZONA_GEOGRAFICA values(669,'PUERTO SANTANDER',91);
 insert into ZONA_GEOGRAFICA values(798,'TARAPACA',91);
-insert into ZONA_GEOGRAFICA values(001,'INIRIDA',94);
+
 insert into ZONA_GEOGRAFICA values(343,'BARRANCO MINAS',94);
 insert into ZONA_GEOGRAFICA values(663,'MAPIRIPANA',94);
 insert into ZONA_GEOGRAFICA values(883,'SAN FELIPE',94);
@@ -1145,13 +1177,13 @@ insert into ZONA_GEOGRAFICA values(001,'SAN JOSE DEL GUAVIARE',95);
 insert into ZONA_GEOGRAFICA values(015,'CALAMAR',95);
 insert into ZONA_GEOGRAFICA values(025,'EL RETORNO',95);
 insert into ZONA_GEOGRAFICA values(200,'MIRAFLORES',95);
-insert into ZONA_GEOGRAFICA values(001,'MITU',97);
+
 insert into ZONA_GEOGRAFICA values(161,'CARURU',97);
 insert into ZONA_GEOGRAFICA values(511,'PACOA',97);
 insert into ZONA_GEOGRAFICA values(666,'TARAIRA',97);
 insert into ZONA_GEOGRAFICA values(777,'PAPUNAUA',97);
 insert into ZONA_GEOGRAFICA values(889,'YAVARATE',97);
-insert into ZONA_GEOGRAFICA values(001,'PUERTO CARREÑO',99);
+
 insert into ZONA_GEOGRAFICA values(524,'LA PRIMAVERA',99);
 insert into ZONA_GEOGRAFICA values(624,'SANTA ROSALIA',99);
 insert into ZONA_GEOGRAFICA values(773,'CUMARIBO',99);
