@@ -2,7 +2,10 @@ package co.edu.uniandes.umbrella.ejb;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,11 +36,11 @@ import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.http.HttpResponse;
+/*import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;*/
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -268,7 +271,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		documentoRequest.setTipoDocumento(ejbListaValor.buscarListaValor(documento.getIdTipoDocumento()).getCodigoExterno());
 		documentoRequest.setTipoMime(documento.getIdTipoMime());
 		requestObj.setDocumento(documentoRequest);
-		
+		/*
 		try {
 			
 			HttpClient client = new DefaultHttpClient();
@@ -301,7 +304,48 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			respuesta.setResultadoOperacion(e.getMessage());
+		}*/
+		 
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(requestObj);
+			
+			
+			
+			URL url = new URL(rutaServicioRest);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json");
+
+			String input = jsonInString;
+
+			OutputStream os = conn.getOutputStream();
+			os.write(input.getBytes());
+			os.flush();
+
+			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+				throw new RuntimeException("Failed : HTTP error code : "
+					+ conn.getResponseCode());
+			}
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					(conn.getInputStream())));
+
+			String output;
+			System.out.println("Output from Server .... \n");
+			while ((output = br.readLine()) != null) {
+				System.out.println(output);
+			}
+
+			conn.disconnect();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			respuesta.setResultadoOperacion(e.getMessage());
 		}
+		
+		
 
 		 return respuesta;
 	}
