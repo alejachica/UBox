@@ -1,5 +1,6 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
+import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +13,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
+import org.netbeans.j2ee.wsdl.CrearUsuario.UserProcess.newWSDL.CrearUsuarioWsdlPortProxy;
+
 import co.edu.uniandes.umbrella.dto.UsuarioDTO;
+import co.edu.uniandes.umbrella.ejb.DatosBasicosUsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
@@ -34,27 +38,6 @@ public class RegistrarUsuarioBean {
 	public static final String ID_CBO_DPTO_LAB = "dptoLab";
 	
 	
-	public RegistrarUsuarioBean() {
-
-		this.usuario = new UsuarioDTO();
-		this.tiposDocumento = new ArrayList<ListaValor>();
-		this.nacionalidades = new ArrayList<ListaValor>();
-		this.departamentos = new ArrayList<ZonaGeografica>();
-		this.ciudadesExpDocumento = new ArrayList<ZonaGeografica>();
-		this.ciudadesNacimiento = new ArrayList<ZonaGeografica>();
-		this.ciudadesResidencia = new ArrayList<ZonaGeografica>();
-		this.ciudadesLaboral = new ArrayList<ZonaGeografica>();
-		this.ciudadesCorrespondencia = new ArrayList<ZonaGeografica>();
-		
-	}
-	
-	
-	@PostConstruct
-	public void init(){	
-		cargarDatos();
-	}
-		
-
 	@EJB
 	private UsuarioEJBRemote usuarioEJB;
 	
@@ -66,6 +49,10 @@ public class RegistrarUsuarioBean {
 	
 
 	private UsuarioDTO usuario;
+	
+	//private DatosBasicosUsuarioDTO usuarioCentralizador;
+	
+	private String error;
 	
 	private List<ListaValor> tiposDocumento;
 	
@@ -121,85 +108,28 @@ public class RegistrarUsuarioBean {
 	
 	
 	
+	public RegistrarUsuarioBean() {
 
-	public UsuarioDTO getUsuario() {
-		return usuario;
-	}
-	
-	public void setUsuario(UsuarioDTO usuario)
-	{
-		this.usuario = usuario;
-	}
-
-	private String error;
-
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
+		this.usuario = new UsuarioDTO();
+		//this.usuarioCentralizador = new DatosBasicosUsuarioDTO();
+		this.tiposDocumento = new ArrayList<ListaValor>();
+		this.nacionalidades = new ArrayList<ListaValor>();
+		this.departamentos = new ArrayList<ZonaGeografica>();
+		this.ciudadesExpDocumento = new ArrayList<ZonaGeografica>();
+		this.ciudadesNacimiento = new ArrayList<ZonaGeografica>();
+		this.ciudadesResidencia = new ArrayList<ZonaGeografica>();
+		this.ciudadesLaboral = new ArrayList<ZonaGeografica>();
+		this.ciudadesCorrespondencia = new ArrayList<ZonaGeografica>();
+		
 	}
 	
 	
-
-	public List<ListaValor> getTiposDocumento() {
-		return tiposDocumento;
-	}
-
-	public void setTiposDocumento(List<ListaValor> tiposDocumento) {
-		this.tiposDocumento = tiposDocumento;
-	}
-
-	public String getTipoIdentificacion() {
-		return tipoIdentificacion;
-	}
-
-	public void setTipoIdentificacion(String tipoIdentificacion) {
-		this.tipoIdentificacion = tipoIdentificacion;
-	}		
-
-	public String getDepartamentoExpedicionDoc() {
-		return departamentoExpedicionDoc;
-	}
-
-	public void setDepartamentoExpedicionDoc(String departamentoExpedicionDoc) {
-		this.departamentoExpedicionDoc = departamentoExpedicionDoc;
-	}
-
-	public String getCiudadExpedicionDoc() {
-		return ciudadExpedicionDoc;
-	}
-
-	public void setCiudadExpedicionDoc(String ciudadExpedicionDoc) {
-		this.ciudadExpedicionDoc = ciudadExpedicionDoc;
+	@PostConstruct
+	public void init(){			
+		cargarDatos();
 	}
 	
-	
-
-	public List<ZonaGeografica> getDepartamentos() {
-		return departamentos;
-	}
-
-	public void setDepartamentos(List<ZonaGeografica> departamentos) {
-		this.departamentos = departamentos;
-	}
-
-	public List<ZonaGeografica> getCiudadesExpDocumento() {
-		return ciudadesExpDocumento;
-	}
-
-	public void setCiudadesExpDocumento(List<ZonaGeografica> ciudadesExpDocumento) {
-		this.ciudadesExpDocumento = ciudadesExpDocumento;
-	}
-	
-	
-	
-	
-	
-
-	
-	
+		
 	public String registrarUsuario() {
 
 		// usuarioDto = new UsuarioDTO();
@@ -207,7 +137,45 @@ public class RegistrarUsuarioBean {
 		Calendar cal = Calendar.getInstance();
 		String segundosPrueba = dateFormat.format(cal.getTime()); //2014/08/06 16:00:22
 		
-
+		
+		/*
+		this.usuarioCentralizador.setDireccionNotificacion("");
+		this.usuarioCentralizador.setEmailPersonal("");
+		this.usuarioCentralizador.setFechaExpediciionIdentificacion(Calendar.getInstance());
+		this.usuarioCentralizador.setFechaNacimiento(Calendar.getInstance());
+		this.usuarioCentralizador.setGenero("");
+		this.usuarioCentralizador.setIdDireccionResidencia("");
+		this.usuarioCentralizador.setIdEstadoCivil(1);
+		this.usuarioCentralizador.setIdMunicipioExpedicionIdentificacion(1);
+		this.usuarioCentralizador.setIdMunicipioLaboral(1);
+		this.usuarioCentralizador.setIdMunicipioNacimiento(1);
+		this.usuarioCentralizador.setIdMunicipioNotificacion(1);
+		this.usuarioCentralizador.setIdMunicipioResidencia(1);
+		this.usuarioCentralizador.setIdNacionalidad(1);
+		this.usuarioCentralizador.setIdOperador(1);
+		this.usuarioCentralizador.setIdOperadorActual(1);
+		this.usuarioCentralizador.setIdTipoIdentificacion("CC");
+		this.usuarioCentralizador.setIdUsuario(1);
+		this.usuarioCentralizador.setNroIdentificacion("10135874485");
+		this.usuarioCentralizador.setPrimerApellido("");
+		this.usuarioCentralizador.setPrimerNombre("");
+		this.usuarioCentralizador.setSegundoApellido("");
+		this.usuarioCentralizador.setSegundoNombre("");
+		this.usuarioCentralizador.setTelefono(1);
+		
+		
+		System.out.println("Antes de crear el proxy");	
+		CrearUsuarioWsdlPortProxy proxy = new CrearUsuarioWsdlPortProxy("http://localhost:9080/crearUsuarioWsdlService/crearUsuarioWsdlPort?wsdl");
+		
+		try {
+			proxy.usuariosWSDLCrear(this.usuarioCentralizador);
+		} catch (RemoteException e) {			
+			e.printStackTrace();
+		}
+		
+		System.out.println("Despues de crear el proxy");	
+		
+		*/
 		
 		this.usuario.setActivo(true);
 		this.usuario.setCorreo("usuario"+segundosPrueba+"@email.com");
@@ -234,6 +202,8 @@ public class RegistrarUsuarioBean {
 			return "";
 		}
 	}
+	
+	
 	
 	public void cargarDatos(){
 		
@@ -268,9 +238,80 @@ public class RegistrarUsuarioBean {
 		 }
 	       
 	 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
+	
 
+	public String getError() {
+		return error;
+	}
 
+	public void setError(String error) {
+		this.error = error;
+	}
+	
+	public List<ListaValor> getTiposDocumento() {
+		return tiposDocumento;
+	}
+
+	public void setTiposDocumento(List<ListaValor> tiposDocumento) {
+		this.tiposDocumento = tiposDocumento;
+	}
+
+	public String getTipoIdentificacion() {
+		return tipoIdentificacion;
+	}
+
+	public void setTipoIdentificacion(String tipoIdentificacion) {
+		this.tipoIdentificacion = tipoIdentificacion;
+	}		
+
+	public String getDepartamentoExpedicionDoc() {
+		return departamentoExpedicionDoc;
+	}
+
+	public void setDepartamentoExpedicionDoc(String departamentoExpedicionDoc) {
+		this.departamentoExpedicionDoc = departamentoExpedicionDoc;
+	}
+
+	public String getCiudadExpedicionDoc() {
+		return ciudadExpedicionDoc;
+	}
+
+	public void setCiudadExpedicionDoc(String ciudadExpedicionDoc) {
+		this.ciudadExpedicionDoc = ciudadExpedicionDoc;
+	}	
+
+	public List<ZonaGeografica> getDepartamentos() {
+		return departamentos;
+	}
+
+	public void setDepartamentos(List<ZonaGeografica> departamentos) {
+		this.departamentos = departamentos;
+	}
+
+	public List<ZonaGeografica> getCiudadesExpDocumento() {
+		return ciudadesExpDocumento;
+	}
+
+	public void setCiudadesExpDocumento(List<ZonaGeografica> ciudadesExpDocumento) {
+		this.ciudadesExpDocumento = ciudadesExpDocumento;
+	}
+	
 	public String getDepartamentoNacimiento() {
 		return departamentoNacimiento;
 	}
@@ -448,7 +489,14 @@ public class RegistrarUsuarioBean {
 	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
+
+	public UsuarioDTO getUsuario() {
+		return usuario;
+	}
 	
+	public void setUsuario(UsuarioDTO usuario) {
+		this.usuario = usuario;
+	}
 	
 	
 	
