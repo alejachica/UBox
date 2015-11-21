@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="crearUsuario"
+    targetNamespace="http://enterprise.netbeans.org/bpel/CrearUsuario/crearUsuario"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/CrearUsuario/crearUsuario"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    <import namespace="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" location="UserProcess/newWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/UsuariosEJBWrapper" location="UsuariosEJBWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://ejb.umbrella.uniandes.edu.co/" location="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="CrearUsuarioEJB" xmlns:tns="http://enterprise.netbeans.org/bpel/UsuariosEJBWrapper" partnerLinkType="tns:UsuariosEJBLinkType" partnerRole="UsuariosEJBRole"/>
+        <partnerLink name="CreacionUsuario" xmlns:tns="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" partnerLinkType="tns:newWSDL" myRole="crearUsuarioWsdlPortRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="UsuariosWSDLCrearOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" messageType="tns:usuariosWSDLCrearResponse"/>
+        <variable name="CrearUsuarioOut" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" messageType="tns:crearUsuarioResponse"/>
+        <variable name="CrearUsuarioIn" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" messageType="tns:crearUsuario"/>
+        <variable name="UsuariosWSDLCrearIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" messageType="tns:usuariosWSDLCrearRequest"/>
+    </variables>
+    <sequence>
+        <receive name="RecibirDatosUsuario" createInstance="yes" partnerLink="CreacionUsuario" operation="usuariosWSDLCrear" xmlns:tns="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" portType="tns:crearUsuarioWsdlPort" variable="UsuariosWSDLCrearIn"/>
+        <assign name="Assign1">
+            <copy>
+                <from variable="UsuariosWSDLCrearIn" part="datosUsuario"/>
+                <to>$CrearUsuarioIn.parameters/arg0</to>
+            </copy>
+        </assign>
+        <invoke name="InvocacionServicioCentralizador" partnerLink="CrearUsuarioEJB" operation="crearUsuario" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" portType="tns:UsuariosEJB" inputVariable="CrearUsuarioIn" outputVariable="CrearUsuarioOut"/>
+        <assign name="Assign2">
+            <copy>
+                <from>$CrearUsuarioOut.parameters/return</from>
+                <to variable="UsuariosWSDLCrearOut" part="response"/>
+            </copy>
+        </assign>
+        <reply name="RespuestaCreacion" partnerLink="CreacionUsuario" operation="usuariosWSDLCrear" xmlns:tns="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" portType="tns:crearUsuarioWsdlPort" variable="UsuariosWSDLCrearOut"/>
+    </sequence>
+</process>
