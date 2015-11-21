@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,8 +24,13 @@ import org.primefaces.model.UploadedFile;
 import co.edu.uniandes.umbrella.dto.CarpetaDTO;
 import co.edu.uniandes.umbrella.dto.DataTreeTable;
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
+import co.edu.uniandes.umbrella.entidades.FormaComparticion;
+import co.edu.uniandes.umbrella.entidades.ListaValor;
+import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
+import co.edu.uniandes.umbrella.interfaces.FormaComparticionEJBLocal;
+import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
 
 @ManagedBean(name="directorioBean")
 @ViewScoped
@@ -42,6 +48,12 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	
 	@EJB
 	private DocumentosEJBRemote documentoEJB;
+	
+	@EJB
+	private FormaComparticionEJBLocal formaComparticionEJB;
+	
+	@EJB
+	private ListaValorEJBLocal listaValorEJB;
 	
 	private TreeNode root;
 	
@@ -62,6 +74,20 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	private UploadedFile file;
 	
 	private StreamedContent fileDown;
+	
+	private List<FormaComparticion> listaCompartir;
+	
+	private int idFormaComparticion;
+	
+	private List<ListaValor> tiposDocumento;
+	
+	private String tipoDocumento;
+	
+	private String numeroDocumento;
+	
+	private String passDoc;
+	
+	private String email;
 	
 	//-------------------METODOS GET Y SET-------------------//
 
@@ -140,12 +166,74 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
     public StreamedContent getFileDown() {
 		return fileDown;
 	}
+    
+	public List<FormaComparticion> getListaCompartir() {
+		return listaCompartir;
+	}
+
+	public void setListaCompartir(List<FormaComparticion> listaCompartir) {
+		this.listaCompartir = listaCompartir;
+	}   
+	
+	public int getIdFormaComparticion() {
+		return idFormaComparticion;
+	}
+
+	public void setIdFormaComparticion(int idFormaComparticion) {
+		this.idFormaComparticion = idFormaComparticion;
+	}
+	
+	public List<ListaValor> getTiposDocumento() {
+		return tiposDocumento;
+	}
+
+	public void setTiposDocumento(List<ListaValor> tiposDocumento) {
+		this.tiposDocumento = tiposDocumento;
+	}
+	
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+	
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
+	}
+	
+	public String getPassDoc() {
+		return passDoc;
+	}
+
+	public void setPassDoc(String passDoc) {
+		this.passDoc = passDoc;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	//-------------------OTROS METODOS-------------------//
 
 	@PostConstruct
 	public void init(){
 		root = crearRoot();
+		inicializarDatos();
+	}
+	
+	public void inicializarDatos(){
+		listaCompartir = formaComparticionEJB.obtenerFormasComparticion();
+		tiposDocumento = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPOIDENTIFICACION.getValue());
 	}
 	
 	public TreeNode crearRoot(){
@@ -229,6 +317,10 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se elimino la carpeta correctamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
+		catch(EJBException ex){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "No se puede eliminar la carpeta, primero debe eliminar los elementos asociados que ésta tiene");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);
@@ -304,6 +396,27 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 			output.close();  
 		}  
 		context.responseComplete();  
-	}  
+	}
+	
+	public void compartirDocumento(){
+		if(idFormaComparticion == 5){
+			System.out.println(documentoId);
+			System.out.println(this.getUsuarioAutenticado().getId());
+			System.out.println(tipoDocumento);
+			System.out.println(numeroDocumento);
+			System.out.println(passDoc);
+			System.out.println(email);
+			System.out.println();
+			//documentoEJB.compartirDocumentoPorLink(idDocumento, idUsuarioOrigen, identificacionDestino, emailDestino, fechaExpiracion, clave);
+		}
+		else{
+			System.out.println(this.getUsuarioAutenticado().getId());
+			System.out.println(tipoDocumento);
+			System.out.println(numeroDocumento);
+			System.out.println(documentoId);
+			System.out.println();
+			//documentoEJB.compartirDocumentoInterno(idUsuarioOrigen, idUsuarioDestino, soloLectura, idDocumento, fechaExpiracion);
+		}
+	}
 	
 }

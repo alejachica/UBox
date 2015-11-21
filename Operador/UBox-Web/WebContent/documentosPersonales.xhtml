@@ -63,9 +63,9 @@
 						        		<tr>
 						                    <td align="center"><p:commandLink title="Descargar Documento" onclick="PF('dialogoDescargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-s" rendered="#{carpeta.type eq 'Archivo'}">
 						                    	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
-						                    	<!--p:fileDownload value="#{directorioBean.fileDown}"></p:fileDownload-->
 								            </p:commandLink></td>
-									    	<td align="center"><p:commandLink title="Compartir Documento" styleClass="ui-icon ui-icon-person" rendered="#{carpeta.type eq 'Archivo'}">
+									    	<td align="center"><p:commandLink title="Compartir Documento" onclick="PF('dialogoCompartirDoc').show();" styleClass="ui-icon ui-icon-person" rendered="#{carpeta.type eq 'Archivo'}">
+									    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
 								            </p:commandLink></td>
 								            <td align="center"><p:commandLink title="Eliminar Documento" oncomplete="PF('dialogoDoc').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Archivo'}">
 								            	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
@@ -151,6 +151,72 @@
 									<tr>
 										<td><h:commandButton action="PF('dialogoDescargarDoc').hide();" value="NO"></h:commandButton></td>
 										<td><h:commandButton action="#{directorioBean.downLoad}" onclick="PF('dialogoDescargarDoc').hide();" value="SI"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+						    <!-- Dialogo para compartir una documento -->
+						    <p:dialog id="dialogoCompartirDocId" header="Campartir Documento" showEffect="fade" widgetVar="dialogoCompartirDoc" modal="true" resizable="false">
+								<h:panelGrid id="pruebaID">
+									<p:row>
+										<p:column>
+											<h:outputText value="tipo documento:"></h:outputText>
+										</p:column>
+										<p:column>
+						 					<h:selectOneMenu id="tipoDoc" value="#{directorioBean.tipoDocumento}" styleClass="required" required="true" requiredMessage="Tipo documento es obligatorio">
+												<f:selectItem id="tipoDoc0" itemValue="" itemLabel="Seleccione" />
+												<f:selectItems id="tipoDoc1" value="#{directorioBean.tiposDocumento}" var="tiposDocu" itemLabel="#{tiposDocu.descripcion}" itemValue="#{tiposDocu.valor}" />
+											</h:selectOneMenu>
+										</p:column>
+										<p:column>
+											<h:outputText value="Documento:"></h:outputText>
+										</p:column>
+										<p:column>
+											<h:inputText id="txtDocument" class="form-control" value="#{directorioBean.numeroDocumento}" required="true" requiredMessage="Número Documento es obligatorio"></h:inputText>
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<h:outputText value="Como desea compartir el archivo"></h:outputText>
+										</p:column>
+										<p:column>
+											<h:selectOneMenu id="formaComp" value="#{directorioBean.idFormaComparticion}" styleClass="required" required="true" requiredMessage="Forma comparticion es obligatorio">
+						 						<f:ajax render="pruebaID"/>
+												<f:selectItem id="formaComp0" itemValue="" itemLabel="Seleccione" />
+												<f:selectItems id="formaComp1" value="#{directorioBean.listaCompartir}" var="listaCompartir" itemLabel="#{listaCompartir.nombre}" itemValue="#{listaCompartir.idFormaComparticion}" />
+											</h:selectOneMenu>
+										</p:column>
+										<p:column>
+										</p:column>
+										<p:column>
+										</p:column>
+				 					</p:row>
+				 					<p:row>
+				 						<p:column>	
+											<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+						 						<h:outputText value="Email:"/>
+						 					</h:panelGroup>
+					 					</p:column>
+					 					<p:column>
+						 					<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+						 						<h:inputText id="txtEmail" class="form-control" value="#{directorioBean.email}" required="true" requiredMessage="Email es obligatorio"></h:inputText>
+						 					</h:panelGroup>
+						 				</p:column>
+						 				<p:column>	
+											<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+						 						<h:outputText value="Password:"/>
+						 					</h:panelGroup>
+					 					</p:column>
+					 					<p:column>
+						 					<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+						 						<h:inputText id="txtPass" class="form-control" value="#{directorioBean.passDoc}" required="true" requiredMessage="Password es obligatorio"></h:inputText>
+						 					</h:panelGroup>
+						 				</p:column>
+				 					</p:row>
+								</h:panelGrid>
+								<table>
+									<tr>
+										<td><h:commandButton onclick="PF('dialogoCompartirDoc').hide();" value="Cancelar"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{directorioBean.compartirDocumento}" onclick="PF('dialogoDescargarDoc').hide();" value="Compartir"></h:commandButton></td>
 									</tr>
 								</table>
 						    </p:dialog>
