@@ -271,40 +271,6 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		documentoRequest.setTipoDocumento(ejbListaValor.buscarListaValor(documento.getIdTipoDocumento()).getCodigoExterno());
 		documentoRequest.setTipoMime(documento.getIdTipoMime());
 		requestObj.setDocumento(documentoRequest);
-		/*
-		try {
-			
-			HttpClient client = new DefaultHttpClient();
-
-			  HttpPost post = new HttpPost(rutaServicioRest);
-
-			
-			
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(requestObj);
-			
-			StringEntity input = new StringEntity(jsonInString);
-			post.setHeader("Content-Type", "application/json");
-			post.setEntity(input);
-
-			  HttpResponse response = client.execute(post);
-
-			  BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-			  String line = "";
-
-			  while ((line = rd.readLine()) != null) {
-
-				  GsonBuilder builder = new GsonBuilder();
-			        Gson gson = builder.create();
-			        respuesta =  gson.fromJson(line, ResultadoOperacion.class);
-
-			  }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			respuesta.setResultadoOperacion(e.getMessage());
-		}*/
 		 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -324,7 +290,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			os.write(input.getBytes());
 			os.flush();
 
-			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				throw new RuntimeException("Failed : HTTP error code : "
 					+ conn.getResponseCode());
 			}
@@ -335,7 +301,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			String output;
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
+				GsonBuilder builder = new GsonBuilder();
+		        Gson gson = builder.create();
+		        respuesta =  gson.fromJson(output, ResultadoOperacion.class);
 			}
 
 			conn.disconnect();
@@ -357,7 +325,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	 */ 
 	private String getUrlServicioOperador(int idUsuario)
 	{
-		return "http://localhost:15094/";
+		return "http://otrooperador.azurewebsites.net/";
 	}
 	
 	

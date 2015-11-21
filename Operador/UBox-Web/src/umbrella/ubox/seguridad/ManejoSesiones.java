@@ -81,13 +81,12 @@ public class ManejoSesiones {
 	 */
 	private static boolean validateAdmin()
 	{
-		String roleAdmin = "https://api.stormpath.com/v1/groups/5Es4MmkD1O3iJ7JTDejBGK";
+		/*String roleAdmin = "https://api.stormpath.com/v1/groups/5Es4MmkD1O3iJ7JTDejBGK";
 		//Consulta el grupo de Amdinistrador para saber si el usuario pertenece a el o no
 		ApplicationRealm realm = ((ApplicationRealm)((RealmSecurityManager) SecurityUtils.getSecurityManager()).getRealms().iterator().next());
 		Client client = realm.getClient();
 		Group group = client.getResource("https://api.stormpath.com/v1/groups/5Es4MmkD1O3iJ7JTDejBGK", Group.class);
-		String groupHref = group.getHref();
-		boolean hasRole = SecurityUtils.getSubject().hasRole("admin");
-		return hasRole;
+		String groupHref = group.getHref();*/
+		return SecurityUtils.getSubject().hasRole("admin");
 	}
 }
