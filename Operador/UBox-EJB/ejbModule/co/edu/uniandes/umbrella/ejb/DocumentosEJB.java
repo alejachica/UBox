@@ -2,7 +2,10 @@ package co.edu.uniandes.umbrella.ejb;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ import co.edu.uniandes.umbrella.entidades.Carpeta;
 import co.edu.uniandes.umbrella.entidades.Documento;
 import co.edu.uniandes.umbrella.entidades.DocumentoXUsuarioCompartido;
 import co.edu.uniandes.umbrella.entidades.FormaComparticionEnum;
+import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.external.DocumentoRequest;
 import co.edu.uniandes.umbrella.external.RecibirDocumentoRequest;
@@ -24,19 +28,23 @@ import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.FormaComparticionEJBLocal;
+import co.edu.uniandes.umbrella.interfaces.ListaValorEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 import javax.persistence.*;
+import javax.xml.bind.DatatypeConverter;
 
-import org.apache.http.HttpResponse;
+/*import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;*/
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Session Bean implementation class DocumentosEJB
@@ -49,6 +57,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	
 	@EJB
 	private UsuarioEJBRemote ejbUsuario;
+	
+	@EJB
+	private ListaValorEJBRemote ejbListaValor;
 	
 	@EJB
 	private CarpetaEJBRemote ejbCarpeta;
@@ -194,6 +205,10 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 				
 				Usuario usuarioOrigen = ejbUsuario.consultarUsuarioPorId(idUsuario);
 				
+				usuarioDestino = new UsuarioDTO();
+				usuarioDestino.setIdentificacion(documentoDestino);
+				
+				
 				respuesta = this.compartirConUsuarioExterno(urlOperador, documento, usuarioDestino, usuarioOrigen);
 				
 				//Si compartio satisfactoriamente actualiza la BD
@@ -235,54 +250,72 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	private ResultadoOperacion compartirConUsuarioExterno(String urlOperador, Documento documento, UsuarioDTO usuarioDestino,
 			Usuario usuarioOrigen) {
 		
-//		ResultadoOperacion respuesta = new ResultadoOperacion();
-//		
-//		String rutaServicioRest = urlOperador + "api/documentos/recibirCompartido";
-//
-//		RecibirDocumentoRequest requestObj = new RecibirDocumentoRequest();
-//		requestObj.setEmpresaPublica(false);
-//		requestObj.setIdentificacionDestino(usuarioDestino.getIdentificacion());
-//		requestObj.setIdentificacionOrigen(usuarioOrigen.getIdentificacion());
-//		/***REVISAR QUEMADO ***/
-//		requestObj.setIdOperadorExterno("1");
-//		
-//		DocumentoRequest documentoRequest = new DocumentoRequest();
-//		documentoRequest.setArchivo(Base64.encodeToString(documento.getDocumento(), 0));
-//		
-//		
-//		try {
-//			
-//			HttpClient client = new DefaultHttpClient();
-//
-//			  HttpPost post = new HttpPost(rutaServicioRest);
-//
-//			
-//			
-//			ObjectMapper mapper = new ObjectMapper();
-//			//String jsonInString = mapper.writeValueAsString(obj);
-//			
-//			StringEntity input = new StringEntity("");
-//			
-//			post.setEntity(input);
-//
-//			  HttpResponse response = client.execute(post);
-//
-//			  BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//
-//			  String line = "";
-//
-//			  while ((line = rd.readLine()) != null) {
-//
-//			   System.out.println(line);
-//
-//			  }
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		 return respuesta;
-		return null;
+		ResultadoOperacion respuesta = new ResultadoOperacion();
+		
+		String rutaServicioRest = urlOperador + "api/documentos/recibirCompartido";
+
+		RecibirDocumentoRequest requestObj = new RecibirDocumentoRequest();
+		requestObj.setEmpresaPublica(false);
+		requestObj.setIdentificacionDestino(usuarioDestino.getIdentificacion());
+		requestObj.setIdentificacionOrigen(usuarioOrigen.getIdentificacion());
+		/***REVISAR QUEMADO ***/
+		requestObj.setIdOperadorExterno("1");
+		
+		DocumentoRequest documentoRequest = new DocumentoRequest();
+		String documentoBase64 = DatatypeConverter.printBase64Binary(documento.getDocumento());
+		documentoRequest.setArchivo(documentoBase64);
+		documentoRequest.setFechaCreacion(new Date());
+		documentoRequest.setFirmado(false);
+		documentoRequest.setNombre(documento.getNombre());
+		//busca el codigo externo del tipo de documento y lo asigna
+		documentoRequest.setTipoDocumento(ejbListaValor.buscarListaValor(documento.getIdTipoDocumento()).getCodigoExterno());
+		documentoRequest.setTipoMime(documento.getIdTipoMime());
+		requestObj.setDocumento(documentoRequest);
+		 
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(requestObj);
+			
+			
+			
+			URL url = new URL(rutaServicioRest);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json");
+
+			String input = jsonInString;
+
+			OutputStream os = conn.getOutputStream();
+			os.write(input.getBytes());
+			os.flush();
+
+			if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				throw new RuntimeException("Failed : HTTP error code : "
+					+ conn.getResponseCode());
+			}
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					(conn.getInputStream())));
+
+			String output;
+			System.out.println("Output from Server .... \n");
+			while ((output = br.readLine()) != null) {
+				GsonBuilder builder = new GsonBuilder();
+		        Gson gson = builder.create();
+		        respuesta =  gson.fromJson(output, ResultadoOperacion.class);
+			}
+
+			conn.disconnect();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			respuesta.setResultadoOperacion(e.getMessage());
+		}
+		
+		
+
+		 return respuesta;
 	}
 
 	/***
@@ -292,7 +325,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	 */ 
 	private String getUrlServicioOperador(int idUsuario)
 	{
-		return "http://localhost:15094/";
+		return "http://otrooperador.azurewebsites.net/";
 	}
 	
 	

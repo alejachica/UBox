@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -115,6 +116,10 @@ public class DescargarDocumentoBean implements Serializable{
 
 	public void validarDocumento()
 	{
+		
+		documentoEJB.compartirDocumento(9, "3669223", "CC", 14, new Date());
+		
+		
 		if(!getFileId().equals(""))
 		{
 			CompartidoDTO compartido = documentoEJB.ConsultarDocumentoPorLink(this.getFileId());

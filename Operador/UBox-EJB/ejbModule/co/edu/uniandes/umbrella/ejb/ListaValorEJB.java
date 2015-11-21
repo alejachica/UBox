@@ -66,6 +66,19 @@ public class ListaValorEJB implements ListaValorEJBLocal, ListaValorEJBRemote{
 		
 		return respuesta;
 	}
+	
+	public ListaValor buscarListaValor(int idListaValor)
+	{
+		Query query = entityManager.createNamedQuery("ListaValor.findById",
+				ListaValor.class)
+				.setParameter("idListaValor", idListaValor);
+		
+		try {
+			return (ListaValor)query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
     
 
