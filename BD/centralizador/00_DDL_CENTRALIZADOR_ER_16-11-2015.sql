@@ -10,7 +10,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema centralizador
 -- -----------------------------------------------------
-
+DROP SCHEMA IF EXISTS  `centralizador`;
 -- -----------------------------------------------------
 -- Schema centralizador
 -- -----------------------------------------------------
@@ -20,31 +20,27 @@ USE `centralizador` ;
 -- -----------------------------------------------------
 -- Table `centralizador`.`CONTRATO_OPERADOR`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`CONTRATO_OPERADOR` ;
-
 CREATE TABLE IF NOT EXISTS `centralizador`.`CONTRATO_OPERADOR` (
-  `id_operador` INT(11) NOT NULL COMMENT '',
+  `id_operador` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nro_contrato` DECIMAL(10,2) NOT NULL COMMENT '',
   `fecha_inicio` DATE NOT NULL COMMENT '',
   `fecha_fin` DATE NULL DEFAULT NULL COMMENT '',
   `estado` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`nro_contrato`)  COMMENT '')
+  PRIMARY KEY (`nro_contrato`)  COMMENT '',
+  INDEX `fk_operador_idx` (`id_operador` ASC)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-CREATE INDEX `fk_operador_idx1` ON `centralizador`.`CONTRATO_OPERADOR` (`id_operador` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
 -- Table `centralizador`.`ZONA_GEOGRAFICA`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`ZONA_GEOGRAFICA` ;
-
 CREATE TABLE IF NOT EXISTS `centralizador`.`ZONA_GEOGRAFICA` (
   `id_zona_geografica` INT(11) NOT NULL COMMENT '',
   `nombre` VARCHAR(50) NOT NULL COMMENT '',
   `id_padre` INT(11) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_zona_geografica`)  COMMENT '',
+  INDEX `fk_padre_idx` (`id_padre` ASC)  COMMENT '',
   CONSTRAINT `fk_padre`
     FOREIGN KEY (`id_padre`)
     REFERENCES `centralizador`.`ZONA_GEOGRAFICA` (`id_zona_geografica`)
@@ -52,14 +48,10 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`ZONA_GEOGRAFICA` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_padre_idx1` ON `centralizador`.`ZONA_GEOGRAFICA` (`id_padre` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `centralizador`.`OPERADOR`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`OPERADOR` ;
-
 CREATE TABLE IF NOT EXISTS `centralizador`.`OPERADOR` (
   `id_operador` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nit` VARCHAR(50) NOT NULL COMMENT '',
@@ -67,19 +59,16 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`OPERADOR` (
   `direccion` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   `telefono` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   `email` VARCHAR(50) NOT NULL COMMENT '',
-  PRIMARY KEY (`id_operador`)  COMMENT '')
+  PRIMARY KEY (`id_operador`)  COMMENT '',
+  UNIQUE INDEX `UQ_OPERADOR_id_operador` (`id_operador` ASC)  COMMENT '')
 ENGINE = InnoDB
-AUTO_INCREMENT = 11
+AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = utf8;
-
-CREATE UNIQUE INDEX `UQ_OPERADOR_id_operador1` ON `centralizador`.`OPERADOR` (`id_operador` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
 -- Table `centralizador`.`USUARIO`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`USUARIO` ;
-
 CREATE TABLE IF NOT EXISTS `centralizador`.`USUARIO` (
   `id_usuario` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `id_tipo_identificacion` VARCHAR(50) NOT NULL COMMENT '',
@@ -105,6 +94,14 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`USUARIO` (
   `id_operador_actual` INT(11) NULL DEFAULT NULL COMMENT '',
   `id_operador` INT(11) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_usuario`)  COMMENT '',
+  UNIQUE INDEX `constraint1` (`id_tipo_identificacion` ASC, `nro_identificacion` ASC)  COMMENT '',
+  INDEX `IXFK_USUARIO_OPERADOR` (`id_operador_actual` ASC)  COMMENT '',
+  INDEX `IXFK_USUARIO_OPERADOR_02` (`id_operador` ASC)  COMMENT '',
+  INDEX `fk_municipio_nacimiento_idx` (`id_municipio_nacimiento` ASC)  COMMENT '',
+  INDEX `fk_municipio_Expedicion_idx` (`id_municipio_expedicion_identificacion` ASC)  COMMENT '',
+  INDEX `fk_municipio_residencia_idx` (`id_municipio_residencia` ASC)  COMMENT '',
+  INDEX `fk_municipio_notificacion_idx` (`id_municipio_notificacion` ASC)  COMMENT '',
+  INDEX `fk_municipio_laboral_idx` (`id_municipio_laboral` ASC)  COMMENT '',
   CONSTRAINT `fk_municipio_Expedicion`
     FOREIGN KEY (`id_municipio_expedicion_identificacion`)
     REFERENCES `centralizador`.`ZONA_GEOGRAFICA` (`id_zona_geografica`)
@@ -134,28 +131,10 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
-CREATE UNIQUE INDEX `constraint11` ON `centralizador`.`USUARIO` (`id_tipo_identificacion` ASC, `nro_identificacion` ASC)  COMMENT '';
-
-CREATE INDEX `IXFK_USUARIO_OPERADOR1` ON `centralizador`.`USUARIO` (`id_operador_actual` ASC)  COMMENT '';
-
-CREATE INDEX `IXFK_USUARIO_OPERADOR_021` ON `centralizador`.`USUARIO` (`id_operador` ASC)  COMMENT '';
-
-CREATE INDEX `fk_municipio_nacimiento_idx1` ON `centralizador`.`USUARIO` (`id_municipio_nacimiento` ASC)  COMMENT '';
-
-CREATE INDEX `fk_municipio_Expedicion_idx1` ON `centralizador`.`USUARIO` (`id_municipio_expedicion_identificacion` ASC)  COMMENT '';
-
-CREATE INDEX `fk_municipio_residencia_idx1` ON `centralizador`.`USUARIO` (`id_municipio_residencia` ASC)  COMMENT '';
-
-CREATE INDEX `fk_municipio_notificacion_idx1` ON `centralizador`.`USUARIO` (`id_municipio_notificacion` ASC)  COMMENT '';
-
-CREATE INDEX `fk_municipio_laboral_idx1` ON `centralizador`.`USUARIO` (`id_municipio_laboral` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `centralizador`.`HISTORICO_OPERADORES_USUARIO`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`HISTORICO_OPERADORES_USUARIO` ;
-
 CREATE TABLE IF NOT EXISTS `centralizador`.`HISTORICO_OPERADORES_USUARIO` (
   `id_usuario` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `id_operador_origen` INT(11) NOT NULL COMMENT '',
@@ -164,6 +143,9 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`HISTORICO_OPERADORES_USUARIO` (
   `id_operador_destino` INT(11) NULL DEFAULT NULL COMMENT '',
   `id_tipo_operacion` INT(11) NOT NULL COMMENT '',
   `num_formulario` VARCHAR(50) NOT NULL COMMENT '',
+  INDEX `fk_operador_idx` (`id_operador_origen` ASC)  COMMENT '',
+  INDEX `fk_usuario_idx` (`id_usuario` ASC)  COMMENT '',
+  INDEX `fk_operador_Destino_idx` (`id_operador_destino` ASC)  COMMENT '',
   CONSTRAINT `fk_usuario`
     FOREIGN KEY (`id_usuario`)
     REFERENCES `centralizador`.`USUARIO` (`id_usuario`)
@@ -180,18 +162,10 @@ CREATE TABLE IF NOT EXISTS `centralizador`.`HISTORICO_OPERADORES_USUARIO` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_operador_idx1` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_operador_origen` ASC)  COMMENT '';
-
-CREATE INDEX `fk_usuario_idx1` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_usuario` ASC)  COMMENT '';
-
-CREATE INDEX `fk_operador_Destino_idx1` ON `centralizador`.`HISTORICO_OPERADORES_USUARIO` (`id_operador_destino` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `centralizador`.`LISTA`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`LISTA` ;
-
 CREATE TABLE IF NOT EXISTS `centralizador`.`LISTA` (
   `id_lista` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(50) NOT NULL COMMENT '',
@@ -203,34 +177,17 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `centralizador`.`MUNICIPIO`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`MUNICIPIO` ;
-
-CREATE TABLE IF NOT EXISTS `centralizador`.`MUNICIPIO` (
-  `ID_DEPARTAMENTO` DECIMAL(10,0) NOT NULL COMMENT '',
-  `DEPARTAMENTO` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
-  `ID_MUNICIPIO` DECIMAL(10,0) NOT NULL COMMENT '',
-  `MUNICIPIO` VARCHAR(50) NULL DEFAULT NULL COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
 -- Table `centralizador`.`SERVICIOS_OPERADOR`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `centralizador`.`SERVICIOS_OPERADOR` ;
-
 CREATE TABLE IF NOT EXISTS `centralizador`.`SERVICIOS_OPERADOR` (
   `id_servicio_operador` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `id_operador` INT(11) NOT NULL COMMENT '',
   `url` VARCHAR(50) NOT NULL COMMENT '',
   `id_tipo_servicio` INT(11) NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`id_servicio_operador`)  COMMENT '')
+  PRIMARY KEY (`id_servicio_operador`)  COMMENT '',
+  INDEX `fk_operador_idx` (`id_operador` ASC)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-CREATE INDEX `fk_operador_idx1` ON `centralizador`.`SERVICIOS_OPERADOR` (`id_operador` ASC)  COMMENT '';
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

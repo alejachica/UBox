@@ -1187,4 +1187,5 @@ insert into ZONA_GEOGRAFICA values(889,'YAVARATE',97);
 insert into ZONA_GEOGRAFICA values(524,'LA PRIMAVERA',99);
 insert into ZONA_GEOGRAFICA values(624,'SANTA ROSALIA',99);
 insert into ZONA_GEOGRAFICA values(773,'CUMARIBO',99);
+commit;
 
