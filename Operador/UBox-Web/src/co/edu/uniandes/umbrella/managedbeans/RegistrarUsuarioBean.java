@@ -1,6 +1,5 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
-import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,10 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
-import org.netbeans.j2ee.wsdl.CrearUsuario.UserProcess.newWSDL.CrearUsuarioWsdlPortProxy;
-
 import co.edu.uniandes.umbrella.dto.UsuarioDTO;
-import co.edu.uniandes.umbrella.ejb.DatosBasicosUsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
