@@ -3,7 +3,6 @@ package co.edu.uniandes.umbrella.interfaces;
 import javax.ejb.Remote;
 
 import co.edu.uniandes.umbrella.dto.DatosOperadorDTO;
-import co.edu.uniandes.umbrella.dto.ServiciosOperadorUsuarioDTO;
 
 @Remote
 public interface TransaccionesEJBRemote {
@@ -14,8 +13,7 @@ public interface TransaccionesEJBRemote {
 	 * @param datos Filtro para la consulta
 	 * @return DatosOperadorDTO Datos del operador para compartir documentos
 	 */
-	DatosOperadorDTO consultarOperadorUsuarioParaCompartir(
-			ServiciosOperadorUsuarioDTO datos);
+	public DatosOperadorDTO consultarOperadorUsuarioParaCompartir(String tipoDoc, String nroDoc);
 	
 	/**
 	 * Servicio que permite realizar el traslado de un usuario a un nuevo operador
@@ -24,6 +22,6 @@ public interface TransaccionesEJBRemote {
 	 * @param idNuevoOperador Id del nuevo operador al que se trasladara el usuario
 	 * @return String codigo de respuesta
 	 */
-	String trasladarUsuarioDeOperador(String tipoDocUsuario, String nroDocUsuario, int idNuevoOperador);
+	public String trasladarUsuarioDeOperador(String tipoDocUsuario, String nroDocUsuario, int idNuevoOperador);
 	
 }

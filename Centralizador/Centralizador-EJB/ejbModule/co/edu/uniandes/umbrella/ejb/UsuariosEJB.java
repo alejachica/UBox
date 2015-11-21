@@ -161,6 +161,7 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 	 * @return DatosOperadorDTO Datos del operador donde esta registrado el usuario
 	 */
 	@Override
+	@WebMethod
 	public DatosOperadorDTO consultarOperadorUsuario(String tipoDoc, String nroDoc) {
 
 		try {
@@ -173,7 +174,8 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 			datosOperador.setIdOperador(usuarioEncontrado.getOperador().getIdOperador());
 			datosOperador.setNit(usuarioEncontrado.getOperador().getNit());
 			
-			logger.info(COD_008.getIdCodigo() + COD_008.getMensaje() );
+			
+			logger.info("Usuario " + usuarioEncontrado.getOperador().getNit() + " "+ COD_008.getIdCodigo() + COD_008.getMensaje() );
 			
 			return datosOperador;
 		
