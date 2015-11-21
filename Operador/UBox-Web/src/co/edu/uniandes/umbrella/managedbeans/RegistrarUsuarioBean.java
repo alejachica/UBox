@@ -1,5 +1,6 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
+import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +13,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
+import org.netbeans.j2ee.wsdl.CrearUsuario.UserProcess.newWSDL.CrearUsuarioWsdlPortProxy;
+
 import co.edu.uniandes.umbrella.dto.UsuarioDTO;
+import co.edu.uniandes.umbrella.ejb.DatosBasicosUsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
@@ -46,7 +50,7 @@ public class RegistrarUsuarioBean {
 
 	private UsuarioDTO usuario;
 	
-	//private DatosBasicosUsuarioDTO usuarioCentralizador;
+	private DatosBasicosUsuarioDTO usuarioCentralizador;
 	
 	private String error;
 	
@@ -66,48 +70,29 @@ public class RegistrarUsuarioBean {
 	
 	public List<ZonaGeografica> ciudadesLaboral;
 	
-	
-	//TEmporales
-	
-	private String tipoIdentificacion = "";
-	
-	private String nacionalidad = "";
-	
 	private String fechaExpedicionDoc = "";
 	
+	private String fechaNacimiento = "";
 	
+	private String departamentoExpedicionDoc = "";	
 	
+	private String departamentoNacimiento = "";	
 	
-	
-	//Variables Temporales
-	private String departamentoExpedicionDoc = "";
-	private String ciudadExpedicionDoc = "";
-	
-	private String departamentoNacimiento = "";
-	private String ciudadNacimiento = "";
-	
-	private String departamentoResidencia = "";
-	private String ciudadResidencia = "";
+	private String departamentoResidencia = "";	
 	
 	private String departamentoCorrespondencia = "";
-	private String ciudadCorrespondencia = "";
-	
+		
 	private String departamentoLaboral = "";
-	private String ciudadLaboral = "";
-	private String genero = "";
-	private String direccionResidencia = "";
-	private String direccionCorrespondencia = "";
+	
 	private String direccionLaboral = "";
-	private String telefono = "";
-	private String estadoCivil = "";
-	//Borrar Variables Temporales
+	
 	
 	
 	
 	public RegistrarUsuarioBean() {
 
 		this.usuario = new UsuarioDTO();
-		//this.usuarioCentralizador = new DatosBasicosUsuarioDTO();
+		this.usuarioCentralizador = new DatosBasicosUsuarioDTO();
 		this.tiposDocumento = new ArrayList<ListaValor>();
 		this.nacionalidades = new ArrayList<ListaValor>();
 		this.departamentos = new ArrayList<ZonaGeografica>();
@@ -132,56 +117,54 @@ public class RegistrarUsuarioBean {
 		DateFormat dateFormat = new SimpleDateFormat("ss");
 		Calendar cal = Calendar.getInstance();
 		String segundosPrueba = dateFormat.format(cal.getTime()); //2014/08/06 16:00:22
-		
-		
-		/*
-		this.usuarioCentralizador.setDireccionNotificacion("");
-		this.usuarioCentralizador.setEmailPersonal("");
-		this.usuarioCentralizador.setFechaExpediciionIdentificacion(Calendar.getInstance());
+				
+//		this.usuarioCentralizador.setDireccionNotificacion("");
+//		this.usuarioCentralizador.setEmailPersonal("");
+//		this.usuarioCentralizador.setFechaExpediciionIdentificacion();
 		this.usuarioCentralizador.setFechaNacimiento(Calendar.getInstance());
-		this.usuarioCentralizador.setGenero("");
-		this.usuarioCentralizador.setIdDireccionResidencia("");
-		this.usuarioCentralizador.setIdEstadoCivil(1);
-		this.usuarioCentralizador.setIdMunicipioExpedicionIdentificacion(1);
-		this.usuarioCentralizador.setIdMunicipioLaboral(1);
-		this.usuarioCentralizador.setIdMunicipioNacimiento(1);
-		this.usuarioCentralizador.setIdMunicipioNotificacion(1);
-		this.usuarioCentralizador.setIdMunicipioResidencia(1);
-		this.usuarioCentralizador.setIdNacionalidad(1);
+//		this.usuarioCentralizador.setGenero("");
+//		this.usuarioCentralizador.setIdDireccionResidencia("");
+//		this.usuarioCentralizador.setIdEstadoCivil(1);
+//		this.usuarioCentralizador.setIdMunicipioExpedicionIdentificacion(1);
+//		this.usuarioCentralizador.setIdMunicipioLaboral(1);
+//		this.usuarioCentralizador.setIdMunicipioNacimiento(1);
+//		this.usuarioCentralizador.setIdMunicipioNotificacion(1);
+//		this.usuarioCentralizador.setIdMunicipioResidencia(1);
+//		this.usuarioCentralizador.setIdNacionalidad(1);
 		this.usuarioCentralizador.setIdOperador(1);
 		this.usuarioCentralizador.setIdOperadorActual(1);
-		this.usuarioCentralizador.setIdTipoIdentificacion("CC");
-		this.usuarioCentralizador.setIdUsuario(1);
-		this.usuarioCentralizador.setNroIdentificacion("10135874485");
-		this.usuarioCentralizador.setPrimerApellido("");
-		this.usuarioCentralizador.setPrimerNombre("");
-		this.usuarioCentralizador.setSegundoApellido("");
-		this.usuarioCentralizador.setSegundoNombre("");
-		this.usuarioCentralizador.setTelefono(1);
+//		this.usuarioCentralizador.setIdTipoIdentificacion("CC");
+//		this.usuarioCentralizador.setIdUsuario(1);
+//		this.usuarioCentralizador.setNroIdentificacion("1013587555");
+//		this.usuarioCentralizador.setPrimerApellido("");
+//		this.usuarioCentralizador.setPrimerNombre("");
+//		this.usuarioCentralizador.setSegundoApellido("");
+//		this.usuarioCentralizador.setSegundoNombre("");
+//		this.usuarioCentralizador.setTelefono(1);
 		
 		
 		System.out.println("Antes de crear el proxy");	
-		CrearUsuarioWsdlPortProxy proxy = new CrearUsuarioWsdlPortProxy("http://localhost:9080/crearUsuarioWsdlService/crearUsuarioWsdlPort?wsdl");
+		CrearUsuarioWsdlPortProxy proxy = new CrearUsuarioWsdlPortProxy();
 		
 		try {
-			proxy.usuariosWSDLCrear(this.usuarioCentralizador);
+			System.out.println("Respuesta Vrecion " + proxy.usuariosWSDLCrear(this.usuarioCentralizador)) ; 
 		} catch (RemoteException e) {			
 			e.printStackTrace();
 		}
 		
 		System.out.println("Despues de crear el proxy");	
 		
-		*/
+		
 		
 		this.usuario.setActivo(true);
-		this.usuario.setCorreo("usuario"+segundosPrueba+"@email.com");
-		this.usuario.setIdentificacion("1013587449"+segundosPrueba);
-		this.usuario.setLogin("ee.prado"+segundosPrueba);
-		this.usuario.setPassword("Temporal1");
-		this.usuario.setPrimerNombre("Erica");
-		this.usuario.setSegundoNombre("Nombre1");
-		this.usuario.setPrimerApellido("Apellido1");
-		this.usuario.setSegundoApellido("Apellido1");
+		this.usuario.setCorreo(this.usuarioCentralizador.getEmailPersonal());
+		this.usuario.setIdentificacion(this.usuarioCentralizador.getNroIdentificacion());
+		this.usuario.setLogin(this.usuarioCentralizador.getNroIdentificacion());
+		this.usuario.setPassword("");
+		this.usuario.setPrimerNombre(this.usuarioCentralizador.getPrimerNombre());
+		this.usuario.setSegundoNombre(this.usuarioCentralizador.getSegundoNombre());
+		this.usuario.setPrimerApellido(this.usuarioCentralizador.getPrimerApellido());
+		this.usuario.setSegundoApellido(this.usuarioCentralizador.getSegundoApellido());
 
 		//Realiza el registro en stormpath 
 		ResultadoOperacion respuesta = new FuncionesStormpath().crearUsuario(this.usuario.getPrimerNombre(),
@@ -268,14 +251,6 @@ public class RegistrarUsuarioBean {
 		this.tiposDocumento = tiposDocumento;
 	}
 
-	public String getTipoIdentificacion() {
-		return tipoIdentificacion;
-	}
-
-	public void setTipoIdentificacion(String tipoIdentificacion) {
-		this.tipoIdentificacion = tipoIdentificacion;
-	}		
-
 	public String getDepartamentoExpedicionDoc() {
 		return departamentoExpedicionDoc;
 	}
@@ -283,14 +258,6 @@ public class RegistrarUsuarioBean {
 	public void setDepartamentoExpedicionDoc(String departamentoExpedicionDoc) {
 		this.departamentoExpedicionDoc = departamentoExpedicionDoc;
 	}
-
-	public String getCiudadExpedicionDoc() {
-		return ciudadExpedicionDoc;
-	}
-
-	public void setCiudadExpedicionDoc(String ciudadExpedicionDoc) {
-		this.ciudadExpedicionDoc = ciudadExpedicionDoc;
-	}	
 
 	public List<ZonaGeografica> getDepartamentos() {
 		return departamentos;
@@ -316,28 +283,12 @@ public class RegistrarUsuarioBean {
 		this.departamentoNacimiento = departamentoNacimiento;
 	}
 
-	public String getCiudadNacimiento() {
-		return ciudadNacimiento;
-	}
-
-	public void setCiudadNacimiento(String ciudadNacimiento) {
-		this.ciudadNacimiento = ciudadNacimiento;
-	}
-
 	public String getDepartamentoResidencia() {
 		return departamentoResidencia;
 	}
 
 	public void setDepartamentoResidencia(String departamentoResidencia) {
 		this.departamentoResidencia = departamentoResidencia;
-	}
-
-	public String getCiudadResidencia() {
-		return ciudadResidencia;
-	}
-
-	public void setCiudadResidencia(String ciudadResidencia) {
-		this.ciudadResidencia = ciudadResidencia;
 	}
 
 	public String getDepartamentoCorrespondencia() {
@@ -348,28 +299,12 @@ public class RegistrarUsuarioBean {
 		this.departamentoCorrespondencia = departamentoCorrespondencia;
 	}
 
-	public String getCiudadCorrespondencia() {
-		return ciudadCorrespondencia;
-	}
-
-	public void setCiudadCorrespondencia(String ciudadCorrespondencia) {
-		this.ciudadCorrespondencia = ciudadCorrespondencia;
-	}
-
 	public String getDepartamentoLaboral() {
 		return departamentoLaboral;
 	}
 
 	public void setDepartamentoLaboral(String departamentoLaboral) {
 		this.departamentoLaboral = departamentoLaboral;
-	}
-
-	public String getCiudadLaboral() {
-		return ciudadLaboral;
-	}
-
-	public void setCiudadLaboral(String ciudadLaboral) {
-		this.ciudadLaboral = ciudadLaboral;
 	}
 
 	public List<ZonaGeografica> getCiudadesNacimiento() {
@@ -412,14 +347,6 @@ public class RegistrarUsuarioBean {
 		this.nacionalidades = nacionalidades;
 	}
 
-	public String getNacionalidad() {
-		return nacionalidad;
-	}
-
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
-	}
-
 	public String getFechaExpedicionDoc() {
 		return fechaExpedicionDoc;
 	}
@@ -428,35 +355,7 @@ public class RegistrarUsuarioBean {
 		this.fechaExpedicionDoc = fechaExpedicionDoc;
 	}
 
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
-
-	public String getDireccionResidencia() {
-		return direccionResidencia;
-	}
-
-
-	public void setDireccionResidencia(String direccionResidencia) {
-		this.direccionResidencia = direccionResidencia;
-	}
-
-
-	public String getDireccionCorrespondencia() {
-		return direccionCorrespondencia;
-	}
-
-
-	public void setDireccionCorrespondencia(String direccionCorrespondencia) {
-		this.direccionCorrespondencia = direccionCorrespondencia;
-	}
-
-
+	
 	public String getDireccionLaboral() {
 		return direccionLaboral;
 	}
@@ -467,31 +366,32 @@ public class RegistrarUsuarioBean {
 	}
 
 
-	public String getTelefono() {
-		return telefono;
-	}
-
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-
-
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
-
 	public UsuarioDTO getUsuario() {
 		return usuario;
 	}
 	
 	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
+	}
+
+
+	public DatosBasicosUsuarioDTO getUsuarioCentralizador() {
+		return usuarioCentralizador;
+	}
+
+
+	public void setUsuarioCentralizador(DatosBasicosUsuarioDTO usuarioCentralizador) {
+		this.usuarioCentralizador = usuarioCentralizador;
+	}
+
+
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 	
