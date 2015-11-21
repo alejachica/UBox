@@ -14,6 +14,8 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.sun.xml.ws.rx.rm.runtime.sequence.persistent.PersistenceException;
+
 import co.edu.uniandes.umbrella.dto.DatosBasicosUsuarioDTO;
 import co.edu.uniandes.umbrella.dto.DatosOperadorDTO;
 import co.edu.uniandes.umbrella.entidades.Operador;
@@ -102,9 +104,19 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 		
 		} catch(EntityExistsException eex){
 			
+			logger.severe(COD_002.getIdCodigo() + COD_002.getMensaje());
+			
+			return COD_002.getIdCodigo();
+			
+		}catch(PersistenceException pex){
+			
+			logger.severe(COD_002.getIdCodigo() + COD_002.getMensaje());
+			
 			return COD_002.getIdCodigo();
 		}
 		catch (Exception e) {
+			
+			logger.severe(COD_003.getIdCodigo() + COD_003.getMensaje());
 			
 			return COD_003.getIdCodigo();
 		}
