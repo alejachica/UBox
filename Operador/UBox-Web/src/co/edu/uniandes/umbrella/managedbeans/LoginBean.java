@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 
 import umbrella.ubox.seguridad.ManejoSesiones;
+import umbrella.ubox.seguridad.UsuarioAutenticado;
 
 @ManagedBean(name = "LoginBean")
 public class LoginBean implements Serializable {
@@ -48,7 +49,12 @@ public class LoginBean implements Serializable {
 			ManejoSesiones objSesion = new ManejoSesiones();
 			if(objSesion.validarAutenticacion(this.usuario,  this.clave, "127.0.0.1"))
 			{
-				return "directorios/documentosPersonales.xhtml";
+				UsuarioAutenticado usuario = ManejoSesiones.getUsuarioAutenticado();
+				
+				if(usuario.isAdmin())
+					return "indexAdmin.xhtml";				
+				
+				return "index.xhtml";
 			}
 			else
 			{

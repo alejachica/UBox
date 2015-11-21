@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/templateAdmin.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Registro de Usuario</ui:define>
+
+	<ui:define name="bodyContent">
+		<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-info-sign"></i> Información</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content row">
+                <div >
+                    
+					
+					<table width="95%" align="center">
+					<tr>
+					<td colspan="2">
+					<h1>Administrador de Ubox <br/>
+                        <small>Importante: Mantener la seguridad y confidencialidad de la información en el sistema </small>
+                    </h1>
+					
+					</td>
+					</tr>
+					<tr>
+					<td width="100%">
+					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
+
+                    <p>Ubox como operador de Carpeta Ciudadana esta autorizado por ley para registrar y operar la solución tecnológica.
+					Brindamos a nuestros usuarios el mejor medio para acceder a los servicios de gestión de sus documentos a través de la
+					web y de manera asistida.</p>
+
+                   
+
+					</td>
+					
+					</tr>
+					</table>                   					
+                </div>
+				            </div>
+        </div>
+    </div>
+</div>
+	
+	</ui:define>
+
+
+	
+
+	<hr />
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h3>Settings</h3>
+				</div>
+				<div class="modal-body">
+					<p>Here settings can be configured...</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+					<a href="#" class="btn btn-primary" data-dismiss="modal">Save
+						changes</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modalServicio" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h3 id="h3Info"></h3>
+				</div>
+				<div class="modal-body" id="divInfo"></div>
+				<div id="footerfirmar" class="modal-footer">
+					<!--<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+</ui:composition>
