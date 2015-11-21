@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?wsdl" uri="../CrearUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.wsdl"/>
+    <system systemId="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?xsd=1" uri="../CrearUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.xsd_1.xsd"/>
+
+    <system systemId="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?wsdl" uri="../ConsultarOperadorUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.wsdl"/>
+    <system systemId="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?xsd=1" uri="../ConsultarOperadorUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.xsd_1.xsd"/>
+
+    <system systemId="http://172.24.99.240:8080/TransaccionesEJBService/TransaccionesEJB?wsdl" uri="../ConsultarServiciosOperador/172.24.99.240_8080/TransaccionesEJBService/TransaccionesEJB.wsdl"/>
+    <system systemId="http://172.24.99.240:8080/TransaccionesEJBService/TransaccionesEJB?xsd=1" uri="../ConsultarServiciosOperador/172.24.99.240_8080/TransaccionesEJBService/TransaccionesEJB.xsd_1.xsd"/>
+</catalog>

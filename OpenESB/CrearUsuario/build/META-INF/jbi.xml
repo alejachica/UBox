@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns0="http://enterprise.netbeans.org/bpel/CrearUsuario/crearUsuario" xmlns:ns1="http://ejb.umbrella.uniandes.edu.co/" xmlns:ns2="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" xmlns:ns3="http://www.sun.com/jbi/descriptor/service-unit" version="1.0">
+    <services binding-component="false">
+        <provides endpoint-name="crearUsuarioWsdlPortRole_myRole" interface-name="ns2:crearUsuarioWsdlPort" service-name="ns0:CreacionUsuario">
+            <ns3:display-name>CreacionUsuario</ns3:display-name>
+            <ns3:process-name>crearUsuario</ns3:process-name>
+            <ns3:file-path>crearUsuario.bpel</ns3:file-path>
+        </provides>
+        <consumes endpoint-name="UsuariosEJBRole_partnerRole" interface-name="ns1:UsuariosEJB" service-name="ns0:CrearUsuarioEJB">
+            <ns3:display-name>CrearUsuarioEJB</ns3:display-name>
+            <ns3:process-name>crearUsuario</ns3:process-name>
+            <ns3:file-path>crearUsuario.bpel</ns3:file-path>
+        </consumes>
+    </services>
+</jbi>

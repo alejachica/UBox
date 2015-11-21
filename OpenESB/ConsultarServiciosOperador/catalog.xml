@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
+    <system systemId="http://172.24.99.240:8080/TransaccionesEJBService/TransaccionesEJB?wsdl" uri="src/172.24.99.240_8080/TransaccionesEJBService/TransaccionesEJB.wsdl"/>
+    <system systemId="http://172.24.99.240:8080/TransaccionesEJBService/TransaccionesEJB?xsd=1" uri="src/172.24.99.240_8080/TransaccionesEJBService/TransaccionesEJB.xsd_1.xsd"/>
+</catalog>

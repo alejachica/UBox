@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ejb.umbrella.uniandes.edu.co/">
+
+<xs:element name="consultarOperadorUsuario" type="tns:consultarOperadorUsuario"/>
+
+<xs:element name="consultarOperadorUsuarioResponse" type="tns:consultarOperadorUsuarioResponse"/>
+
+<xs:element name="consultarUsuario" type="tns:consultarUsuario"/>
+
+<xs:element name="consultarUsuarioResponse" type="tns:consultarUsuarioResponse"/>
+
+<xs:element name="crearUsuario" type="tns:crearUsuario"/>
+
+<xs:element name="crearUsuarioResponse" type="tns:crearUsuarioResponse"/>
+
+<xs:complexType name="consultarUsuario">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultarUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:datosBasicosUsuarioDTO" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosBasicosUsuarioDTO">
+<xs:sequence>
+<xs:element name="direccionNotificacion" type="xs:string" minOccurs="0"/>
+<xs:element name="emailPersonal" type="xs:string" minOccurs="0"/>
+<xs:element name="fechaExpediciionIdentificacion" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="fechaNacimiento" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="genero" type="xs:string" minOccurs="0"/>
+<xs:element name="idDireccionResidencia" type="xs:string" minOccurs="0"/>
+<xs:element name="idEstadoCivil" type="xs:int"/>
+<xs:element name="idMunicipioExpedicionIdentificacion" type="xs:int"/>
+<xs:element name="idMunicipioLaboral" type="xs:int"/>
+<xs:element name="idMunicipioNacimiento" type="xs:int"/>
+<xs:element name="idMunicipioNotificacion" type="xs:int"/>
+<xs:element name="idMunicipioResidencia" type="xs:int"/>
+<xs:element name="idNacionalidad" type="xs:int"/>
+<xs:element name="idOperador" type="xs:int"/>
+<xs:element name="idOperadorActual" type="xs:int"/>
+<xs:element name="idTipoIdentificacion" type="xs:string" minOccurs="0"/>
+<xs:element name="idUsuario" type="xs:int"/>
+<xs:element name="nroIdentificacion" type="xs:string" minOccurs="0"/>
+<xs:element name="primerApellido" type="xs:string" minOccurs="0"/>
+<xs:element name="primerNombre" type="xs:string" minOccurs="0"/>
+<xs:element name="segundoApellido" type="xs:string" minOccurs="0"/>
+<xs:element name="segundoNombre" type="xs:string" minOccurs="0"/>
+<xs:element name="telefono" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="crearUsuario">
+<xs:sequence>
+<xs:element name="arg0" type="tns:datosBasicosUsuarioDTO" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="crearUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultarOperadorUsuario">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultarOperadorUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:datosOperadorDTO" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datosOperadorDTO">
+<xs:sequence>
+<xs:element name="direccion" type="xs:string" minOccurs="0"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="idOperador" type="xs:int"/>
+<xs:element name="nit" type="xs:string" minOccurs="0"/>
+<xs:element name="razonSocial" type="xs:string" minOccurs="0"/>
+<xs:element name="telefono" type="xs:string" minOccurs="0"/>
+<xs:element name="urlServicio" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
