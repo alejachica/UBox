@@ -7,8 +7,13 @@ import javax.ejb.EJB;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.primefaces.expression.impl.ThisExpressionResolver;
+
+import com.stormpath.sdk.client.Client;
+import com.stormpath.sdk.group.Group;
+import com.stormpath.shiro.realm.ApplicationRealm;
 
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 
@@ -59,6 +64,7 @@ public class ManejoSesiones {
 			
 			
 			UsuarioAutenticado usuario = new UsuarioAutenticado(userAttributes);
+			usuario.setAdmin(validateAdmin());
 			return usuario;
 			
 			
@@ -67,5 +73,21 @@ public class ManejoSesiones {
 		{
 			return null;
 		}
+	}
+	
+	/***
+	 * Valida si el usuario es administrador o no
+	 * @return
+	 */
+	private static boolean validateAdmin()
+	{
+		String roleAdmin = "https://api.stormpath.com/v1/groups/5Es4MmkD1O3iJ7JTDejBGK";
+		//Consulta el grupo de Amdinistrador para saber si el usuario pertenece a el o no
+		ApplicationRealm realm = ((ApplicationRealm)((RealmSecurityManager) SecurityUtils.getSecurityManager()).getRealms().iterator().next());
+		Client client = realm.getClient();
+		Group group = client.getResource("https://api.stormpath.com/v1/groups/5Es4MmkD1O3iJ7JTDejBGK", Group.class);
+		String groupHref = group.getHref();
+		boolean hasRole = SecurityUtils.getSubject().hasRole("admin");
+		return hasRole;
 	}
 }
