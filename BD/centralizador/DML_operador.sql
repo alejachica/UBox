@@ -1,0 +1,2 @@
+insert into OPERADOR(nit,razon_social,direccion,telefono,email) values('nit1','Operador1','calle116','1234567','operador1@uniandes.edu.co');
+insert into OPERADOR(nit,razon_social,direccion,telefono,email) values('nit2','Operador2','calle116','1234567','operador2@uniandes.edu.co');

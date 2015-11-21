@@ -10,18 +10,17 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema ubox
 -- -----------------------------------------------------
-
+DROP SCHEMA IF EXISTS `ubox`;
 -- -----------------------------------------------------
 -- Schema ubox
 -- -----------------------------------------------------
+
 CREATE SCHEMA IF NOT EXISTS `ubox` DEFAULT CHARACTER SET utf8 ;
 USE `ubox` ;
 
 -- -----------------------------------------------------
 -- Table `ubox`.`Forma_Comparticion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`Forma_Comparticion` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`Forma_Comparticion` (
   `id_forma_comparticion` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NOT NULL COMMENT '',
@@ -39,13 +38,12 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `ubox`.`ZONA_GEOGRAFICA`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`ZONA_GEOGRAFICA` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`ZONA_GEOGRAFICA` (
   `id_zona_geografica` INT(11) NOT NULL COMMENT '',
   `nombre` VARCHAR(50) NOT NULL COMMENT '',
   `id_padre` INT(11) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_zona_geografica`)  COMMENT '',
+  INDEX `fk_padre_idx` (`id_padre` ASC)  COMMENT '',
   CONSTRAINT `fk_padre`
     FOREIGN KEY (`id_padre`)
     REFERENCES `ubox`.`ZONA_GEOGRAFICA` (`id_zona_geografica`)
@@ -53,14 +51,10 @@ CREATE TABLE IF NOT EXISTS `ubox`.`ZONA_GEOGRAFICA` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_padre_idx` ON `ubox`.`ZONA_GEOGRAFICA` (`id_padre` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`usuario` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`usuario` (
   `id_usuario` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `id_stormpath` VARCHAR(50) NOT NULL COMMENT '',
@@ -73,19 +67,16 @@ CREATE TABLE IF NOT EXISTS `ubox`.`usuario` (
   `segundo_nombre` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   `primer_apellido` VARCHAR(50) NOT NULL COMMENT '',
   `segundo_apellido` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`id_usuario`)  COMMENT '')
+  PRIMARY KEY (`id_usuario`)  COMMENT '',
+  UNIQUE INDEX `id_stormpath_UNIQUE` (`id_stormpath` ASC)  COMMENT '')
 ENGINE = InnoDB
 AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = latin1;
-
-CREATE UNIQUE INDEX `id_stormpath_UNIQUE` ON `ubox`.`usuario` (`id_stormpath` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
 -- Table `ubox`.`carpeta`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`carpeta` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`carpeta` (
   `id_carpeta` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `id_usuario` INT(11) NOT NULL COMMENT '',
@@ -93,6 +84,8 @@ CREATE TABLE IF NOT EXISTS `ubox`.`carpeta` (
   `descripcion` VARCHAR(500) NULL DEFAULT NULL COMMENT '',
   `id_carpeta_padre` INT(11) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_carpeta`)  COMMENT '',
+  INDEX `FK_Carpeta_Padre1` (`id_carpeta_padre` ASC)  COMMENT '',
+  INDEX `fk_carpeta_usuario1_idx` (`id_usuario` ASC)  COMMENT '',
   CONSTRAINT `carpeta_ibfk_1`
     FOREIGN KEY (`id_carpeta_padre`)
     REFERENCES `ubox`.`carpeta` (`id_carpeta`),
@@ -104,16 +97,10 @@ CREATE TABLE IF NOT EXISTS `ubox`.`carpeta` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `FK_Carpeta_Padre1` ON `ubox`.`carpeta` (`id_carpeta_padre` ASC)  COMMENT '';
-
-CREATE INDEX `fk_carpeta_usuario1_idx` ON `ubox`.`carpeta` (`id_usuario` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`plan`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`plan` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`plan` (
   `id_plan` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
@@ -128,8 +115,6 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `ubox`.`contrato`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`contrato` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`contrato` (
   `id_contrato` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_usuario` INT(11) NULL DEFAULT NULL COMMENT '',
@@ -139,6 +124,8 @@ CREATE TABLE IF NOT EXISTS `ubox`.`contrato` (
   `activo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
   `descripcion` TEXT NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_contrato`)  COMMENT '',
+  INDEX `IXFK_Contrato_Plan` (`fk_plan` ASC)  COMMENT '',
+  INDEX `IXFK_Contrato_Usuario` (`fk_usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_contrato_plan`
     FOREIGN KEY (`fk_plan`)
     REFERENCES `ubox`.`plan` (`id_plan`),
@@ -148,16 +135,10 @@ CREATE TABLE IF NOT EXISTS `ubox`.`contrato` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `IXFK_Contrato_Plan` ON `ubox`.`contrato` (`fk_plan` ASC)  COMMENT '';
-
-CREATE INDEX `IXFK_Contrato_Usuario` ON `ubox`.`contrato` (`fk_usuario` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`documento`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`documento` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`documento` (
   `id_documento` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_carpeta` INT(11) NOT NULL COMMENT '',
@@ -174,6 +155,8 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento` (
   `documento` BLOB NOT NULL COMMENT '',
   `size` INT(11) NOT NULL COMMENT '',
   PRIMARY KEY (`id_documento`)  COMMENT '',
+  INDEX `FK_Documento_Carpeta_idx` (`fk_carpeta` ASC)  COMMENT '',
+  INDEX `fk_documento_usuario1_idx` (`fk_usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_documento_carpeta`
     FOREIGN KEY (`fk_carpeta`)
     REFERENCES `ubox`.`carpeta` (`id_carpeta`)
@@ -187,16 +170,10 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `FK_Documento_Carpeta_idx` ON `ubox`.`documento` (`fk_carpeta` ASC)  COMMENT '';
-
-CREATE INDEX `fk_documento_usuario1_idx` ON `ubox`.`documento` (`fk_usuario` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`documento_x_usuario_compartido`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`documento_x_usuario_compartido` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`documento_x_usuario_compartido` (
   `id_compartido` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_documento` INT(11) NOT NULL COMMENT '',
@@ -214,6 +191,9 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento_x_usuario_compartido` (
   `enviado` BIT(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue enviado o compartido a otro usuario',
   `recibido` BIT(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue recibido de otro usuario',
   PRIMARY KEY (`id_compartido`)  COMMENT '',
+  INDEX `fk_documento_compartido_documento_idx` (`fk_documento` ASC)  COMMENT '',
+  INDEX `fk_documento_x_usuario_compartido_usuario1_idx` (`fk_usuario` ASC)  COMMENT '',
+  INDEX `fk_forma_comparticion_idx` (`fk_forma_comparticion` ASC)  COMMENT '',
   CONSTRAINT `fk_documento_compartido_documento`
     FOREIGN KEY (`fk_documento`)
     REFERENCES `ubox`.`documento` (`id_documento`)
@@ -232,18 +212,10 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento_x_usuario_compartido` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `fk_documento_compartido_documento_idx` ON `ubox`.`documento_x_usuario_compartido` (`fk_documento` ASC)  COMMENT '';
-
-CREATE INDEX `fk_documento_x_usuario_compartido_usuario1_idx` ON `ubox`.`documento_x_usuario_compartido` (`fk_usuario` ASC)  COMMENT '';
-
-CREATE INDEX `fk_forma_comparticion_idx` ON `ubox`.`documento_x_usuario_compartido` (`fk_forma_comparticion` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`factura`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`factura` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`factura` (
   `id_factura` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_contrato` INT(11) NULL DEFAULT NULL COMMENT '',
@@ -251,20 +223,17 @@ CREATE TABLE IF NOT EXISTS `ubox`.`factura` (
   `fecha` DATETIME NOT NULL COMMENT '',
   `estado` VARCHAR(50) NOT NULL COMMENT '',
   PRIMARY KEY (`id_factura`)  COMMENT '',
+  INDEX `IXFK_Factura_Contrato` (`fk_contrato` ASC)  COMMENT '',
   CONSTRAINT `fk_factura_contrato`
     FOREIGN KEY (`fk_contrato`)
     REFERENCES `ubox`.`contrato` (`id_contrato`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `IXFK_Factura_Contrato` ON `ubox`.`factura` (`fk_contrato` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`factura_detalle`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`factura_detalle` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`factura_detalle` (
   `id_detalle` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_factura` INT(11) NULL DEFAULT NULL COMMENT '',
@@ -274,20 +243,17 @@ CREATE TABLE IF NOT EXISTS `ubox`.`factura_detalle` (
   `valor_neto` DECIMAL(10,2) NOT NULL COMMENT '',
   `cantidad` DECIMAL(10,2) NOT NULL COMMENT '',
   PRIMARY KEY (`id_detalle`)  COMMENT '',
+  INDEX `IXFK_Factura_Detalle_Factura` (`fk_factura` ASC)  COMMENT '',
   CONSTRAINT `fk_factura_detalle_factura`
     FOREIGN KEY (`fk_factura`)
     REFERENCES `ubox`.`factura` (`id_factura`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `IXFK_Factura_Detalle_Factura` ON `ubox`.`factura_detalle` (`fk_factura` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`historial_documento`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`historial_documento` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`historial_documento` (
   `id_historial` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_documento` INT(11) NULL DEFAULT NULL COMMENT '',
@@ -295,20 +261,17 @@ CREATE TABLE IF NOT EXISTS `ubox`.`historial_documento` (
   `operacion` VARCHAR(50) NOT NULL COMMENT '',
   `id_tipo_operacion` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_historial`)  COMMENT '',
+  INDEX `IXFK_Historial_documento_Documento` (`fk_documento` ASC)  COMMENT '',
   CONSTRAINT `fk_historial_documento_documento`
     FOREIGN KEY (`fk_documento`)
     REFERENCES `ubox`.`documento` (`id_documento`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `IXFK_Historial_documento_Documento` ON `ubox`.`historial_documento` (`fk_documento` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`institucion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`institucion` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`institucion` (
   `id_institucion` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(50) NOT NULL COMMENT '',
@@ -323,8 +286,6 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `ubox`.`lista`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`lista` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`lista` (
   `id_lista` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(50) NOT NULL COMMENT '',
@@ -332,15 +293,13 @@ CREATE TABLE IF NOT EXISTS `ubox`.`lista` (
   `descripcion` VARCHAR(256) NOT NULL COMMENT '',
   PRIMARY KEY (`id_lista`)  COMMENT '')
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
 -- Table `ubox`.`lista_valor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`lista_valor` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`lista_valor` (
   `id_lista_valor` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_lista` INT(11) NOT NULL COMMENT '',
@@ -349,21 +308,18 @@ CREATE TABLE IF NOT EXISTS `ubox`.`lista_valor` (
   `descripcion` VARCHAR(256) NOT NULL COMMENT '',
   `codigo_externo` VARCHAR(20) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_lista_valor`)  COMMENT '',
+  INDEX `IXFK_Lista_Valor_Lista` (`fk_lista` ASC)  COMMENT '',
   CONSTRAINT `fk_lista_valor_lista`
     FOREIGN KEY (`fk_lista`)
     REFERENCES `ubox`.`lista` (`id_lista`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 22
 DEFAULT CHARACTER SET = latin1;
-
-CREATE INDEX `IXFK_Lista_Valor_Lista` ON `ubox`.`lista_valor` (`fk_lista` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
 -- Table `ubox`.`notificacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`notificacion` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`notificacion` (
   `id_notificacion` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_usuario` INT(11) NOT NULL COMMENT '',
@@ -374,6 +330,8 @@ CREATE TABLE IF NOT EXISTS `ubox`.`notificacion` (
   `asunto` VARCHAR(50) NOT NULL COMMENT '',
   `texto` VARCHAR(50) NOT NULL COMMENT '',
   PRIMARY KEY (`id_notificacion`)  COMMENT '',
+  INDEX `IXFK_Notificacion_Documento` (`fk_documento` ASC)  COMMENT '',
+  INDEX `IXFK_Notificacion_Usuario` (`fk_usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_notificacion_documento`
     FOREIGN KEY (`fk_documento`)
     REFERENCES `ubox`.`documento` (`id_documento`),
@@ -383,16 +341,10 @@ CREATE TABLE IF NOT EXISTS `ubox`.`notificacion` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `IXFK_Notificacion_Documento` ON `ubox`.`notificacion` (`fk_documento` ASC)  COMMENT '';
-
-CREATE INDEX `IXFK_Notificacion_Usuario` ON `ubox`.`notificacion` (`fk_usuario` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`pago`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`pago` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`pago` (
   `id_pago` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_documento` INT(11) NULL DEFAULT NULL COMMENT '',
@@ -402,20 +354,17 @@ CREATE TABLE IF NOT EXISTS `ubox`.`pago` (
   `fecha` DATE NOT NULL COMMENT '',
   `comprobante` VARCHAR(50) NOT NULL COMMENT '',
   PRIMARY KEY (`id_pago`)  COMMENT '',
+  INDEX `FK_Pago_Documento_idx` (`fk_documento` ASC)  COMMENT '',
   CONSTRAINT `fk_pago_documento`
     FOREIGN KEY (`fk_documento`)
     REFERENCES `ubox`.`documento` (`id_documento`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `FK_Pago_Documento_idx` ON `ubox`.`pago` (`fk_documento` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`pqr`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`pqr` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`pqr` (
   `id_pqr` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_usuario` INT(11) NULL DEFAULT NULL COMMENT '',
@@ -424,20 +373,17 @@ CREATE TABLE IF NOT EXISTS `ubox`.`pqr` (
   `id_estado_pqr` DECIMAL(10,2) NOT NULL COMMENT '',
   `fecha` DATE NOT NULL COMMENT '',
   PRIMARY KEY (`id_pqr`)  COMMENT '',
+  INDEX `IXFK_PQR_Usuario` (`fk_usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_pqr_suario`
     FOREIGN KEY (`fk_usuario`)
     REFERENCES `ubox`.`usuario` (`id_usuario`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `IXFK_PQR_Usuario` ON `ubox`.`pqr` (`fk_usuario` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`tipocarpeta_x_permisos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`tipocarpeta_x_permisos` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`tipocarpeta_x_permisos` (
   `id_tipo_carpeta_x_permisos` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `id_tipo_carpeta` VARCHAR(50) NOT NULL COMMENT '',
@@ -450,24 +396,19 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `ubox`.`tipodoc_x_permisos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`tipodoc_x_permisos` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`tipodoc_x_permisos` (
   `id_tipo_doc_x_permisos` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `id_tipo_doc` VARCHAR(50) NOT NULL COMMENT '',
   `id_permiso` VARCHAR(50) NOT NULL COMMENT 'en esta columna se tendra en cuenta si el doc puede ser compartido, firmado, eliminado, etc',
-  PRIMARY KEY (`id_tipo_doc_x_permisos`)  COMMENT '')
+  PRIMARY KEY (`id_tipo_doc_x_permisos`)  COMMENT '',
+  INDEX `IXUQ_TIPODOC_PERMISO` (`id_tipo_doc` ASC, `id_permiso` ASC)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
-
-CREATE INDEX `IXUQ_TIPODOC_PERMISO` ON `ubox`.`tipodoc_x_permisos` (`id_tipo_doc` ASC, `id_permiso` ASC)  COMMENT '';
 
 
 -- -----------------------------------------------------
 -- Table `ubox`.`tramite`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`tramite` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`tramite` (
   `id_tramite` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_institucion` INT(11) NOT NULL COMMENT '',
@@ -475,25 +416,24 @@ CREATE TABLE IF NOT EXISTS `ubox`.`tramite` (
   `id_tipo_tramite` DECIMAL(10,2) NOT NULL COMMENT '',
   `activo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_tramite`)  COMMENT '',
+  INDEX `IXFK_Tramite_Institucion` (`fk_institucion` ASC)  COMMENT '',
   CONSTRAINT `fk_tramite_institucion`
     FOREIGN KEY (`fk_institucion`)
     REFERENCES `ubox`.`institucion` (`id_institucion`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `IXFK_Tramite_Institucion` ON `ubox`.`tramite` (`fk_institucion` ASC)  COMMENT '';
-
 
 -- -----------------------------------------------------
 -- Table `ubox`.`tramite_usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ubox`.`tramite_usuario` ;
-
 CREATE TABLE IF NOT EXISTS `ubox`.`tramite_usuario` (
   `id_estado_tramite` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `fk_tramite` INT(11) NULL DEFAULT NULL COMMENT '',
   `fk_usuario` INT(11) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_estado_tramite`)  COMMENT '',
+  INDEX `IXFK_Tramite_Usuario_Tramite` (`fk_tramite` ASC)  COMMENT '',
+  INDEX `IXFK_Tramite_Usuario_Usuario` (`fk_usuario` ASC)  COMMENT '',
   CONSTRAINT `fk_tramite_usuario_tramite`
     FOREIGN KEY (`fk_tramite`)
     REFERENCES `ubox`.`tramite` (`id_tramite`),
@@ -502,10 +442,6 @@ CREATE TABLE IF NOT EXISTS `ubox`.`tramite_usuario` (
     REFERENCES `ubox`.`usuario` (`id_usuario`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
-
-CREATE INDEX `IXFK_Tramite_Usuario_Tramite` ON `ubox`.`tramite_usuario` (`fk_tramite` ASC)  COMMENT '';
-
-CREATE INDEX `IXFK_Tramite_Usuario_Usuario` ON `ubox`.`tramite_usuario` (`fk_usuario` ASC)  COMMENT '';
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
