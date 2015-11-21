@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="consultarServiciosOperador"
+    targetNamespace="http://enterprise.netbeans.org/bpel/ConsultarServiciosOperador/consultarServiciosOperador"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/ConsultarServiciosOperador/consultarServiciosOperador"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty">
+    <import namespace="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" location="UserProcess/consultarServiciosOperadorUsuario.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/TransaccionesEJBWrapper" location="TransaccionesEJBWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://ejb.umbrella.uniandes.edu.co/" location="http://172.24.99.240:8080/TransaccionesEJBService/TransaccionesEJB?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="ConsultarServiciosOperadorEJB" xmlns:tns="http://enterprise.netbeans.org/bpel/TransaccionesEJBWrapper" partnerLinkType="tns:TransaccionesEJBLinkType" partnerRole="TransaccionesEJBRole"/>
+        <partnerLink name="ConsultaServiociosOperadorESB" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" partnerLinkType="tns:consultarServiciosOperadorUsuario" myRole="consultarServiciosOperadorUsuarioPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="ConsultarServiciosOperadorUsuarioOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" messageType="tns:consultarServiciosOperadorUsuarioOperationResponse"/>
+        <variable name="ConsultarOperadorUsuarioParaCompartirOut" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" messageType="tns:consultarOperadorUsuarioParaCompartirResponse"/>
+        <variable name="ConsultarOperadorUsuarioParaCompartirIn" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" messageType="tns:consultarOperadorUsuarioParaCompartir"/>
+        <variable name="ConsultarServiciosOperadorUsuarioOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" messageType="tns:consultarServiciosOperadorUsuarioOperationRequest"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveDatosUsuaroi" createInstance="yes" partnerLink="ConsultaServiociosOperadorESB" operation="consultarServiciosOperadorUsuarioOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" portType="tns:consultarServiciosOperadorUsuarioPortType" variable="ConsultarServiciosOperadorUsuarioOperationIn"/>
+        <assign name="Assign1">
+            <copy>
+                <from variable="ConsultarServiciosOperadorUsuarioOperationIn" part="tipoDocumento"/>
+                <to>$ConsultarOperadorUsuarioParaCompartirIn.parameters/arg0</to>
+            </copy>
+            <copy>
+                <from variable="ConsultarServiciosOperadorUsuarioOperationIn" part="part2"/>
+                <to>$ConsultarOperadorUsuarioParaCompartirIn.parameters/arg1</to>
+            </copy>
+            <copy>
+                <from>'admin'</from>
+                <to variable="ConsultarOperadorUsuarioParaCompartirIn" sxnmp:nmProperty="org.glassfish.openesb.outbound.basicauth.username"/>
+            </copy>
+            <copy>
+                <from>'admin'</from>
+                <to variable="ConsultarOperadorUsuarioParaCompartirIn" sxnmp:nmProperty="org.glassfish.openesb.outbound.basicauth.password"/>
+            </copy>
+        </assign>
+        <invoke name="InvokeConsultaServiciosOperador" partnerLink="ConsultarServiciosOperadorEJB" operation="consultarOperadorUsuarioParaCompartir" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" portType="tns:TransaccionesEJB" inputVariable="ConsultarOperadorUsuarioParaCompartirIn" outputVariable="ConsultarOperadorUsuarioParaCompartirOut"/>
+        <assign name="Assign2">
+            <copy>
+                <from>$ConsultarOperadorUsuarioParaCompartirOut.parameters/return/direccion</from>
+                <to>$ConsultarServiciosOperadorUsuarioOperationOut.datosOperadorDTO/direccion</to>
+            </copy>
+            <copy>
+                <from>$ConsultarOperadorUsuarioParaCompartirOut.parameters/return/email</from>
+                <to>$ConsultarServiciosOperadorUsuarioOperationOut.datosOperadorDTO/email</to>
+            </copy>
+            <copy>
+                <from>$ConsultarOperadorUsuarioParaCompartirOut.parameters/return/idOperador</from>
+                <to>$ConsultarServiciosOperadorUsuarioOperationOut.datosOperadorDTO/idOperador</to>
+            </copy>
+            <copy>
+                <from>$ConsultarOperadorUsuarioParaCompartirOut.parameters/return/nit</from>
+                <to>$ConsultarServiciosOperadorUsuarioOperationOut.datosOperadorDTO/nit</to>
+            </copy>
+            <copy>
+                <from>$ConsultarOperadorUsuarioParaCompartirOut.parameters/return/razonSocial</from>
+                <to>$ConsultarServiciosOperadorUsuarioOperationOut.datosOperadorDTO/razonSocial</to>
+            </copy>
+            <copy>
+                <from>$ConsultarOperadorUsuarioParaCompartirOut.parameters/return/telefono</from>
+                <to>$ConsultarServiciosOperadorUsuarioOperationOut.datosOperadorDTO/telefono</to>
+            </copy>
+            <copy>
+                <from>$ConsultarOperadorUsuarioParaCompartirOut.parameters/return/urlServicio</from>
+                <to>$ConsultarServiciosOperadorUsuarioOperationOut.datosOperadorDTO/urlServicio</to>
+            </copy>
+        </assign>
+        <reply name="ReplyDatosServiciosOperador" partnerLink="ConsultaServiociosOperadorESB" operation="consultarServiciosOperadorUsuarioOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" portType="tns:consultarServiciosOperadorUsuarioPortType" variable="ConsultarServiciosOperadorUsuarioOperationOut"/>
+    </sequence>
+</process>

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -46,18 +47,27 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 	 * @return DatosOperadorDTO Datos del operador para compartir documentos
 	 */
 	@RolesAllowed("admin")
-	public DatosOperadorDTO consultarOperadorUsuarioParaCompartir(
-			ServiciosOperadorUsuarioDTO datos) {
-		
+	@WebMethod
+	public DatosOperadorDTO consultarOperadorUsuarioParaCompartir(String tipoDoc, String nroDoc) {
 		try {
 		
-			Query query = entityManager.createNamedQuery("ServiciosOperador.urlParaCompartirDocumentos",
-					ServiciosOperador.class).setParameter("idOperador", datos.getIdOperador());
+			Query usuarioQuery = entityManager.createNamedQuery("Usuario.findByTipoNroDoc",
+					Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", nroDoc);
 			
+			Usuario usuarioEncontrado = (Usuario) usuarioQuery.getSingleResult();
+			Query query = entityManager.createNamedQuery("ServiciosOperador.urlParaCompartirDocumentos",
+					ServiciosOperador.class).setParameter("idOperador", usuarioEncontrado.getIdOperador());
+			
+	
 			ServiciosOperador resultado = (ServiciosOperador) query.getSingleResult();
 	
 			DatosOperadorDTO datosOperador = new DatosOperadorDTO();
 			datosOperador.setIdOperador(resultado.getIdOperador());
+			datosOperador.setEmail(usuarioEncontrado.getOperador().getEmail());
+			datosOperador.setDireccion(usuarioEncontrado.getOperador().getDireccion());
+			datosOperador.setNit(usuarioEncontrado.getOperador().getNit());
+			datosOperador.setRazonSocial(usuarioEncontrado.getOperador().getRazonSocial());
+			datosOperador.setTelefono(usuarioEncontrado.getOperador().getTelefono());
 			datosOperador.setUrlServicio(resultado.getUrl());
 			
 			logger.info(COD_012.getIdCodigo() + COD_012.getMensaje() );

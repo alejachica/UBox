@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/CrearUsuario/crearUsuario" xmlns:ns2="http://ejb.umbrella.uniandes.edu.co/" xmlns:ns3="http://enterprise.netbeans.org/bpel/ConsultarOperadorUsuario/consultarOperadorUsuario" xmlns:ns4="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" xmlns:ns5="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" xmlns:ns6="http://enterprise.netbeans.org/bpel/ConsultarServiciosOperador/consultarServiciosOperador" xmlns:ns7="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" version="1.0">
+    <services binding-component="true">
+        <provides endpoint-name="UsuariosEJBPort" interface-name="ns2:UsuariosEJB" service-name="ns2:UsuariosEJBService"/>
+        <provides endpoint-name="TransaccionesEJBPort" interface-name="ns2:TransaccionesEJB" service-name="ns2:TransaccionesEJBService"/>
+        <consumes endpoint-name="newWSDLPort" interface-name="ns4:crearUsuarioWsdlPort" service-name="ns4:newWSDLService"/>
+        <consumes endpoint-name="consultarServiciosOperadorUsuarioPort" interface-name="ns5:consultarServiciosOperadorUsuarioPortType" service-name="ns5:consultarServiciosOperadorUsuarioService"/>
+        <consumes endpoint-name="consultarOperadorUsuarioPort" interface-name="ns7:consultarOperadorUsuarioPortType" service-name="ns7:consultarOperadorUsuarioService"/>
+    </services>
+</jbi>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="consultarOperadorUsuario"
+    targetNamespace="http://enterprise.netbeans.org/bpel/ConsultarOperadorUsuario/consultarOperadorUsuario"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/ConsultarOperadorUsuario/consultarOperadorUsuario"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    <import namespace="http://enterprise.netbeans.org/bpel/UsuariosEJBWrapper" location="UsuariosEJBWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://ejb.umbrella.uniandes.edu.co/" location="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" location="UserProcess/consultarOperadorUsuario.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="ConsultaOperadorESB" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" partnerLinkType="tns:consultarOperadorUsuario" myRole="consultarOperadorUsuarioPortTypeRole"/>
+        <partnerLink name="ConsultaOperadorEJB" xmlns:tns="http://enterprise.netbeans.org/bpel/UsuariosEJBWrapper" partnerLinkType="tns:UsuariosEJBLinkType" partnerRole="UsuariosEJBRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="ConsultarOperadorUsuarioOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" messageType="tns:consultarOperadorUsuarioOperationResponse"/>
+        <variable name="ConsultarOperadorUsuarioOut" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" messageType="tns:consultarOperadorUsuarioResponse"/>
+        <variable name="ConsultarOperadorUsuarioIn" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" messageType="tns:consultarOperadorUsuario"/>
+        <variable name="ConsultarOperadorUsuarioOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" messageType="tns:consultarOperadorUsuarioOperationRequest"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveUserData" createInstance="yes" partnerLink="ConsultaOperadorESB" operation="consultarOperadorUsuarioOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" portType="tns:consultarOperadorUsuarioPortType" variable="ConsultarOperadorUsuarioOperationIn"/>
+        <assign name="Assign1">
+            <copy>
+                <from variable="ConsultarOperadorUsuarioOperationIn" part="tipoDocumento"/>
+                <to>$ConsultarOperadorUsuarioIn.parameters/arg0</to>
+            </copy>
+            <copy>
+                <from variable="ConsultarOperadorUsuarioOperationIn" part="numDocumento"/>
+                <to>$ConsultarOperadorUsuarioIn.parameters/arg1</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeConsultaOperadorCentralizador" partnerLink="ConsultaOperadorEJB" operation="consultarOperadorUsuario" xmlns:tns="http://ejb.umbrella.uniandes.edu.co/" portType="tns:UsuariosEJB" inputVariable="ConsultarOperadorUsuarioIn" outputVariable="ConsultarOperadorUsuarioOut"/>
+        <assign name="Assign2">
+            <copy>
+                <from>$ConsultarOperadorUsuarioOut.parameters/return/idOperador</from>
+                <to>$ConsultarOperadorUsuarioOperationOut.datosOperadorDTO/idOperador</to>
+            </copy>
+            <copy>
+                <from>$ConsultarOperadorUsuarioOut.parameters/return/nit</from>
+                <to>$ConsultarOperadorUsuarioOperationOut.datosOperadorDTO/nit</to>
+            </copy>
+        </assign>
+        <reply name="ReplyDatosOperador" partnerLink="ConsultaOperadorESB" operation="consultarOperadorUsuarioOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" portType="tns:consultarOperadorUsuarioPortType" variable="ConsultarOperadorUsuarioOperationOut"/>
+    </sequence>
+</process>
