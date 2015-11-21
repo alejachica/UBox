@@ -14,6 +14,7 @@ public class UsuarioAutenticado {
 	private String idStormpath;
 	private String usuario;
 	private String correo;
+	private boolean admin; 
 	
 	@EJB
 	public UsuarioEJBRemote usuarioEjb;
@@ -39,6 +40,16 @@ public class UsuarioAutenticado {
 	}
 	
 	
+	public boolean isAdmin() {
+		return admin;
+	}
+
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+
 	public int getId() {
 		return id;
 	}

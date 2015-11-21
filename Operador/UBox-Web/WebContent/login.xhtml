@@ -1,44 +1,122 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html" 
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/templates/page-template.xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      
+    <!--
+        ===			
+        This comment should NOT be removed.
 
-<ui:define name="title">Entrar a Ubox</ui:define>
-<ui:define name="bodyContent">
+        Charisma v2.0.0
 
+        Copyright 2012-2014 Muhammad Usman
+        Licensed under the Apache License v2.0
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        http://usman.it
+        http://twitter.com/halalit_usman
+        ===
+    -->
+<h:head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title><ui:insert name="title">Home</ui:insert></title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template." />
+    <meta name="author" content="Umbrella Corp." />
+
+    <!-- The styles -->
+    <link id="bs-css" href="./resources/css/bootstrap-cerulean.min.css" rel="stylesheet" />
+
+    <link href="./resources/css/charisma-app.css" rel="stylesheet" />
+    <link href='./resources/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet' />
+    <link href='./resources/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link href='./resources/bower_components/chosen/chosen.min.css' rel='stylesheet' />
+    <link href='./resources/bower_components/colorbox/example3/colorbox.css' rel='stylesheet' />
+    <link href='./resources/bower_components/responsive-tables/responsive-tables.css' rel='stylesheet' />
+    <link href='./resources/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet' />
+    <link href='./resources/css/jquery.noty.css' rel='stylesheet' />
+    <link href='./resources/css/noty_theme_default.css' rel='stylesheet' />
+    <link href='./resources/css/elfinder.min.css' rel='stylesheet' />
+    <link href='./resources/css/elfinder.theme.css' rel='stylesheet' />
+    <link href='./resources/css/jquery.iphone.toggle.css' rel='stylesheet' />
+    <link href='./resources/css/uploadify.css' rel='stylesheet' />
+    <link href='./resources/css/animate.min.css' rel='stylesheet' />
+    <link rel="shortcut icon" href="./static/img/icono.ico" />
+    
+</h:head>
+
+
+<h:body>
+
+
+	<table width="100%">
+		<tr>
+			<td><br /> <br />
+				<div class="pull-right">
+					| <a href="#">Contáctenos</a> |
+				</div></td>
+		</tr>
+	</table>
+
+	<!-- topbar starts -->
+	<div class="navbar navbar-default" role="navigation">
+
+		<div class="navbar-innerLogin">
+			<img alt="Ubox" src="./resources/img/logo20.png" width="300px" />
+		</div>
+	</div>
+	<!-- topbar ends -->
+	
+	<table>
+		<tr>	
+			<td width="50%" style="padding-left:130px">
+				<h4>
+				Ubox como operador de Carpeta Ciudadana esta autorizado por ley para registrar y operar la solución tecnológica.
+				Brindamos a nuestros usuarios el mejor medio para acceder a los servicios de gestión de sus documentos
+				a través del acceso web y de manera asistida.
+				</h4>
+				<br/>
+				<h4>
+				Invitamos a los ciudadanos a disfrutar de nuestros servicios de control de documentos para trámites con entidades
+				públicas y privadas.
+				</h4>
+				<br/>
+				<br/>	
+				 <a class="btn btn-success" href="registroUsuario.html">Registrarse en Ubox</a>		
+				<br/><br/>
+				<h4>*Si usted pertenece a otro operador y quiere solicitar traslado a Ubox haga clic   
+				
+				<a class="abrirTras" href="#">
+							<i class="glyphicon glyphicon-hand-right icon-white"></i>
+							 aquí
+				</a>
+				</h4>
+				
+			</td>
+			<td width="10%">
+			<div class="pull-right">
+			<img alt="Ubox" src="./resources/img/imgLogin.png" /> 
+			</div>
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			</td>
+			<td width="40%">
 			<div class="row">
-				<div class="well col-md-5 pull-center login-box">
+				<div class="well col-md-10 pull-right login-box">
 				<div class="alert alert-info">
-					Si usted es un usuario registrado, ingrese su documento y su clave para ingresar.
+					Si usted es un usuario registrado, ingrese su usuario y su clave para ingresar.
 				</div>
 				<h:form>
 					<fieldset>
-			
-			
-			
-			
-			
-			
-					<div class="input-group input-group-lg">
+						<div class="input-group input-group-lg">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
 							<h:inputText id="usuario" maxlength="50" value="#{LoginBean.usuario}" placeholder="Usuario" class="form-control" ></h:inputText>
 						</div>
-						<div class="clearfix"></div><br></br>
+						<div class="clearfix"></div><br/>
 	
 						<div class="input-group input-group-lg">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
@@ -47,28 +125,26 @@
 						<div class="clearfix"></div>
 	
 						<div class="input-prepend">
-							<label class="remember" for="remember"><input type="checkbox" id="remember"> Recordarme</input></label>
+							<label class="remember" for="remember"><input type="checkbox" id="remember"> Recordarme </input></label>
 						</div>
 						
-						<div></div>
 						<div class="center">
 						<h:outputLabel id="error" value="#{LoginBean.error}" class="alert alert-danger" rendered="#{LoginBean.error != null}"></h:outputLabel>
-						<a href="#">*Olvidé mi contraseña</a>
-						</div> 
+						<br/><a href="#">*Olvidé mi contraseña</a>
+						</div>
 						
 						<p class="center col-md-5">
 							<h:commandButton id="btnSend" value="Entrar" class="btn btn-primary btn-lg" action="#{LoginBean.validarAutenticacion}"></h:commandButton>
 						</p>
-		
-		</fieldset>
+					</fieldset>
 				</h:form>
 			</div>
-			</div>
-		
-		
-		
+			</div>	
+			</td>
+		</tr>		
+	</table>
 
 
-</ui:define>
+</h:body>
 
-</ui:composition>
+</html>

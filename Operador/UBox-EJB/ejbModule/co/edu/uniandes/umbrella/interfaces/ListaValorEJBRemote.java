@@ -10,4 +10,5 @@ import co.edu.uniandes.umbrella.entidades.ListaValor;
 public interface ListaValorEJBRemote {
 	ListaValor buscarListaValorPorCodigoExterno(int idLista, String codigoExterno);
 	List<ListaValor> buscarLista(int idLista);
+	ListaValor buscarListaValor(int idListaValor);
 }
