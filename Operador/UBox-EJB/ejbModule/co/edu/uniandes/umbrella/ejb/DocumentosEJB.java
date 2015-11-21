@@ -6,12 +6,14 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 
 import co.edu.uniandes.umbrella.dto.CompartidoDTO;
 import co.edu.uniandes.umbrella.dto.DocumentoDTO;
@@ -30,11 +32,14 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.FormaComparticionEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
+import co.edu.uniandes.umbrella.utils.Email;
 import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
+
+import org.netbeans.j2ee.wsdl.ConsultarServiciosOperador.UserProcess.consultarServiciosOperadorUsuario.ConsultarServiciosOperadorUsuarioPortTypeProxy;
 
 /*import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -196,7 +201,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 			ResultadoOperacion respuesta = new ResultadoOperacion();
 			
 			//Si la url del operador es igual a null
-			String urlOperador = this.getUrlServicioOperador(idUsuario);
+			String urlOperador = this.getUrlServicioOperador(tipoDocumentoDestino, documentoDestino);
 			if(urlOperador != null)
 			{
 				//consulta el documento que se desea compartir
@@ -323,9 +328,20 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	 * @param idUsuario
 	 * @return Url del servicio de un operador
 	 */ 
-	private String getUrlServicioOperador(int idUsuario)
+	private String getUrlServicioOperador(String tipoDocumento, String numeroDocumento)
 	{
-		return "http://otrooperador.azurewebsites.net/";
+		ConsultarServiciosOperadorUsuarioPortTypeProxy ws = new ConsultarServiciosOperadorUsuarioPortTypeProxy();
+		try {
+			co.edu.uniandes.umbrella.ejb.DatosOperadorDTO operador = ws.consultarServiciosOperadorUsuarioOperation(tipoDocumento, numeroDocumento);
+			String url = operador.getUrlServicio();
+			return url.endsWith("/") ? url : url + "/";
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		//return "http://otrooperador.azurewebsites.net/";
 	}
 	
 	
@@ -545,9 +561,25 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
  		String link = randomString.nextString();
  		compartido.setLink(link);
 		
-		entityManager.persist(compartido);
-		
-		respuesta.setOperacionExitosa(true);
+ 		
+ 		try {
+ 			entityManager.persist(compartido);
+ 			//Realiza el envio del correo
+ 			Email mailManager = new Email();
+ 			mailManager.enviarCorreoArchivoPorLink(emailDestino, link, clave);
+ 			respuesta.setOperacionExitosa(true);
+		} 
+ 		catch (MessagingException e) {
+			respuesta.setOperacionExitosa(false);
+			respuesta.setResultadoOperacion("Error enviando el correo electrónico");
+		}
+ 		catch (Exception e) {
+			// TODO: handle exception
+ 			e.printStackTrace();
+ 			respuesta.setOperacionExitosa(false);
+			respuesta.setResultadoOperacion("Error compartiendo el documento");
+		}
+ 		
 		return respuesta;
 		
 	}
