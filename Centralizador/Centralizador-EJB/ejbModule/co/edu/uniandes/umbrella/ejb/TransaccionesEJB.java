@@ -89,30 +89,35 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 				}else {
 					
 					logger.severe(COD_013.getIdCodigo() + COD_013.getMensaje());
-					return null;
+					
+					return new DatosOperadorDTO();
 				}
 			}else {
 				
 				logger.severe(COD_005.getIdCodigo() + COD_005.getMensaje());
-				return null;
+				
+				return new DatosOperadorDTO();
 			}
 		} catch (NoResultException nre) {
 
 			logger.severe(COD_013.getIdCodigo());
 			logger.severe(nre.getMessage());
-			return null;
+			
+			return new DatosOperadorDTO();
 			
 		} catch (NonUniqueResultException nue) {
 
 			logger.severe(COD_014.getIdCodigo());
 			logger.severe(nue.getMessage());
-			return null;
+			
+			return new DatosOperadorDTO();
 			
 		} catch (Exception e) {
 
 			logger.severe(COD_015.getIdCodigo());
 			logger.severe(e.getMessage());
-			return null;
+			
+			return new DatosOperadorDTO();
 		}
 	}
 	
@@ -158,19 +163,22 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 
 			logger.severe(COD_018.getIdCodigo() + COD_018.getMensaje());
 			logger.severe(nre.getMessage());
-			return null;
+			
+			return COD_018.getIdCodigo();
 			
 		} catch (NonUniqueResultException nue) {
 
 			logger.severe(COD_019.getIdCodigo());
 			logger.severe(nue.getMessage());
-			return null;
+			
+			return COD_019.getIdCodigo();
 			
 		} catch (Exception e) {
 
 			logger.severe(COD_020.getIdCodigo());
 			logger.severe(e.getMessage());
-			return null;
+			
+			return COD_020.getIdCodigo();
 		}
 	}
 

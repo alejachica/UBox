@@ -16,6 +16,7 @@ import javax.persistence.Query;
 
 import co.edu.uniandes.umbrella.dto.DatosBasicosUsuarioDTO;
 import co.edu.uniandes.umbrella.dto.DatosOperadorDTO;
+import co.edu.uniandes.umbrella.entidades.Operador;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 import co.edu.uniandes.umbrella.interfaces.UsuariosEJBLocal;
@@ -67,6 +68,12 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 			usuario.setFechaNacimiento(usuarioDto.getFechaNacimiento());
 			usuario.setGenero(usuarioDto.getGenero());
 			usuario.setIdEstadoCivil(usuarioDto.getIdEstadoCivil());
+			
+			/*
+			 * Operador del usuario
+			 */
+			usuario.setIdOperador(usuarioDto.getIdOperador());
+			usuario.setOperador(configurarOperadorUsuario(usuarioDto.getIdOperador()));
 	
 			/*
 			 * Datos de contacto
@@ -211,6 +218,19 @@ public class UsuariosEJB implements UsuariosEJBRemote, UsuariosEJBLocal {
 		zona.setIdZonaGeografica(idZonaConfigurar);
 
 		return zona;
+	}
+	
+	/**
+	 * Metodo que permite asignar el id del operador del usuario
+	 * @param idOperador Id del operador del usuario
+	 * @return Operador operador del usuario
+	 */
+	private Operador configurarOperadorUsuario(int idOperador) {
+
+		Operador operador = new Operador();
+		operador.setIdOperador(idOperador);
+
+		return operador;
 	}
 	
 }
