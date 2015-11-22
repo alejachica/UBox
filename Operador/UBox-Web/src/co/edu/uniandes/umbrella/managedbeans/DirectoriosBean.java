@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +32,7 @@ import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.FormaComparticionEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
+import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 @ManagedBean(name="directorioBean")
 @ViewScoped
@@ -399,23 +401,18 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	}
 	
 	public void compartirDocumento(){
-		if(idFormaComparticion == 5){
-			System.out.println(documentoId);
-			System.out.println(this.getUsuarioAutenticado().getId());
-			System.out.println(tipoDocumento);
-			System.out.println(numeroDocumento);
-			System.out.println(passDoc);
-			System.out.println(email);
-			System.out.println();
-			//documentoEJB.compartirDocumentoPorLink(idDocumento, idUsuarioOrigen, identificacionDestino, emailDestino, fechaExpiracion, clave);
+		ResultadoOperacion resultadoOP = new ResultadoOperacion(); 
+		if(idFormaComparticion == 5)
+			resultadoOP = documentoEJB.compartirDocumentoPorLink(documentoId, this.getUsuarioAutenticado().getId(), numeroDocumento, email, new Date(), passDoc);
+		else
+			resultadoOP = documentoEJB.compartirDocumento(this.getUsuarioAutenticado().getId(), numeroDocumento, tipoDocumento, documentoId, new Date());
+		if (resultadoOP.isOperacionExitosa()){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se comparte el documento exitosamente");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		else{
-			System.out.println(this.getUsuarioAutenticado().getId());
-			System.out.println(tipoDocumento);
-			System.out.println(numeroDocumento);
-			System.out.println(documentoId);
-			System.out.println();
-			//documentoEJB.compartirDocumentoInterno(idUsuarioOrigen, idUsuarioDestino, soloLectura, idDocumento, fechaExpiracion);
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo compartir el documento");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
 	
