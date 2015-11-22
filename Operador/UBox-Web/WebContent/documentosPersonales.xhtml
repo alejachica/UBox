@@ -125,10 +125,18 @@
 						    <p:dialog id="dialogoCargarDocId" header="Cargar documento" showEffect="fade" widgetVar="dialogoCargarDoc" modal="true" resizable="false" width="600" height="100">
 						    	<table>
 						    		<tr>
-							    	<td><p:fileUpload value="#{directorioBean.file}" mode="simple" skinSimple="true"/></td>
+							    		<td><p:fileUpload value="#{directorioBean.file}" mode="simple" skinSimple="true"/></td>
 			    					</tr>
 			    					<tr>
-			    					<td><p:commandButton value="Cargar" ajax="false" actionListener="#{directorioBean.upload}" update="growl"/></td>
+			    					<td>
+			    						<h:selectOneMenu id="formaCarga" value="#{directorioBean.idListaValorDocCargar}">
+											<f:selectItem id="formaCarga0" itemValue="" itemLabel="Seleccione" />
+											<f:selectItems id="formaCarga1" value="#{directorioBean.tipoDocumentoCargar}" var="docCargar" itemLabel="#{docCargar.descripcion}" itemValue="#{docCargar.idListaValor}" />
+										</h:selectOneMenu>
+			    					</td>
+			    					</tr>
+			    					<tr>
+			    						<td><p:commandButton value="Cargar" ajax="false" actionListener="#{directorioBean.upload}" update="growl"/></td>
 			    					</tr>
 						    	</table>
 						    </p:dialog>
@@ -155,45 +163,40 @@
 								</table>
 						    </p:dialog>
 						    <!-- Dialogo para compartir una documento -->
-						    <p:dialog id="dialogoCompartirDocId" header="Campartir Documento" showEffect="fade" widgetVar="dialogoCompartirDoc" modal="true" resizable="false">
-								<h:panelGrid id="panelComparticion">
+						    <p:dialog id="dialogoCompartirDocId" header="Campartir Documento" showEffect="fade" widgetVar="dialogoCompartirDoc" modal="true" resizable="false" class="panelGridCenter">
+								<h:panelGrid id="panelComparticion" style="margin-bottom:20px" cellpadding="5">
 									<p:row>
-										<p:column>
+										<p:column colspan="2" style="width:50%">
 											<h:outputText value="Como desea compartir el archivo"></h:outputText>
 										</p:column>
-										<p:column>
+										<p:column colspan="2" style="width:50%">
 											<h:selectOneMenu id="formaComp" value="#{directorioBean.idFormaComparticion}">
 						 						<f:ajax render="panelComparticion"/>
 												<f:selectItem id="formaComp0" itemValue="" itemLabel="Seleccione" />
 												<f:selectItems id="formaComp1" value="#{directorioBean.listaCompartir}" var="listaCompartir" itemLabel="#{listaCompartir.nombre}" itemValue="#{listaCompartir.idFormaComparticion}" />
 											</h:selectOneMenu>
 										</p:column>
-										<p:column>
-										</p:column>
-										<p:column>
+				 					</p:row>
+				 					<p:row>
+				 						<p:column colspan="4">
+											Datos del usuario a quien se le desea compartir el documento
 										</p:column>
 				 					</p:row>
 				 					<p:row>
-				 						<p:column>	
-											<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+										<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+				 							<p:column>	
 						 						<h:outputText value="Email:"/>
-						 					</h:panelGroup>
-					 					</p:column>
-					 					<p:column>
-						 					<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+					 						</p:column>
+					 						<p:column>
 						 						<h:inputText id="txtEmail" class="form-control" value="#{directorioBean.email}"></h:inputText>
-						 					</h:panelGroup>
-						 				</p:column>
-						 				<p:column>	
-											<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+						 					</p:column>
+						 					<p:column>
 						 						<h:outputText value="Password:"/>
-						 					</h:panelGroup>
-					 					</p:column>
-					 					<p:column>
-						 					<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+					 						</p:column>
+					 						<p:column>
 						 						<h:inputText id="txtPass" class="form-control" value="#{directorioBean.passDoc}"></h:inputText>
-						 					</h:panelGroup>
-						 				</p:column>
+						 					</p:column>
+						 				</h:panelGroup>
 				 					</p:row>
 									<p:row>
 										<p:column>
