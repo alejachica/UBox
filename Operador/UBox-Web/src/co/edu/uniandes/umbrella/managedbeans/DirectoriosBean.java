@@ -91,6 +91,10 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	
 	private String email;
 	
+	private List<ListaValor> tipoDocumentoCargar;
+	
+	private int idListaValorDocCargar;
+	
 	//-------------------METODOS GET Y SET-------------------//
 
 	public TreeNode getRoot() {
@@ -225,6 +229,22 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		this.email = email;
 	}
 	
+	public List<ListaValor> getTipoDocumentoCargar() {
+		return tipoDocumentoCargar;
+	}
+
+	public void setTipoDocumentoCargar(List<ListaValor> tipoDocumentoCargar) {
+		this.tipoDocumentoCargar = tipoDocumentoCargar;
+	}
+	
+	public int getIdListaValorDocCargar() {
+		return idListaValorDocCargar;
+	}
+
+	public void setIdListaValorDocCargar(int idListaValorDocCargar) {
+		this.idListaValorDocCargar = idListaValorDocCargar;
+	}
+	
 	//-------------------OTROS METODOS-------------------//
 
 	@PostConstruct
@@ -236,6 +256,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	public void inicializarDatos(){
 		listaCompartir = formaComparticionEJB.obtenerFormasComparticion();
 		tiposDocumento = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPOIDENTIFICACION.getValue());
+		tipoDocumentoCargar = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPODOCUMENTO.getValue());
 	}
 	
 	public TreeNode crearRoot(){
@@ -334,11 +355,11 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	        if(file != null) {
 	        	DocumentoDTO documentoDTO = new DocumentoDTO();
 	        	documentoDTO.setDocumento(file.getContents());
-	        	//documentoDTO.setFecha(""); TODO ajustar fecha
+	        	documentoDTO.setFecha(new Date());
 	        	documentoDTO.setFirmado(false);
 	        	documentoDTO.setFkCarpeta(carpetaId);
 	        	documentoDTO.setFkUsuario(this.getUsuarioAutenticado().getId());
-	        	//documentoDTO.setIdTipoDocumento(new BigDecimal(1)); TODO seleccionar el tipo adecuado
+	        	documentoDTO.setIdTipoDocumento(idListaValorDocCargar);
 	        	documentoDTO.setIdTipoMime(file.getContentType());
 	        	documentoDTO.setNombre(file.getFileName());
 	        	documentoDTO.setPalabrasClave("archivo1");
@@ -401,16 +422,22 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	}
 	
 	public void compartirDocumento(){
-		ResultadoOperacion resultadoOP = new ResultadoOperacion(); 
-		if(idFormaComparticion == 5)
-			resultadoOP = documentoEJB.compartirDocumentoPorLink(documentoId, this.getUsuarioAutenticado().getId(), numeroDocumento, email, new Date(), passDoc);
-		else
-			resultadoOP = documentoEJB.compartirDocumento(this.getUsuarioAutenticado().getId(), numeroDocumento, tipoDocumento, documentoId, new Date());
-		if (resultadoOP.isOperacionExitosa()){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se comparte el documento exitosamente");
-	        FacesContext.getCurrentInstance().addMessage(null, message);
+		try{
+			ResultadoOperacion resultadoOP = new ResultadoOperacion(); 
+			if(idFormaComparticion == 5)
+				resultadoOP = documentoEJB.compartirDocumentoPorLink(documentoId, this.getUsuarioAutenticado().getId(), numeroDocumento, email, new Date(), passDoc);
+			else
+				resultadoOP = documentoEJB.compartirDocumento(this.getUsuarioAutenticado().getId(), numeroDocumento, tipoDocumento, documentoId, new Date());
+			if (resultadoOP.isOperacionExitosa()){
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se comparte el documento exitosamente");
+		        FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+			else{
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo compartir el documento, causa: " + resultadoOP.getResultadoOperacion());
+		        FacesContext.getCurrentInstance().addMessage(null, message);
+			}
 		}
-		else{
+		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo compartir el documento");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
