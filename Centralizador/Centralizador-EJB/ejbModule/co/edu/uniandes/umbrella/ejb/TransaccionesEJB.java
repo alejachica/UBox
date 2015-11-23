@@ -1,6 +1,15 @@
 package co.edu.uniandes.umbrella.ejb;
 
-import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.*;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_005;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_012;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_013;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_014;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_015;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_016;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_017;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_018;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_019;
+import static co.edu.uniandes.umbrella.utils.CodigosRespuesta.COD_020;
 
 import java.util.logging.Logger;
 
@@ -16,7 +25,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import co.edu.uniandes.umbrella.dto.DatosOperadorDTO;
-import co.edu.uniandes.umbrella.dto.ServiciosOperadorUsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.ServiciosOperador;
 import co.edu.uniandes.umbrella.entidades.Usuario;
 import co.edu.uniandes.umbrella.interfaces.TransaccionesEJBLocal;
@@ -55,42 +63,61 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 					Usuario.class).setParameter("tipoDoc", tipoDoc).setParameter("nroDoc", nroDoc);
 			
 			Usuario usuarioEncontrado = (Usuario) usuarioQuery.getSingleResult();
-			Query query = entityManager.createNamedQuery("ServiciosOperador.urlParaCompartirDocumentos",
-					ServiciosOperador.class).setParameter("idOperador", usuarioEncontrado.getIdOperador());
 			
-	
-			ServiciosOperador resultado = (ServiciosOperador) query.getSingleResult();
-	
-			DatosOperadorDTO datosOperador = new DatosOperadorDTO();
-			datosOperador.setIdOperador(resultado.getIdOperador());
-			datosOperador.setEmail(usuarioEncontrado.getOperador().getEmail());
-			datosOperador.setDireccion(usuarioEncontrado.getOperador().getDireccion());
-			datosOperador.setNit(usuarioEncontrado.getOperador().getNit());
-			datosOperador.setRazonSocial(usuarioEncontrado.getOperador().getRazonSocial());
-			datosOperador.setTelefono(usuarioEncontrado.getOperador().getTelefono());
-			datosOperador.setUrlServicio(resultado.getUrl());
-			
-			logger.info(COD_012.getIdCodigo() + COD_012.getMensaje() );
-			
-			return datosOperador;
+			if(usuarioEncontrado != null){
+				
+				Query query = entityManager.createNamedQuery("ServiciosOperador.urlParaCompartirDocumentos",
+						ServiciosOperador.class).setParameter("idOperador", usuarioEncontrado.getIdOperador());
+				
 		
+				ServiciosOperador serviciosOperador = (ServiciosOperador) query.getSingleResult();
+				
+				if(serviciosOperador != null){
+					
+					DatosOperadorDTO datosOperador = new DatosOperadorDTO();
+					datosOperador.setIdOperador(serviciosOperador.getIdOperador());
+					datosOperador.setEmail(usuarioEncontrado.getOperador().getEmail());
+					datosOperador.setDireccion(usuarioEncontrado.getOperador().getDireccion());
+					datosOperador.setNit(usuarioEncontrado.getOperador().getNit());
+					datosOperador.setRazonSocial(usuarioEncontrado.getOperador().getRazonSocial());
+					datosOperador.setTelefono(usuarioEncontrado.getOperador().getTelefono());
+					datosOperador.setUrlServicio(serviciosOperador.getUrl());
+					
+					logger.info(COD_012.getIdCodigo() + COD_012.getMensaje() );
+					
+					return datosOperador;
+				}else {
+					
+					logger.severe(COD_013.getIdCodigo() + COD_013.getMensaje());
+					
+					return new DatosOperadorDTO();
+				}
+			}else {
+				
+				logger.severe(COD_005.getIdCodigo() + COD_005.getMensaje());
+				
+				return new DatosOperadorDTO();
+			}
 		} catch (NoResultException nre) {
 
 			logger.severe(COD_013.getIdCodigo());
 			logger.severe(nre.getMessage());
-			return null;
+			
+			return new DatosOperadorDTO();
 			
 		} catch (NonUniqueResultException nue) {
 
 			logger.severe(COD_014.getIdCodigo());
 			logger.severe(nue.getMessage());
-			return null;
+			
+			return new DatosOperadorDTO();
 			
 		} catch (Exception e) {
 
 			logger.severe(COD_015.getIdCodigo());
 			logger.severe(e.getMessage());
-			return null;
+			
+			return new DatosOperadorDTO();
 		}
 	}
 	
@@ -136,19 +163,22 @@ public class TransaccionesEJB implements TransaccionesEJBRemote, TransaccionesEJ
 
 			logger.severe(COD_018.getIdCodigo() + COD_018.getMensaje());
 			logger.severe(nre.getMessage());
-			return null;
+			
+			return COD_018.getIdCodigo();
 			
 		} catch (NonUniqueResultException nue) {
 
 			logger.severe(COD_019.getIdCodigo());
 			logger.severe(nue.getMessage());
-			return null;
+			
+			return COD_019.getIdCodigo();
 			
 		} catch (Exception e) {
 
 			logger.severe(COD_020.getIdCodigo());
 			logger.severe(e.getMessage());
-			return null;
+			
+			return COD_020.getIdCodigo();
 		}
 	}
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?wsdl" uri="../172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.wsdl"/>
-    <system systemId="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?xsd=1" uri="../172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.xsd_1.xsd"/>
+    <system systemId="file:/home/gremly/NetBeansProjects/ConsultarOperadorUsuario/src/umbrella/UmbrellaUsuariosEJBService/UmbrellaUsuariosEJB.wsdl" uri="../umbrella/UmbrellaUsuariosEJBService/UmbrellaUsuariosEJB.wsdl"/>
+    <system systemId="http://172.24.99.240:8080/UsuariosEJBService/UsuariosEJB?xsd=1" uri="src/_references/_relative/nbproject/private/retriever/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.xsd_1.xsd"/>
 </catalog>
