@@ -1,6 +1,7 @@
 package co.edu.uniandes.umbrella.ejb;
 
-import javax.ejb.LocalBean;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -37,8 +38,16 @@ public class FormaComparticionEJB implements FormaComparticionEJBLocal {
 		}
 		
 	}
-    
-    
-    
+
+	@Override
+	public List<FormaComparticion> obtenerFormasComparticion() {
+		Query query = entityManager.createNamedQuery("FormaComparticion.findAll", FormaComparticion.class);
+		try{
+			return query.getResultList();
+		}
+		catch(NoResultException e){
+			return null;	
+		}
+	}
 
 }

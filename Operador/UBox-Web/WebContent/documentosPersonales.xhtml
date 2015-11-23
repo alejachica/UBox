@@ -63,9 +63,9 @@
 						        		<tr>
 						                    <td align="center"><p:commandLink title="Descargar Documento" onclick="PF('dialogoDescargarDoc').show();" styleClass="ui-icon ui-icon-circle-arrow-s" rendered="#{carpeta.type eq 'Archivo'}">
 						                    	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
-						                    	<!--p:fileDownload value="#{directorioBean.fileDown}"></p:fileDownload-->
 								            </p:commandLink></td>
-									    	<td align="center"><p:commandLink title="Compartir Documento" styleClass="ui-icon ui-icon-person" rendered="#{carpeta.type eq 'Archivo'}">
+									    	<td align="center"><p:commandLink title="Compartir Documento" onclick="PF('dialogoCompartirDoc').show();" styleClass="ui-icon ui-icon-person" rendered="#{carpeta.type eq 'Archivo'}">
+									    		<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
 								            </p:commandLink></td>
 								            <td align="center"><p:commandLink title="Eliminar Documento" oncomplete="PF('dialogoDoc').show();" styleClass="ui-icon ui-icon-trash" rendered="#{carpeta.type eq 'Archivo'}">
 								            	<f:setPropertyActionListener value="#{carpeta.id}" target="#{directorioBean.documentoId}"/>
@@ -116,7 +116,7 @@
 								<br/>
 								<table>
 									<tr>
-										<td><h:commandButton action="PF('dialogoElimCarpeta').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton onclick="PF('dialogoElimCarpeta').hide();" value="NO"></h:commandButton></td>
 										<td><h:commandButton actionListener="#{directorioBean.eliminarCarpeta}" value="SI" update="growl"></h:commandButton></td>
 									</tr>
 								</table>
@@ -125,10 +125,18 @@
 						    <p:dialog id="dialogoCargarDocId" header="Cargar documento" showEffect="fade" widgetVar="dialogoCargarDoc" modal="true" resizable="false" width="600" height="100">
 						    	<table>
 						    		<tr>
-							    	<td><p:fileUpload value="#{directorioBean.file}" mode="simple" skinSimple="true"/></td>
+							    		<td><p:fileUpload value="#{directorioBean.file}" mode="simple" skinSimple="true"/></td>
 			    					</tr>
 			    					<tr>
-			    					<td><p:commandButton value="Cargar" ajax="false" actionListener="#{directorioBean.upload}" update="growl"/></td>
+			    					<td>
+			    						<h:selectOneMenu id="formaCarga" value="#{directorioBean.idListaValorDocCargar}">
+											<f:selectItem id="formaCarga0" itemValue="" itemLabel="Seleccione" />
+											<f:selectItems id="formaCarga1" value="#{directorioBean.tipoDocumentoCargar}" var="docCargar" itemLabel="#{docCargar.descripcion}" itemValue="#{docCargar.idListaValor}" />
+										</h:selectOneMenu>
+			    					</td>
+			    					</tr>
+			    					<tr>
+			    						<td><p:commandButton value="Cargar" ajax="false" actionListener="#{directorioBean.upload}" update="growl"/></td>
 			    					</tr>
 						    	</table>
 						    </p:dialog>
@@ -138,7 +146,7 @@
 								<br/>
 								<table>
 									<tr>
-										<td><h:commandButton action="PF('dialogoDoc').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton onclick="PF('dialogoDoc').hide();" value="NO"></h:commandButton></td>
 										<td><h:commandButton actionListener="#{directorioBean.eliminarDocumento}" value="SI" update="growl"></h:commandButton></td>
 									</tr>
 								</table>
@@ -149,8 +157,69 @@
 								<br/>
 								<table>
 									<tr>
-										<td><h:commandButton action="PF('dialogoDescargarDoc').hide();" value="NO"></h:commandButton></td>
-										<td><h:commandButton action="#{directorioBean.downLoad}" onclick="PF('dialogoDescargarDoc').hide();" value="SI"></h:commandButton></td>
+										<td><h:commandButton onclick="PF('dialogoDescargarDoc').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{directorioBean.downLoad}" onclick="PF('dialogoDescargarDoc').hide();" value="SI"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+						    <!-- Dialogo para compartir una documento -->
+						    <p:dialog id="dialogoCompartirDocId" header="Campartir Documento" showEffect="fade" widgetVar="dialogoCompartirDoc" modal="true" resizable="false" class="panelGridCenter">
+								<h:panelGrid id="panelComparticion" style="margin-bottom:20px" cellpadding="5">
+									<p:row>
+										<p:column colspan="2" style="width:50%">
+											<h:outputText value="Como desea compartir el archivo"></h:outputText>
+										</p:column>
+										<p:column colspan="2" style="width:50%">
+											<h:selectOneMenu id="formaComp" value="#{directorioBean.idFormaComparticion}">
+						 						<f:ajax render="panelComparticion"/>
+												<f:selectItem id="formaComp0" itemValue="" itemLabel="Seleccione" />
+												<f:selectItems id="formaComp1" value="#{directorioBean.listaCompartir}" var="listaCompartir" itemLabel="#{listaCompartir.nombre}" itemValue="#{listaCompartir.idFormaComparticion}" />
+											</h:selectOneMenu>
+										</p:column>
+				 					</p:row>
+				 					<p:row>
+				 						<p:column colspan="4">
+											Datos del usuario a quien se le desea compartir el documento
+										</p:column>
+				 					</p:row>
+				 					<p:row>
+										<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 5}">
+				 							<p:column>	
+						 						<h:outputText value="Email:"/>
+					 						</p:column>
+					 						<p:column>
+						 						<h:inputText id="txtEmail" class="form-control" value="#{directorioBean.email}"></h:inputText>
+						 					</p:column>
+						 					<p:column>
+						 						<h:outputText value="Password:"/>
+					 						</p:column>
+					 						<p:column>
+						 						<h:inputText id="txtPass" class="form-control" value="#{directorioBean.passDoc}"></h:inputText>
+						 					</p:column>
+						 				</h:panelGroup>
+				 					</p:row>
+									<p:row>
+										<p:column>
+											<h:outputText value="tipo documento:"></h:outputText>
+										</p:column>
+										<p:column>
+						 					<h:selectOneMenu id="tipoDoc" value="#{directorioBean.tipoDocumento}">
+												<f:selectItem id="tipoDoc0" itemValue="" itemLabel="Seleccione" />
+												<f:selectItems id="tipoDoc1" value="#{directorioBean.tiposDocumento}" var="tiposDocu" itemLabel="#{tiposDocu.descripcion}" itemValue="#{tiposDocu.valor}" />
+											</h:selectOneMenu>
+										</p:column>
+										<p:column>
+											<h:outputText value="Documento:"></h:outputText>
+										</p:column>
+										<p:column>
+											<h:inputText id="txtDocument" class="form-control" value="#{directorioBean.numeroDocumento}"></h:inputText>
+										</p:column>
+									</p:row>
+								</h:panelGrid>
+								<table>
+									<tr>
+										<td><h:commandButton onclick="PF('dialogoCompartirDoc').hide();" value="Cancelar"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{directorioBean.compartirDocumento}" value="Compartir" update="growl"></h:commandButton></td>
 									</tr>
 								</table>
 						    </p:dialog>

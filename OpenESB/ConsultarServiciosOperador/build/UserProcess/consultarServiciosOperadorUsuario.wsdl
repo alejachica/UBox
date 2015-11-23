@@ -10,7 +10,7 @@
     </types>
     <message name="consultarServiciosOperadorUsuarioOperationRequest">
         <part name="tipoDocumento" type="xsd:string"/>
-        <part name="part2" type="xsd:string"/>
+        <part name="numeroDocumento" type="xsd:string"/>
     </message>
     <message name="consultarServiciosOperadorUsuarioOperationResponse">
         <part name="datosOperadorDTO" type="ns:datosOperadorDTO"/>

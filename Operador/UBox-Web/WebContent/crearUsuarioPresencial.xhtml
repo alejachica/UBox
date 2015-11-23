@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/templates/templateAdmin.xhtml"
 	xmlns:p="http://primefaces.org/ui">
-
+	
+	
 	<ui:define name="title">Registro de Usuario</ui:define>
 
 	<ui:define name="bodyContent">
@@ -108,8 +109,10 @@
 								</tr>
 								<tr style="border-bottom: groove">
 									<td class="label1">Fecha de Expedición del Documento:</td>
-									<td><h:inputText id="txtFechaExpDoc" class="form-control" placeholder="yyyy/MM/dd"
-											value="#{registrarUsuarioBean.fechaExpedicionDoc}" required="true" requiredMessage="Fecha de Expedición del Documento es obligatorio"></h:inputText>
+									<td><h:inputText id="txtFechaExpDoc" placeholder="yyyy/MM/dd"
+											value="#{registrarUsuarioBean.fechaExpedicionDoc}" required="true" requiredMessage="Fecha de Expedición del Documento es obligatorio">
+											<f:convertDateTime pattern="yyyy/mm/dd"/>
+										</h:inputText>
 									</td>
 									<td></td>
 									<td></td>
@@ -146,7 +149,11 @@
 								<tr style="border-top: groove">
 									<td class="label1">Fecha de Nacimiento:</td>
 									<td><h:inputText id="txtFechaNac" class="form-control" placeholder="yyyy/MM/dd"
-											value="#{registrarUsuarioBean.fechaNacimiento}" required="true" requiredMessage="Fecha de Nacimiento es obligatorio"></h:inputText></td>																	
+											value="#{registrarUsuarioBean.fechaNacimiento}" required="true" requiredMessage="Fecha de Nacimiento es obligatorio">
+											<f:convertDateTime pattern="yyyy/mm/dd"/>
+										</h:inputText>
+									</td>
+																												
 									<td class="label1">Nacionalidad:</td>
 									<td>
 										<div class="controls">

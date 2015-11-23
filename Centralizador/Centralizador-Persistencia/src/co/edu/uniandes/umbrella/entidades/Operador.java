@@ -1,7 +1,11 @@
 package co.edu.uniandes.umbrella.entidades;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.eclipse.persistence.jpa.config.Cascade;
+
 import java.util.List;
 
 
@@ -37,7 +41,7 @@ public class Operador implements Serializable {
 	private List<HistoricoOperadoresUsuario> historicoOperadoresUsuario;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="operador")
+	@OneToMany(mappedBy="operador", cascade=CascadeType.PERSIST)
 	private List<Usuario> usuarios;
 
 	public Operador() {

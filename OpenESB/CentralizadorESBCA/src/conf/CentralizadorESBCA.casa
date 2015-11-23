@@ -1,74 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://enterprise.netbeans.org/bpel/ConsultarServiciosOperador/consultarServiciosOperador" xmlns:ns2="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" xmlns:ns3="http://ejb.umbrella.uniandes.edu.co/" xmlns:ns4="http://enterprise.netbeans.org/bpel/CrearUsuario/crearUsuario" xmlns:ns5="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" xmlns:ns6="http://enterprise.netbeans.org/bpel/ConsultarOperadorUsuario/consultarOperadorUsuario" xmlns:ns7="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" xmlns:xlink="http://www.w3.org/2000/xlink">
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://ejb.umbrella.uniandes.edu.co/" xmlns:ns2="http://j2ee.netbeans.org/wsdl/CrearUsuario/UserProcess/newWSDL" xmlns:ns3="http://j2ee.netbeans.org/wsdl/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario" xmlns:ns4="http://enterprise.netbeans.org/bpel/ConsultarServiciosOperador/consultarServiciosOperador" xmlns:ns5="http://j2ee.netbeans.org/wsdl/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario" xmlns:ns6="http://enterprise.netbeans.org/bpel/CrearUsuario/crearUsuario" xmlns:ns7="http://enterprise.netbeans.org/bpel/ConsultarOperadorUsuario/consultarOperadorUsuario" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints>
-        <endpoint display-name="ConsultaServiociosOperadorESB" endpoint-name="consultarServiciosOperadorUsuarioPortTypeRole_myRole" file-path="consultarServiciosOperador.bpel" interface-name="ns2:consultarServiciosOperadorUsuarioPortType" name="endpoint1" process-name="consultarServiciosOperador" service-name="ns1:ConsultaServiociosOperadorESB"/>
-        <endpoint display-name="ConsultarServiciosOperadorEJB" endpoint-name="TransaccionesEJBRole_partnerRole" file-path="consultarServiciosOperador.bpel" interface-name="ns3:TransaccionesEJB" name="endpoint2" process-name="consultarServiciosOperador" service-name="ns1:ConsultarServiciosOperadorEJB"/>
-        <endpoint display-name="CreacionUsuario" endpoint-name="crearUsuarioWsdlPortRole_myRole" file-path="crearUsuario.bpel" interface-name="ns5:crearUsuarioWsdlPort" name="endpoint3" process-name="crearUsuario" service-name="ns4:CreacionUsuario"/>
-        <endpoint display-name="CrearUsuarioEJB" endpoint-name="UsuariosEJBRole_partnerRole" file-path="crearUsuario.bpel" interface-name="ns3:UsuariosEJB" name="endpoint4" process-name="crearUsuario" service-name="ns4:CrearUsuarioEJB"/>
-        <endpoint display-name="ConsultaOperadorESB" endpoint-name="consultarOperadorUsuarioPortTypeRole_myRole" file-path="consultarOperadorUsuario.bpel" interface-name="ns7:consultarOperadorUsuarioPortType" name="endpoint5" process-name="consultarOperadorUsuario" service-name="ns6:ConsultaOperadorESB"/>
-        <endpoint display-name="ConsultaOperadorEJB" endpoint-name="UsuariosEJBRole_partnerRole" file-path="consultarOperadorUsuario.bpel" interface-name="ns3:UsuariosEJB" name="endpoint6" process-name="consultarOperadorUsuario" service-name="ns6:ConsultaOperadorEJB"/>
-        <endpoint endpoint-name="UsuariosEJBPort" interface-name="ns3:UsuariosEJB" name="endpoint7" service-name="ns3:UsuariosEJBService"/>
-        <endpoint endpoint-name="TransaccionesEJBPort" interface-name="ns3:TransaccionesEJB" name="endpoint8" service-name="ns3:TransaccionesEJBService"/>
-        <endpoint endpoint-name="newWSDLPort" interface-name="ns5:crearUsuarioWsdlPort" name="endpoint9" service-name="ns5:newWSDLService"/>
-        <endpoint endpoint-name="consultarServiciosOperadorUsuarioPort" interface-name="ns2:consultarServiciosOperadorUsuarioPortType" name="endpoint10" service-name="ns2:consultarServiciosOperadorUsuarioService"/>
-        <endpoint endpoint-name="consultarOperadorUsuarioPort" interface-name="ns7:consultarOperadorUsuarioPortType" name="endpoint11" service-name="ns7:consultarOperadorUsuarioService"/>
+        <endpoint endpoint-name="UsuariosEJBPort" interface-name="ns1:UsuariosEJB" name="endpoint1" service-name="ns1:UsuariosEJBService"/>
+        <endpoint endpoint-name="newWSDLPort" interface-name="ns2:crearUsuarioWsdlPort" name="endpoint2" service-name="ns2:newWSDLService"/>
+        <endpoint endpoint-name="consultarOperadorUsuarioPort" interface-name="ns3:consultarOperadorUsuarioPortType" name="endpoint3" service-name="ns3:consultarOperadorUsuarioService"/>
+        <endpoint display-name="ConsultaServiociosOperadorESB" endpoint-name="consultarServiciosOperadorUsuarioPortTypeRole_myRole" file-path="consultarServiciosOperador.bpel" interface-name="ns5:consultarServiciosOperadorUsuarioPortType" name="endpoint4" process-name="consultarServiciosOperador" service-name="ns4:ConsultaServiociosOperadorESB"/>
+        <endpoint display-name="ConsultarServiciosOperadorEJB" endpoint-name="TransaccionesEJBRole_partnerRole" file-path="consultarServiciosOperador.bpel" interface-name="ns1:TransaccionesEJB" name="endpoint5" process-name="consultarServiciosOperador" service-name="ns4:ConsultarServiciosOperadorEJB"/>
+        <endpoint display-name="CreacionUsuario" endpoint-name="crearUsuarioWsdlPortRole_myRole" file-path="crearUsuario.bpel" interface-name="ns2:crearUsuarioWsdlPort" name="endpoint6" process-name="crearUsuario" service-name="ns6:CreacionUsuario"/>
+        <endpoint display-name="CrearUsuarioEJB" endpoint-name="UsuariosEJBRole_partnerRole" file-path="crearUsuario.bpel" interface-name="ns1:UsuariosEJB" name="endpoint7" process-name="crearUsuario" service-name="ns6:CrearUsuarioEJB"/>
+        <endpoint display-name="ConsultaOperadorESB" endpoint-name="consultarOperadorUsuarioPortTypeRole_myRole" file-path="consultarOperadorUsuario.bpel" interface-name="ns3:consultarOperadorUsuarioPortType" name="endpoint8" process-name="consultarOperadorUsuario" service-name="ns7:ConsultaOperadorESB"/>
+        <endpoint display-name="ConsultaOperadorEJB" endpoint-name="UsuariosEJBRole_partnerRole" file-path="consultarOperadorUsuario.bpel" interface-name="ns1:UsuariosEJB" name="endpoint9" process-name="consultarOperadorUsuario" service-name="ns7:ConsultaOperadorEJB"/>
+        <endpoint endpoint-name="TransaccionesEJBPort" interface-name="ns1:TransaccionesEJB" name="endpoint10" service-name="ns1:TransaccionesEJBService"/>
+        <endpoint endpoint-name="consultarServiciosOperadorUsuarioPort" interface-name="ns5:consultarServiciosOperadorUsuarioPortType" name="endpoint11" service-name="ns5:consultarServiciosOperadorUsuarioService"/>
     </endpoints>
     <service-units>
-        <service-engine-service-unit artifacts-zip="ConsultarServiciosOperador.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="CentralizadorESBCA-ConsultarServiciosOperador" unit-name="ConsultarServiciosOperador" unknown="false" x="88" y="97">
-            <provides endpoint="endpoint1"/>
-            <consumes endpoint="endpoint2"/>
+        <service-engine-service-unit artifacts-zip="ConsultarServiciosOperador.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="CentralizadorESBCA-ConsultarServiciosOperador" unit-name="ConsultarServiciosOperador" unknown="false" x="161" y="407">
+            <provides endpoint="endpoint4"/>
+            <consumes endpoint="endpoint5"/>
         </service-engine-service-unit>
-        <service-engine-service-unit artifacts-zip="CrearUsuario.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="CentralizadorESBCA-CrearUsuario" unit-name="CrearUsuario" unknown="false" x="141" y="255">
-            <provides endpoint="endpoint3"/>
-            <consumes endpoint="endpoint4"/>
+        <service-engine-service-unit artifacts-zip="CrearUsuario.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="CentralizadorESBCA-CrearUsuario" unit-name="CrearUsuario" unknown="false" x="141" y="97">
+            <provides endpoint="endpoint6"/>
+            <consumes endpoint="endpoint7"/>
         </service-engine-service-unit>
-        <service-engine-service-unit artifacts-zip="ConsultarOperadorUsuario.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="CentralizadorESBCA-ConsultarOperadorUsuario" unit-name="ConsultarOperadorUsuario" unknown="false" x="92" y="413">
-            <provides endpoint="endpoint5"/>
-            <consumes endpoint="endpoint6"/>
+        <service-engine-service-unit artifacts-zip="ConsultarOperadorUsuario.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="CentralizadorESBCA-ConsultarOperadorUsuario" unit-name="ConsultarOperadorUsuario" unknown="false" x="92" y="255">
+            <provides endpoint="endpoint8"/>
+            <consumes endpoint="endpoint9"/>
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="CentralizadorESBCA-sun-http-binding" unit-name="sun-http-binding">
             <ports>
-                <port x="67" y="357">
-                    <link xlink:href="../jbiServiceUnits/CrearUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.wsdl#xpointer(/definitions/service[@name='UsuariosEJBService']/port[@name='UsuariosEJBPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint7"/>
-                    <provides endpoint="endpoint7"/>
-                </port>
-                <port x="67" y="277">
-                    <link xlink:href="../jbiServiceUnits/CrearUsuario/UserProcess/newWSDL.wsdl#xpointer(/definitions/service[@name='newWSDLService']/port[@name='newWSDLPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint9"/>
-                    <provides endpoint="endpoint9"/>
-                </port>
                 <port x="67" y="197">
-                    <link xlink:href="../jbiServiceUnits/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario.wsdl#xpointer(/definitions/service[@name='consultarOperadorUsuarioService']/port[@name='consultarOperadorUsuarioPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint11"/>
-                    <provides endpoint="endpoint11"/>
+                    <link xlink:href="../jbiServiceUnits/CrearUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.wsdl#xpointer(/definitions/service[@name='UsuariosEJBService']/port[@name='UsuariosEJBPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
                 </port>
                 <port x="67" y="117">
-                    <link xlink:href="../jbiServiceUnits/ConsultarServiciosOperador/172.24.99.240_8080/TransaccionesEJBService/TransaccionesEJB.wsdl#xpointer(/definitions/service[@name='TransaccionesEJBService']/port[@name='TransaccionesEJBPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint8"/>
-                    <provides endpoint="endpoint8"/>
+                    <link xlink:href="../jbiServiceUnits/CrearUsuario/UserProcess/newWSDL.wsdl#xpointer(/definitions/service[@name='newWSDLService']/port[@name='newWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
                 </port>
                 <port x="67" y="37">
-                    <link xlink:href="../jbiServiceUnits/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario.wsdl#xpointer(/definitions/service[@name='consultarServiciosOperadorUsuarioService']/port[@name='consultarServiciosOperadorUsuarioPort'])" xlink:type="simple"/>
+                    <link xlink:href="../jbiServiceUnits/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario.wsdl#xpointer(/definitions/service[@name='consultarOperadorUsuarioService']/port[@name='consultarOperadorUsuarioPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+                <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/ConsultarServiciosOperador/172.24.99.240_8080/TransaccionesEJBService/TransaccionesEJB.wsdl#xpointer(/definitions/service[@name='TransaccionesEJBService']/port[@name='TransaccionesEJBPort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint10"/>
                     <provides endpoint="endpoint10"/>
+                </port>
+                <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario.wsdl#xpointer(/definitions/service[@name='consultarServiciosOperadorUsuarioService']/port[@name='consultarServiciosOperadorUsuarioPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint11"/>
+                    <provides endpoint="endpoint11"/>
                 </port>
             </ports>
         </binding-component-service-unit>
     </service-units>
     <connections>
-        <connection consumer="endpoint4" provider="endpoint7" state="unchanged"/>
-        <connection consumer="endpoint6" provider="endpoint7" state="unchanged"/>
-        <connection consumer="endpoint9" provider="endpoint3" state="unchanged"/>
-        <connection consumer="endpoint10" provider="endpoint1" state="unchanged"/>
-        <connection consumer="endpoint2" provider="endpoint8" state="unchanged"/>
-        <connection consumer="endpoint11" provider="endpoint5" state="unchanged"/>
+        <connection consumer="endpoint7" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint9" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint2" provider="endpoint6" state="unchanged"/>
+        <connection consumer="endpoint11" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint5" provider="endpoint10" state="unchanged"/>
+        <connection consumer="endpoint3" provider="endpoint8" state="unchanged"/>
     </connections>
     <porttypes>
         <link xlink:href="../jbiServiceUnits/CrearUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.wsdl#xpointer(/definitions/portType[@name='UsuariosEJB'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/CrearUsuario/UserProcess/newWSDL.wsdl#xpointer(/definitions/portType[@name='crearUsuarioWsdlPort'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/ConsultarOperadorUsuario/172.24.99.240_8080/UsuariosEJBService/UsuariosEJB.wsdl#xpointer(/definitions/portType[@name='UsuariosEJB'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/ConsultarOperadorUsuario/UserProcess/consultarOperadorUsuario.wsdl#xpointer(/definitions/portType[@name='consultarOperadorUsuarioPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/ConsultarOperadorUsuario/umbrella/UmbrellaUsuariosEJBService/UmbrellaUsuariosEJB.wsdl#xpointer(/definitions/portType[@name='UsuariosEJB'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/ConsultarServiciosOperador/172.24.99.240_8080/TransaccionesEJBService/TransaccionesEJB.wsdl#xpointer(/definitions/portType[@name='TransaccionesEJB'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/ConsultarServiciosOperador/UserProcess/consultarServiciosOperadorUsuario.wsdl#xpointer(/definitions/portType[@name='consultarServiciosOperadorUsuarioPortType'])" xlink:type="simple"/>
     </porttypes>
