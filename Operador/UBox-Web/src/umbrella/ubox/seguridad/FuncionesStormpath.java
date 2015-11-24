@@ -92,7 +92,7 @@ public class FuncionesStormpath {
 			else if(error.indexOf("Account email address cannot be null, empty, or blank") > 0)
 				error = "El correo es invalido";
 			else if(error.indexOf("Account with that email already exists.  Please choose another email") > 0)
-				error = "Este usuario ya existe";
+				error = "Ya existe un usuario registrado con este correo";
 			
 			
 			
