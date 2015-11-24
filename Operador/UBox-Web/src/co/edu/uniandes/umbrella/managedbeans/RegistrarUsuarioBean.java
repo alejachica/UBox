@@ -1,16 +1,15 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
 import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 
 import org.netbeans.j2ee.wsdl.CrearUsuario.UserProcess.newWSDL.CrearUsuarioWsdlPortProxy;
@@ -23,11 +22,14 @@ import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBRemote;
+import co.edu.uniandes.umbrella.util.CodigosRespuesta;
+import co.edu.uniandes.umbrella.util.ConstantesUtil;
+import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 import umbrella.ubox.seguridad.FuncionesStormpath;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class RegistrarUsuarioBean {
 
 
@@ -70,9 +72,9 @@ public class RegistrarUsuarioBean {
 	
 	public List<ZonaGeografica> ciudadesLaboral;
 	
-	private String fechaExpedicionDoc = "";
+	private Date fechaExpedicionDoc;
 	
-	private String fechaNacimiento = "";
+	private Date fechaNacimiento;
 	
 	private String departamentoExpedicionDoc = "";	
 	
@@ -113,73 +115,64 @@ public class RegistrarUsuarioBean {
 		
 	public String registrarUsuario() {
 
-		// usuarioDto = new UsuarioDTO();
-		DateFormat dateFormat = new SimpleDateFormat("ss");
 		Calendar cal = Calendar.getInstance();
-		String segundosPrueba = dateFormat.format(cal.getTime()); //2014/08/06 16:00:22
-				
-//		this.usuarioCentralizador.setDireccionNotificacion("");
-//		this.usuarioCentralizador.setEmailPersonal("");
-//		this.usuarioCentralizador.setFechaExpediciionIdentificacion();
-		this.usuarioCentralizador.setFechaNacimiento(Calendar.getInstance());
-//		this.usuarioCentralizador.setGenero("");
-//		this.usuarioCentralizador.setIdDireccionResidencia("");
-//		this.usuarioCentralizador.setIdEstadoCivil(1);
-//		this.usuarioCentralizador.setIdMunicipioExpedicionIdentificacion(1);
-//		this.usuarioCentralizador.setIdMunicipioLaboral(1);
-//		this.usuarioCentralizador.setIdMunicipioNacimiento(1);
-//		this.usuarioCentralizador.setIdMunicipioNotificacion(1);
-//		this.usuarioCentralizador.setIdMunicipioResidencia(1);
-//		this.usuarioCentralizador.setIdNacionalidad(1);
-		this.usuarioCentralizador.setIdOperador(1);
-		this.usuarioCentralizador.setIdOperadorActual(1);
-//		this.usuarioCentralizador.setIdTipoIdentificacion("CC");
-//		this.usuarioCentralizador.setIdUsuario(1);
-//		this.usuarioCentralizador.setNroIdentificacion("1013587555");
-//		this.usuarioCentralizador.setPrimerApellido("");
-//		this.usuarioCentralizador.setPrimerNombre("");
-//		this.usuarioCentralizador.setSegundoApellido("");
-//		this.usuarioCentralizador.setSegundoNombre("");
-//		this.usuarioCentralizador.setTelefono(1);
+		this.usuarioCentralizador.setIdOperador(ConstantesUtil.ID_OPERADOR);
+		this.usuarioCentralizador.setIdOperadorActual(ConstantesUtil.ID_OPERADOR);
+
+		cal.setTime(fechaExpedicionDoc);
+		this.usuarioCentralizador.setFechaExpediciionIdentificacion(cal);
 		
+		cal.setTime(fechaNacimiento);
+		this.usuarioCentralizador.setFechaNacimiento(cal);
 		
-		System.out.println("Antes de crear el proxy");	
+		String codigoRespuesta = "003";
+		
 		CrearUsuarioWsdlPortProxy proxy = new CrearUsuarioWsdlPortProxy();
 		
 		try {
-			System.out.println("Respuesta Vrecion " + proxy.usuariosWSDLCrear(this.usuarioCentralizador)) ; 
+			System.out.println("Inicia creación usuario en centralizador...");	
+			codigoRespuesta = proxy.usuariosWSDLCrear(this.usuarioCentralizador); 
+			System.out.println("Termina creación usuario en centralizador..." + codigoRespuesta);	
 		} catch (RemoteException e) {			
 			e.printStackTrace();
 		}
 		
-		System.out.println("Despues de crear el proxy");	
 		
-		
-		
-		this.usuario.setActivo(true);
-		this.usuario.setCorreo(this.usuarioCentralizador.getEmailPersonal());
-		this.usuario.setIdentificacion(this.usuarioCentralizador.getNroIdentificacion());
-		this.usuario.setLogin(this.usuarioCentralizador.getNroIdentificacion());
-		this.usuario.setPassword("");
-		this.usuario.setPrimerNombre(this.usuarioCentralizador.getPrimerNombre());
-		this.usuario.setSegundoNombre(this.usuarioCentralizador.getSegundoNombre());
-		this.usuario.setPrimerApellido(this.usuarioCentralizador.getPrimerApellido());
-		this.usuario.setSegundoApellido(this.usuarioCentralizador.getSegundoApellido());
+		if(codigoRespuesta.equals(CodigosRespuesta.COD_001.getIdCodigo()) 
+				|| codigoRespuesta.equals(CodigosRespuesta.COD_002.getIdCodigo())){
+			
+			String claveAleatoria = new RandomString(10).nextString();
+			
+			this.usuario.setActivo(true);
+			this.usuario.setCorreo(this.usuarioCentralizador.getEmailPersonal());
+			this.usuario.setIdentificacion(this.usuarioCentralizador.getNroIdentificacion());
+			this.usuario.setLogin(this.usuarioCentralizador.getNroIdentificacion());
+			this.usuario.setPassword("Temporal1");
+			this.usuario.setPrimerNombre(this.usuarioCentralizador.getPrimerNombre());
+			this.usuario.setSegundoNombre(this.usuarioCentralizador.getSegundoNombre());
+			this.usuario.setPrimerApellido(this.usuarioCentralizador.getPrimerApellido());
+			this.usuario.setSegundoApellido(this.usuarioCentralizador.getSegundoApellido());
 
-		//Realiza el registro en stormpath 
-		ResultadoOperacion respuesta = new FuncionesStormpath().crearUsuario(this.usuario.getPrimerNombre(),
-				this.usuario.getIdentificacion(), this.usuario.getCorreo(), this.usuario.getPassword());
-		
-
-		//Si quedó registrado, actualiza el id de strmpath y guarda el usuario
-		if (respuesta.isOperacionExitosa()) {
-			this.usuario.setIdStormpath(respuesta.getResultadoOperacion());
-			usuarioEJB.crearUsuario(this.usuario);
-			return "documentosPersonales.xhtml";
-		} else {
-			this.error = respuesta.getResultadoOperacion();
+			//Realiza el registro en stormpath 
+			ResultadoOperacion respuesta = new FuncionesStormpath().crearUsuario(this.usuario.getPrimerNombre(),
+					this.usuario.getIdentificacion(), this.usuario.getCorreo(), this.usuario.getPassword());
+			
+			//Si quedó registrado, actualiza el id de stormpath y guarda el usuario
+			if (respuesta.isOperacionExitosa()) {
+				this.usuario.setIdStormpath(respuesta.getResultadoOperacion());
+				usuarioEJB.crearUsuario(this.usuario);
+				return "documentosPersonales.xhtml";
+			} else {
+				this.error = respuesta.getResultadoOperacion();
+				return "";
+			}
+			
+		}
+		else{
+			this.error = CodigosRespuesta.valueOf(codigoRespuesta).getMensaje();
 			return "";
 		}
+		
 	}
 	
 	
@@ -347,14 +340,6 @@ public class RegistrarUsuarioBean {
 		this.nacionalidades = nacionalidades;
 	}
 
-	public String getFechaExpedicionDoc() {
-		return fechaExpedicionDoc;
-	}
-
-	public void setFechaExpedicionDoc(String fechaExpedicionDoc) {
-		this.fechaExpedicionDoc = fechaExpedicionDoc;
-	}
-
 	
 	public String getDireccionLaboral() {
 		return direccionLaboral;
@@ -385,12 +370,22 @@ public class RegistrarUsuarioBean {
 	}
 
 
-	public String getFechaNacimiento() {
+	public Date getFechaExpedicionDoc() {
+		return fechaExpedicionDoc;
+	}
+
+
+	public void setFechaExpedicionDoc(Date fechaExpedicionDoc) {
+		this.fechaExpedicionDoc = fechaExpedicionDoc;
+	}
+
+
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
 
-	public void setFechaNacimiento(String fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
