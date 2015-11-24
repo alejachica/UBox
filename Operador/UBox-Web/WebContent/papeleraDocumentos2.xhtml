@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template-prueba.xhtml">
+	<ui:define name="bodyContent">
+		<style>
+			.opcionesPapelera td {border: 0px !important;}
+		</style>
+		<!--div class="row"-->
+			<!--div class="box col-md-12"-->
+				<!--div class="box-inner"-->
+					<div class="box-header well" data-original-title="">
+					    <h2><i class="glyphicon glyphicon-user"></i>Papelera de reciclaje</h2>
+					</div>
+					<!--div class="box-content"-->
+						<div class="alert alert-info">
+						    <table class="table" style="width:100%">
+						        <tbody>
+						            <tr>
+						                <td align="left">
+						                    <p:commandLink onclick="PF('dialogoVaciarPapelera').show();" value="Vaciar papelera">
+						            		</p:commandLink>
+						                </td>
+						                <td align="right">
+						                	<p:commandLink onclick="PF('dialogoRestaurarPapelera').show();" value="Restaurar todos los elementos">
+						            		</p:commandLink>
+						                </td>
+						            </tr>
+						        </tbody>
+						    </table>
+						</div>
+						<h:form id="formPapeleraId">
+							<p:dataTable var="doc" value="#{papeleraBean.documentos}">
+						    	<p:column headerText="Nombre"  style="text-align: center">
+						    		<h:outputText value="#{doc.nombre}" />
+						    	</p:column>
+						    	<p:column headerText="Tamaño(kb)"  style="text-align: center">
+						    		<h:outputText value="#{doc.size}" />
+						    	</p:column>
+						    	<p:column headerText="Acciones" >
+						    		<table class="opcionesPapelera">
+						    		<tr>
+										<td align="center"><p:commandLink title="Eliminar Documento" oncomplete="PF('dialogoElimDoc').show();" styleClass="ui-icon ui-icon-trash">
+							            	<f:setPropertyActionListener value="#{doc.idDocumento}" target="#{papeleraBean.documentoId}"/>
+							            </p:commandLink></td>
+							            <td align="center"><p:commandLink title="Restaurar Documento" oncomplete="PF('dialogoRestDoc').show();" styleClass="ui-icon ui-icon-arrowreturnthick-1-w">
+							            	<f:setPropertyActionListener value="#{doc.idDocumento}" target="#{papeleraBean.documentoId}"/>
+							            </p:commandLink></td>
+						            </tr>
+						            </table>
+						    	</p:column>
+						    </p:dataTable>
+					 	</h:form>
+					 	
+					 	<h:form enctype="multipart/form-data" id="formDialog">
+					 		<p:growl id="growl" showDetail="true" sticky="true" />
+						    <!-- Dialogo para vaciar papelera -->
+						    <p:dialog id="dialogoVaciarPapeleraId" header="Vaciar papelera" showEffect="fade" widgetVar="dialogoVaciarPapelera" modal="true" resizable="false">
+						 		<td><h:outputText value="Esta seguro de vaciar la papelera?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoVaciarPapelera').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.vaciarPapelera}" value="SI" update="growl"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+
+							<!-- Dialogo restaurar todos los elementos -->
+						    <p:dialog id="dialogoRestaurarPapeleraId" header="Restaurar elementos papelera" showEffect="fade" widgetVar="dialogoRestaurarPapelera" modal="true" resizable="false">
+						 		<td><h:outputText value="Esta seguro de restaurar todos los elementos de la papelera?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoRestaurarPapelera').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.restaurarPapelera}" value="SI" update="growl"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+
+						    <!-- Dialogo para eliminar una documento -->
+						    <p:dialog id="dialogoElimDocId" header="Eliminar Documento" showEffect="fade" widgetVar="dialogoElimDoc" modal="true" resizable="false">
+						 		<td><h:outputText value="Esta seguro de eliminar este documento?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoElimDoc').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.eliminarDocumento}" value="SI" update="growl"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+						    
+						    <!-- Dialogo para restuarar un documento -->
+						    <p:dialog id="dialogoRestaurarDocId" header="Restaurar Documento" showEffect="fade" widgetVar="dialogoRestDoc" modal="true" resizable="false">
+						 		<td><h:outputText value="Desea restaurar este documento?"></h:outputText></td>
+								<br/>
+								<table>
+									<tr>
+										<td><h:commandButton action="PF('dialogoRestDoc').hide();" value="NO"></h:commandButton></td>
+										<td><h:commandButton actionListener="#{papeleraBean.restaurarDocumento}" value="SI" update="growl"></h:commandButton></td>
+									</tr>
+								</table>
+						    </p:dialog>
+					    </h:form>
+					<!--/div-->
+				<!--/div-->
+			<!--/div-->
+	    <!--/div-->
+	</ui:define>
+</ui:composition>
