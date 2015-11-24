@@ -1,92 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html" 
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="../templates/page-template.xhtml">
-
-	<ui:define name="title">Directorio documentos</ui:define>
-
-	<ui:define name="bodyContent">
-		<div class="row">
-			<div class="box col-md-12">
-				<div class="box-inner">
-					<div class="box-header well" data-original-title="">
-					    <h2><i class="glyphicon glyphicon-user"></i>Directorio documentos</h2>
-					    <div class="box-icon">
-					        <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
-					        <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
-					        <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
-					    </div>
-					</div>
-					<div class="box-content">
-						<div class="alert alert-info">
-						    <table class="table">
-						        <tbody>
-						            <tr>
-						                <td>
-						                    <a  class="btn" href="#">
-						                        <i class=" glyphicon glyphicon-download-alt icon-white"></i>
-						                         Cargar Documento
-						                    </a>
-						                    <input type="file" id="exampleInputFile" />
-						                </td>
-						                <td>
-						                    <a  class="btn" href="#">
-						                        <i class=" glyphicon glyphicon-ok"></i>
-						                         Crear Carpeta
-						                    </a>
-						                    <input type="text" />
-						                </td>
-						            </tr>
-						        </tbody>
-						    </table>
-						</div>
-						<h:form id="form">
-						    <p:treeTable value="#{directorioBean.root}" var="carpeta">
-						        <f:facet name="header">
-						            Document Viewer
-						        </f:facet>
-						        <p:column headerText="Name">
-						            <h:outputText value="#{carpeta.idCarpeta}" />
-						        </p:column>
-						        <p:column headerText="Size">
-						            <h:outputText value="#{carpeta.descripcion}" />
-						        </p:column>
-						        <p:column headerText="Type">
-						            <h:outputText value="#{carpeta.nombreCarpeta}" />
-						        </p:column>
-						        <!--p:column style="width:24px">
-						            <p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
-						                <f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" />
-						            </p:commandLink>
-						        </p:column-->
-						    </p:treeTable>
-						 
-						    <!--p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
-						        <p:outputPanel id="documentPanel">
-						            <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty ttBasicView.selectedDocument}">
-						                <h:outputLabel for="name" value="Name: " />
-						                <h:outputText id="name" value="#{ttBasicView.selectedDocument.name}" style="font-weight:bold" />
-						 
-						                <h:outputLabel for="size" value="Size: " />
-						                <h:outputText id="size" value="#{ttBasicView.selectedDocument.size}" style="font-weight:bold" />
-						 
-						                <h:outputLabel for="type" value="Type " />
-						                <h:outputText id="type" value="#{ttBasicView.selectedDocument.type}" style="font-weight:bold" />
-						            </p:panelGrid>
-						        </p:outputPanel>
-						    </p:dialog-->
-						</h:form>
-					</div>
-				</div>
-			</div>
-	    </div>
-	</ui:define>
-</ui:composition>
-
-
-<!--?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
@@ -96,22 +8,16 @@
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 </h:head>
-<f:loadBundle basename="main.resources.application" var="msg"/-->
+<f:loadBundle basename="main.resources.application" var="msg"/>
 <!--  
 <title><h:outputText value="#{msg.welcomeTitle}" /></title>
 -->
-<!--h:body>
-	<h:form>
-	<h:inputText value="#{directorioBean.nombre}" required="true"></h:inputText>
-		<br/>
-		<h:inputText value="#{directorioBean.descripcion}" required="true"></h:inputText>
-		<br/>
-     	<h:commandButton action="#{directorioBean.crearCarpeta}" value="Crear Carpeta">
-		</h:commandButton>
-		<br/>
-		<br/>
-		<h:commandButton action="#{directorioBean.eliminarCarpeta}" value="eliminar Carpeta">
-		</h:commandButton>
-	</h:form>
+<h:body>
+<f:view>
+		<h:form>
+			<a class="ajax-link" href="../index.jsf">Regresar</a>
+			<img alt="Ubox" src="../resources/img/PaginaConstruccion.png"/>
+		</h:form>
+	</f:view>
 </h:body>
-</html-->
+</html>
