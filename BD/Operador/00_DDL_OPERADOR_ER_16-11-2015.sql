@@ -10,11 +10,11 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema ubox
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `ubox`;
+DROP SCHEMA IF EXISTS `ubox` ;
+
 -- -----------------------------------------------------
 -- Schema ubox
 -- -----------------------------------------------------
-
 CREATE SCHEMA IF NOT EXISTS `ubox` DEFAULT CHARACTER SET utf8 ;
 USE `ubox` ;
 
@@ -25,11 +25,12 @@ CREATE TABLE IF NOT EXISTS `ubox`.`Forma_Comparticion` (
   `id_forma_comparticion` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NOT NULL COMMENT '',
   `descripcion` VARCHAR(200) NOT NULL COMMENT '',
-  `mismoubox` TINYINT(1) NULL DEFAULT NULL COMMENT '',
-  `entreuboxes` TINYINT(1) NULL DEFAULT NULL COMMENT '',
-  `entidadesPublicasaUsuario` TINYINT(1) NULL DEFAULT NULL COMMENT '',
-  `entidadesPrivadasaUsuario` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
-  `simple` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `mismoOperador` BIT(1) NULL DEFAULT NULL COMMENT '',
+  `entreOperadores` BIT(1) NULL DEFAULT NULL COMMENT '',
+  `entidadesPublicasaUsuario` BIT(1) NULL DEFAULT NULL COMMENT '',
+  `entidadesPrivadasaUsuario` BIT(1) NULL DEFAULT NULL COMMENT '',
+  `simple` BIT(1) NULL DEFAULT NULL COMMENT '',
+  `aplicaFechaExpiracion` BIT(1) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_forma_comparticion`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -62,11 +63,12 @@ CREATE TABLE IF NOT EXISTS `ubox`.`usuario` (
   `password` VARCHAR(50) NOT NULL COMMENT '',
   `correo` VARCHAR(50) NOT NULL COMMENT '',
   `identificacion` VARCHAR(50) NOT NULL COMMENT '',
-  `activo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
+  `activo` BIT(1) NOT NULL COMMENT '',
   `primer_nombre` VARCHAR(50) NOT NULL COMMENT '',
   `segundo_nombre` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   `primer_apellido` VARCHAR(50) NOT NULL COMMENT '',
   `segundo_apellido` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  `estaPazYSalvo` BIT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`id_usuario`)  COMMENT '',
   UNIQUE INDEX `id_stormpath_UNIQUE` (`id_stormpath` ASC)  COMMENT '')
 ENGINE = InnoDB
@@ -83,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `ubox`.`carpeta` (
   `nombre_carpeta` VARCHAR(50) NOT NULL COMMENT '',
   `descripcion` VARCHAR(500) NULL DEFAULT NULL COMMENT '',
   `id_carpeta_padre` INT(11) NULL DEFAULT NULL COMMENT '',
+  `isCarpetaRaiz` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '',
   PRIMARY KEY (`id_carpeta`)  COMMENT '',
   INDEX `FK_Carpeta_Padre1` (`id_carpeta_padre` ASC)  COMMENT '',
   INDEX `fk_carpeta_usuario1_idx` (`id_usuario` ASC)  COMMENT '',
@@ -154,6 +157,8 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento` (
   `ruta` VARCHAR(500) NULL DEFAULT NULL COMMENT '',
   `documento` BLOB NOT NULL COMMENT '',
   `size` INT(11) NOT NULL COMMENT '',
+  `archivoCompartidoTemporal` BIT(1) NULL DEFAULT NULL COMMENT '',
+  `archivoCompartidoTipoLink` BIT(1) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_documento`)  COMMENT '',
   INDEX `FK_Documento_Carpeta_idx` (`fk_carpeta` ASC)  COMMENT '',
   INDEX `fk_documento_usuario1_idx` (`fk_usuario` ASC)  COMMENT '',
@@ -190,6 +195,7 @@ CREATE TABLE IF NOT EXISTS `ubox`.`documento_x_usuario_compartido` (
   `uboxComparticion` VARCHAR(45) NULL DEFAULT NULL COMMENT 'Identificador del ubox al cual pertenece el usuario que comparte el documento',
   `enviado` BIT(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue enviado o compartido a otro usuario',
   `recibido` BIT(1) NULL DEFAULT NULL COMMENT 'Indica que el documento fue recibido de otro usuario',
+  `clave` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id_compartido`)  COMMENT '',
   INDEX `fk_documento_compartido_documento_idx` (`fk_documento` ASC)  COMMENT '',
   INDEX `fk_documento_x_usuario_compartido_usuario1_idx` (`fk_usuario` ASC)  COMMENT '',
