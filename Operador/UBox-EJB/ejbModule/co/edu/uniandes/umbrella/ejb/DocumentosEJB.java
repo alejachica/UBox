@@ -523,7 +523,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 	}
 
 	@Override
-	public ResultadoOperacion compartirDocumentoPorLink(int idUsuarioOrigen, int idDocumento, String identificacionDestino,
+	public ResultadoOperacion compartirDocumentoPorLink(int idUsuarioOrigen, int idDocumento, String identificacionDestino,String tipoIdentificacionDestino,
 			String emailDestino, Date fechaExpiracion, String clave) {
 		
 		ResultadoOperacion respuesta = new ResultadoOperacion();
@@ -546,7 +546,7 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		DocumentoXUsuarioCompartido compartido = new DocumentoXUsuarioCompartido();
 		compartido.setUsuario(usuarioOrigen);
 		//Le asigna el tipo de comparticion. Si viene con clave o no
-		compartido.setFormaComparticion(ejbFormaComparticion.obtenerFormaComparticionPorId(clave.equals("") ? FormaComparticionEnum.LINK.getValue() : FormaComparticionEnum.LINK_CON_CLAVE.getValue()));
+		compartido.setFormaComparticion(ejbFormaComparticion.obtenerFormaComparticionPorId(clave != null || clave.equals("") ? FormaComparticionEnum.LINK.getValue() : FormaComparticionEnum.LINK_CON_CLAVE.getValue()));
 		compartido.setLectura(true);
 		compartido.setEscritura(false);
 		compartido.setDescarga(false);
@@ -555,6 +555,9 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		compartido.setRecibido(false);
 		compartido.setEnviado(true);
 		compartido.setDocumento(documento);
+		
+		if(clave != null || clave.equals(""))
+			compartido.setClave(clave);
 		
 		//Genera una clave de 15 caracteres el cual va a ser el identificador del link
 		RandomString randomString = new RandomString(15);

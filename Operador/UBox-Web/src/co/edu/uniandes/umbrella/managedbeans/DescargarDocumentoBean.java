@@ -117,7 +117,7 @@ public class DescargarDocumentoBean implements Serializable{
 	public void validarDocumento()
 	{
 		
-		documentoEJB.compartirDocumento(9, "123456", "CC", 14, new Date());
+		//documentoEJB.compartirDocumento(9, "123456", "CC", 14, new Date());
 		//documentoEJB.compartirDocumentoPorLink(3, 14, "566666", "gabriel.castillo86@hotmail.com", new Date(), "123");
 		
 		

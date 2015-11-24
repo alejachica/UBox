@@ -21,7 +21,7 @@ public class Email {
 	 */
 	public void enviarCorreoArchivoPorLink(String destinatario, String urlArchivo, String clave) throws MessagingException
 	{
-		String mensaje = "Le compartieron el archivo "+urlArchivo;
+		String mensaje = "Le compartieron el archivo http://172.24.99.239:8080/UBox-Web/descargarDocumento.jsf?f="+urlArchivo;
 		if(clave != null && !clave.equals(""))
 			mensaje += "\n La clave del archivo es "+clave;
 		
@@ -54,7 +54,7 @@ public class Email {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("huellitas.social@gmail.com"));
+			message.setFrom(new InternetAddress("mototuils@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(destinatario));
 			message.setSubject(asunto);
