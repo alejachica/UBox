@@ -60,5 +60,15 @@
 			<artifactId>gson</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>Ubox-WSCliente</groupId>
+			<artifactId>Ubox-WSCliente</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

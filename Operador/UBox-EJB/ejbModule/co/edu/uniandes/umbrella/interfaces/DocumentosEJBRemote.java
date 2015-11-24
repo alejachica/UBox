@@ -68,7 +68,7 @@ public interface DocumentosEJBRemote {
 	 * @param fechaExpiracion
 	 * @return
 	 */
-	public ResultadoOperacion compartirDocumentoPorLink(int idDocumento, int idUsuarioOrigen, String identificacionDestino, String emailDestino, Date fechaExpiracion, String clave);
+	public ResultadoOperacion compartirDocumentoPorLink(int idDocumento, int idUsuarioOrigen, String identificacionDestino, String tipoIdentificacionDestino, String emailDestino, Date fechaExpiracion, String clave);
 	
 	
 	/****

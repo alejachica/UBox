@@ -425,7 +425,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		try{
 			ResultadoOperacion resultadoOP = new ResultadoOperacion(); 
 			if(idFormaComparticion == 5)
-				resultadoOP = documentoEJB.compartirDocumentoPorLink(documentoId, this.getUsuarioAutenticado().getId(), numeroDocumento, email, new Date(), passDoc);
+				resultadoOP = documentoEJB.compartirDocumentoPorLink(this.getUsuarioAutenticado().getId(), documentoId, numeroDocumento, tipoDocumento, email, new Date(), passDoc);
 			else
 				resultadoOP = documentoEJB.compartirDocumento(this.getUsuarioAutenticado().getId(), numeroDocumento, tipoDocumento, documentoId, new Date());
 			if (resultadoOP.isOperacionExitosa()){
