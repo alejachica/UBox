@@ -24,6 +24,7 @@ import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBRemote;
 import co.edu.uniandes.umbrella.util.CodigosRespuesta;
 import co.edu.uniandes.umbrella.util.ConstantesUtil;
+import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 import umbrella.ubox.seguridad.FuncionesStormpath;
 
@@ -139,11 +140,14 @@ public class RegistrarUsuarioBean {
 		
 		if(codigoRespuesta.equals(CodigosRespuesta.COD_001.getIdCodigo()) 
 				|| codigoRespuesta.equals(CodigosRespuesta.COD_002.getIdCodigo())){
+			
+			String claveAleatoria = new RandomString(10).nextString();
+			
 			this.usuario.setActivo(true);
 			this.usuario.setCorreo(this.usuarioCentralizador.getEmailPersonal());
 			this.usuario.setIdentificacion(this.usuarioCentralizador.getNroIdentificacion());
 			this.usuario.setLogin(this.usuarioCentralizador.getNroIdentificacion());
-			this.usuario.setPassword(this.usuarioCentralizador.getNroIdentificacion());
+			this.usuario.setPassword("Temporal1");
 			this.usuario.setPrimerNombre(this.usuarioCentralizador.getPrimerNombre());
 			this.usuario.setSegundoNombre(this.usuarioCentralizador.getSegundoNombre());
 			this.usuario.setPrimerApellido(this.usuarioCentralizador.getPrimerApellido());
@@ -153,7 +157,6 @@ public class RegistrarUsuarioBean {
 			ResultadoOperacion respuesta = new FuncionesStormpath().crearUsuario(this.usuario.getPrimerNombre(),
 					this.usuario.getIdentificacion(), this.usuario.getCorreo(), this.usuario.getPassword());
 			
-
 			//Si quedó registrado, actualiza el id de stormpath y guarda el usuario
 			if (respuesta.isOperacionExitosa()) {
 				this.usuario.setIdStormpath(respuesta.getResultadoOperacion());
