@@ -28,6 +28,23 @@ public class Email {
 		enviarCorreo(destinatario, "Le han compartido un archivo", mensaje);
 	}
 	
+	
+	/****
+	 * Realiza envío de la clave
+	 * @param destinatario
+	 * @param clave	 
+	 */
+	public void enviarCorreoClave(String destinatario, String clave) throws MessagingException
+	{
+		String mensaje = "";
+		
+		if(clave != null && !clave.equals(""))
+			mensaje = "Su clave para ingresar al operador Ubox es: " + clave;
+		
+		enviarCorreo(destinatario, "Clave Ingreso Ubox", mensaje);
+	}
+	
+	
 	/****
 	 * Realiza el envio de un correo
 	 * @param destinatario

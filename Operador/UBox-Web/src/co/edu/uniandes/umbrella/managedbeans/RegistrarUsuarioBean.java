@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
+import javax.mail.MessagingException;
 
 import org.netbeans.j2ee.wsdl.CrearUsuario.UserProcess.newWSDL.CrearUsuarioWsdlPortProxy;
 
@@ -24,6 +25,7 @@ import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBRemote;
 import co.edu.uniandes.umbrella.util.CodigosRespuesta;
 import co.edu.uniandes.umbrella.util.ConstantesUtil;
+import co.edu.uniandes.umbrella.utils.Email;
 import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 import umbrella.ubox.seguridad.FuncionesStormpath;
@@ -161,6 +163,17 @@ public class RegistrarUsuarioBean {
 			if (respuesta.isOperacionExitosa()) {
 				this.usuario.setIdStormpath(respuesta.getResultadoOperacion());
 				usuarioEJB.crearUsuario(this.usuario);
+				
+				
+				//Envío Correo
+	 			try {
+	 				Email mailManager = new Email();
+					mailManager.enviarCorreoClave(this.usuarioCentralizador.getEmailPersonal(), claveAleatoria);
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+	 			
+				
 				return "documentosPersonales.xhtml";
 			} else {
 				this.error = respuesta.getResultadoOperacion();
