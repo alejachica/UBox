@@ -28,6 +28,7 @@ public class Documento implements Serializable {
 	private int idDocumento;
 
 	@Lob
+	@Column(length=100000)
 	private byte[] documento;
 	
 	@Temporal(TemporalType.TIMESTAMP)
