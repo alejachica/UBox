@@ -38,6 +38,11 @@
 											class="alert alert-danger"
 											rendered="#{registrarUsuarioBean.error != null}"></h:outputLabel>
 											
+											<h:outputLabel id="success"
+											value="#{registrarUsuarioBean.success}"
+											class="alert alert-success"
+											rendered="#{registrarUsuarioBean.success != null}"></h:outputLabel>
+											
 											<h:messages errorStyle="color:red" />
 									</td>
 								</tr>

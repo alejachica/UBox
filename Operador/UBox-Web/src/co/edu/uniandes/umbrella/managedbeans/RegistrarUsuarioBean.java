@@ -58,6 +58,8 @@ public class RegistrarUsuarioBean {
 	
 	private String error;
 	
+	private String success;
+	
 	private List<ListaValor> tiposDocumento;
 	
 	private List<ListaValor> nacionalidades;
@@ -176,8 +178,9 @@ public class RegistrarUsuarioBean {
 					e.printStackTrace();
 				}
 	 			
+				this.success = "Usuario creado exitosamente";
+				return "";
 				
-				return "documentosPersonales.xhtml";
 			} else {
 				this.error = respuesta.getResultadoOperacion();
 				return "";
@@ -403,6 +406,16 @@ public class RegistrarUsuarioBean {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+
+	public String getSuccess() {
+		return success;
+	}
+
+
+	public void setSuccess(String success) {
+		this.success = success;
 	}
 	
 	
