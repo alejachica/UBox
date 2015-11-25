@@ -180,7 +180,7 @@ public class RegistrarUsuarioBean {
 	 			try {
 	 				Email mailManager = new Email();
 					mailManager.enviarCorreoClave(this.usuarioCentralizador.getEmailPersonal(), claveAleatoria);
-				} catch (MessagingException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 	 			
