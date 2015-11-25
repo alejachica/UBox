@@ -265,7 +265,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		tipoDocumentoCargar = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPODOCUMENTO.getValue());
 		extensionesPermitidas = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_EXTENSIONDOCUMENTO.getValue());
 		for(int i=0;i<extensionesPermitidas.size();i++){
-			extensionesDocPermitidas.put(i, extensionesPermitidas.get(0).getValor());
+			extensionesDocPermitidas.put(i, extensionesPermitidas.get(i).getValor());
 		}
 	}
 	
