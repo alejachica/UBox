@@ -143,13 +143,16 @@ public class RegistrarUsuarioBean {
 		if(codigoRespuesta.equals(CodigosRespuesta.COD_001.getIdCodigo()) 
 				|| codigoRespuesta.equals(CodigosRespuesta.COD_002.getIdCodigo())){
 			
-			String claveAleatoria = new RandomString(10).nextString();
+			String claveAleatoria = new RandomString(7).nextString();
+			
+			claveAleatoria = "CC0" + claveAleatoria;
+			System.out.println(claveAleatoria);
 			
 			this.usuario.setActivo(true);
 			this.usuario.setCorreo(this.usuarioCentralizador.getEmailPersonal());
 			this.usuario.setIdentificacion(this.usuarioCentralizador.getNroIdentificacion());
 			this.usuario.setLogin(this.usuarioCentralizador.getNroIdentificacion());
-			this.usuario.setPassword("Temporal1");
+			this.usuario.setPassword(claveAleatoria);
 			this.usuario.setPrimerNombre(this.usuarioCentralizador.getPrimerNombre());
 			this.usuario.setSegundoNombre(this.usuarioCentralizador.getSegundoNombre());
 			this.usuario.setPrimerApellido(this.usuarioCentralizador.getPrimerApellido());
