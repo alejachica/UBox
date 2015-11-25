@@ -10,6 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="CARPETA")
 @NamedQueries({ 
 	@NamedQuery(name = "Carpeta.findAll", query = "SELECT c FROM Carpeta c"), 
 	@NamedQuery(name = "Carpeta.findByID", query = "SELECT c FROM Carpeta c where c.idCarpeta = :idCarpeta"),

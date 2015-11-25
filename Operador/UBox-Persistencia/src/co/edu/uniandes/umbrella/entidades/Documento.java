@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="DOCUMENTO")
 @NamedQueries({ 
 	@NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"), 
 	@NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d where d.idDocumento = :id"),

@@ -10,6 +10,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="PERMISO")
 @NamedQuery(name="Permiso.findAll", query="SELECT p FROM Permiso p")
 public class Permiso implements Serializable {
 	private static final long serialVersionUID = 1L;

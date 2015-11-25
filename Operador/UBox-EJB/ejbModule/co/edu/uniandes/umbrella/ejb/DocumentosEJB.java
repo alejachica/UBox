@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.FormaComparticionEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
+import co.edu.uniandes.umbrella.utils.Criptografia;
 import co.edu.uniandes.umbrella.utils.Email;
 import co.edu.uniandes.umbrella.utils.RandomString;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
@@ -280,14 +282,13 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonInString = mapper.writeValueAsString(requestObj);
-			
-			
-			
+
 			URL url = new URL(rutaServicioRest);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("X-Carpeta-Integrity", Criptografia.md5(documentoRequest.getArchivo()));
 
 			String input = jsonInString;
 

@@ -11,6 +11,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="PQR")
 @NamedQuery(name="Pqr.findAll", query="SELECT p FROM Pqr p")
 public class Pqr implements Serializable {
 	private static final long serialVersionUID = 1L;

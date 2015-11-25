@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="tipodoc_x_permisos")
+@Table(name="TIPODOC_X_PERMISOS")
 @NamedQuery(name="TipodocXPermiso.findAll", query="SELECT t FROM TipodocXPermiso t")
 public class TipodocXPermiso implements Serializable {
 	private static final long serialVersionUID = 1L;

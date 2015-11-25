@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="historial_documento")
+@Table(name="HISTORIAL_DOCUMENTO")
 @NamedQuery(name="HistorialDocumento.findAll", query="SELECT h FROM HistorialDocumento h")
 public class HistorialDocumento implements Serializable {
 	private static final long serialVersionUID = 1L;

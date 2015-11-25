@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="tipocarpeta_x_permisos")
+@Table(name="TIPOCARPETA_X_PERMISOS")
 @NamedQuery(name="TipocarpetaXPermiso.findAll", query="SELECT t FROM TipocarpetaXPermiso t")
 public class TipocarpetaXPermiso implements Serializable {
 	private static final long serialVersionUID = 1L;
