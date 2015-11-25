@@ -77,7 +77,7 @@ public class PapeleraDocumentosBean extends BaseBeanConSesion {
 		try{
 			documentoEJB.eliminarDocumento(this.documentoId);
 			documentos = crearArbol();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se elimino el documento exitosamente");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Operación Exitosa", "Se eliminó el documento exitosamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		catch(Exception e){
@@ -90,7 +90,7 @@ public class PapeleraDocumentosBean extends BaseBeanConSesion {
 		try{
 			documentoEJB.manejoPapelera(this.documentoId, false);
 			documentos = crearArbol();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se restauro el documento exitosamente");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Operación Exitosa", "Se restauró el documento exitosamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		catch(Exception e){
@@ -103,7 +103,7 @@ public class PapeleraDocumentosBean extends BaseBeanConSesion {
 		try{
 			documentoEJB.vaciarPapelera(this.getUsuarioAutenticado().getId());
 			documentos = crearArbol();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se vacio la papelera correctamente");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Operación Exitosa", "Se vació la papelera correctamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		catch(Exception e){
@@ -116,7 +116,7 @@ public class PapeleraDocumentosBean extends BaseBeanConSesion {
 		try{
 			documentoEJB.restaurarPapelera(this.getUsuarioAutenticado().getId());
 			documentos = crearArbol();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se restuaran todos los elementos exitosamente");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Operación Exitosa", "Se restuararon todos los elementos exitosamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		catch(Exception e){
