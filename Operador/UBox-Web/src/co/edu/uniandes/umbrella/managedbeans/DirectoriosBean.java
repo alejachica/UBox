@@ -6,7 +6,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -94,6 +96,10 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	private List<ListaValor> tipoDocumentoCargar;
 	
 	private int idListaValorDocCargar;
+	
+	private List<ListaValor> extensionesPermitidas;
+	
+	public Map extensionesDocPermitidas = new HashMap<Integer, String>();
 	
 	//-------------------METODOS GET Y SET-------------------//
 
@@ -257,6 +263,10 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		listaCompartir = formaComparticionEJB.obtenerFormasComparticion();
 		tiposDocumento = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPOIDENTIFICACION.getValue());
 		tipoDocumentoCargar = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_TIPODOCUMENTO.getValue());
+		extensionesPermitidas = listaValorEJB.buscarLista(ListaValoresEnum.IDLISTA_EXTENSIONDOCUMENTO.getValue());
+		for(int i=0;i<extensionesPermitidas.size();i++){
+			extensionesDocPermitidas.put(i, extensionesPermitidas.get(i).getValor());
+		}
 	}
 	
 	public TreeNode crearRoot(){
@@ -353,6 +363,13 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	public void upload() {
     	try{
 	        if(file != null) {
+	        	String nombreArchivo = file.getFileName();
+	        	String[] dividir = nombreArchivo.split("\\.");
+	        	if(dividir.length != 2)
+	        		throw new Exception("El nombre del archivo tiene problemas de consistencia");
+	        	String extension = dividir[1];
+	        	if(!extensionesDocPermitidas.containsValue(extension))
+	        		throw new Exception("El sistema UBOX, no permite subir documentos con la extension: " + extension);
 	        	DocumentoDTO documentoDTO = new DocumentoDTO();
 	        	documentoDTO.setDocumento(file.getContents());
 	        	documentoDTO.setFecha(new Date());

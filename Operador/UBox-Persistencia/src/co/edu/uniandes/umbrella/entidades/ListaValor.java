@@ -9,10 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="lista_valor")
-
-
-
+@Table(name="LISTA_VALOR")
 @NamedQueries({ 
 	@NamedQuery(name="ListaValor.findAll", query="SELECT l FROM ListaValor l"),
 	@NamedQuery(name="ListaValor.findById", query="SELECT l FROM ListaValor l where l.idListaValor = :idListaValor"),

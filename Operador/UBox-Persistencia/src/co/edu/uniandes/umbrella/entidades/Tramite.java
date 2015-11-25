@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="TRAMITE")
 @NamedQuery(name="Tramite.findAll", query="SELECT t FROM Tramite t")
 public class Tramite implements Serializable {
 	private static final long serialVersionUID = 1L;

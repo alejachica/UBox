@@ -5,26 +5,19 @@
 	xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" >
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	</h:head>
-	<f:loadBundle basename="main.resources.application" var="msg"/>
-	<h:body>
-		<h:form enctype="multipart/form-data">
-		    <p:commandLink title="Cargar Documento" onclick="PF('dl1').show();" value="algoo"/>
-		    <br></br>
-		    <br></br>
-		    <br></br>
-		    <br></br>
-		    <p:growl id="messages" showDetail="true" />
-		    <p:fileUpload value="#{documentosPersonalesBean.file}" mode="simple" skinSimple="true"/>
-		    <p:commandButton value="Submit" ajax="false" actionListener="#{documentosPersonalesBean.upload}" />
-		    
-		    <p:commandButton value="ver" onclick="PF('dl1').show();"/>
-		    
-		    <p:dialog id="dialgo1" widgetVar="dl1">
-		    	algo
-		    </p:dialog>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+</h:head>
+<f:loadBundle basename="main.resources.application" var="msg"/>
+<!--  
+<title><h:outputText value="#{msg.welcomeTitle}" /></title>
+-->
+<h:body>
+<f:view>
+		<h:form>
+			<a class="ajax-link" href="../index.jsf">Regresar</a>
+			<img alt="Ubox" src="../resources/img/PaginaConstruccion.png"/>
 		</h:form>
-	</h:body>
+	</f:view>
+</h:body>
 </html>

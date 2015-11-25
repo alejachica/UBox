@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="documento_x_usuario_compartido")
+@Table(name="DOCUMENTO_X_USUARIO_COMPARTIDO")
 @NamedQueries({
 	@NamedQuery(name="DocumentoXUsuarioCompartido.findAll", query="SELECT d FROM DocumentoXUsuarioCompartido d"),
 	@NamedQuery(name="DocumentoXUsuarioCompartido.findByLink", query="SELECT d FROM DocumentoXUsuarioCompartido d where d.link = :link")

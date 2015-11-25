@@ -58,6 +58,8 @@ public class RegistrarUsuarioBean {
 	
 	private String error;
 	
+	private String success;
+	
 	private List<ListaValor> tiposDocumento;
 	
 	private List<ListaValor> nacionalidades;
@@ -143,13 +145,16 @@ public class RegistrarUsuarioBean {
 		if(codigoRespuesta.equals(CodigosRespuesta.COD_001.getIdCodigo()) 
 				|| codigoRespuesta.equals(CodigosRespuesta.COD_002.getIdCodigo())){
 			
-			String claveAleatoria = new RandomString(10).nextString();
+			String claveAleatoria = new RandomString(7).nextString();
+			
+			claveAleatoria = "CC0" + claveAleatoria;
+			System.out.println(claveAleatoria);
 			
 			this.usuario.setActivo(true);
 			this.usuario.setCorreo(this.usuarioCentralizador.getEmailPersonal());
 			this.usuario.setIdentificacion(this.usuarioCentralizador.getNroIdentificacion());
 			this.usuario.setLogin(this.usuarioCentralizador.getNroIdentificacion());
-			this.usuario.setPassword("Temporal1");
+			this.usuario.setPassword(claveAleatoria);
 			this.usuario.setPrimerNombre(this.usuarioCentralizador.getPrimerNombre());
 			this.usuario.setSegundoNombre(this.usuarioCentralizador.getSegundoNombre());
 			this.usuario.setPrimerApellido(this.usuarioCentralizador.getPrimerApellido());
@@ -173,8 +178,9 @@ public class RegistrarUsuarioBean {
 					e.printStackTrace();
 				}
 	 			
+				this.success = "Usuario creado exitosamente";
+				return "";
 				
-				return "documentosPersonales.xhtml";
 			} else {
 				this.error = respuesta.getResultadoOperacion();
 				return "";
@@ -400,6 +406,16 @@ public class RegistrarUsuarioBean {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+
+	public String getSuccess() {
+		return success;
+	}
+
+
+	public void setSuccess(String success) {
+		this.success = success;
 	}
 	
 	
