@@ -1,8 +1,11 @@
 package co.edu.uniandes.umbrella.managedbeans;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import umbrella.ubox.seguridad.ManejoSesiones;
 import umbrella.ubox.seguridad.UsuarioAutenticado;
@@ -61,6 +64,17 @@ public class LoginBean implements Serializable {
 				this.error = "Los datos son incorrectos";
 				return "";
 			}
+		}
+		
+		public void checkAlreadyLoggedin() throws IOException {
+		    if (isLoggedIn()) {
+		        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		        ec.redirect(ec.getRequestContextPath() + "/index.jsf");
+		    }
+		}
+
+		private boolean isLoggedIn() {
+			return ManejoSesiones.getUsuarioAutenticado() != null;
 		}
 	
 }
