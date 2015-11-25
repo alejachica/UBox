@@ -15,6 +15,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -27,6 +29,7 @@ import co.edu.uniandes.umbrella.interfaces.DocumentosEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBLocal;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.models.RecibirDocumentoRequest;
+import co.edu.uniandes.umbrella.utils.Criptografia;
 import co.edu.uniandes.umbrella.utils.ResultadoOperacion;
 
 
@@ -51,10 +54,31 @@ public class DocumentoWS {
 	@POST
 	@Path("recibirCompartido")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response compartirDocumento(RecibirDocumentoRequest dataRequest) {
+    public Response compartirDocumento(RecibirDocumentoRequest dataRequest, @Context HttpHeaders headers) {
 		ResultadoOperacion respuesta = new ResultadoOperacion();
 		
 		try	{
+			
+			
+			String hash = "";
+			
+			try {
+				hash = headers.getRequestHeader("X-Carpeta-Integrity").get(0);	
+			} catch (Exception e) {
+				// TODO: handle exception
+				respuesta.setOperacionExitosa(false);
+				respuesta.setResultadoOperacion("No viene la llave de integridad");
+				return Response.status(400).entity(respuesta).build();
+			}
+			
+			//Valida que el hash corresponda
+			if(!hash.equals(Criptografia.md5(dataRequest.getDocumento().getArchivo())))
+			{
+				
+				respuesta.setOperacionExitosa(false);
+				respuesta.setResultadoOperacion("la llave de integridad no corresponde");
+				return Response.status(400).entity(respuesta).build();
+			}
 			
 			UsuarioDTO usuarioDestino = usuarioEjb.consultarUsuario(dataRequest.getTipoIdentificacionDestino(), dataRequest.getIdentificacionDestino());
 			if(usuarioDestino == null)
@@ -83,12 +107,7 @@ public class DocumentoWS {
 			documento.setFirmado(dataRequest.getDocumento().isFirmado());
 			documento.setPalabrasClave("");
 			documentoEjb.recibirDocumentoCompartido(dataRequest.getIdentificacionOrigen(), dataRequest.getIdentificacionOrigen(), dataRequest.isEmpresaPublica(), dataRequest.getIdentificacionDestino(), dataRequest.getIdentificacionDestino(), dataRequest.getIdOperadorExterno(), documento);
-			
-			byte[] data = Base64.decodeBase64(dataRequest.getDocumento().getArchivo().getBytes());
-			try (OutputStream stream = new FileOutputStream("c:/decode/"+ dataRequest.getDocumento().getNombre())) {
-			    stream.write(data);
-			}
-			
+
 			respuesta.setOperacionExitosa(true);
 			
 			//Retorna respuesta exitosa
@@ -102,43 +121,6 @@ public class DocumentoWS {
 			respuesta.setResultadoOperacion(e.toString());
 			return Response.status(500).entity(respuesta).build();
 		}
-		
-		
-		
-		
-		
-		
-		
-		/*String completeImageData = documento.getDocumento().getArchivo();
-		String imageDataBytes = completeImageData.substring(completeImageData.indexOf(",")+1);
-		
-		byte[] buffer = new byte[8 * 1024];
-		InputStream stream = new ByteArrayInputStream(Base64.decodeBase64(imageDataBytes.getBytes()));
-		try {
-		try {
-			  OutputStream output;
-			
-				output = new FileOutputStream("D:\\Temp\\prueba.png");
-			
-			  try {
-			    int bytesRead;
-			    while ((bytesRead = stream.read(buffer)) != -1) {
-			      output.write(buffer, 0, bytesRead);
-			    }
-			  } finally {
-			    output.close();
-			  }
-			} finally {
-				stream.close();
-			}
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//http://stackoverflow.com/questions/17506428/convert-base64-string-to-image-in-java*/
     }
 	
 }

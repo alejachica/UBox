@@ -2,6 +2,7 @@ package co.edu.uniandes.umbrella.utils;
 
 import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -55,23 +56,32 @@ public class Email {
 	private void enviarCorreo(String destinatario, String asunto, String mensaje) throws MessagingException
 	{
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465");
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.starttls.enable", "true");
+		//props.put("mail.smtp.host", "smtp.office365.com");
+		props.put("mail.smtp.host", "m.outlook.com");
+		//props.put("mail.smtp.socketFactory.port", "587");
+		//props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
-
+		props.put("mail.smtp.port", "587");
+		//props.
+		/*
 		Session session = Session.getDefaultInstance(props,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("mototuils@gmail.com","tuils123456");
+					return new PasswordAuthentication("ga.castillo12@uniandes.edu.co","betolin86");
 				}
-			});
+			});*/
+		Session session = Session.getInstance(props, new Authenticator() {
+			@Override
+	        protected PasswordAuthentication getPasswordAuthentication() {
+	            return new PasswordAuthentication("ga.castillo12@uniandes.edu.co", "betolin86");
+	        }
+	    });
 
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("mototuils@gmail.com"));
+			message.setFrom(new InternetAddress("ga.castillo12@uniandes.edu.co"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(destinatario));
 			message.setSubject(asunto);
