@@ -86,7 +86,7 @@ public class Email {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("info@ubox.com", "Ubox"));
+			message.setFrom(new InternetAddress("ga.castillo12@uniandes.edu.co", "Ubox"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(destinatario));
 			message.setSubject(asunto);
