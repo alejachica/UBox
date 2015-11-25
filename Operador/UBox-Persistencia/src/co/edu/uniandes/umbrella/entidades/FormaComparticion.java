@@ -10,9 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="forma_comparticion")
-
-
+@Table(name="FORMA_COMPARTICION")
 @NamedQueries({ 
 	@NamedQuery(name="FormaComparticion.findAll", query="SELECT f FROM FormaComparticion f"),
 	@NamedQuery(name="FormaComparticion.findById", query="SELECT f FROM FormaComparticion f where f.idFormaComparticion = :id")

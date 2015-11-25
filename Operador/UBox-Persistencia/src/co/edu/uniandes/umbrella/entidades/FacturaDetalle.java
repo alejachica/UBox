@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * 
  */
 @Entity
-@Table(name="factura_detalle")
+@Table(name="FACTURA_DETALLE")
 @NamedQuery(name="FacturaDetalle.findAll", query="SELECT f FROM FacturaDetalle f")
 public class FacturaDetalle implements Serializable {
 	private static final long serialVersionUID = 1L;

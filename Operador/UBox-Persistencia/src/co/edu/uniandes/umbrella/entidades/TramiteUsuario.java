@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="tramite_usuario")
+@Table(name="TRAMITE_USUARIO")
 @NamedQuery(name="TramiteUsuario.findAll", query="SELECT t FROM TramiteUsuario t")
 public class TramiteUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
