@@ -1,5 +1,7 @@
 package co.edu.uniandes.umbrella.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -19,8 +21,9 @@ public class Email {
 	 * @param urlArchivo
 	 * @param clave
 	 * @throws MessagingException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public void enviarCorreoArchivoPorLink(String destinatario, String urlArchivo, String clave) throws MessagingException
+	public void enviarCorreoArchivoPorLink(String destinatario, String urlArchivo, String clave) throws MessagingException, UnsupportedEncodingException
 	{
 		String mensaje = "Le compartieron el archivo http://172.24.99.239:8080/UBox-Web/descargarDocumento.jsf?f="+urlArchivo;
 		if(clave != null && !clave.equals(""))
@@ -34,8 +37,9 @@ public class Email {
 	 * Realiza envío de la clave
 	 * @param destinatario
 	 * @param clave	 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public void enviarCorreoClave(String destinatario, String clave) throws MessagingException
+	public void enviarCorreoClave(String destinatario, String clave) throws MessagingException, UnsupportedEncodingException
 	{
 		String mensaje = "";
 		
@@ -52,8 +56,9 @@ public class Email {
 	 * @param asunto
 	 * @param mensaje
 	 * @throws MessagingException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	private void enviarCorreo(String destinatario, String asunto, String mensaje) throws MessagingException
+	private void enviarCorreo(String destinatario, String asunto, String mensaje) throws MessagingException, UnsupportedEncodingException
 	{
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");
@@ -81,7 +86,7 @@ public class Email {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("ga.castillo12@uniandes.edu.co"));
+			message.setFrom(new InternetAddress("info@ubox.com", "Ubox"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(destinatario));
 			message.setSubject(asunto);
@@ -89,10 +94,15 @@ public class Email {
 
 			Transport.send(message);
 
-			System.out.println("Email enviado correctamente");
+			System.out.println("Email enviado correctamente Destinatario:"+destinatario );
 
 		} catch (MessagingException e) {
 			//throw new RuntimeException(e);
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw e;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw e;
