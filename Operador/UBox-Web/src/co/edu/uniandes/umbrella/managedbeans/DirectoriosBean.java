@@ -311,11 +311,11 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		carpetaDTO.setNombreCarpeta(nombreCarpeta);
 		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId())){
 			root = crearRoot();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se creo la carpeta correctamente");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Creación Exitosa", "Se creó la carpeta correctamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		else
-			throw new Exception("Fallo creando carpeta, comuniquese con el administrador");
+			throw new Exception("Se presentó un fallo creando carpeta, comuníquese con el administrador");
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
@@ -331,11 +331,11 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		carpetaDTO.setCarpetaPadre(carpetaId);
 		if(carpetaEJB.crearCarpeta(carpetaDTO, this.getUsuarioAutenticado().getId())){
 			root = crearRoot();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se creo la sub-carpeta correctamente");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Creación Exitosa", "Se creó la sub-carpeta correctamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		else
-			throw new Exception("Fallo creando sub-carpeta, comuniquese con el administrador");
+			throw new Exception("Se presentó un fallo creando carpeta, comuníquese con el administrador");
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
@@ -347,7 +347,7 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 		try{
 			carpetaEJB.eliminarCarpeta(this.carpetaId);
 			root = crearRoot();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se elimino la carpeta correctamente");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminación exitosa", "Se eliminó la carpeta correctamente");
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		catch(EJBException ex){
