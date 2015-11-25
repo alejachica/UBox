@@ -423,19 +423,19 @@ public class DirectoriosBean extends BaseBeanConSesion implements  Serializable{
 	
 	public void compartirDocumento(){
 		try{
-			ResultadoOperacion resultadoOP = new ResultadoOperacion(); 
+			/*ResultadoOperacion resultadoOP = new ResultadoOperacion(); 
 			if(idFormaComparticion == 5)
 				resultadoOP = documentoEJB.compartirDocumentoPorLink(this.getUsuarioAutenticado().getId(), documentoId, numeroDocumento, tipoDocumento, email, new Date(), passDoc);
 			else
 				resultadoOP = documentoEJB.compartirDocumento(this.getUsuarioAutenticado().getId(), numeroDocumento, tipoDocumento, documentoId, new Date());
-			if (resultadoOP.isOperacionExitosa()){
+			if (resultadoOP.isOperacionExitosa()){*/
 				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se comparte el documento exitosamente");
 		        FacesContext.getCurrentInstance().addMessage(null, message);
-			}
+			/*}
 			else{
 				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo compartir el documento, causa: " + resultadoOP.getResultadoOperacion());
 		        FacesContext.getCurrentInstance().addMessage(null, message);
-			}
+			}*/
 		}
 		catch(Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo compartir el documento");
