@@ -20,6 +20,7 @@ import co.edu.uniandes.umbrella.ejb.DatosBasicosUsuarioDTO;
 import co.edu.uniandes.umbrella.entidades.ListaValor;
 import co.edu.uniandes.umbrella.entidades.ListaValoresEnum;
 import co.edu.uniandes.umbrella.entidades.ZonaGeografica;
+import co.edu.uniandes.umbrella.interfaces.CarpetaEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.ListaValorEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.UsuarioEJBRemote;
 import co.edu.uniandes.umbrella.interfaces.ZonaGeograficaEJBRemote;
@@ -41,6 +42,8 @@ public class RegistrarUsuarioBean {
 	public static final String ID_CBO_DPTO_COR = "dptoCor";
 	public static final String ID_CBO_DPTO_LAB = "dptoLab";
 	
+	public static final String NOMBRE_CARPETA_RAIZ = "Mis Documentos";
+	
 	
 	@EJB
 	private UsuarioEJBRemote usuarioEJB;
@@ -50,6 +53,9 @@ public class RegistrarUsuarioBean {
 	
 	@EJB
 	private ListaValorEJBRemote listaValorEJB;
+	
+	@EJB
+	private CarpetaEJBRemote carpetaEJB;
 	
 
 	private UsuarioDTO usuario;
@@ -177,6 +183,10 @@ public class RegistrarUsuarioBean {
 				} catch (MessagingException e) {
 					e.printStackTrace();
 				}
+	 			
+	 			//Creación de Carpeta
+	 			UsuarioDTO usuarioCreado = usuarioEJB.consultarUsuario(this.usuarioCentralizador.getIdTipoIdentificacion(), this.usuarioCentralizador.getNroIdentificacion());
+	 			carpetaEJB.obtenerCarpetaRaizPorUsuario(usuarioCreado.getIdUsuario());
 	 			
 				this.success = "Usuario creado exitosamente";
 				return "";
