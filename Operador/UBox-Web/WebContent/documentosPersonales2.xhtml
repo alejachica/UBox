@@ -130,7 +130,6 @@
 			    					<tr>
 			    					<td>
 			    						<h:selectOneMenu id="formaCarga" value="#{directorioBean.idListaValorDocCargar}">
-											<f:selectItem id="formaCarga0" itemValue="" itemLabel="Seleccione" />
 											<f:selectItems id="formaCarga1" value="#{directorioBean.tipoDocumentoCargar}" var="docCargar" itemLabel="#{docCargar.descripcion}" itemValue="#{docCargar.idListaValor}" />
 										</h:selectOneMenu>
 			    					</td>
@@ -195,6 +194,16 @@
 					 						</p:column>
 					 						<p:column>
 						 						<h:inputText id="txtPass" class="form-control" value="#{directorioBean.passDoc}"></h:inputText>
+						 					</p:column>
+						 				</h:panelGroup>
+				 					</p:row>
+				 					<p:row>
+										<h:panelGroup rendered="#{directorioBean.idFormaComparticion eq 4}">
+				 							<p:column colspan="2">	
+						 						<h:outputText value="Email:"/>
+					 						</p:column>
+					 						<p:column colspan="2">
+						 						<h:inputText id="txtEmail1" class="form-control" value="#{directorioBean.email}"></h:inputText>
 						 					</p:column>
 						 				</h:panelGroup>
 				 					</p:row>
