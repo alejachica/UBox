@@ -191,6 +191,8 @@ public class DocumentosEJB implements DocumentosEJBRemote, DocumentosEJBLocal {
 
 	public ResultadoOperacion compartirDocumento(int idUsuario, String documentoDestino, String tipoDocumentoDestino, int idDocumentoCompartir, Date fechaExpiracion)
 	{
+		System.out.println("DocumentosEJB.compartirDocumento idUsuario:"+idUsuario+" DOCUMENTO DESTINO:"+documentoDestino+" TIP DOCUMENTO DESTINO:"+tipoDocumentoDestino+" DOCUMENTO COMPARTIR:"+idDocumentoCompartir+" FECHA EXPIRACION:"+fechaExpiracion); 
+		
 		//Valida si el usuario está registrado en el mismo operador
 		UsuarioDTO usuarioDestino = ejbUsuario.consultarUsuario(tipoDocumentoDestino, documentoDestino);
 		if(usuarioDestino != null)
